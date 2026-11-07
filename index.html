@@ -1,440 +1,109 @@
 <!doctype html>
 <html lang="en">
 <head>
-    <meta name="google-site-verification" content="XKMm7fMM2cJmTShYKVlwUw9x4s-H92ztDoTZo4xzrJw" />
 <meta charset="utf-8">
+<meta name="google-site-verification" content="XKMm7fMM2cJmTShYKVlwUw9x4s-H92ztDoTZo4xzrJw">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#101a2c">
-<meta name="description" content="Daemon IT Consulting & Tech Services offers 24/7 owner-operated on-call business incident support, HPC and AI infrastructure engineering support, on-demand DevOps, cloud and Kubernetes troubleshooting, CI/CD, automation, application debugging, IT consulting, computer repair, and data recovery.">
+<meta name="theme-color" content="#070b16">
+<meta name="description" content="Daemon IT Consulting & Tech Services delivers DevOps and platform engineering, AI and HPC infrastructure engineering, compute acquisition strategy, intelligent infrastructure optimization, database management, personal technology repair, and data recovery.">
 <meta property="og:title" content="Daemon IT Consulting & Tech Services">
-<meta property="og:description" content="HPC and AI infrastructure engineering support, on-demand DevOps and platform engineering, CI/CD, cloud infrastructure, Kubernetes, automation, reliability, application support, IT consulting, and technology services.">
+<meta property="og:description" content="Engineer what matters. Optimize what powers it. From AI infrastructure and platform engineering to database performance, technology cost reduction, personal device repair, and data recovery.">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Daemon IT Consulting &amp; Tech Services">
 <link rel="canonical" href="https://daemon-it-consulting.lebarionellison.workers.dev/">
-<title>Daemon IT Consulting &amp; Tech Services | IT Consulting, Application Management &amp; DevOps</title>
+<title>Daemon IT Consulting &amp; Tech Services | Infrastructure, AI, IT &amp; Data Recovery</title>
 <style>
-:root{--ink:#101a2c;--ink2:#182840;--muted:#64748b;--paper:#f7f9fc;--white:#fff;--line:#e1e7ef;--teal:#00b9c7;--teal2:#b9f4f2;--blue:#4263eb;--max:1160px;--radius:18px}
-*{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth;scroll-padding-top:90px}
-body{font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;color:var(--ink);background:var(--white);line-height:1.65}
-a{color:inherit;text-decoration:none}
-.container{width:min(var(--max),91%);margin:auto}
-.topbar{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.94);backdrop-filter:blur(16px);border-bottom:1px solid var(--line)}
-.nav{min-height:78px;display:flex;align-items:center;justify-content:space-between;gap:25px}
-.brand{font-weight:900;font-size:17px;letter-spacing:-.4px;line-height:1.2}.brand em{font-style:normal;color:var(--teal)}.brand small{display:block;font-size:9px;color:var(--muted);letter-spacing:1.55px;margin-top:7px;font-weight:750}
-.navlinks{display:flex;align-items:center;gap:25px;color:#475569;font-size:13px;font-weight:650}.navlinks a:hover{color:var(--teal)}
-.navcta{background:var(--ink);color:#fff!important;border-radius:8px;padding:11px 17px}
-.hero{position:relative;overflow:hidden;background:var(--ink);color:white;padding:94px 0 86px}
-.hero:before{content:"";position:absolute;width:650px;height:650px;right:-140px;top:-280px;background:radial-gradient(circle,rgba(0,185,199,.23),transparent 68%);pointer-events:none}
-.hero:after{content:"";position:absolute;width:480px;height:480px;left:-240px;bottom:-340px;background:radial-gradient(circle,rgba(66,99,235,.2),transparent 68%);pointer-events:none}
-.hero-grid{position:relative;display:grid;grid-template-columns:1.15fr .85fr;gap:64px;align-items:center}
-.kicker{font-size:11px;letter-spacing:2px;text-transform:uppercase;font-weight:850;color:var(--teal);margin-bottom:20px;display:flex;align-items:center;gap:10px}.kicker:before{content:"";height:2px;width:24px;background:currentColor}
-h1{font-size:clamp(39px,5.4vw,68px);line-height:1.06;letter-spacing:-2.7px;margin-bottom:24px;max-width:740px}
-h1 span{color:#63e5e6}
-.hero-copy{font-size:17px;color:#c5d0df;max-width:650px;margin-bottom:30px}
-.actions{display:flex;flex-wrap:wrap;gap:12px}
-.btn{min-height:48px;display:inline-flex;align-items:center;justify-content:center;padding:13px 19px;border-radius:9px;font-size:13px;font-weight:800;transition:transform .18s,background .18s}.btn:hover{transform:translateY(-2px)}
-.primary{background:var(--teal);color:#06232a}.secondary{border:1px solid #526176;color:white;background:rgba(255,255,255,.04)}
-.hero-proof{display:flex;flex-wrap:wrap;gap:10px 20px;margin-top:30px;color:#c5d0df;font-size:11px}.hero-proof span:before{content:"✓";color:var(--teal);font-weight:900;margin-right:7px}
-.hero-panel{border:1px solid rgba(255,255,255,.14);background:linear-gradient(145deg,rgba(255,255,255,.09),rgba(255,255,255,.025));border-radius:22px;padding:28px;box-shadow:0 24px 70px rgba(0,0,0,.22)}
-.panel-label{font-size:10px;color:#63e5e6;letter-spacing:1.8px;font-weight:850;margin-bottom:16px}
-.hero-panel h2{font-size:25px;line-height:1.25;letter-spacing:-.6px;margin-bottom:12px}.hero-panel>p{font-size:13px;color:#c5d0df;margin-bottom:20px}
-.capability{display:grid;grid-template-columns:38px 1fr;gap:12px;padding:15px 0;border-top:1px solid rgba(255,255,255,.13)}
-.cap-icon{width:36px;height:36px;border-radius:10px;display:grid;place-items:center;background:rgba(0,185,199,.13);color:#63e5e6;font-size:18px}
-.capability strong{display:block;font-size:13px}.capability small{display:block;color:#b5c2d3;font-size:11px;line-height:1.5;margin-top:3px}
-section{padding:84px 0}
-.section-head{max-width:740px;margin-bottom:38px}.section-head.center{text-align:center;margin-left:auto;margin-right:auto}.section-head.center .kicker{justify-content:center}
-.section-head h2{font-size:clamp(30px,4vw,46px);line-height:1.15;letter-spacing:-1.4px;margin-bottom:15px}.section-head p{color:var(--muted);font-size:15px}
-.services{background:var(--paper)}
-.service-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:17px}
-.service{background:white;border:1px solid var(--line);border-radius:15px;padding:25px;min-height:245px;transition:transform .2s,border-color .2s,box-shadow .2s}
-.service:hover{transform:translateY(-3px);border-color:#9be5e6;box-shadow:0 15px 35px rgba(16,26,44,.06)}
-.service-icon{width:43px;height:43px;display:grid;place-items:center;border-radius:12px;background:#e7fbfb;color:#087f89;font-size:20px;margin-bottom:18px}
-.service h3{font-size:17px;letter-spacing:-.3px;line-height:1.3;margin-bottom:10px}.service p{font-size:13px;color:var(--muted);margin-bottom:14px}
-.service ul{list-style:none;font-size:12px;color:#475569}.service li{margin-top:6px}.service li:before{content:"—";color:var(--teal);font-weight:900;margin-right:7px}
-.service.featured{border-color:#8cdddd;background:linear-gradient(145deg,#fff,#f0fdfd)}
-.service.featured{border-width:2px;box-shadow:0 16px 38px rgba(16,110,116,.12);position:relative}
-.service-tag{display:inline-flex;align-items:center;width:max-content;max-width:100%;margin:0 0 14px;padding:6px 10px;border-radius:999px;background:#d9f5f2;color:#116b68;font-size:10px;font-weight:800;letter-spacing:1px}
-.service-link{display:inline-flex;margin-top:12px;color:#087e83;font-size:13px;font-weight:800;text-decoration:none}
-.service-link:hover{text-decoration:underline}
-.band{background:#fff}
-.split{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center}
-.split h2{font-size:clamp(30px,4vw,43px);line-height:1.15;letter-spacing:-1.2px;margin-bottom:17px}.split p{color:var(--muted);font-size:14px;margin-bottom:15px}
-.feature-list{display:grid;gap:12px}.feature{padding:18px 20px;border:1px solid var(--line);border-radius:12px;background:#fff}.feature strong{display:block;font-size:14px;margin-bottom:4px}.feature span{display:block;font-size:12px;color:var(--muted)}
-.darkband{background:var(--ink);color:white}.darkband .section-head p{color:#bdc8d8}
-.steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
-.step{border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.04);border-radius:15px;padding:25px}
-.step-number{color:#63e5e6;font-size:11px;font-weight:900;letter-spacing:1.5px;margin-bottom:17px}.step h3{font-size:18px;margin-bottom:9px}.step p{color:#bdc8d8;font-size:13px}
-.contact{padding:70px 0;background:var(--paper)}
-.contact-box{display:grid;grid-template-columns:1fr auto;gap:30px;align-items:center;padding:42px;background:var(--ink);color:white;border-radius:20px;position:relative;overflow:hidden}
-.contact-box:after{content:"";position:absolute;right:-110px;top:-190px;width:360px;height:360px;border-radius:50%;background:radial-gradient(circle,rgba(0,185,199,.22),transparent 70%);pointer-events:none}
-.contact-box h2{font-size:clamp(29px,4vw,42px);line-height:1.15;letter-spacing:-1px;margin-bottom:12px;max-width:700px}.contact-box p{font-size:14px;color:#bdc8d8;max-width:720px}
-.contact-actions{position:relative;z-index:1;display:flex;gap:10px;flex-wrap:wrap}
-.contact-note{margin-top:18px;color:#748196;font-size:11px}
-footer{padding:29px 0;border-top:1px solid var(--line)}.footer-row{display:flex;justify-content:space-between;align-items:center;gap:18px;flex-wrap:wrap}.footer-brand{font-size:13px;font-weight:850}.footer-row p,.footer-row a{font-size:11px;color:var(--muted)}.footer-row a:hover{color:var(--teal)}
-@media(max-width:950px){.hero-grid,.split{grid-template-columns:1fr;gap:35px}.hero{padding:72px 0}.hero-panel{max-width:650px}.service-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.contact-box{grid-template-columns:1fr}.steps{grid-template-columns:1fr}}
-@media(max-width:650px){.nav{padding:14px 0;align-items:flex-start}.navlinks{gap:8px 13px;justify-content:flex-end;flex-wrap:wrap;font-size:11px}.navlinks .optional{display:none}.brand{font-size:14px}.brand small{font-size:8px;letter-spacing:.8px}.navcta{padding:8px 11px}h1{letter-spacing:-1.5px}.hero-copy{font-size:15px}.hero-panel{padding:22px}.service-grid{grid-template-columns:1fr}section{padding:62px 0}.service{min-height:0;padding:22px}.contact-box{padding:27px}.contact-actions .btn{width:100%}.contact-actions{width:100%}}
-
-/* University and research-computing section */
-.hpc-capability-section{padding:72px 0;background:#fff;border-top:1px solid #dce5ed}
-.hpc-capability-head{max-width:790px;margin:0 0 30px}
-.hpc-capability-head h2{font-size:clamp(28px,3.8vw,42px);line-height:1.14;letter-spacing:-1.2px;margin:8px 0 13px}
-.hpc-capability-head p{font-size:14px;color:#64748b;line-height:1.75}
-.hpc-capability-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:15px}
-.hpc-capability-card{padding:22px;border:1px solid #dce5ed;border-radius:14px;background:#f9fbfd}
-.hpc-capability-label{display:block;color:#168c91;font-size:9px;font-weight:900;letter-spacing:1.35px;margin-bottom:12px}
-.hpc-capability-card h3{font-size:16px;line-height:1.3;margin-bottom:9px}
-.hpc-capability-card p,.hpc-investigation p{font-size:12px;line-height:1.7;color:#64748b}
-.hpc-capability-card ul{list-style:none;margin-top:12px;font-size:11px;color:#475569}
-.hpc-capability-card li{margin-top:6px}
-.hpc-capability-card li:before{content:"—";color:#168c91;font-weight:900;margin-right:7px}
-.hpc-investigation{display:grid;grid-template-columns:1fr 1fr;gap:26px;margin-top:20px;padding:27px;border-radius:16px;background:#101a2c;color:#fff}
-.hpc-investigation h3{font-size:19px;line-height:1.3;margin:0 0 11px}
-.hpc-investigation p{color:#c5d0df}
-.hpc-engagement{padding:20px;border:1px solid rgba(255,255,255,.15);border-radius:12px;background:rgba(255,255,255,.04)}
-.hpc-engagement ol{padding-left:18px;color:#c5d0df;font-size:11px;line-height:1.65}
-.hpc-engagement li{padding:0 0 9px 3px}
-.hpc-engagement strong{color:#fff}
-@media(max-width:950px){.hpc-capability-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.hpc-investigation{grid-template-columns:1fr}}
-@media(max-width:650px){.hpc-capability-grid{grid-template-columns:1fr}.hpc-investigation{padding:20px}.hpc-capability-card{padding:20px}}
-.university-section{background:#f2f6fa;border-top:1px solid #dce5ed;border-bottom:1px solid #dce5ed}
-.university-heading{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(260px,.65fr);gap:42px;align-items:center;margin-bottom:34px}
-.university-heading h2{font-size:clamp(30px,4vw,46px);line-height:1.12;letter-spacing:-1.4px;margin:8px 0 15px;max-width:760px}
-.university-heading p{color:#526273;font-size:14px;line-height:1.75;max-width:760px;margin:0 0 13px}
-.university-boundary{padding-left:14px;border-left:3px solid var(--teal);font-size:12px!important}
-.university-cta{display:inline-flex;align-items:center;gap:13px;margin-top:9px;padding:14px 19px;border-radius:9px;background:var(--ink);color:#fff;font-weight:800;font-size:12px;text-decoration:none}
-.university-cta span{color:#63e5e6;font-size:17px}
-.university-audience{display:grid;gap:0;padding:24px 25px;border-radius:16px;background:var(--ink);color:#fff;box-shadow:0 16px 36px rgba(16,26,44,.12)}
-.audience-label,.feature-label{font-size:9px;letter-spacing:1.6px;font-weight:900;color:#63e5e6;margin-bottom:12px}
-.university-audience strong{font-size:12px;line-height:1.4;font-weight:650;padding:10px 0;border-bottom:1px solid rgba(255,255,255,.14)}
-.university-audience strong:last-child{border:0;padding-bottom:0}
-.university-services{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
-.university-service{background:#fff;border:1px solid #dce5ed;border-radius:14px;padding:22px;min-height:245px}
-.university-number{display:inline-block;color:#168c91;font-size:10px;font-weight:900;letter-spacing:1.2px;margin-bottom:12px}
-.university-service h3{font-size:16px;line-height:1.3;margin:0 0 9px;color:#14243a}
-.university-service p{font-size:12px;line-height:1.65;color:#64748b;margin:0 0 12px}
-.university-service ul{list-style:none;padding:0;margin:0;font-size:11px;line-height:1.55;color:#475569}
-.university-service li{margin-top:6px}
-.university-service li:before{content:"—";color:#168c91;font-weight:900;margin-right:7px}
-.university-service-feature{background:var(--ink);border-color:var(--ink);color:#fff}
-.university-service-feature h3{color:#fff;font-size:19px}
-.university-service-feature p{color:#c5d0df}
-.university-service-feature>a{display:inline-block;margin-top:9px;color:#70e4e5;font-size:12px;font-weight:800;text-decoration:none}
-.university-disclaimer{font-size:10px;line-height:1.65;color:#64748b;margin:20px 0 0;max-width:1100px}
-@media(max-width:950px){.university-heading{grid-template-columns:1fr;gap:24px}.university-services{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media(max-width:650px){.university-services{grid-template-columns:1fr}.university-service{min-height:0}.university-cta{width:100%;justify-content:space-between;box-sizing:border-box}}
-
-
-/* Featured engineering offers: primary business differentiators */
-.featured-offers{position:relative;overflow:hidden;padding:76px 0 82px;background:linear-gradient(135deg,#0b1425 0%,#14243b 58%,#0b2633 100%);color:#fff}
-.featured-offers:before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 85% 8%,rgba(0,185,199,.2),transparent 34%),radial-gradient(circle at 5% 95%,rgba(66,99,235,.16),transparent 35%);pointer-events:none}
-.featured-offers .container{position:relative}
-.featured-offers .kicker{color:#70e5e6}
-.featured-offers-head{max-width:790px;margin-bottom:32px}
-.featured-offers-head h2{font-size:clamp(31px,4.3vw,48px);line-height:1.1;letter-spacing:-1.5px;margin:8px 0 13px}
-.featured-offers-head p{max-width:700px;color:#c5d0df;font-size:15px}
-.featured-offers-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
-.featured-offer{position:relative;display:flex;flex-direction:column;min-height:340px;padding:27px;border:1px solid rgba(132,220,224,.35);border-radius:18px;background:linear-gradient(155deg,rgba(255,255,255,.105),rgba(255,255,255,.035));box-shadow:0 18px 44px rgba(0,0,0,.2);transition:transform .2s,border-color .2s,background .2s}
-.featured-offer:hover{transform:translateY(-5px);border-color:#70e5e6;background:linear-gradient(155deg,rgba(0,185,199,.18),rgba(255,255,255,.05))}
-.featured-offer-mark{display:flex;align-items:center;justify-content:center;width:48px;height:48px;margin-bottom:21px;border-radius:14px;background:rgba(0,185,199,.16);color:#70e5e6;font-size:23px}
-.featured-offer-label{color:#70e5e6;font-size:9px;font-weight:900;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:10px}
-.featured-offer h3{font-size:22px;line-height:1.2;letter-spacing:-.6px;margin-bottom:12px}
-.featured-offer p{color:#c5d0df;font-size:13px;line-height:1.7;margin-bottom:18px}
-.featured-offer ul{list-style:none;color:#e0e8f1;font-size:11px;line-height:1.6;margin:0 0 22px}
-.featured-offer li{margin:7px 0}
-.featured-offer li:before{content:"✓";color:#70e5e6;font-weight:900;margin-right:8px}
-.featured-offer-link{display:inline-flex;align-items:center;gap:8px;margin-top:auto;color:#70e5e6;font-size:12px;font-weight:850}
-.featured-offer-link:hover{text-decoration:underline}
-.featured-offers-note{margin-top:22px;color:#aebdce;font-size:11px}
-@media(max-width:950px){.featured-offers-grid{grid-template-columns:1fr}.featured-offer{min-height:0}}
-@media(max-width:650px){.featured-offers{padding:60px 0}.featured-offer{padding:23px}.featured-offer h3{font-size:20px}}
-
-
-.service-group-intro{max-width:760px;margin:62px 0 28px}
-.service-group-intro h2{font-size:clamp(28px,3.6vw,40px);line-height:1.15;letter-spacing:-1px;margin:8px 0 12px}
-.service-group-intro p{font-size:14px;color:var(--muted)}
-.service-group-head{margin:42px 0 18px;padding:17px 20px;border-left:4px solid var(--teal);border-radius:0 12px 12px 0;background:#eaf8f8}
-.service-group-head span{display:block;color:#087f89;font-size:11px;font-weight:900;letter-spacing:1.4px;text-transform:uppercase;margin-bottom:5px}
-.service-group-head p{font-size:13px;color:#526273}
-.service-group-head.secondary-group{background:#f0f3f8;border-left-color:#64748b}
-.service-group-head.secondary-group span{color:#34445b}
-@media(max-width:650px){.service-group-head{margin:32px 0 14px;padding:14px}.service-group-intro{margin-top:46px}}
-
+:root{--bg:#070b16;--bg2:#0b1222;--panel:#101b30;--panel2:#14223a;--line:rgba(154,184,225,.17);--text:#f4f7ff;--muted:#a7b5ca;--cyan:#54e7ed;--blue:#568cff;--violet:#9b83ff;--max:1190px}
+*{box-sizing:border-box;margin:0;padding:0}html{scroll-behavior:smooth;scroll-padding-top:88px}body{font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;background:var(--bg);color:var(--text);line-height:1.65}a{color:inherit;text-decoration:none}.container{width:min(var(--max),91%);margin:auto}
+header{position:sticky;top:0;z-index:20;background:rgba(7,11,22,.86);backdrop-filter:blur(18px);border-bottom:1px solid var(--line)}.nav{min-height:78px;display:flex;align-items:center;justify-content:space-between;gap:24px}.brand{font-weight:950;font-size:15px;letter-spacing:.3px;line-height:1.15}.brand span{color:var(--cyan)}.brand small{display:block;color:#8fa2bd;font-size:9px;letter-spacing:2px;margin-top:7px}.links{display:flex;align-items:center;gap:23px;color:#bdc9dc;font-size:12px;font-weight:700}.links a:hover{color:var(--cyan)}.nav-cta{padding:10px 15px;border:1px solid rgba(84,231,237,.5);border-radius:8px;color:var(--cyan)!important}
+.hero{min-height:660px;display:flex;align-items:center;position:relative;overflow:hidden;background:radial-gradient(ellipse at 76% 40%,rgba(37,102,184,.2),transparent 38%),radial-gradient(ellipse at 12% 80%,rgba(92,60,180,.16),transparent 38%),linear-gradient(120deg,#070b16,#0b1427 58%,#091526)}
+.hero:before{content:"";position:absolute;inset:0;opacity:.25;background-image:linear-gradient(rgba(104,157,214,.13) 1px,transparent 1px),linear-gradient(90deg,rgba(104,157,214,.13) 1px,transparent 1px);background-size:54px 54px;mask-image:linear-gradient(90deg,transparent,#000 50%,#000)}
+.hero:after{content:"";position:absolute;width:540px;height:540px;right:4%;top:8%;border:1px solid rgba(84,231,237,.12);border-radius:50%;box-shadow:0 0 0 55px rgba(84,231,237,.025),0 0 0 110px rgba(84,231,237,.02);pointer-events:none}
+.hero-inner{position:relative;z-index:1;display:grid;grid-template-columns:1.12fr .88fr;gap:60px;align-items:center;padding:90px 0}.eyebrow{display:flex;align-items:center;gap:10px;color:var(--cyan);font-size:10px;letter-spacing:2.2px;font-weight:900;text-transform:uppercase;margin-bottom:23px}.pulse{width:8px;height:8px;border-radius:50%;background:var(--cyan);box-shadow:0 0 16px var(--cyan);animation:pulse 1.8s infinite}@keyframes pulse{50%{opacity:.35;box-shadow:0 0 3px var(--cyan)}}h1{font-size:clamp(42px,5.8vw,76px);line-height:1.02;letter-spacing:-3.2px;max-width:760px;margin-bottom:24px}h1 em{font-style:normal;background:linear-gradient(90deg,var(--cyan),#8baaff 55%,#b09aff);background-clip:text;color:transparent}.hero-copy{max-width:670px;color:#b4c2d7;font-size:16px;margin-bottom:30px}.actions{display:flex;flex-wrap:wrap;gap:12px}.btn{display:inline-flex;align-items:center;justify-content:center;padding:13px 19px;min-height:48px;border-radius:8px;font-size:12px;font-weight:850;transition:.2s}.btn:hover{transform:translateY(-3px)}.primary{background:linear-gradient(100deg,var(--cyan),#7daaff);color:#07101d;box-shadow:0 8px 28px rgba(84,231,237,.16)}.ghost{border:1px solid rgba(190,211,240,.3);color:#eaf2ff;background:rgba(255,255,255,.035)}.hero-meta{display:flex;flex-wrap:wrap;gap:10px 20px;margin-top:28px;color:#9eafc7;font-size:10px}.hero-meta span:before{content:"✦";color:var(--cyan);margin-right:7px}
+.system-card{position:relative;border:1px solid rgba(107,196,232,.28);border-radius:20px;padding:25px;background:linear-gradient(145deg,rgba(20,39,66,.92),rgba(9,17,32,.88));box-shadow:0 28px 90px rgba(0,0,0,.38);overflow:hidden}.system-card:before{content:"";position:absolute;width:250px;height:250px;right:-100px;top:-120px;background:radial-gradient(circle,rgba(84,231,237,.2),transparent 70%)}.system-top{display:flex;justify-content:space-between;align-items:center;color:#8da4c2;font-size:9px;letter-spacing:1.5px;font-weight:900}.live{color:var(--cyan)}.network{height:210px;position:relative;margin:18px 0 10px;display:grid;place-items:center}.orbit{position:absolute;border:1px solid rgba(84,231,237,.2);border-radius:50%;width:190px;height:190px;animation:rotate 22s linear infinite}.orbit.two{width:135px;height:135px;border-color:rgba(155,131,255,.3);animation-direction:reverse;animation-duration:16s}.core{width:76px;height:76px;border-radius:22px;display:grid;place-items:center;background:linear-gradient(145deg,#143e58,#202a58);border:1px solid rgba(84,231,237,.65);box-shadow:0 0 38px rgba(84,231,237,.2);font-size:23px;color:var(--cyan)}@keyframes rotate{to{transform:rotate(360deg)}}.node{position:absolute;width:10px;height:10px;border-radius:50%;background:var(--cyan);box-shadow:0 0 15px var(--cyan)}.n1{top:17px;left:48%}.n2{right:17%;top:45%}.n3{bottom:15px;left:32%;background:var(--violet);box-shadow:0 0 15px var(--violet)}.system-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}.stat{border-top:1px solid var(--line);padding-top:12px}.stat b{display:block;font-size:12px;color:#eaf5ff}.stat small{font-size:9px;color:#8499b7}
+section{padding:88px 0}.section-label{color:var(--cyan);font-size:10px;letter-spacing:2px;font-weight:900;text-transform:uppercase;margin-bottom:12px}.section-title{font-size:clamp(30px,4vw,48px);line-height:1.12;letter-spacing:-1.6px;margin-bottom:14px}.section-copy{color:var(--muted);font-size:14px;max-width:760px}.section-head{margin-bottom:38px}.services{background:linear-gradient(180deg,#0a1120,#0b1425)}.service-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:17px}.service{position:relative;padding:28px;border:1px solid var(--line);border-radius:16px;background:linear-gradient(145deg,rgba(20,34,58,.88),rgba(12,21,38,.92));min-height:320px;transition:.25s;overflow:hidden}.service:hover{transform:translateY(-5px);border-color:rgba(84,231,237,.6);box-shadow:0 18px 50px rgba(0,0,0,.24)}.service:after{content:"";position:absolute;right:-75px;bottom:-110px;width:220px;height:220px;border-radius:50%;background:radial-gradient(circle,rgba(86,140,255,.13),transparent 70%);pointer-events:none}.service-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:22px}.number{font-size:10px;letter-spacing:2px;color:var(--cyan);font-weight:900}.glyph{width:46px;height:46px;border-radius:13px;display:grid;place-items:center;border:1px solid rgba(84,231,237,.27);background:rgba(84,231,237,.08);color:var(--cyan);font-size:21px}.service h3{font-size:23px;line-height:1.2;letter-spacing:-.6px;margin-bottom:12px;max-width:460px}.service p{font-size:13px;color:#aabbd1;margin-bottom:18px;max-width:570px}.chips{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:21px}.chips span{font-size:10px;color:#c6d5e9;border:1px solid rgba(164,191,226,.17);background:rgba(255,255,255,.025);border-radius:30px;padding:5px 9px}.service a{position:relative;z-index:1;color:var(--cyan);font-size:11px;font-weight:850}.service a:hover{text-decoration:underline}
+.pods{background:#070c18}.pods-layout{display:grid;grid-template-columns:.9fr 1.1fr;gap:55px;align-items:center}.pods-callout{border:1px solid rgba(155,131,255,.32);border-radius:18px;padding:27px;background:linear-gradient(145deg,rgba(57,44,105,.28),rgba(16,27,48,.8))}.pods-callout h3{font-size:25px;line-height:1.2;margin:8px 0 12px}.pods-callout p{color:var(--muted);font-size:13px}.pod-list{display:grid;gap:12px}.pod-item{display:grid;grid-template-columns:38px 1fr;gap:14px;padding:15px 0;border-bottom:1px solid var(--line)}.pod-item b{display:block;font-size:13px}.pod-item p{font-size:11px;color:var(--muted);margin-top:3px}.pod-num{color:var(--violet);font-weight:900;font-size:11px}
+.university{background:#0b1425;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}.university-grid{display:grid;grid-template-columns:1fr 1fr;gap:28px;margin-top:30px}.uni-card{padding:24px;border:1px solid var(--line);border-radius:14px;background:rgba(255,255,255,.025)}.uni-card h3{font-size:17px;margin-bottom:9px}.uni-card p{font-size:12px;color:var(--muted)}.uni-card ul{margin:12px 0 0 17px;color:#c1cee0;font-size:11px}.uni-card li{margin:5px 0}
+.personal{background:linear-gradient(135deg,#0a1221,#111a2c)}.personal-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}.personal-card{padding:26px;border:1px solid var(--line);border-radius:15px;background:rgba(255,255,255,.035)}.personal-card h3{font-size:18px;margin:12px 0 8px}.personal-card p{font-size:12px;color:var(--muted)}.personal-card .glyph{margin-bottom:8px}
+.approach{background:#070b16}.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:15px;margin-top:32px}.step{padding:22px;border:1px solid var(--line);border-radius:13px;background:#0d1729}.step small{color:var(--cyan);font-weight:900;letter-spacing:1.5px}.step h3{font-size:16px;margin:12px 0 7px}.step p{font-size:12px;color:var(--muted)}
+.contact{padding:70px 0;background:radial-gradient(ellipse at 70% 20%,rgba(39,107,172,.2),transparent 45%),#0a1221}.contact-box{padding:42px;border:1px solid rgba(84,231,237,.25);border-radius:19px;background:rgba(12,24,43,.85);display:grid;grid-template-columns:1fr auto;gap:25px;align-items:center}.contact-box h2{font-size:clamp(29px,4vw,44px);line-height:1.12;margin:8px 0 12px}.contact-box p{font-size:13px;color:var(--muted);max-width:720px}.contact-actions{display:flex;flex-direction:column;gap:10px}.fineprint{font-size:10px;color:#8192aa;margin-top:17px;line-height:1.7}
+footer{padding:26px 0;border-top:1px solid var(--line);color:#8799b3;font-size:10px}.footer{display:flex;justify-content:space-between;gap:18px;flex-wrap:wrap}.footer b{color:#dbe8f8}
+@media(max-width:900px){.hero-inner,.pods-layout{grid-template-columns:1fr;gap:35px}.system-card{max-width:570px}.links{gap:12px}.links a:nth-child(2),.links a:nth-child(3){display:none}.contact-box{grid-template-columns:1fr}.contact-actions{flex-direction:row;flex-wrap:wrap}}
+@media(max-width:620px){.nav{min-height:68px}.brand{font-size:12px}.links{font-size:10px;gap:10px}.links a:nth-child(4){display:none}.nav-cta{padding:8px 10px}.hero{min-height:0}.hero-inner{padding:75px 0}.hero:after{right:-220px}h1{font-size:43px;letter-spacing:-1.9px}.hero-copy{font-size:14px}.system-card{padding:19px}.service-grid,.personal-grid,.university-grid,.steps{grid-template-columns:1fr}section{padding:65px 0}.service{min-height:0;padding:23px}.service h3{font-size:21px}.contact-box{padding:25px}.contact-actions .btn{width:100%}.footer{display:block}.footer>*{margin:7px 0}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{scroll-behavior:auto!important;animation:none!important;transition:none!important}}
 </style>
 </head>
 <body>
-<header class="topbar">
- <div class="container nav">
-  <a class="brand" href="#home" aria-label="Daemon IT Consulting and Tech Services home">DAEMON <em>IT CONSULTING</em><small>&amp; TECH SERVICES</small></a>
-  <nav class="navlinks" aria-label="Main navigation">
-   <a href="#services">Services</a><a href="#universities">Universities</a><a href="#hpc-capabilities">HPC Capabilities</a><a href="#approach">Why Daemon</a><a class="optional" href="#process">How It Works</a><a class="navcta" href="https://buy.stripe.com/9B63cv0M7efdeQN6tX7g404" target="_blank" rel="noopener">Pay Securely ↗</a>
-  </nav>
- </div>
-</header>
+<header><div class="container nav">
+<a class="brand" href="#home">DAEMON <span>IT CONSULTING</span><small>&amp; TECH SERVICES</small></a>
+<nav class="links" aria-label="Main navigation"><a href="#services">Engineering</a><a href="#pods">Cost Pods</a><a href="#research">Research</a><a href="#personal">Personal Tech</a><a href="#contact" class="nav-cta">Let's Talk ↗</a></nav>
+</div></header>
 <main>
-<section class="hero" id="home">
- <div class="container hero-grid">
-  <div>
-   <div class="kicker">Daemon IT Consulting &amp; Tech Services</div>
-   <p style="color:#b9f4f2;font-size:12px;font-weight:750;letter-spacing:1.2px;margin:-10px 0 14px">PERSONAL TECHNOLOGY • BUSINESS IT • ENGINEERING</p>
-   <h1>24/7 on-call business support. <span>Engineering capacity when you need it.</span></h1>
-   <p class="hero-copy">Get a direct, owner-operated 24/7 on-call partner for business technology and covered infrastructure incidents—without immediately building a full-time DevOps department. Daemon IT is available around the clock for business clients, with project-based and recurring help across CI/CD, cloud infrastructure, containers, automation, application troubleshooting, and reliability. Specific systems, coverage, and response expectations are agreed during client onboarding.</p>
-   <div class="actions"><a class="btn primary" href="#contact">Tell Us What Needs Fixing ↗</a><a class="btn secondary" href="#services">Explore Our Services</a><a class="btn secondary" href="https://buy.stripe.com/9B63cv0M7efdeQN6tX7g404" target="_blank" rel="noopener">Pay Securely — $50 Consultation ↗</a></div>
-   <div class="hero-proof"><span>Personal &amp; small-business tech</span><span>Business infrastructure support</span><span>Practical, focused solutions</span></div>
-  </div>
-  <aside class="hero-panel">
-   <div class="panel-label">BUSINESS ENGINEERING SUPPORT</div>
-   <h2>DevOps and infrastructure capacity without an immediate full-time hire.</h2>
-   <p>24/7 on-call business support is personally handled by the business owner. Clients can contact Daemon IT to discuss coverage and enroll supported environments. Monitoring and automated alert routing are configured for each enrolled environment; covered systems, escalation paths, response targets, access, and responsibilities are agreed before activation. Contact details for emergency escalation are provided directly during onboarding—not published on the website.</p>
-   <div class="capability"><div class="cap-icon">⌘</div><div><strong>Personal &amp; small-business technology</strong><small>Computer repair, device diagnostics, data recovery, and network support.</small></div></div>
-   <div class="capability"><div class="cap-icon">⚒</div><div><strong>DevOps remediation</strong><small>Take debugging backlogs, deployment failures, and recurring technical issues off your team’s plate.</small></div></div>
-   <div class="capability"><div class="cap-icon">☁</div><div><strong>Infrastructure reliability</strong><small>Cloud troubleshooting, systems performance, root-cause analysis, and IT consulting.</small></div></div>
-  </aside>
- </div>
-</section>
+<section class="hero" id="home"><div class="container hero-inner">
+<div>
+<div class="eyebrow"><i class="pulse"></i> Technology services · Infrastructure intelligence</div>
+<h1>Build what’s next.<br><em>Make technology work harder.</em></h1>
+<p class="hero-copy">From AI infrastructure and platform engineering to database performance, smarter technology investments, personal device repair, and data recovery—Daemon IT brings practical engineering thinking to the systems people and businesses depend on.</p>
+<div class="actions"><a class="btn primary" href="#contact">Start a Conversation ↗</a><a class="btn ghost" href="#services">Explore the Four Pillars</a></div>
+<div class="hero-meta"><span>Business &amp; enterprise engineering</span><span>Personal technology solutions</span><span>Direct, owner-operated service</span></div>
+</div>
+<div class="system-card" aria-label="Illustration of connected technology infrastructure">
+<div class="system-top"><span>DAEMON / SYSTEM OVERVIEW</span><span class="live">● CONNECTED CONCEPT</span></div>
+<div class="network"><div class="orbit"></div><div class="orbit two"></div><div class="core">✧</div><i class="node n1"></i><i class="node n2"></i><i class="node n3"></i></div>
+<div class="system-stats"><div class="stat"><b>ENGINEER</b><small>Build &amp; automate</small></div><div class="stat"><b>OPTIMIZE</b><small>Performance &amp; cost</small></div><div class="stat"><b>RECOVER</b><small>Restore &amp; repair</small></div></div>
+</div>
+</div></section>
 
-<section class="featured-offers" id="featured-engineering" aria-labelledby="featured-engineering-title">
- <div class="container">
-  <div class="featured-offers-head">
-   <div class="kicker">Featured Engineering Services</div>
-   <h2 id="featured-engineering-title">Specialized engineering. Built around your next challenge.</h2>
-   <p>Three focused ways Daemon IT helps organizations strengthen delivery, support advanced computing, and make smarter infrastructure investments.</p>
-  </div>
-  <div class="featured-offers-grid">
-   <article class="featured-offer">
-    <div class="featured-offer-mark">⌘</div>
-    <div class="featured-offer-label">Engineering team extension</div>
-    <h3>DevOps &amp; Platform Engineering</h3>
-    <p>Extend your engineering team without immediately adding full-time headcount. We help remove delivery bottlenecks, stabilize platforms, and move critical engineering work forward—from infrastructure automation through production reliability.</p>
-    <ul><li>Kubernetes, OpenShift, cloud &amp; container platforms</li><li>CI/CD, GitOps, Terraform &amp; Ansible automation</li><li>Build, release &amp; deployment troubleshooting</li><li>Metrics, logs, tracing &amp; incident root-cause analysis</li><li>Debugging, remediation &amp; platform reliability</li></ul>
-    <a class="featured-offer-link" href="#services">Explore DevOps services <span>↗</span></a>
-   </article>
-   <article class="featured-offer">
-    <div class="featured-offer-mark">▦</div>
-    <div class="featured-offer-label">Advanced computing support</div>
-    <h3>AI &amp; HPC Infrastructure Engineering</h3>
-    <p>Support the compute, GPU, software, storage, and network layers behind AI, machine-learning, and research workloads. Get focused help investigating issues and improving workload readiness and performance.</p>
-    <ul><li>GPU, CUDA, drivers &amp; accelerated workload troubleshooting</li><li>HPC, Linux, Slurm &amp; compute-node support</li><li>AI/ML workload deployment &amp; container orchestration</li><li>Kubernetes integration and workload execution</li><li>Compute, storage, networking &amp; performance investigations</li></ul>
-    <a class="featured-offer-link" href="#universities">Explore AI &amp; HPC support <span>↗</span></a>
-   </article>
-   <article class="featured-offer">
-    <div class="featured-offer-mark">◈</div>
-    <div class="featured-offer-label">Infrastructure investment advisory</div>
-    <h3>Compute Acquisition &amp; Capacity Strategy</h3>
-    <p>Make a better-informed AI infrastructure investment before committing capital or signing a capacity agreement. Evaluate workload fit, GPU capacity, provider options, operating requirements, and long-term cost.</p>
-    <ul><li>Own vs. lease vs. reserve decision analysis</li><li>Workload sizing &amp; GPU/server capacity requirements</li><li>Provider, proposal &amp; technical specification reviews</li><li>Total cost, utilization &amp; growth scenarios</li><li>Power, cooling, networking &amp; operational readiness</li></ul>
-    <a class="featured-offer-link" href="mailto:barry.ellison@comcast.net?subject=Compute%20Acquisition%20and%20Capacity%20Strategy">Discuss compute strategy <span>↗</span></a>
-   </article>
-  </div>
-  <p class="featured-offers-note">Engagements are scoped to your requirements, approved access, available resources, and agreed deliverables.</p>
- </div>
-</section>
-<section class="services" id="services">
- <div class="container">
-  <div class="section-head">
-   <div class="kicker">Our Services</div>
-   <h2>From everyday tech problems to complex business challenges.</h2>
-   <p>Choose the support that fits your needs. We help individuals, small businesses, and engineering teams get technology working better.</p>
-  </div>
-  <div class="section-head" style="margin:28px 0 20px"><h2 style="font-size:25px;letter-spacing:-.5px;margin:0">Personal &amp; Small Business Technology</h2><p>Practical help for the devices, data, and networks you depend on.</p></div>
-  <div class="service-grid">
-   <article class="service"><div class="service-icon">⌘</div><h3>Computer &amp; Laptop Repair</h3><p>Diagnostics and practical repair support for everyday computers and work devices.</p><ul><li>Hardware and software troubleshooting</li><li>Computer setup and performance issues</li><li>Repair assessments and recommendations</li></ul></article>
-   <article class="service"><div class="service-icon">▣</div><h3>Data Recovery &amp; Storage</h3><p>Assess inaccessible files and storage failures and explain realistic recovery options.</p><ul><li>SSD and HDD diagnostics</li><li>RAID recovery assessment</li><li>Backup and data-loss prevention guidance</li></ul></article>
-   <article class="service"><div class="service-icon">⚒</div><h3>Device &amp; Hardware Repair</h3><p>Technical diagnostics for supported phones, tablets, gaming systems, and electronics.</p><ul><li>Device troubleshooting</li><li>Hardware diagnostics</li><li>Component-level repair and micro-soldering where available</li></ul></article>
-   <article class="service"><div class="service-icon">⌁</div><h3>Network &amp; Wi-Fi Support</h3><p>Get help resolving connectivity problems and improving everyday 
-<div class="service-group-intro"><div class="kicker">Business Infrastructure &amp; Engineering</div><h2>Specialized engineering, organized around what your business needs.</h2><p>Start with one of our three core engineering offerings. Explore the supporting capabilities beneath each one.</p></div>
-<div class="service-group-head"><span>01 / DEVOPS &amp; PLATFORM ENGINEERING</span><p>Extend your engineering team with delivery, automation, application, cloud, and reliability support.</p></div><div class="service-grid"><article class="service featured"><div class="service-tag">OUTSOURCED / FRACTIONAL ENGINEERING</div><div class="service-icon">⚒</div><h3>On-Demand DevOps &amp; Software Reliability Team</h3><p>Use Daemon IT as an extension of your engineering organization—without immediately hiring a full-time DevOps team. We take on agreed troubleshooting, remediation, deployment, and reliability work so your developers can stay focused on product delivery.</p><ul><li>Bug investigation, defect fixes, and backlog cleanup</li><li>CI/CD pipeline, build, and deployment troubleshooting</li><li>Cloud, Linux, container, Kubernetes, and configuration support</li><li>Root-cause analysis, corrective actions, and post-fix verification</li><li>Project-based or recurring support with a clearly defined scope</li></ul><a class="service-link" href="#contact">Discuss on-demand engineering support ↗</a></article>
-<article class="service"><div class="service-icon">⇄</div><h3>CI/CD Pipeline Engineering</h3><p>Build, review, and troubleshoot software delivery workflows so teams can release changes more consistently.</p><ul><li>Build and deployment pipeline troubleshooting</li><li>Automated test and release workflow improvements</li><li>GitHub Actions, GitLab CI, Jenkins, and Azure DevOps environments</li></ul></article>
-<article class="service"><div class="service-icon">▦</div><h3>Kubernetes &amp; Container Operations</h3><p>Investigate container platform issues and support reliable application deployment and operations.</p><ul><li>Kubernetes and Docker troubleshooting</li><li>Cluster, workload, and configuration reviews</li><li>OpenShift and Helm environment support</li></ul></article>
-<article class="service"><div class="service-icon">☁</div><h3>Cloud Infrastructure Troubleshooting</h3><p>Investigate issues affecting cloud environments, services, and infrastructure operations.</p><ul><li>Cloud and hybrid infrastructure issues</li><li>Linux, server, container, and Kubernetes troubleshooting</li><li>Connectivity and configuration problems</li></ul></article>
-<article class="service"><div class="service-icon">☁</div><h3>Cloud &amp; Infrastructure Management</h3><p>Support cloud and hybrid infrastructure through troubleshooting, configuration reviews, and operational improvements.</p><ul><li>AWS, Azure, and Google Cloud environments</li><li>Linux and server administration support</li><li>Infrastructure performance and capacity reviews</li></ul></article>
-<article class="service"><div class="service-icon">⌘</div><h3>Infrastructure as Code &amp; Automation</h3><p>Improve repeatability by reviewing and implementing infrastructure automation within an agreed scope.</p><ul><li>Terraform and Ansible support</li><li>Configuration and provisioning workflows</li><li>GitOps and operational task automation</li></ul></article>
-<article class="service"><div class="service-icon">◇</div><h3>Automation &amp; Platform Consulting</h3><p>Help teams improve repeatable operations and the workflows behind their platforms.</p><ul><li>Infrastructure-as-code guidance</li><li>Deployment and automation workflow reviews</li><li>Operational process improvements</li></ul></article>
-<article class="service"><div class="service-icon">◉</div><h3>Monitoring &amp; Observability</h3><p>Connect your existing monitoring tools so critical alerts can reach the owner-operated on-call contact at any hour. Monitoring coverage depends on the systems, integrations, and alert rules configured during onboarding.</p><ul><li>Metrics, logs, and tracing reviews</li><li>Prometheus, Grafana, and OpenTelemetry environments</li><li>Alert review and incident investigation support</li></ul></article>
-<article class="service"><div class="service-icon">⌕</div><h3>Incident Response &amp; Root-Cause Analysis</h3><p>Business clients can arrange owner-operated 24/7 on-call handling for covered incidents, including investigation, escalation, root-cause analysis, and corrective-action follow-through. Covered systems and response targets are agreed during onboarding.</p><ul><li>Technical incident investigation</li><li>Root-cause analysis and remediation planning</li><li>Post-incident findings and follow-up recommendations</li></ul></article>
-<article class="service"><div class="service-icon">⛨</div><h3>DevSecOps &amp; Infrastructure Security</h3><p>Review security practices across development and infrastructure workflows and help address identified gaps.</p><ul><li>Access control and least-privilege reviews</li><li>Secrets handling and deployment security practices</li><li>Configuration and vulnerability remediation support</li></ul></article>
-<article class="service featured"><div class="service-tag">APPLICATION MANAGEMENT</div><div class="service-icon">▣</div><h3>Application Management &amp; Support</h3><p>Keep business applications supportable and performing as expected with focused troubleshooting and ongoing technical assistance.</p><ul><li>Application issue investigation and debugging</li><li>Configuration, integration, and performance support</li><li>Maintenance coordination and operational improvements</li></ul></article>
-<article class="service"><div class="service-icon">⌘</div><h3>Application Development</h3><p>Design, build, integrate, and improve web and business applications that solve practical operational needs.</p><ul><li>Web and business application development</li><li>API and system integrations</li><li>Application enhancements and deployment support</li></ul></article>
-<article class="service"><div class="service-icon">⌘</div><h3>Custom Software Development</h3><p>Build tailored software, tools, and automation around the way your organization works.</p><ul><li>Custom internal tools and workflow applications</li><li>Business process automation and scripting</li><li>Software integration and technical modernization</li></ul></article>
-<article class="service featured"><div class="service-tag">CORE BUSINESS SERVICE</div><div class="service-icon">⌁</div><h3>IT Consulting &amp; Systems Reliability</h3><p>Practical technology guidance for organizations that need dependable systems, clearer technical direction, and experienced problem-solving.</p><ul><li>IT strategy and infrastructure assessments</li><li>Systems performance and reliability troubleshooting</li><li>Root-cause findings and corrective recommendations</li></ul></article></div>
-<div class="service-group-head"><span>02 / AI &amp; HPC INFRASTRUCTURE ENGINEERING</span><p>Support advanced computing environments, GPU workloads, research systems, and AI infrastructure operations.</p></div><div class="service-grid"><article class="service featured"><div class="service-tag">SPECIALIZED INFRASTRUCTURE SUPPORT</div><div class="service-icon">▦</div><h3>HPC &amp; AI Infrastructure Engineering Support</h3><p>Engineering support for organizations operating high-performance computing and AI environments. Assess, troubleshoot, and improve defined parts of the infrastructure supporting research and advanced workloads.</p><ul><li>Linux compute-node administration and troubleshooting</li><li>Slurm scheduler, job workflow, and workload support</li><li>GPU and CUDA environment troubleshooting</li><li>Kubernetes, containers, automation, and observability</li><li>Storage, networking, and performance investigation</li></ul><p style="font-size:11px;margin-top:12px">Work is scoped to the environment and technologies agreed with the client. Specialized hardware, high-speed fabric, and research software may require collaboration with the institution’s HPC team or vendor.</p></article>
-<article class="service"><div class="service-icon">◈</div><h3>AI &amp; Business Solutions</h3><p>Explore useful applications of AI, analytics, and automation for business operations.</p><ul><li>AI use-case and readiness assessments</li><li>Business analytics and workflow automation</li><li>Technology planning and integration guidance</li></ul></article>
-<article class="service"><div class="service-icon">⚙</div><h3>Cloud Cost &amp; Resource Optimization</h3><p>Review infrastructure usage and identify opportunities to improve efficiency and control costs.</p><ul><li>Resource utilization reviews</li><li>Capacity and performance observations</li><li>Practical cost optimization recommendations</li></ul></article></div>
-<div class="service-group-head"><span>03 / COMPUTE ACQUISITION &amp; CAPACITY STRATEGY</span><p>Evaluate infrastructure investment options and plan capacity around workload, utilization, cost, and growth.</p></div><div class="service-grid"><article class="service featured"><div class="service-tag">AI INFRASTRUCTURE BUYER STRATEGY</div><div class="service-icon">◈</div><h3>AI Compute Acquisition, Leasing &amp; Capacity Strategy</h3><p>Make a confident infrastructure decision before committing capital or signing a capacity agreement. Daemon IT helps buyers evaluate whether to own, lease, or reserve AI compute—including GPU infrastructure—based on workload needs, budget, utilization, growth, and operational readiness.</p><ul><li>Own vs. lease vs. reserve decision analysis</li><li>GPU, server, storage, and networking requirements</li><li>Capacity planning, utilization assumptions, and scaling scenarios</li><li>Total cost of ownership and cost comparison frameworks</li><li>Provider, proposal, and technical specification reviews</li><li>Deployment, operations, and DevOps readiness planning</li></ul><a class="service-link" href="mailto:barry.ellison@comcast.net?subject=AI%20Infrastructure%20Acquisition%20and%20Capacity%20Strategy">Plan your AI infrastructure investment ↗</a></article></div>
-<div class="service-group-head secondary-group"><span>Additional Business Technology Support</span><p>Related resilience and recovery services for business environments.</p></div>
-<div class="service-grid"><article class="service"><div class="service-icon">▤</div><h3>Backup, Disaster Recovery &amp; Resilience</h3><p>Help organizations assess recovery readiness and improve the resilience of important systems and data.</p><ul><li>Backup and recovery configuration reviews</li><li>Recovery planning and test coordination</li><li>Resilience findings and improvement recommendations</li></ul></article></div>
-e>
-   <article class="service"><div class="service-icon">⛨</div><h3>DevSecOps &amp; Infrastructure Security</h3><p>Review security practices across development and infrastructure workflows and help address identified gaps.</p><ul><li>Access control and least-privilege reviews</li><li>Secrets handling and deployment security practices</li><li>Configuration and vulnerability remediation support</li></ul></article>
-   <article class="service"><div class="service-icon">▤</div><h3>Backup, Disaster Recovery &amp; Resilience</h3><p>Help organizations assess recovery readiness and improve the resilience of important systems and data.</p><ul><li>Backup and recovery configuration reviews</li><li>Recovery planning and test coordination</li><li>Resilience findings and improvement recommendations</li></ul></article>
-  </div>
- </div>
-</section>
+<section class="services" id="services"><div class="container">
+<div class="section-head"><div class="section-label">The engineering portfolio / 01—04</div><h2 class="section-title">Four ways to move technology forward.</h2><p class="section-copy">Focused engineering services for the platforms, compute environments, and systems behind modern business. Explore the capabilities that fit your next challenge.</p></div>
+<div class="service-grid">
+<article class="service"><div class="service-head"><span class="number">01 / BUILD &amp; OPERATE</span><span class="glyph">⌘</span></div><h3>DevOps &amp; Platform Engineering</h3><p>Build, automate, secure, and operate dependable technology platforms. Add focused engineering capacity without immediately building a full-time team.</p><div class="chips"><span>DevOps / DevSecOps</span><span>Kubernetes / OpenShift</span><span>CI/CD &amp; GitOps</span><span>Terraform &amp; IaC</span><span>SRE &amp; Observability</span><span>Debugging &amp; Remediation</span><span>Zero Trust</span></div><a href="mailto:barry.ellison@comcast.net?subject=DevOps%20and%20Platform%20Engineering">Explore platform engineering ↗</a></article>
+<article class="service"><div class="service-head"><span class="number">02 / ACCELERATE &amp; COMPUTE</span><span class="glyph">◉</span></div><h3>AI &amp; HPC Infrastructure Engineering</h3><p>Engineer and troubleshoot the compute environments supporting advanced AI, machine learning, research, and high-performance workloads.</p><div class="chips"><span>GPU / CUDA / MIG</span><span>Linux Systems</span><span>Slurm &amp; Scheduling</span><span>AI Model Serving</span><span>Distributed Workloads</span><span>Storage &amp; Interconnects</span><span>Cluster Observability</span></div><a href="mailto:barry.ellison@comcast.net?subject=AI%20and%20HPC%20Infrastructure">Explore AI &amp; HPC engineering ↗</a></article>
+<article class="service"><div class="service-head"><span class="number">03 / PLAN &amp; ACQUIRE</span><span class="glyph">⌁</span></div><h3>Compute Acquisition &amp; Capacity Strategy</h3><p>Make informed infrastructure investments before committing capital or capacity. Match compute resources to workload requirements, utilization, budget, and growth.</p><div class="chips"><span>GPU &amp; Server Selection</span><span>Own vs. Lease vs. Cloud</span><span>Capacity Forecasting</span><span>Storage &amp; Networking</span><span>Vendor Evaluation</span><span>Lifecycle Planning</span><span>Total Cost of Ownership</span></div><a href="mailto:barry.ellison@comcast.net?subject=Compute%20Acquisition%20and%20Capacity%20Strategy">Plan your compute strategy ↗</a></article>
+<article class="service"><div class="service-head"><span class="number">04 / MEASURE &amp; OPTIMIZE</span><span class="glyph">⌬</span></div><h3>Intelligent Infrastructure Optimization</h3><p>Make every resource work harder and every technology dollar count. Improve database performance, monitor latency, choose the right platforms, and reduce avoidable operating costs.</p><div class="chips"><span>Database Management</span><span>p95 / p99 Latency</span><span>Query &amp; Index Tuning</span><span>Replica Right-Sizing</span><span>Replication Lag</span><span>CNCF &amp; Cloud Selection</span><span>FinOps &amp; Cost Strategy</span></div><a href="mailto:barry.ellison@comcast.net?subject=Intelligent%20Infrastructure%20Optimization">Optimize your environment ↗</a></article>
+</div>
+</div></section>
 
-<section id="universities" class="university-section">
- <div class="container">
-  <div class="university-heading">
-   <div>
-    <div class="kicker">University &amp; Research Computing</div>
-    <h2>Engineering support for the infrastructure behind discovery.</h2>
-    <p>Research computing environments bring together Linux systems, compute resources, storage, networking, schedulers, accelerators, and specialized software. Daemon IT Consulting &amp; Tech Services offers scoped technical support to help universities, departments, and research labs assess infrastructure, investigate issues, and move defined engineering projects forward.</p>
-    <p class="university-boundary">We work alongside existing university IT, HPC, research, security, and vendor teams. Each engagement is defined around approved access, available resources, technical scope, and agreed deliverables.</p>
-    <a class="university-cta" href="mailto:barry.ellison@comcast.net?subject=University%20and%20Research%20Computing%20Support">Discuss University &amp; Research Computing Support <span>↗</span></a>
-   </div>
-   <aside class="university-audience">
-    <span class="audience-label">WHO WE SUPPORT</span>
-    <strong>University research-computing teams</strong>
-    <strong>Engineering and science departments</strong>
-    <strong>AI and machine-learning research labs</strong>
-    <strong>Biomedical and computational research groups</strong>
-    <strong>University-affiliated research centers</strong>
-    <strong>Smaller institutions needing project-based capacity</strong>
-   </aside>
-  </div>
-  <div class="university-services">
-   <article class="university-service">
-    <span class="university-number">01</span>
-    <h3>Research Computing Infrastructure Assessments</h3>
-    <p>Review selected parts of a research environment to identify configuration concerns, operational risks, bottlenecks, and improvement opportunities.</p>
-    <ul><li>Linux compute and server configuration reviews</li><li>Storage, networking, and workload-path assessments</li><li>Operational readiness and documentation findings</li></ul>
-   </article>
-   <article class="university-service">
-    <span class="university-number">02</span>
-    <h3>HPC &amp; GPU Workload Support</h3>
-    <p>Investigate issues affecting high-performance computing and AI research workflows.</p>
-    <ul><li>Slurm jobs, queues, and scheduling behavior</li><li>GPU environment and CUDA dependency troubleshooting</li><li>Container, library, and workload execution issues</li></ul>
-   </article>
-   <article class="university-service">
-    <span class="university-number">03</span>
-    <h3>Research Lab Infrastructure Support</h3>
-    <p>Provide project-based assistance for departments and labs operating their own compute and research software environments.</p>
-    <ul><li>Linux systems and research workstation support</li><li>Environment setup and reproducibility improvements</li><li>Technical documentation and operational handoff</li></ul>
-   </article>
-   <article class="university-service">
-    <span class="university-number">04</span>
-    <h3>Automation &amp; Observability</h3>
-    <p>Improve repeatable operations and visibility into the health and behavior of supported infrastructure.</p>
-    <ul><li>Monitoring, metrics, logs, and alerting reviews</li><li>Infrastructure automation and configuration workflows</li><li>Deployment and operational workflow improvements</li></ul>
-   </article>
-   <article class="university-service">
-    <span class="university-number">05</span>
-    <h3>Project-Based HPC Engineering</h3>
-    <p>Engage for a defined technical objective, troubleshooting effort, or remediation project with agreed deliverables.</p>
-    <ul><li>Issue investigation and root-cause findings</li><li>Scoped implementation and remediation support</li><li>Validation, documentation, and handoff</li></ul>
-   </article>
-   <article class="university-service university-service-feature">
-    <span class="feature-label">A CLEAR, COLLABORATIVE ENGAGEMENT</span>
-    <h3>Extend your team's capacity. Keep your team in control.</h3>
-    <p>Start with a technical discussion. Define the environment, access requirements, scope, and success criteria. Then proceed with approved work, documented findings, and a clear handoff.</p>
-    <a href="mailto:barry.ellison@comcast.net?subject=Research%20Computing%20Project%20Discussion">Scope a research computing project ↗</a>
-   </article>
-  </div>
-  <section class="hpc-capability-section" id="hpc-capabilities" aria-labelledby="hpc-capabilities-title">
-   <div class="hpc-capability-head">
-    <div class="kicker">HPC Engineering Capabilities</div>
-    <h2 id="hpc-capabilities-title">Targeted support for complex research-computing environments.</h2>
-    <p>Daemon IT can work alongside university HPC administrators and research-computing teams on defined investigations, remediation tasks, and engineering projects. Support is scoped to the systems, permissions, and technical requirements approved by the institution.</p>
-   </div>
-   <div class="hpc-capability-grid">
-    <article class="hpc-capability-card">
-     <span class="hpc-capability-label">COMPUTE &amp; LINUX</span>
-     <h3>HPC cluster and compute-node support</h3>
-     <p>Investigate selected Linux compute-node and cluster issues, including service health, configuration drift, resource availability, boot or provisioning problems, and node-level failures.</p>
-     <ul><li>Linux compute-node troubleshooting</li><li>Node health and configuration reviews</li><li>Cluster service and capacity observations</li></ul>
-    </article>
-    <article class="hpc-capability-card">
-     <span class="hpc-capability-label">SCHEDULING &amp; WORKLOADS</span>
-     <h3>Slurm scheduler and job troubleshooting</h3>
-     <p>Help investigate why research workloads do not start, remain pending, fail, or perform unexpectedly, using approved scheduler and job information.</p>
-     <ul><li>Slurm queues, partitions, and job states</li><li>Job scripts, resource requests, and failure logs</li><li>Workload execution and scheduling behavior</li></ul>
-    </article>
-    <article class="hpc-capability-card">
-     <span class="hpc-capability-label">GPU &amp; ACCELERATED COMPUTING</span>
-     <h3>GPU and CUDA environment troubleshooting</h3>
-     <p>Investigate software and configuration issues that can prevent supported GPU workloads from initializing or running as expected.</p>
-     <ul><li>GPU visibility and device assignment issues</li><li>CUDA, driver, runtime, and library compatibility</li><li>Containerized GPU workload configuration</li></ul>
-    </article>
-    <article class="hpc-capability-card">
-     <span class="hpc-capability-label">DATA PATH &amp; FABRIC</span>
-     <h3>Parallel storage and high-performance networking</h3>
-     <p>Assist with scoped investigation of data-access and connectivity symptoms across research workloads, storage services, and network paths.</p>
-     <ul><li>Shared and parallel filesystem access symptoms</li><li>Mount, permissions, throughput, and I/O observations</li><li>Network path and connectivity troubleshooting</li></ul>
-    </article>
-    <article class="hpc-capability-card">
-     <span class="hpc-capability-label">CONTAINERS &amp; SOFTWARE STACK</span>
-     <h3>Research software and container compatibility</h3>
-     <p>Review environment and dependency issues that affect reproducibility and execution across supported compute environments.</p>
-     <ul><li>Container runtime and image configuration</li><li>Library, module, and dependency conflicts</li><li>Environment setup and reproducibility checks</li></ul>
-    </article>
-    <article class="hpc-capability-card">
-     <span class="hpc-capability-label">OPERATIONS &amp; VISIBILITY</span>
-     <h3>Cluster monitoring and performance analysis</h3>
-     <p>Review available telemetry and operational evidence to help teams understand recurring errors, utilization patterns, and potential bottlenecks.</p>
-     <ul><li>Metrics, logs, alerts, and node health signals</li><li>CPU, memory, GPU, and workload utilization observations</li><li>Performance findings and prioritized recommendations</li></ul>
-    </article>
-   </div>
-   <div class="hpc-investigation">
-    <div>
-     <div class="feature-label">EXAMPLES OF INVESTIGATIONS</div>
-     <h3>Start with the problem your team needs resolved.</h3>
-     <p>Potential project scopes include failed or pending workloads, scheduler errors, GPU configuration problems, CUDA or driver mismatches, container compatibility failures, compute-node instability, storage access or I/O symptoms, and infrastructure performance bottlenecks.</p>
-    </div>
-    <div class="hpc-engagement">
-     <h3>An additional engineering resource—not a replacement for your HPC team.</h3>
-     <ol>
-      <li><strong>Define the scope.</strong> Identify the affected environment, symptoms, desired outcome, and success criteria.</li>
-      <li><strong>Confirm approved access.</strong> Agree on permissions, change controls, data handling, maintenance windows, and institutional points of contact.</li>
-      <li><strong>Investigate and report.</strong> Work within the approved scope, document findings, and recommend or perform agreed remediation.</li>
-      <li><strong>Validate and hand off.</strong> Review outcomes with the university team and provide practical notes for ongoing operations.</li>
-     </ol>
-    </div>
-   </div>
-   <p class="university-disclaimer">Capability statements describe areas for assessment and scoped project support, not a claim of prior operation of a university supercomputer, a specific vendor-certified capability, or an existing institutional contract or partnership. Actual work depends on demonstrated fit, system access, documentation, approved change procedures, and available resources. Specialized accelerators, high-speed interconnects, parallel filesystems, licensed research software, and production-critical changes may require direct coordination with institutional administrators, security teams, or equipment vendors. Daemon IT does not replace the university's HPC operations, security, or research-support teams.</p>
-  </section>
- </div>
-</section>
+<section class="pods" id="pods"><div class="container pods-layout">
+<div><div class="section-label">A focused engagement / Cost Reduction Engineering Pods</div><h2 class="section-title">Find the waste.<br>Fix the architecture.<br>Keep the performance.</h2><p class="section-copy">A targeted engineering engagement to uncover unnecessary spend, database bottlenecks, oversized infrastructure, and costly technology choices—then help implement approved improvements and validate the results.</p><div class="actions" style="margin-top:24px"><a class="btn primary" href="mailto:barry.ellison@comcast.net?subject=Cost%20Reduction%20Engineering%20Pod">Discuss a Cost Reduction Pod ↗</a></div></div>
+<div class="pods-callout"><div class="section-label">Performance + cost, together</div><h3>Know where your milliseconds and infrastructure dollars are going.</h3><p>Assess cloud and server spend, CNCF platform fit, database health, query behavior, p99 latency, replica utilization, and replication lag. Right-size resources based on measured workload needs—not arbitrary cuts.</p><div class="pod-list">
+<div class="pod-item"><span class="pod-num">01</span><div><b>Discover</b><p>Review architecture, utilization, database telemetry, cloud bills, and licensing.</p></div></div>
+<div class="pod-item"><span class="pod-num">02</span><div><b>Identify</b><p>Find idle capacity, expensive patterns, slow queries, excess replicas, and unnecessary complexity.</p></div></div>
+<div class="pod-item"><span class="pod-num">03</span><div><b>Design &amp; implement</b><p>Develop a practical plan and execute approved changes within agreed access and change controls.</p></div></div>
+<div class="pod-item"><span class="pod-num">04</span><div><b>Validate</b><p>Compare cost, p99 performance, reliability, and operational impact before and after.</p></div></div>
+</div></div>
+</div></section>
 
-<section id="approach">
- <div class="container split">
-  <div>
-   <div class="kicker">Why Daemon</div>
-   <h2>Technology support for people. Engineering support for businesses.</h2>
-   <p>We make it easier to get help, whether you are dealing with a failing device, inaccessible files, a network problem, or a complex infrastructure issue.</p>
-   <p>For business and engineering teams, Daemon serves as an outsourced or fractional DevOps and software reliability partner. The owner personally provides 24/7 on-call business incident support, alongside project work, debugging, deployment improvements, and reliability engineering—without requiring an immediate full-time hire. Specific coverage and response expectations are confirmed during client onboarding.</p>
-   <a class="btn" style="background:var(--ink);color:#fff;margin-top:8px" href="#contact">Tell Us What You Need ↗</a>
-  </div>
-  <div class="feature-list">
-   <div class="feature"><strong>Focused problem-solving</strong><span>Clarify the issue, understand constraints, and identify realistic options.</span></div>
-   <div class="feature"><strong>On-demand DevOps capacity</strong><span>Add outsourced or fractional engineering support with a direct, owner-operated 24/7 on-call contact for covered incidents—without immediately hiring a full-time team.</span></div>
-   <div class="feature"><strong>Solutions shaped around your needs</strong><span>Discuss the scope before choosing a technical approach or implementation path.</span></div>
-   <div class="feature"><strong>Connected technical perspective</strong><span>Consider software, infrastructure, data, automation, and AI as parts of the same business environment.</span></div>
-  </div>
- </div>
-</section>
-<section class="darkband" id="process">
- <div class="container">
-  <div class="section-head">
-   <div class="kicker">A Clear Starting Point</div>
-   <h2>From challenge to next steps.</h2>
-   <p>Start a conversation with the details you have. We’ll use them to discuss fit, scope, and potential next steps.</p>
-  </div>
-  <div class="steps">
-   <article class="step"><div class="step-number">STEP 01</div><h3>Describe the challenge</h3><p>Tell us what you want to fix, build, improve, or understand, and which systems are involved.</p></article>
-   <article class="step"><div class="step-number">STEP 02</div><h3>Review the options</h3><p>Discuss the available information, possible approaches, dependencies, and desired outcome.</p></article>
-   <article class="step"><div class="step-number">STEP 03</div><h3>Agree on a path forward</h3><p>Determine whether the work fits our services and define potential scope and expectations.</p></article>
-  </div>
- </div>
-</section>
-<section class="contact" id="contact">
- <div class="container">
-  <div class="contact-box">
-   <div><div class="kicker">Let’s Talk Technology</div><h2>What needs fixing, recovering, or running better?</h2><p>Tell us about your computer or device, data recovery needs, IT support request, DevOps backlog, or infrastructure challenge. Business clients can contact Daemon IT to arrange owner-operated 24/7 on-call incident support. Emergency contact and escalation details are shared directly with clients during onboarding.</p></div>
-   <div class="contact-actions"><a class="btn primary" href="mailto:barry.ellison@comcast.net?subject=Daemon%20IT%20Consulting%20-%20Project%20Inquiry">Email Daemon ↗</a><a class="btn secondary" href="https://buy.stripe.com/9B63cv0M7efdeQN6tX7g404" target="_blank" rel="noopener">Pay $50 Consultation ↗</a></div>
-  </div>
-  <p class="contact-note">Secure checkout is processed by Stripe. The $50 payment link is for the initial technology consultation only; additional engineering and service work is scoped and priced separately.</p><p class="contact-note">24/7 business on-call support is owner-operated by the business owner. Contact Daemon IT to discuss coverage and enroll your business environment; emergency contact and escalation details are provided directly during onboarding and are not published on this website. Monitoring and automated alerting begin only after agreed integrations, alert rules, and access have been configured and tested. Covered systems, escalation paths, response targets, maintenance windows, and service responsibilities are documented before activation. On-call availability does not guarantee instant response or resolution; response targets and exclusions are defined in the service agreement. Data recovery outcomes depend on the condition of the affected storage; recovery is not guaranteed.</p>
- </div>
-</section>
+<section class="university" id="research"><div class="container">
+<div class="section-label">University &amp; research computing</div><h2 class="section-title">Engineering support for the infrastructure behind discovery.</h2><p class="section-copy">Scoped project support for universities, departments, and research labs working with Linux systems, compute clusters, schedulers, accelerators, storage, and specialized research workloads.</p>
+<div class="university-grid">
+<article class="uni-card"><h3>HPC &amp; GPU Workload Support</h3><p>Investigate defined issues affecting research workloads and compute environments.</p><ul><li>Slurm queues, jobs, and scheduling behavior</li><li>GPU visibility, CUDA, drivers, and containers</li><li>Compute-node health and workload execution</li></ul></article>
+<article class="uni-card"><h3>Research Infrastructure &amp; Operations</h3><p>Help teams assess operational visibility and improve repeatable infrastructure workflows.</p><ul><li>Linux, storage, networking, and data-path reviews</li><li>Metrics, logs, alerts, and utilization observations</li><li>Automation, documentation, and project handoff</li></ul></article>
+</div>
+<p class="fineprint">Work is scoped to approved access, available resources, technical requirements, and agreed deliverables. Daemon IT works alongside institutional HPC, IT, security, and vendor teams; it does not replace them. These capability descriptions do not imply existing university contracts, vendor certifications, or guaranteed outcomes.</p>
+</div></section>
+
+<section class="personal" id="personal"><div class="container">
+<div class="section-label">Personal technology / Local solutions</div><h2 class="section-title">Big infrastructure thinking.<br>Real-world technology help.</h2><p class="section-copy">Daemon IT also helps individuals and small businesses solve everyday technology problems. Get practical help with devices, computers, and inaccessible data.</p>
+<div class="personal-grid" style="margin-top:30px">
+<article class="personal-card"><span class="glyph">⌕</span><h3>Data Recovery &amp; Backup Help</h3><p>Assessment and recovery assistance for accessible data from hard drives, SSDs, and supported storage devices, plus backup and recovery guidance. Results depend on device condition; recovery is not guaranteed.</p></article>
+<article class="personal-card"><span class="glyph">▣</span><h3>Smartphone &amp; Tablet Repair</h3><p>Device troubleshooting and repair assessment for supported smartphones and tablets, including charging, connectivity, setup, and common hardware or software issues.</p></article>
+<article class="personal-card"><span class="glyph">⌘</span><h3>Computer &amp; Laptop Services</h3><p>Computer setup, troubleshooting, performance cleanup, operating-system assistance, upgrades, and practical repair guidance for home and small-business users.</p></article>
+<article class="personal-card"><span class="glyph">⌁</span><h3>Device &amp; Technology Support</h3><p>Help with networks, peripherals, gaming systems, data transfer, device configuration, and getting your technology working together.</p></article>
+</div>
+<div class="actions" style="margin-top:25px"><a class="btn primary" href="mailto:barry.ellison@comcast.net?subject=Personal%20Technology%20or%20Data%20Recovery%20Request">Get Personal Tech Help ↗</a></div>
+</div></section>
+
+<section class="approach" id="approach"><div class="container">
+<div class="section-label">How we work</div><h2 class="section-title">Clear scope. Practical engineering. Measurable next steps.</h2><p class="section-copy">Start with the challenge, understand the environment, and agree on a realistic path forward.</p>
+<div class="steps"><article class="step"><small>STEP 01</small><h3>Describe the challenge</h3><p>Tell us what you need to fix, build, recover, optimize, or understand.</p></article><article class="step"><small>STEP 02</small><h3>Review the options</h3><p>Discuss technical fit, dependencies, access, cost, risks, and desired outcomes.</p></article><article class="step"><small>STEP 03</small><h3>Agree on the work</h3><p>Define scope, deliverables, responsibilities, timing, and pricing before implementation.</p></article></div>
+</div></section>
+
+<section class="contact" id="contact"><div class="container">
+<div class="contact-box"><div><div class="section-label">Connect with Daemon</div><h2>What needs building, fixing, optimizing, or recovering?</h2><p>Tell us about your infrastructure initiative, database performance challenge, compute strategy, IT consulting need, device issue, or data recovery request. We’ll discuss fit and the next step.</p></div><div class="contact-actions"><a class="btn primary" href="mailto:barry.ellison@comcast.net?subject=Daemon%20IT%20Project%20Inquiry">Email Daemon IT ↗</a><a class="btn ghost" href="https://buy.stripe.com/9B63cv0M7efdeQN6tX7g404" target="_blank" rel="noopener">Pay $50 Consultation ↗</a></div></div>
+<p class="fineprint">Contact: barry.ellison@comcast.net · The $50 Stripe payment link is for the initial technology consultation only; additional engineering and service work is scoped and priced separately. Business on-call support is owner-operated and subject to agreed coverage, systems, escalation paths, response targets, and service terms established during onboarding. On-call availability does not guarantee instant response or resolution. Database replica changes are evaluated against availability, replication lag, recovery, and workload requirements. Cost savings and data recovery outcomes are not guaranteed.</p>
+</div></section>
 </main>
-<footer><div class="container footer-row"><div><div class="footer-brand">Daemon IT Consulting &amp; Tech Services</div><p>IT Consulting • Application Management • DevOps Remediation • Technology Services</p></div><p>© <span id="year"></span> Daemon IT Consulting. All rights reserved.</p><a href="#home">Back to top ↑</a></div></footer>
+<footer><div class="container footer"><div><b>Daemon IT Consulting &amp; Tech Services</b><br>Engineer. Transform. Optimize. Recover.</div><div>© <span id="year"></span> Daemon IT Consulting. All rights reserved.</div><div><a href="#home">Back to top ↑</a></div></div></footer>
 <script>document.getElementById("year").textContent=new Date().getFullYear();</script>
-</body>
-</html>
+</body></html>
