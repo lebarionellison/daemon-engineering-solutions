@@ -120,7 +120,47 @@ spec:
 <section class="alt" id="founder"><div class="wrap"><div class="founderCard reveal"><div class="founderAvatar" aria-label="Founder initials">LE</div><div><div class="kicker">FOUNDER &amp; ENGINEERING LEAD</div><h2>Lebarion J. Ellison</h2><p>Infrastructure and platform engineering practitioner focused on cloud architecture, Kubernetes, CI/CD, SRE, security controls and FinOps. DAEMON ACE grows from a hands-on view of the operational friction teams face when building, securing and running modern infrastructure.</p><a class="founderLink" href="https://www.linkedin.com/in/lebarionellison" target="_blank" rel="noopener noreferrer">View LinkedIn profile ↗</a></div></div></div></section><section class="cta" id="contact"><div class="wrap"><div class="ctaBox reveal"><div><div class="kicker">DAEMON ENGINEERING SOLUTIONS</div><h2>Bring us the infrastructure problem. Let's engineer the proof.</h2><p>We are developing DAEMON ACE around a simple promise: make complex infrastructure work easier to direct, safer to validate and clearer to approve. Talk with us about your delivery workflow, Kubernetes environment, AI/HPC workloads, regulated SaaS controls or cloud-cost challenge. Enterprise assessments, managed implementations and recurring engineering engagements are available by scoped proposal.</p></div><div class="ctaButtons"><button class="btn primary" type="button" data-open-intake>Discuss an ACE Pilot ↗</button><button class="btn secondary" type="button" data-open-intake>Talk to Engineering ↗</button><a class="btn secondary" href="mailto:daemonengineeringsolutions@gmail.com">Email Daemon Engineering ↗</a><a class="founderLink" href="mailto:daemonengineeringsolutions@gmail.com">daemonengineeringsolutions@gmail.com</a></div></div></div></section>
 <section class="dark" id="control-plane"><div class="wrap"><div class="sectionHead"><div class="kicker">DAEMON ACE · OPERATING SURFACES</div><h2>One engineering engine. Three ways to work.</h2><p>The Web Control Plane, local CLI and delivery integrations share the DAEMON ACE Receipt of Safety format. The interfaces are being connected in stages; integrations are not represented as active until configured.</p></div><div class="four"><article class="card"><div class="index">01 · WEB CONTROL PLANE</div><h3>Review in the browser</h3><p>Submit a manifest, inspect heuristic findings and retrieve a recorded Receipt of Safety. Human review remains separate from deployment.</p><a class="founderLink" href="#preflight">Open browser preflight ↓</a></article><article class="card"><div class="index">02 · ENGINEER CLI</div><h3>Preflight from terminal</h3><p>Run local checks before pushing code. Export a JSON receipt for CI artifacts and engineering review.</p><pre style="white-space:pre-wrap;color:#9fe8e5;font-size:11px">daemon-ace preflight ./deploy.yaml</pre></article><article class="card"><div class="index">03 · GITHUB</div><h3>Pull-request workflow</h3><p>A GitHub Actions workflow runs local checks on pull requests and uploads a receipt artifact. It does not merge or deploy.</p><span class="founderLink">Workflow template included in repository</span></article><article class="card"><div class="index">04 · SLACK + TEAMS</div><h3>Team notifications</h3><p>Shared receipt contract prepared for workspace delivery. Slack and Teams require app/webhook setup, signature verification and authenticated approval callbacks before activation.</p><span class="founderLink">Integration adapters: not yet connected</span></article></div><div class="panel" style="margin-top:18px"><div class="kicker">SHARED API CONTRACT</div><h3>From preflight to evidence</h3><p><code>POST /api/preflight</code> · <code>GET /api/receipts/:id</code> · <code>POST /api/approvals</code> · <code>POST /api/deployments</code></p></div></div></section>
 </main>
-<section class="dark" id="engineering-transparency"><div class="wrap"><div class="transparencyNote"><div class="kicker">ENGINEERING TRANSPARENCY &amp; SCOPE</div><h2>Clear evidence. Honest boundaries. Human-controlled change.</h2><p>DAEMON ACE is an actively developing engineering platform. The public demo uses illustrative scenarios and modeled metrics—not customer results, measured savings, live security findings or live infrastructure execution. The free YAML X-Ray uses lightweight text-pattern heuristics; it is not a full YAML parser, Kubernetes admission controller, vulnerability scanner, penetration test or compliance assessment. The Receipt of Safety organizes available scope, findings, assumptions and review evidence; it does not certify compliance or guarantee an audit outcome.</p><p>Product interfaces and ecosystem integrations are delivered in stages and are not represented as connected, certified or production-ready until verified. Human approval records a decision for manual review; the automated production deployment endpoint is disabled. Any implementation work is a separately scoped, human-led service subject to customer authorization, change controls, validation and rollback planning. Managed monitoring, incident response and 24/7 SLA coverage require confirmed staffing, integrations and explicit contract terms. Market estimates are third-party research, not DAEMON ACE revenue, customer traction or market share. Do not submit secrets, tokens, private keys or confidential customer data to the public X-Ray.</p></div></div></section><footer><div class="wrap foot"><div><b>Daemon Engineering Solutions</b><br>Creator of DAEMON ACE.</div><div>© <span id="year"></span> Daemon Engineering Solutions. All rights reserved.</div><div><a href="#home">Back to top ↑</a></div></div></footer><div class="modalBackdrop" id="intakeBackdrop" role="dialog" aria-modal="true" aria-labelledby="intakeTitle"><div class="intakeModal"><button class="modalClose" type="button" id="closeIntake" aria-label="Close">✕</button><div class="kicker">DAEMON ENGINEERING SOLUTIONS</div><h2 id="intakeTitle">Start an engineering conversation.</h2><p>Send a pilot, design-partner or investor data-room request. Your details will be submitted to Daemon Engineering Solutions.</p><form id="intakeForm"><input type="hidden" id="requestType" name="requestType" value="Pilot inquiry"><div class="honeypot" aria-hidden="true"><label for="website">Leave this field empty</label><input id="website" name="website" tabindex="-1" autocomplete="off"></div><label for="intakeName">Name</label><input id="intakeName" name="name" autocomplete="name" required><label for="intakeEmail">Work email</label><input id="intakeEmail" name="email" type="email" autocomplete="email" required><label for="intakeCompany">Company / organization</label><input id="intakeCompany" name="company" autocomplete="organization" required><label for="intakePain">Biggest infrastructure pain</label><textarea id="intakePain" name="pain" required placeholder="For example: GPU cost, Kubernetes security, CI/CD reliability, or platform delivery overhead."></textarea><div class="modalActions"><button class="btn primary" id="submitLead" type="submit">Send request securely ↗</button><button class="btn secondary" type="button" id="cancelIntake">Cancel</button></div><p class="formStatus" id="formStatus" role="status" aria-live="polite"></p><p class="fine">Do not include passwords, access tokens or confidential infrastructure details.</p></form></div></div>
+<section class="dark" id="engineering-transparency"><div class="wrap"><div class="transparencyNote"><div class="kicker">ENGINEERING TRANSPARENCY &amp; SCOPE</div><h2>Clear evidence. Honest boundaries. Human-controlled change.</h2><p>DAEMON ACE is an actively developing engineering platform. The public demo uses illustrative scenarios and modeled metrics—not customer results, measured savings, live security findings or live infrastructure execution. The free YAML X-Ray uses lightweight text-pattern heuristics; it is not a full YAML parser, Kubernetes admission controller, vulnerability scanner, penetration test or compliance assessment. The Receipt of Safety organizes available scope, findings, assumptions and review evidence; it does not certify compliance or guarantee an audit outcome.</p><p>Product interfaces and ecosystem integrations are delivered in stages and are not represented as connected, certified or production-ready until verified. Human approval records a decision for manual review; the automated production deployment endpoint is disabled. Any implementation work is a separately scoped, human-led service subject to customer authorization, change controls, validation and rollback planning. Managed monitoring, incident response and 24/7 SLA coverage require confirmed staffing, integrations and explicit contract terms. Market estimates are third-party research, not DAEMON ACE revenue, customer traction or market share. Do not submit secrets, tokens, private keys or confidential customer data to the public X-Ray.</p></div></div></section>
+<section id="xray-tool" class="section">
+  <div class="wrap">
+    <div class="sectionHead reveal">
+      <div class="kicker">FREE ENGINEERING UTILITY · DAEMON ACE</div>
+      <h2>Paste your config. Get a security &amp; cost X-Ray.</h2>
+      <p class="sectionLead">Run a quick, browser-based heuristic review of Kubernetes YAML, Dockerfiles and pipeline configuration. Your configuration text stays in this browser; only your email and finding labels are submitted if you request the follow-up.</p>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr));gap:20px;background:#0b1525;border:1px solid #26374d;border-radius:16px;padding:clamp(16px,3vw,26px)">
+      <div>
+        <div style="display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:10px;flex-wrap:wrap">
+          <b style="font-size:11px;letter-spacing:1px;color:#c5d4e7">INFRASTRUCTURE CONFIG · YAML / DOCKERFILE</b>
+          <div style="display:flex;gap:8px">
+            <button type="button" id="xrayLoadSample" class="btn secondary" style="min-height:34px;padding:7px 10px">Load risky sample</button>
+            <button type="button" id="xrayClear" class="btn secondary" style="min-height:34px;padding:7px 10px">Clear</button>
+          </div>
+        </div>
+        <textarea id="xrayInput" rows="14" spellcheck="false" aria-label="Infrastructure configuration to scan" placeholder="# Paste a Kubernetes manifest, Dockerfile or pipeline config here. Remove secrets first." style="width:100%;resize:vertical;background:#050a13;border:1px solid #34465e;border-radius:10px;padding:14px;color:#e4edf8;font:12px/1.55 ui-monospace,SFMono-Regular,Consolas,monospace"></textarea>
+        <button type="button" id="xrayRun" class="btn primary" style="width:100%;margin-top:12px">▶ Run Pre-Flight X-Ray</button>
+        <p style="font-size:11px;color:#91a3bb;margin:10px 0 0">Text-pattern checks only. This utility does not connect to a cluster, parse every manifest format or certify security.</p>
+      </div>
+      <div style="background:#070d18;border:1px solid #26374d;border-radius:12px;padding:18px;display:flex;flex-direction:column;min-height:320px">
+        <div style="display:flex;justify-content:space-between;align-items:center;gap:10px;border-bottom:1px solid #26374d;padding-bottom:12px;margin-bottom:14px">
+          <b style="font-size:11px;letter-spacing:1px;color:#a9bad0">PRE-FLIGHT X-RAY REPORT</b>
+          <span id="xrayGrade" style="font-size:10px;font-weight:900;background:#1e293b;color:#cbd5e1;padding:5px 9px;border-radius:6px">AWAITING SCAN</span>
+        </div>
+        <div id="xrayResults" aria-live="polite" style="font-size:13px;color:#a9bad0;line-height:1.65">Load the sample or paste a configuration, then run the scan to see potential security and cost flags.</div>
+        <div id="xrayLeadBox" hidden style="margin-top:auto;padding-top:18px;border-top:1px solid #26374d">
+          <b style="display:block;font-size:13px;margin-bottom:6px">Want to discuss the findings with an engineer?</b>
+          <p style="font-size:12px;color:#a9bad0;margin:0 0 10px">Enter your work email. We’ll save your request and send the finding summary to the Daemon Engineering Solutions team.</p>
+          <form id="xrayEmailForm" style="display:flex;gap:8px;flex-wrap:wrap">
+            <input id="xrayEmail" name="email" type="email" autocomplete="email" required placeholder="you@company.com" style="flex:1;min-width:170px;background:#0b1525;border:1px solid #34465e;border-radius:8px;padding:10px;color:#f4f7fc">
+            <button type="submit" id="xraySendBtn" class="btn primary">Send request ↗</button>
+          </form>
+          <div id="xrayEmailStatus" role="status" aria-live="polite" style="font-size:12px;margin-top:9px;color:#7be0b0"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<footer><div class="wrap foot"><div><b>Daemon Engineering Solutions</b><br>Creator of DAEMON ACE.</div><div>© <span id="year"></span> Daemon Engineering Solutions. All rights reserved.</div><div><a href="#home">Back to top ↑</a></div></div></footer><div class="modalBackdrop" id="intakeBackdrop" role="dialog" aria-modal="true" aria-labelledby="intakeTitle"><div class="intakeModal"><button class="modalClose" type="button" id="closeIntake" aria-label="Close">✕</button><div class="kicker">DAEMON ENGINEERING SOLUTIONS</div><h2 id="intakeTitle">Start an engineering conversation.</h2><p>Send a pilot, design-partner or investor data-room request. Your details will be submitted to Daemon Engineering Solutions.</p><form id="intakeForm"><input type="hidden" id="requestType" name="requestType" value="Pilot inquiry"><div class="honeypot" aria-hidden="true"><label for="website">Leave this field empty</label><input id="website" name="website" tabindex="-1" autocomplete="off"></div><label for="intakeName">Name</label><input id="intakeName" name="name" autocomplete="name" required><label for="intakeEmail">Work email</label><input id="intakeEmail" name="email" type="email" autocomplete="email" required><label for="intakeCompany">Company / organization</label><input id="intakeCompany" name="company" autocomplete="organization" required><label for="intakePain">Biggest infrastructure pain</label><textarea id="intakePain" name="pain" required placeholder="For example: GPU cost, Kubernetes security, CI/CD reliability, or platform delivery overhead."></textarea><div class="modalActions"><button class="btn primary" id="submitLead" type="submit">Send request securely ↗</button><button class="btn secondary" type="button" id="cancelIntake">Cancel</button></div><p class="formStatus" id="formStatus" role="status" aria-live="polite"></p><p class="fine">Do not include passwords, access tokens or confidential infrastructure details.</p></form></div></div>
 <script>
 document.getElementById("year").textContent=new Date().getFullYear();const scenarios={
 gpu:{label:"GPU / CLOUD COST",prompt:"Model right-sizing opportunities while preserving workload performance constraints.",metrics:[["MODELED OPPORTUNITY","−$14,200/mo","Illustrative estimate"],["WORKLOADS","4 candidates","For engineering review"],["CHECKS","12 checks","Planned validation scope"]],logs:["[00:00.2] Initializing Pre-Flight Twin scenario: GPU / cloud cost.","[00:00.8] Loading sample workload profile and declared constraints.","[00:01.5] Modeling utilization bands across 4 hypothetical workloads.","[00:02.2] Comparing baseline and right-sized resource requests.","[00:03.0] Evaluating GPU partitioning options (MIG profile review).","[00:03.8] Checking workload fit, resource limits and rollback criteria.","[00:04.6] Receipt assembled. Human review required before any change."],checks:["Workload profile parsed","MIG options modeled","Resource limits reviewed"],diff:"apiVersion: apps/v1\nkind: Deployment\nmetadata:\n  name: inference-worker\nspec:\n  template:\n    spec:\n      containers:\n        - name: inference\n-         resources: {}\n+         resources:\n+           requests:\n+             cpu: \"4\"\n+             memory: 16Gi\n+           limits:\n+             cpu: \"8\"\n+             memory: 24Gi\n# Proposed GPU allocation is workload-specific.\n# MIG profile must be validated against the target GPU." ,detail:"Illustrative model only. The $14,200/month figure is a hypothetical opportunity—not measured savings or a guarantee. Actual modeling requires customer telemetry, GPU model, utilization history and workload validation."},
@@ -208,6 +248,80 @@ fetch("/api/preflight",{method:"POST",headers:{"Content-Type":"application/json"
 .then(async r=>{const data=await r.json().catch(()=>({}));if(!r.ok)throw new Error(data.error||"Receipt API unavailable");document.getElementById("preflightSummary").textContent=f.length+" local heuristic finding(s). Server receipt saved: "+data.receipt_id;document.getElementById("preflightReceipt").textContent=JSON.stringify(data.receipt,null,2);})
 .catch(()=>{document.getElementById("preflightSummary").textContent=f.length+" local heuristic finding(s). Server receipt storage is not yet available; this result remains in this browser only.";});
 });
+
+/* DAEMON ACE Config & Cost X-Ray — browser-local heuristic checks */
+(()=>{
+  const $=id=>document.getElementById(id);
+  const input=$("xrayInput"),grade=$("xrayGrade"),results=$("xrayResults"),lead=$("xrayLeadBox");
+  if(!input||!grade||!results||!lead)return;
+  const sample=`apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: llm-inference-worker
+spec:
+  replicas: 4
+  template:
+    spec:
+      hostNetwork: true
+      containers:
+      - name: vllm-server
+        image: vllm/vllm-openai:latest
+        securityContext:
+          privileged: true
+          runAsUser: 0
+        resources:
+          requests:
+            nvidia.com/gpu: 2`;
+  const escapeHTML=value=>String(value).replace(/[&<>"']/g,ch=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[ch]));
+  function clear(){
+    input.value="";grade.textContent="AWAITING SCAN";grade.style.background="#1e293b";grade.style.color="#cbd5e1";
+    results.textContent="Load the sample or paste a configuration, then run the scan.";
+    lead.hidden=true;$("xrayEmailStatus").textContent="";
+  }
+  function scan(){
+    const source=input.value.trim();if(!source){results.textContent="Paste a configuration before running the scan.";return;}
+    const findings=[];let score=100;
+    const add=(type,message,points)=>{findings.push({type,message});score-=points;};
+    if(/privileged:\\s*true/i.test(source))add("CRITICAL SECURITY","Privileged container mode is enabled; review host breakout exposure.",30);
+    if(/runAsUser:\\s*0\\b/i.test(source)||! /runAsNonRoot:\\s*true/i.test(source))add("HIGH SECURITY","Root execution may be allowed; set runAsNonRoot where compatible.",20);
+    if(/hostNetwork:\\s*true/i.test(source))add("NETWORK EXPOSURE","hostNetwork is enabled; review network isolation boundaries.",20);
+    if(/:\\s*latest\\b/i.test(source))add("SUPPLY CHAIN RISK","A mutable :latest image tag is present; pin and verify image provenance.",10);
+    if(!/limits\\s*:/i.test(source))add("COST & OOM RISK","CPU or memory limits were not detected; evaluate workload resource caps.",15);
+    if(/nvidia\\.com\\/gpu/i.test(source)&&!/\\bmig\\b/i.test(source))add("GPU FINOPS REVIEW","GPU allocation detected without an obvious MIG reference; assess utilization and partitioning options.",10);
+    score=Math.max(0,score);
+    grade.textContent=findings.length?(score>=75?"REVIEW NEEDED":"HIGH EXPOSURE"):"NO LISTED FLAGS";
+    grade.style.background=findings.length?"#54252b":"#123c32";grade.style.color=findings.length?"#fecaca":"#a7f3d0";
+    if(findings.length){
+      results.innerHTML="<p style='margin:0 0 10px;color:#e2e8f0'><b>Heuristic score: "+score+"/100</b> · "+findings.length+" item(s) to review</p><ul style='padding-left:18px;margin:0;display:grid;gap:10px'>"+findings.map(f=>"<li><b style='color:#63e8e8;font-size:11px'>"+escapeHTML(f.type)+"</b><br>"+escapeHTML(f.message)+"</li>").join("")+"</ul>";
+    }else{
+      results.innerHTML="<p style='color:#a7f3d0;margin:0'>No listed patterns were detected. This does not establish that the configuration is secure.</p>";
+    }
+    $("xrayEmailForm").dataset.summary="Heuristic score: "+score+"/100; "+findings.length+" finding(s): "+(findings.map(f=>f.type).join(", ")||"No listed patterns detected");
+    lead.hidden=false;
+  }
+  $("xrayLoadSample").addEventListener("click",()=>{input.value=sample;scan();});
+  $("xrayClear").addEventListener("click",clear);
+  $("xrayRun").addEventListener("click",scan);
+  $("xrayEmailForm").addEventListener("submit",async event=>{
+    event.preventDefault();
+    const form=event.currentTarget,button=$("xraySendBtn"),status=$("xrayEmailStatus");
+    const email=$("xrayEmail").value.trim(),summary=form.dataset.summary||"Config X-Ray follow-up requested";
+    if(!email)return;
+    button.disabled=true;button.textContent="Sending…";status.textContent="";
+    const leadPayload={name:"Config X-Ray visitor",email,company:"Self-service X-Ray",requestType:"DAEMON ACE Config & Cost X-Ray",pain:summary};
+    try{
+      const saved=await fetch("/api/leads",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(leadPayload)});
+      const savedResult=await saved.json().catch(()=>({}));
+      if(!saved.ok||savedResult.stored!==true)throw new Error(savedResult.error||"The request could not be saved.");
+      const mail=await fetch("https://api.web3forms.com/submit",{method:"POST",headers:{"Content-Type":"application/json","Accept":"application/json"},body:JSON.stringify({access_key:"debe6951-6dfb-4617-951f-5828d53c47ad",subject:"New DAEMON ACE Config X-Ray Request",from_name:"Daemon Engineering Solutions",name:leadPayload.name,email,company:leadPayload.company,requestType:leadPayload.requestType,scan_summary:summary})});
+      const mailResult=await mail.json().catch(()=>({}));
+      if(!mail.ok||mailResult.success!==true)throw new Error("Your request was saved, but the email notification did not complete. Please contact daemonengineeringsolutions@gmail.com.");
+      status.textContent="Request saved and email notification sent. The team will follow up.";
+      form.reset();
+    }catch(error){status.textContent=error.message||"Unable to send right now. Please try again.";}
+    finally{button.disabled=false;button.textContent="Send request ↗";}
+  });
+})();
 </script>
 </body>
 </html>
