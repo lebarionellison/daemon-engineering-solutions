@@ -1,4 +1,4 @@
-name = "daemon-engineering-solutions"
+name = "daemon-it-consulting"
 main = "./worker.js"
 compatibility_date = "2026-10-28"
 
