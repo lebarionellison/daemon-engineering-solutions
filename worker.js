@@ -65,13 +65,13 @@ async function createPreflight(request, env) {
   const lower = manifest.toLowerCase();
   const findings = [];
   const add = (severity, code, title, recommendation) => findings.push({ severity, code, title, recommendation });
-  if (/privileged:\\s*true/.test(lower)) add("high", "PRIVILEGED_CONTAINER", "Privileged container enabled", "Review whether host-level privileges are required.");
-  if (/runasnonroot:\\s*false/.test(lower) || /runasuser:\\s*0\\b/.test(lower)) add("high", "ROOT_CONTAINER", "Container may run as root", "Use a non-root identity where supported.");
+  if (/privileged:\s*true/.test(lower)) add("high", "PRIVILEGED_CONTAINER", "Privileged container enabled", "Review whether host-level privileges are required.");
+  if (/runasnonroot:\s*false/.test(lower) || /runasuser:\s*0\b/.test(lower)) add("high", "ROOT_CONTAINER", "Container may run as root", "Use a non-root identity where supported.");
   if (/hostpath:/.test(lower)) add("high", "HOST_PATH", "HostPath volume detected", "Review host filesystem exposure and mount scope.");
-  if (/image:\\s*[^\\n]+:latest\\b/.test(lower)) add("medium", "MUTABLE_IMAGE_TAG", "Mutable image tag detected", "Pin an image version or digest and verify provenance.");
+  if (/image:\s*[^\n]+:latest\b/.test(lower)) add("medium", "MUTABLE_IMAGE_TAG", "Mutable image tag detected", "Pin an image version or digest and verify provenance.");
   if (/nodeport|loadbalancer|externalips:/.test(lower)) add("medium", "PUBLIC_SERVICE", "Potentially exposed service", "Review ingress, network policy and external access.");
-  if (/allowprivilegeescalation:\\s*true/.test(lower)) add("medium", "PRIVILEGE_ESCALATION", "Privilege escalation allowed", "Set allowPrivilegeEscalation to false where compatible.");
-  if (!/resources:/.test(lower) && /kind:\\s*(deployment|pod|statefulset)/.test(lower)) add("medium", "MISSING_RESOURCES", "Resource settings not detected", "Define CPU and memory requests and evaluate limits.");
+  if (/allowprivilegeescalation:\s*true/.test(lower)) add("medium", "PRIVILEGE_ESCALATION", "Privilege escalation allowed", "Set allowPrivilegeEscalation to false where compatible.");
+  if (!/resources:/.test(lower) && /kind:\s*(deployment|pod|statefulset)/.test(lower)) add("medium", "MISSING_RESOURCES", "Resource settings not detected", "Define CPU and memory requests and evaluate limits.");
   if (!findings.length) add("info", "NO_MATCHING_PATTERNS", "No listed patterns detected", "This does not establish that the manifest is secure.");
   const score = Math.max(0, 100 - findings.reduce((n, f) => n + (f.severity === "high" ? 25 : f.severity === "medium" ? 12 : 0), 0));
   const id = crypto.randomUUID();
