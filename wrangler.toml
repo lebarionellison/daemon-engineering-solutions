@@ -2,12 +2,11 @@ name = "daemon-it-consulting"
 main = "./worker.js"
 compatibility_date = "2026-10-28"
 
-# After creating the D1 database in Cloudflare, add its real database_id:
-# [[d1_databases]]
-# binding = "DB"
-# database_name = "daemon-ace-leads"
-# database_id = "REPLACE_WITH_REAL_D1_DATABASE_ID"
-# migrations_dir = "migrations"
+[[d1_databases]]
+binding = "DB"
+database_name = "daemon-ace-leads"
+database_id = "f7168786-e696-4694-896c-614626a2bbb3"
+migrations_dir = "migrations"
 
 [assets]
 directory = "."
