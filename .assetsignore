@@ -1,0 +1,8 @@
+worker.js
+wrangler.toml
+.assetsignore
+LEAD-CAPTURE-SETUP.md
+README.md
+functions/
+.github/
+.git/
