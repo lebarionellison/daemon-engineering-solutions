@@ -13,6 +13,12 @@ export default {
     if (path === "/api/health" && request.method === "GET") {
       return json({ ok: true, lead_storage_configured: Boolean(env.DB), email_notifications: "disabled" });
     }
+    if (path === "/api/preflight" && request.method === "POST") return createPreflight(request, env);
+    if (path.startsWith("/api/receipts/") && request.method === "GET") return getReceipt(request, env, path);
+    if (path === "/api/approvals" && request.method === "POST") return recordApproval(request, env);
+    if (path === "/api/deployments" && request.method === "POST") {
+      return json({ error: "Deployment adapters are not configured. No infrastructure change was executed.", deployment_enabled: false }, 501);
+    }
     if (path === "/api/leads" && request.method === "POST") return handleLead(request, env);
     if (path === "/api/admin/login" && request.method === "POST") return adminLogin(request, env);
     if (path === "/api/admin/session" && request.method === "GET") {
@@ -48,6 +54,66 @@ export default {
     return env.ASSETS.fetch(request);
   }
 };
+
+async function createPreflight(request, env) {
+  if (!sameOrigin(request)) return json({ error: "Origin not allowed." }, 403);
+  if (!env.DB) return json({ error: "Receipt storage is not configured." }, 503);
+  if (!(request.headers.get("Content-Type") || "").toLowerCase().includes("application/json")) return json({ error: "JSON required." }, 415);
+  const body = await readJson(request);
+  const manifest = String(body?.manifest || "");
+  if (!manifest.trim() || manifest.length > 20000) return json({ error: "Provide a manifest between 1 and 20,000 characters." }, 400);
+  const lower = manifest.toLowerCase();
+  const findings = [];
+  const add = (severity, code, title, recommendation) => findings.push({ severity, code, title, recommendation });
+  if (/privileged:\\s*true/.test(lower)) add("high", "PRIVILEGED_CONTAINER", "Privileged container enabled", "Review whether host-level privileges are required.");
+  if (/runasnonroot:\\s*false/.test(lower) || /runasuser:\\s*0\\b/.test(lower)) add("high", "ROOT_CONTAINER", "Container may run as root", "Use a non-root identity where supported.");
+  if (/hostpath:/.test(lower)) add("high", "HOST_PATH", "HostPath volume detected", "Review host filesystem exposure and mount scope.");
+  if (/image:\\s*[^\\n]+:latest\\b/.test(lower)) add("medium", "MUTABLE_IMAGE_TAG", "Mutable image tag detected", "Pin an image version or digest and verify provenance.");
+  if (/nodeport|loadbalancer|externalips:/.test(lower)) add("medium", "PUBLIC_SERVICE", "Potentially exposed service", "Review ingress, network policy and external access.");
+  if (/allowprivilegeescalation:\\s*true/.test(lower)) add("medium", "PRIVILEGE_ESCALATION", "Privilege escalation allowed", "Set allowPrivilegeEscalation to false where compatible.");
+  if (!/resources:/.test(lower) && /kind:\\s*(deployment|pod|statefulset)/.test(lower)) add("medium", "MISSING_RESOURCES", "Resource settings not detected", "Define CPU and memory requests and evaluate limits.");
+  if (!findings.length) add("info", "NO_MATCHING_PATTERNS", "No listed patterns detected", "This does not establish that the manifest is secure.");
+  const score = Math.max(0, 100 - findings.reduce((n, f) => n + (f.severity === "high" ? 25 : f.severity === "medium" ? 12 : 0), 0));
+  const id = crypto.randomUUID();
+  const receipt = {
+    schema: "daemon-ace.receipt-of-safety.v1",
+    id,
+    record_type: "server_recorded_heuristic_preflight",
+    created_at: new Date().toISOString(),
+    status: "PENDING_REVIEW",
+    analysis: { mode: "text_pattern_heuristics", score, findings, manifest_bytes: new TextEncoder().encode(manifest).length },
+    scope: { live_cluster_connected: false, tests_executed: false, production_change_authorized: false },
+    proposed_diff_available: false,
+    limitations: ["Heuristic text checks only; not a YAML parser", "No cluster connection or live scan", "No vulnerability scanner", "No Helm, Kustomize or template resolution", "Not a security certification"]
+  };
+  await env.DB.prepare("INSERT INTO receipts (id, status, receipt_json, created_at) VALUES (?, 'pending', ?, datetime('now'))").bind(id, JSON.stringify(receipt)).run();
+  return json({ ok: true, receipt_id: id, receipt });
+}
+
+async function getReceipt(request, env, path) {
+  if (!env.DB) return json({ error: "Receipt storage is not configured." }, 503);
+  const id = path.slice("/api/receipts/".length);
+  if (!/^[0-9a-f-]{36}$/i.test(id)) return json({ error: "Receipt not found." }, 404);
+  const row = await env.DB.prepare("SELECT receipt_json FROM receipts WHERE id = ?").bind(id).first();
+  if (!row) return json({ error: "Receipt not found." }, 404);
+  return json({ receipt: JSON.parse(row.receipt_json) });
+}
+
+async function recordApproval(request, env) {
+  if (!sameOrigin(request)) return json({ error: "Origin not allowed." }, 403);
+  if (!await hasAdminSession(request, env)) return json({ error: "An authenticated dashboard session is required." }, 401);
+  if (!env.DB) return json({ error: "Receipt storage is not configured." }, 503);
+  const body = await readJson(request);
+  const id = String(body?.receipt_id || "");
+  const decision = String(body?.decision || "");
+  const note = clean(body?.note || "", 1000);
+  if (!/^[0-9a-f-]{36}$/i.test(id) || !["approved_for_manual_review", "rejected"].includes(decision)) return json({ error: "Invalid approval decision." }, 400);
+  const row = await env.DB.prepare("SELECT id FROM receipts WHERE id = ?").bind(id).first();
+  if (!row) return json({ error: "Receipt not found." }, 404);
+  await env.DB.prepare("INSERT INTO approvals (receipt_id, decision, note, actor, created_at) VALUES (?, ?, ?, 'dashboard-session', datetime('now'))").bind(id, decision, note).run();
+  await env.DB.prepare("UPDATE receipts SET status = ?, updated_at = datetime('now') WHERE id = ?").bind(decision === "rejected" ? "rejected" : "approved_for_manual_review", id).run();
+  return json({ ok: true, decision, deployment_executed: false, message: "Decision recorded. This endpoint does not deploy infrastructure." });
+}
 
 async function handleLead(request, env) {
   if (!sameOrigin(request)) return json({ error: "Origin not allowed." }, 403);
