@@ -7,7 +7,7 @@ export default {
     const url = new URL(request.url);
     const path = url.pathname;
 
-    if (path === "/api/health" && request.method === "GET") {
+    if ((path === "/admin" || path === "/admin/") && request.method === "GET") {\n      return env.ASSETS.fetch(new Request(new URL("/admin.html", request.url), request));\n    }\n    if (path === "/api/health" && request.method === "GET") {
       return json({ ok: true, lead_storage_configured: Boolean(env.DB), email_notifications: "disabled" });
     }
     if (path === "/api/leads" && request.method === "POST") return handleLead(request, env);
