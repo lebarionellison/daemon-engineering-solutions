@@ -27,7 +27,7 @@ node ./bin/daemon-ace.mjs preflight ./deploy.yaml
 node ./bin/daemon-ace.mjs preflight ./deploy.yaml --json
 ```
 
-After publishing the package to a package registry, the intended global command is:
+To make the command available globally while developing from a local clone, run `npm link` in the repository root. After publishing the package to a package registry, the intended global command is:
 
 ```bash
 daemon-ace preflight ./deploy.yaml
