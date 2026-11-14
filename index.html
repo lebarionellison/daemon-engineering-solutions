@@ -282,12 +282,12 @@ spec:
     const source=input.value.trim();if(!source){results.textContent="Paste a configuration before running the scan.";return;}
     const findings=[];let score=100;
     const add=(type,message,points)=>{findings.push({type,message});score-=points;};
-    if(/privileged:\\s*true/i.test(source))add("CRITICAL SECURITY","Privileged container mode is enabled; review host breakout exposure.",30);
-    if(/runAsUser:\\s*0\\b/i.test(source)||! /runAsNonRoot:\\s*true/i.test(source))add("HIGH SECURITY","Root execution may be allowed; set runAsNonRoot where compatible.",20);
-    if(/hostNetwork:\\s*true/i.test(source))add("NETWORK EXPOSURE","hostNetwork is enabled; review network isolation boundaries.",20);
-    if(/:\\s*latest\\b/i.test(source))add("SUPPLY CHAIN RISK","A mutable :latest image tag is present; pin and verify image provenance.",10);
-    if(!/limits\\s*:/i.test(source))add("COST & OOM RISK","CPU or memory limits were not detected; evaluate workload resource caps.",15);
-    if(/nvidia\\.com\\/gpu/i.test(source)&&!/\\bmig\\b/i.test(source))add("GPU FINOPS REVIEW","GPU allocation detected without an obvious MIG reference; assess utilization and partitioning options.",10);
+    if(/privileged:\s*true/i.test(source))add("CRITICAL SECURITY","Privileged container mode is enabled; review host breakout exposure.",30);
+    if(/runAsUser:\s*0\b/i.test(source)||! /runAsNonRoot:\s*true/i.test(source))add("HIGH SECURITY","Root execution may be allowed; set runAsNonRoot where compatible.",20);
+    if(/hostNetwork:\s*true/i.test(source))add("NETWORK EXPOSURE","hostNetwork is enabled; review network isolation boundaries.",20);
+    if(/:\s*latest\b/i.test(source))add("SUPPLY CHAIN RISK","A mutable :latest image tag is present; pin and verify image provenance.",10);
+    if(!/limits\s*:/i.test(source))add("COST & OOM RISK","CPU or memory limits were not detected; evaluate workload resource caps.",15);
+    if(/nvidia\.com\/gpu/i.test(source)&&!/\bmig\b/i.test(source))add("GPU FINOPS REVIEW","GPU allocation detected without an obvious MIG reference; assess utilization and partitioning options.",10);
     score=Math.max(0,score);
     grade.textContent=findings.length?(score>=75?"REVIEW NEEDED":"HIGH EXPOSURE"):"NO LISTED FLAGS";
     grade.style.background=findings.length?"#54252b":"#123c32";grade.style.color=findings.length?"#fecaca":"#a7f3d0";
