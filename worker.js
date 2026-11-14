@@ -31,6 +31,12 @@ export default {
           "Set-Cookie": "daemon_admin=; Path=/; HttpOnly; Secure; SameSite=Strict; Max-Age=0" }
       });
     }
+    if (path === "/api/admin/receipts" && request.method === "GET") {
+      if (!await hasAdminSession(request, env)) return json({ error: "Unauthorized." }, 401);
+      if (!env.DB) return json({ error: "D1 is not configured yet." }, 503);
+      const result = await env.DB.prepare("SELECT id, status, receipt_json, created_at FROM receipts ORDER BY created_at DESC LIMIT 100").all();
+      return json({ receipts: (result.results || []).map(row => ({ id: row.id, status: row.status, created_at: row.created_at, receipt: JSON.parse(row.receipt_json) })) });
+    }
     if (path === "/api/admin/leads" && request.method === "GET") {
       if (!await hasAdminSession(request, env)) return json({ error: "Unauthorized." }, 401);
       if (!env.DB) return json({ error: "D1 is not configured yet." }, 503);
