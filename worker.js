@@ -20,10 +20,11 @@ async function handleLead(request, env) {
   if (!(request.headers.get("Content-Type") || "").toLowerCase().includes("application/json")) {
     return json({ error: "JSON required." }, 415);
   }
-  const length = Number(request.headers.get("Content-Length") || 0);
-  if (length > 12000) return json({ error: "Request too large." }, 413);
+  let raw;
+  try { raw = await request.text(); } catch { return json({ error: "Invalid request." }, 400); }
+  if (raw.length > 12000) return json({ error: "Request too large." }, 413);
   let data;
-  try { data = await request.json(); } catch { return json({ error: "Invalid request." }, 400); }
+  try { data = JSON.parse(raw); } catch { return json({ error: "Invalid request." }, 400); }
   // Honeypot: silently accept bot submissions without sending email.
   if (String(data.website || "").trim()) return json({ ok: true });
   const name = clean(data.name, 120);
