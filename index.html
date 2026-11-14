@@ -95,7 +95,7 @@ if(/privileged:\s*true/.test(t))add("high","Privileged container enabled","Revie
 if(/runasnonroot:\s*false/.test(t)||/runasuser:\s*0\b/.test(t))add("high","Container may run as root","Set a non-root identity where the workload supports it.",20);
 if(/hostpath:/.test(t))add("high","HostPath volume present","Review host filesystem exposure, path scope and mount mode.",20);
 if(/image:\s*[^\n]+:latest\b/.test(t))add("medium","Mutable image tag","Prefer a pinned version or immutable digest and verify provenance.",12);
-if(/0\.0\.0\.0|nodeport|externalips:/.test(t))add("medium","Potentially broad network exposure","Review service exposure, ingress and network policy.",12);
+if(/0\.0\.0\.0|nodeport|loadbalancer|externalips:/.test(t))add("medium","Potentially broad network exposure","Review service exposure, ingress and network policy.",12);
 if(!/resources:/.test(t)&&/kind:\s*(deployment|pod|statefulset)/.test(t))add("medium","Resource requests / limits not detected","Define CPU and memory requests and evaluate limits.",10);
 if(/allowprivilegeescalation:\s*true/.test(t))add("medium","Privilege escalation allowed","Set allowPrivilegeEscalation: false where compatible.",10);
 if(/kind:\s*(deployment|pod|statefulset)/.test(t)&&!/readinessprobe:/.test(t))add("medium","Readiness probe not detected","Consider readiness checks appropriate to the workload.",7);
