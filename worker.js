@@ -110,8 +110,8 @@ async function stripeWebhook(request, env) {
   const paymentIntent = typeof session.payment_intent === "string" ? session.payment_intent : "";
   try {
     await env.DB.prepare(
-      "INSERT INTO purchases (stripe_event_id, checkout_session_id, payment_intent_id, product_code, amount_total, currency, customer_email, payment_status, fulfillment_status, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, 'paid', 'pending_secure_fulfillment', datetime('now')) ON CONFLICT(stripe_event_id) DO NOTHING"
-    ).bind(event.id, session.id, paymentIntent, code, item.amount, "usd", email).run();
+      "INSERT INTO purchases (stripe_event_id, checkout_session_id, payment_intent_id, product_code, amount_total, currency, customer_email, receipt_id, payment_status, fulfillment_status, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, 'paid', 'pending_secure_fulfillment', datetime('now')) ON CONFLICT(stripe_event_id) DO NOTHING"
+    ).bind(event.id, session.id, paymentIntent, code, item.amount, "usd", email, clean(session.metadata?.receipt_id || "", 64)).run();
   } catch {
     // A session can only be fulfilled once, even if Stripe emits more than one success event.
     const existing = await env.DB.prepare("SELECT id FROM purchases WHERE checkout_session_id = ?").bind(session.id).first();
