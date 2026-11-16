@@ -1,0 +1,84 @@
+name: DAEMON ACE Pre-Flight
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'bin/**'
+      - 'examples/preflight/**'
+      - 'manifests/**'
+      - 'k8s/**'
+      - '.github/workflows/daemon-preflight.yml'
+  pull_request:
+    paths:
+      - 'bin/**'
+      - 'examples/preflight/**'
+      - 'manifests/**'
+      - 'k8s/**'
+      - '.github/workflows/daemon-preflight.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: daemon-ace-preflight-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  preflight:
+    name: Generate review receipts
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Run DAEMON ACE pre-flight checks
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p daemon-ace-output
+          mapfile -d '' manifests < <(
+            for root in examples/preflight manifests k8s; do
+              if [ -d "$root" ]; then
+                find "$root" -type f \( -name '*.yaml' -o -name '*.yml' \) -print0
+              fi
+            done | sort -z
+          )
+          if [ "${#manifests[@]}" -eq 0 ]; then
+            echo "::error::No manifests found. Add a YAML file under examples/preflight/, manifests/, or k8s/."
+            exit 1
+          fi
+          for file in "${manifests[@]}"; do
+            safe=$(printf '%s' "$file" | tr '/ ' '__')
+            receipt="daemon-ace-output/${safe}.json"
+            echo "Reviewing $file"
+            set +e
+            node ./bin/daemon-ace.mjs preflight "$file" --json > "$receipt"
+            status=$?
+            set -e
+            if [ "$status" -gt 1 ]; then
+              echo "::error::DAEMON ACE could not process $file (exit $status)."
+              exit "$status"
+            fi
+            node -e "const r=require('./$receipt'); if(r.schema!=='daemon-ace.receipt-of-safety.v1') process.exit(1); console.log('Receipt generated:', r.source_file, '| findings:', r.analysis.findings.length);"
+            if [ "$status" -eq 1 ]; then
+              echo "::warning::High-severity heuristic findings in $file. Review the receipt artifact; this workflow does not approve or deploy."
+            fi
+          done
+          {
+            echo "## DAEMON ACE Pre-Flight"
+            echo ""
+            echo "Generated a review receipt for ${#manifests[@]} manifest(s)."
+            echo ""
+            echo "**Important:** A green workflow means the pre-flight script completed and receipts were generated. It is not a security certification, deployment approval, or proof that a manifest is safe."
+            echo "High-severity heuristic findings are surfaced as warnings for human review."
+          } >> "$GITHUB_STEP_SUMMARY"
+      - name: Upload pre-flight receipts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: daemon-ace-preflight-receipts
+          path: daemon-ace-output/*.json
+          if-no-files-found: error
+          retention-days: 14
