@@ -427,13 +427,26 @@ document.getElementById("runPreflight").addEventListener("click",async()=>{
 });
 const acePurchase=new URLSearchParams(location.search).get("ace_purchase");
 if(acePurchase){
-  fetch("/api/purchases/"+encodeURIComponent(acePurchase)).then(async r=>{
-    if(!r.ok)throw new Error("Payment is still being verified or the secure download has already been claimed.");
-    const blob=await r.blob(),url=URL.createObjectURL(blob),a=document.createElement("a");
-    a.href=url;a.download="daemon-ace-hardened-configuration.yaml";document.body.appendChild(a);a.click();a.remove();URL.revokeObjectURL(url);
-    document.getElementById("preflightOutput").classList.add("show");
-    document.getElementById("preflightSummary").textContent="Verified purchase. Your configuration download has started.";
-  }).catch(error=>{const node=document.getElementById("preflightSummary");if(node)node.textContent=error.message;});
+  (async()=>{
+    let lastError="Payment confirmation is still arriving from Stripe.";
+    for(let attempt=0;attempt<10;attempt++){
+      const response=await fetch("/api/purchases/"+encodeURIComponent(acePurchase),{cache:"no-store"});
+      if(response.ok){
+        const blob=await response.blob(),url=URL.createObjectURL(blob),a=document.createElement("a");
+        a.href=url;a.download="daemon-ace-hardened-configuration.yaml";document.body.appendChild(a);a.click();a.remove();
+        setTimeout(()=>URL.revokeObjectURL(url),1000);
+        history.replaceState({},document.title,location.pathname+location.hash);
+        document.getElementById("preflightOutput").classList.add("show");
+        document.getElementById("preflightSummary").textContent="Verified purchase. Your configuration download has started.";
+        return;
+      }
+      const payload=await response.json().catch(()=>({}));
+      lastError=payload.error||lastError;
+      if(response.status!==404&&response.status!==409)break;
+      if(attempt<9)await new Promise(resolve=>setTimeout(resolve,2000));
+    }
+    throw new Error(lastError+" If payment succeeded, contact support before retrying the purchase.");
+  })().catch(error=>{const node=document.getElementById("preflightSummary");if(node)node.textContent=error.message;});
 }
 
 
