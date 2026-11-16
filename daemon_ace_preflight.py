@@ -1,0 +1,126 @@
+#!/usr/bin/env python3
+"""DAEMON ACE local pre-flight pattern scanner.
+
+This is a lightweight text-pattern screen, not a YAML parser, ROS simulator,
+Kubernetes admission controller, hardware safety certification, or deployment tool.
+"""
+from __future__ import annotations
+
+import argparse
+import re
+import sys
+from pathlib import Path
+
+RULES = [
+    {
+        "id": "SEC-001",
+        "category": "SECURITY",
+        "severity": "CRITICAL",
+        "pattern": r"privileged:\s*true",
+        "title": "Privileged container execution enabled",
+        "remediation": "Set securityContext.privileged to false and scope device access explicitly.",
+    },
+    {
+        "id": "SEC-002",
+        "category": "SECURITY",
+        "severity": "HIGH",
+        "pattern": r"runAsUser:\s*0",
+        "title": "Container configured to run as root (UID 0)",
+        "remediation": "Enforce runAsNonRoot: true and specify a non-zero UID.",
+    },
+    {
+        "id": "NET-003",
+        "category": "NETWORK",
+        "severity": "HIGH",
+        "pattern": r"hostNetwork:\s*true",
+        "title": "Host network namespace shared with pod",
+        "remediation": "Disable hostNetwork and enforce explicit Kubernetes NetworkPolicies.",
+    },
+    {
+        "id": "SUP-004",
+        "category": "SUPPLY_CHAIN",
+        "severity": "MEDIUM",
+        "pattern": r":latest\b",
+        "title": "Unpinned container image tag (:latest)",
+        "remediation": "Pin container and OTA robot images to immutable SHA256 digests.",
+    },
+    {
+        "id": "FIN-005",
+        "category": "FINOPS_GPU",
+        "severity": "MEDIUM",
+        "pattern": r"nvidia\.com/gpu:\s*[1-9]",
+        "title": "Dedicated GPU allocation without MIG or autoscaling policy",
+        "remediation": "Evaluate NVIDIA MIG partitioning or scale-to-zero rules to eliminate idle GPU spend.",
+    },
+    {
+        "id": "ROB-006",
+        "category": "ROBOTICS_SAFETY",
+        "severity": "CRITICAL",
+        "pattern": r"max_(linear|angular)_velocity:\s*([3-9]|[1-9]\d+)(\.\d+)?",
+        "title": "Uncapped or excessive ROS2 actuator velocity threshold detected",
+        "remediation": "Clamp max_linear_velocity and max_angular_velocity within verified lab/hardware safety bounds.",
+    },
+    {
+        "id": "ROB-007",
+        "category": "ROBOTICS_NETWORK",
+        "severity": "HIGH",
+        "pattern": r"(ROS_DOMAIN_ID:\s*0\b|dds_discovery_interface:\s*['\"]?0\.0\.0\.0['\"]?)",
+        "title": "Unisolated ROS2 DDS discovery domain or public interface exposure",
+        "remediation": "Assign an isolated ROS_DOMAIN_ID and bind CycloneDDS/FastDDS discovery to local loopback or VPN.",
+    },
+]
+
+
+def scan_text(text: str) -> list[dict[str, str]]:
+    findings: list[dict[str, str]] = []
+    for rule in RULES:
+        if re.search(rule["pattern"], text, flags=re.IGNORECASE):
+            findings.append(rule)
+    return findings
+
+
+def main() -> int:
+    parser = argparse.ArgumentParser(
+        description="Run DAEMON ACE cloud, GPU and ROS2 robotics text-pattern pre-flight checks."
+    )
+    parser.add_argument("configuration", type=Path, help="YAML/configuration file to inspect")
+    args = parser.parse_args()
+
+    try:
+        content = args.configuration.read_text(encoding="utf-8")
+    except OSError as exc:
+        print(f"ERROR: cannot read {args.configuration}: {exc}", file=sys.stderr)
+        return 2
+
+    findings = scan_text(content)
+    print(f"DAEMON ACE PRE-FLIGHT · {args.configuration}")
+    print(f"Rules loaded: {len(RULES)}")
+    print(f"Findings: {len(findings)}")
+    print("-" * 72)
+
+    if not findings:
+        print("NO MATCHING PATTERNS DETECTED")
+        print("This is not proof that the configuration is secure or hardware-safe.")
+        return 0
+
+    for finding in findings:
+        print(
+            f'[{finding["severity"]}] {finding["id"]} · '
+            f'{finding["category"]} · {finding["title"]}'
+        )
+        print(f'  Remediation: {finding["remediation"]}')
+
+    blocking = [f for f in findings if f["severity"] in {"CRITICAL", "HIGH"}]
+    print("-" * 72)
+    if blocking:
+        print(f"BLOCKED: {len(blocking)} CRITICAL/HIGH finding(s) require engineering review.")
+        print("No hardware or infrastructure action was performed.")
+        return 1
+
+    print("REVIEW: findings detected; no CRITICAL/HIGH pattern was matched.")
+    print("No hardware or infrastructure action was performed.")
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

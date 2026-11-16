@@ -5,6 +5,10 @@ on:
     paths:
       - 'bin/**'
       - 'examples/preflight/**'
+      - 'daemon_ace_preflight.py'
+      - 'examples/unsafe-ros2-robot.yaml'
+      - 'worker.js'
+      - 'index.html'
       - 'manifests/**'
       - 'k8s/**'
       - '.github/workflows/daemon-preflight.yml'
@@ -12,6 +16,10 @@ on:
     paths:
       - 'bin/**'
       - 'examples/preflight/**'
+      - 'daemon_ace_preflight.py'
+      - 'examples/unsafe-ros2-robot.yaml'
+      - 'worker.js'
+      - 'index.html'
       - 'manifests/**'
       - 'k8s/**'
       - '.github/workflows/daemon-preflight.yml'
@@ -74,6 +82,30 @@ jobs:
             echo "**Important:** A green workflow means the pre-flight script completed and receipts were generated. It is not a security certification, deployment approval, or proof that a manifest is safe."
             echo "High-severity heuristic findings are surfaced as warnings for human review."
           } >> "$GITHUB_STEP_SUMMARY"
+      - name: Set up Python for ROS2 CLI fixture
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Verify unsafe ROS2 fixture is blocked by Python CLI
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 -m py_compile daemon_ace_preflight.py
+          set +e
+          output=$(python3 daemon_ace_preflight.py examples/unsafe-ros2-robot.yaml 2>&1)
+          status=$?
+          set -e
+          printf '%s\n' "$output"
+          if [ "$status" -ne 1 ]; then
+            echo "::error::Expected the intentionally unsafe robotics fixture to return blocking exit code 1; got $status."
+            exit 1
+          fi
+          for rule in SEC-001 SUP-004 ROB-006 ROB-007; do
+            if ! grep -q "$rule" <<< "$output"; then
+              echo "::error::Expected rule $rule was not detected."
+              exit 1
+            fi
+          done
       - name: Upload pre-flight receipts
         if: always()
         uses: actions/upload-artifact@v4

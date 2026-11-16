@@ -118,6 +118,33 @@ main>section.alt{background-image:linear-gradient(180deg,rgba(8,14,26,.72),rgba(
   .modelHeadline{font-size:clamp(17px,5vw,20px)}
 }
 @media(prefers-reduced-motion:reduce){.daemonRadarSweep{animation:none}}
+
+.productTrackPills{display:flex;flex-wrap:wrap;gap:10px;margin:14px 0 18px}
+.productTrackPills span,.productTrackPills a{display:inline-flex;align-items:center;border-radius:999px;padding:7px 13px;font-size:10px;font-weight:900;letter-spacing:.2px}
+.productTrackPills .cloudTrack{background:rgba(56,189,248,.13);border:1px solid #38bdf8;color:#7dd3fc}
+.productTrackPills .roboticsTrack{background:rgba(16,185,129,.13);border:1px solid #10b981;color:#6ee7b7}
+.roboticsSpotlight{padding:36px 0;background:linear-gradient(180deg,#07111b,#091522)}
+.roboticsSpotlightCard{border:1.5px solid rgba(16,185,129,.5);border-radius:16px;padding:28px;background:linear-gradient(135deg,rgba(6,32,22,.78),rgba(11,17,32,.96) 62%);box-shadow:0 20px 50px #0008}
+.roboticsSpotlightHead{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-start;gap:18px;margin-bottom:22px}
+.roboticsEyebrow{display:inline-block;color:#6ee7b7;background:#10b98120;border:1px solid #10b98188;border-radius:6px;padding:5px 9px;font-size:9px;font-weight:950;letter-spacing:1px}
+.roboticsSpotlightHead h2{font-size:clamp(25px,3vw,34px);line-height:1.1;margin:11px 0;color:#f8fafc}
+.roboticsIntro{max-width:760px;margin:0;color:#c4d1df;font-size:13px}
+.roboticsPilotBtn{display:inline-flex;align-items:center;justify-content:center;padding:12px 16px;border-radius:8px;background:#10b981;color:#03170f;font-size:11px;font-weight:950;white-space:nowrap}
+.roboticsCapabilityGrid{display:grid;grid-template-columns:repeat(3,1fr);gap:13px}
+.roboticsCapabilityGrid article{padding:18px;border:1px solid rgba(16,185,129,.28);border-radius:11px;background:#050c16dd}
+.roboticsCapabilityGrid article:nth-child(2){border-color:rgba(56,189,248,.32)}
+.roboticsCapabilityGrid article span{color:#6ee7b7;font-size:9px;font-weight:950;letter-spacing:.7px}
+.roboticsCapabilityGrid article:nth-child(2) span{color:#7dd3fc}
+.roboticsCapabilityGrid h3{margin:8px 0;font-size:16px;color:#f8fafc}
+.roboticsCapabilityGrid p{margin:0;color:#9fb0c4;font-size:11px}
+.roboticsBottomStrip{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px;margin-top:17px;padding:13px 15px;border:1px solid #ffffff1c;border-radius:9px;background:#050c16}
+.roboticsBottomStrip span{font-size:10px;color:#cbd5e1}
+.roboticsBottomStrip b{color:#6ee7b7}
+.roboticsBottomStrip button{border:1px solid #34d399;border-radius:7px;background:transparent;color:#6ee7b7;padding:8px 12px;font-size:10px;font-weight:900;cursor:pointer}
+.roboticsCaveat{margin:14px 0 0;color:#91a3b8;font-size:9px;line-height:1.6}
+.finding.critical{border-color:#ff7777}
+@media(max-width:760px){.roboticsCapabilityGrid{grid-template-columns:1fr}.roboticsSpotlightCard{padding:19px}.roboticsSpotlightHead{display:block}.roboticsPilotBtn{margin-top:15px}.productTrackPills span,.productTrackPills a{font-size:9px}}
+
 </style>
 </head>
 <body>
@@ -157,10 +184,15 @@ main>section.alt{background-image:linear-gradient(180deg,rgba(8,14,26,.72),rgba(
     </g>
   </svg>
 </div>
-<header><div class="wrap nav"><a class="brand" href="#home">DAEMON <span>Engineering Solutions</span><small>ENGINEERING INTELLIGENCE · SECURITY · DELIVERY</small></a><nav class="navlinks"><a href="#proof">Proof-Loop</a><a href="#engines">How ACE works</a><a href="#team">Who it helps</a><a href="#enterprise">Enterprise</a><a href="#investors">Investors</a><a href="#founder">Founder</a><a href="#contact" class="navcta">Talk to Engineering ↗</a></nav></div></header>
+<header><div class="wrap nav"><a class="brand" href="#home">DAEMON <span>Engineering Solutions</span><small>ENGINEERING INTELLIGENCE · SECURITY · DELIVERY</small></a><nav class="navlinks"><a href="#proof">Proof-Loop</a><a href="#engines">How ACE works</a><a href="#team">Who it helps</a><a href="#enterprise">Enterprise</a><a href="#investors">Investors</a><a href="#robotics-gatekeeper">Robotics &amp; Edge</a><a href="#founder">Founder</a><a href="#contact" class="navcta">Talk to Engineering ↗</a></nav></div></header>
 <main>
 <section class="hero" id="home"><div class="wrap heroGrid">
-<div class="heroCopy"><div class="eyebrow">MEET DAEMON ACE · YOUR AI INFRASTRUCTURE ENGINEER</div><div class="heroHeadlineRow"><h1>Your AI Infrastructure Engineer. <em>Without the Engineering Overhead.</em></h1><div class="telemetryNode" role="img" aria-label="DAEMON ACE topology illustration connecting the Pre-Flight Twin and safety review"><svg viewBox="0 0 260 150" width="100%" height="auto" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs><radialGradient id="aceNodeGlow"><stop offset="0%" stop-color="#38bdf8" stop-opacity=".28"/><stop offset="100%" stop-color="#38bdf8" stop-opacity="0"/></radialGradient></defs><circle cx="130" cy="75" r="70" fill="url(#aceNodeGlow)"/><circle cx="130" cy="75" r="58" fill="none" stroke="#1e293b" stroke-width="1.5" stroke-dasharray="6 4"/><circle cx="130" cy="75" r="42" fill="none" stroke="#38bdf8" stroke-width="1.5" class="telemetry-pulse"/><circle cx="130" cy="75" r="18" fill="#38bdf8" fill-opacity=".18" stroke="#38bdf8" stroke-width="2"/><text x="130" y="79" text-anchor="middle" fill="#f8fafc" font-family="ui-monospace,monospace" font-size="10" font-weight="700">ACE</text><line x1="72" y1="75" x2="112" y2="75" stroke="#38bdf8" stroke-width="1.5"/><circle cx="66" cy="75" r="6" fill="#0f172a" stroke="#38bdf8" stroke-width="2"/><text x="42" y="79" text-anchor="end" fill="#94a3b8" font-family="ui-monospace,monospace" font-size="9">TWIN</text><line x1="148" y1="75" x2="188" y2="75" stroke="#10b981" stroke-width="1.5"/><circle cx="194" cy="75" r="6" fill="#062016" stroke="#10b981" stroke-width="2"/><text x="206" y="79" text-anchor="start" fill="#34d399" font-family="ui-monospace,monospace" font-size="9">SAFE</text></svg><div class="telemetryLabel">PRE-FLIGHT NODE <span>· DEMO MODE</span></div></div></div><p class="lead">DAEMON ACE is being engineered to take on repeatable infrastructure, DevOps and security work—so a lean team can deliver with more coordination, clearer evidence and less operational drag, without surrendering control of production.</p><p class="sublead">Describe the outcome in plain English. ACE coordinates pipeline, pod and security engineering, challenges proposed changes in a Pre-Flight Twin™, and presents the evidence for your approval.</p><div class="actions"><a class="btn primary" href="#demo">See the ACE experience ↓</a><a class="btn secondary" href="/capability-statement.html" target="_blank" rel="noopener noreferrer">Download Capability Statement ↗</a><a class="btn secondary" href="#contact">Discuss an early-access pilot ↗</a></div><div class="pills"><span>One AI teammate</span><span>Proof before production</span><span>Human approval</span><span>More leverage for lean teams</span></div><p class="sublead" style="margin-top:18px;font-weight:800;color:#e1ecfa">Do the work. Prove the work. Let humans approve the work.</p></div>
+<div class="heroCopy"><div class="eyebrow">MEET DAEMON ACE · YOUR AI INFRASTRUCTURE ENGINEER</div><div class="heroHeadlineRow"><h1>Your AI Infrastructure Engineer. <em>Without the Engineering Overhead.</em></h1><div class="telemetryNode" role="img" aria-label="DAEMON ACE topology illustration connecting the Pre-Flight Twin and safety review"><svg viewBox="0 0 260 150" width="100%" height="auto" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs><radialGradient id="aceNodeGlow"><stop offset="0%" stop-color="#38bdf8" stop-opacity=".28"/><stop offset="100%" stop-color="#38bdf8" stop-opacity="0"/></radialGradient></defs><circle cx="130" cy="75" r="70" fill="url(#aceNodeGlow)"/><circle cx="130" cy="75" r="58" fill="none" stroke="#1e293b" stroke-width="1.5" stroke-dasharray="6 4"/><circle cx="130" cy="75" r="42" fill="none" stroke="#38bdf8" stroke-width="1.5" class="telemetry-pulse"/><circle cx="130" cy="75" r="18" fill="#38bdf8" fill-opacity=".18" stroke="#38bdf8" stroke-width="2"/><text x="130" y="79" text-anchor="middle" fill="#f8fafc" font-family="ui-monospace,monospace" font-size="10" font-weight="700">ACE</text><line x1="72" y1="75" x2="112" y2="75" stroke="#38bdf8" stroke-width="1.5"/><circle cx="66" cy="75" r="6" fill="#0f172a" stroke="#38bdf8" stroke-width="2"/><text x="42" y="79" text-anchor="end" fill="#94a3b8" font-family="ui-monospace,monospace" font-size="9">TWIN</text><line x1="148" y1="75" x2="188" y2="75" stroke="#10b981" stroke-width="1.5"/><circle cx="194" cy="75" r="6" fill="#062016" stroke="#10b981" stroke-width="2"/><text x="206" y="79" text-anchor="start" fill="#34d399" font-family="ui-monospace,monospace" font-size="9">SAFE</text></svg><div class="telemetryLabel">PRE-FLIGHT NODE <span>· DEMO MODE</span></div></div></div>
+<div class="productTrackPills" aria-label="DAEMON ACE product tracks">
+  <span class="cloudTrack">⚡ DAEMON ACE · Cloud &amp; GPU Infrastructure</span>
+  <a class="roboticsTrack" href="#robotics-gatekeeper">🤖 DAEMON ACE · Robotics &amp; Edge Gatekeeper ↓</a>
+</div>
+<p class="lead">DAEMON ACE is being engineered to take on repeatable infrastructure, DevOps and security work—so a lean team can deliver with more coordination, clearer evidence and less operational drag, without surrendering control of production.</p><p class="sublead">Describe the outcome in plain English. ACE coordinates pipeline, pod and security engineering, challenges proposed changes in a Pre-Flight Twin™, and presents the evidence for your approval.</p><div class="actions"><a class="btn primary" href="#demo">See the ACE experience ↓</a><a class="btn secondary" href="/capability-statement.html" target="_blank" rel="noopener noreferrer">Download Capability Statement ↗</a><a class="btn secondary" href="#contact">Discuss an early-access pilot ↗</a></div><div class="pills"><span>One AI teammate</span><span>Proof before production</span><span>Human approval</span><span>More leverage for lean teams</span></div><p class="sublead" style="margin-top:18px;font-weight:800;color:#e1ecfa">Do the work. Prove the work. Let humans approve the work.</p></div>
 <div class="demo commandCenter" id="demo">
   <div class="demoTop"><span>DAEMON ACE · PRE-FLIGHT TWIN™</span><span class="status" id="twinStatus">● READY</span></div>
   <div class="commandTitle"><div><span class="kicker">ENGINEERING COMMAND CENTER</span><h2>Prove the change before production.</h2></div><span class="runBadge">SIMULATION</span></div>
@@ -172,7 +204,7 @@ main>section.alt{background-image:linear-gradient(180deg,rgba(8,14,26,.72),rgba(
     <button type="button" class="scenario" data-scenario="data_pipeline">Data &amp; AI Pipelines</button>
     <button type="button" class="scenario" data-scenario="robotics">Robotics &amp; Edge Safety</button>
   </div>
-  <div class="commandGrid">
+  <div class="commandGrid" id="live-ace-engine">
     <section class="terminalPanel" aria-label="Pre-Flight Twin execution log">
       <div class="panelBar"><span><i></i><i></i><i></i> EXECUTION TRACE</span><span id="logCounter">0 / 7</span></div>
       <div class="terminalMeta"><span>PRE-FLIGHT TWIN™</span><span id="terminalClock">AWAITING RUN</span></div>
@@ -265,10 +297,48 @@ spec:
     spec:
       containers:
       - name: app
-        image: nginx:latest"></textarea><div class="preflightActions"><button type="button" id="runPreflight">Run free YAML X-Ray</button><button type="button" id="loadSample">Load sample YAML</button><button type="button" id="clearYaml">Clear</button></div><div class="preflightOutput" id="preflightOutput" aria-live="polite"><div style="display:flex;gap:15px;align-items:center;flex-wrap:wrap"><div class="score" id="preflightScore">—</div><div><b id="preflightVerdict">Waiting for input</b><p class="warning" id="preflightSummary"></p></div></div><div id="preflightFindings"></div><details class="artifactToggle"><summary>Inspect generated static-check receipt (JSON)</summary><pre id="preflightReceipt"></pre></details></div></div></div></section>
+        image: nginx:latest"></textarea><div class="preflightActions"><button type="button" id="runPreflight">Run free YAML X-Ray</button><button type="button" id="loadSample">Load sample YAML</button><button type="button" id="loadRoboticsSample">Load ROS2 sample</button><button type="button" id="clearYaml">Clear</button></div><div class="preflightOutput" id="preflightOutput" aria-live="polite"><div style="display:flex;gap:15px;align-items:center;flex-wrap:wrap"><div class="score" id="preflightScore">—</div><div><b id="preflightVerdict">Waiting for input</b><p class="warning" id="preflightSummary"></p></div></div><div id="preflightFindings"></div><details class="artifactToggle"><summary>Inspect generated static-check receipt (JSON)</summary><pre id="preflightReceipt"></pre></details></div></div></div></section>
+
+<section id="robotics-gatekeeper" class="roboticsSpotlight">
+  <div class="wrap">
+    <div class="roboticsSpotlightCard">
+      <div class="roboticsSpotlightHead">
+        <div>
+          <span class="roboticsEyebrow">FLAGSHIP PRODUCT TRACK · PHYSICAL AI &amp; AUTONOMOUS SYSTEMS</span>
+          <h2>DAEMON ACE · Robotics &amp; Edge Gatekeeper</h2>
+          <p class="roboticsIntro">A Sim-to-Real pre-flight review workflow for universities, research labs and robotics teams. Review ROS2 nodes, NVIDIA Jetson edge containers, actuator boundaries and edge-image controls before proposed code is considered for physical deployment.</p>
+        </div>
+        <a class="roboticsPilotBtn" href="#contact">Request Robotics &amp; Lab Pilot ↗</a>
+      </div>
+      <div class="roboticsCapabilityGrid">
+        <article>
+          <span>01 · SIM-TO-REAL FLIGHT RECORDER</span>
+          <h3>Hardware &amp; Velocity Boundaries</h3>
+          <p>Flag configured linear and angular velocity values above a screening threshold, then route the finding for review against verified lab and hardware limits.</p>
+        </article>
+        <article>
+          <span>02 · EDGE &amp; DDS NETWORK REVIEW</span>
+          <h3>Review Robot Telemetry Exposure</h3>
+          <p>Identify public DDS discovery interface patterns, unpinned edge image tags and privileged container settings in submitted configuration text.</p>
+        </article>
+        <article>
+          <span>03 · UNIVERSITY LAB WORKFLOWS</span>
+          <h3>Student &amp; Researcher Pre-Flight</h3>
+          <p>Give robotics teams a repeatable first-pass review artifact for lab directors and qualified engineers to inspect before any hardware trial.</p>
+        </article>
+      </div>
+      <div class="roboticsBottomStrip">
+        <span><b>BUILT FOR:</b> University Robotics &amp; AI Labs · Technical Colleges · Autonomous Fleet Teams · Research Partners</span>
+        <button type="button" onclick="setScenario('robotics');document.getElementById('live-ace-engine')?.scrollIntoView({behavior:'smooth'});">▶ Test Robotics Gate in Demo</button>
+      </div>
+      <p class="roboticsCaveat">Scope note: these are text-pattern pre-flight checks and a scripted demonstration. They do not validate physical safety, execute a ROS2 simulation, inspect a live Jetson device, verify an OTA signature or block a robot from moving. Thresholds must be set and approved by the responsible lab and hardware safety team.</p>
+    </div>
+  </div>
+</section>
+
 <section class="alt" id="engines"><div class="wrap"><div class="sectionHead reveal"><div class="kicker">THE ENGINEERING UNDER THE AGENT</div><h2>One experience. Three coordinated engines.</h2><p>Customers work with ACE. The specialized engines are the internal machinery that lets the agent reason across delivery, runtime configuration and security.</p></div><div class="split">
 <article class="panel reveal"><div class="kicker">PIPELINE ENGINE</div><h3>Build and govern pipelines</h3><p>Generate, validate, and harden CI/CD, DataOps, and AI/ML ingestion workflows against customer-approved security, schema, and compute standards.</p></article>
-<article class="panel reveal"><div class="kicker">POD ENGINE</div><h3>Configure and optimize workloads</h3><p>Prepare Kubernetes workload resources, scheduling and resource settings, runtime dependencies and capacity recommendations.</p></article>
+<article class="panel reveal"><div class="kicker">POD ENGINE</div><h3>Configure and optimize workloads</h3><p>Prepare Kubernetes workload resources, scheduling and resource settings, runtime dependencies and capacity recommendations.</p><ul><li>ROS2, NVIDIA Jetson edge, and Sim-to-Real robotics pre-flight safety gates</li></ul></article>
 <article class="panel reveal"><div class="kicker">SECURITY ENGINE</div><h3>Challenge and harden</h3><p>Evaluate identity, permissions, exposed services, configuration policies and authorized security test scenarios before release.</p></article>
 <article class="panel reveal"><div class="kicker">LIVE-SYNC + AUDIT</div><h3>Detect drift and account for changes</h3><p>Planned read-only cloud inventory, drift comparison, post-deployment verification and traceable audit records. Scheduled scans and alert integrations are not yet running.</p></article>
 </div></div></section>
@@ -413,6 +483,10 @@ function refreshReceipt(){const key=document.querySelector(".scenario.active")?.
 refreshReceipt();document.querySelectorAll(".scenario").forEach(b=>b.addEventListener("click",refreshReceipt));
 const sample="apiVersion: apps/v1\nkind: Deployment\nmetadata:\n  name: demo-web\nspec:\n  template:\n    spec:\n      containers:\n      - name: web\n        image: nginx:latest\n        securityContext:\n          privileged: true\n---\napiVersion: v1\nkind: Service\nmetadata:\n  name: demo-web-public\nspec:\n  type: NodePort\n  ports:\n  - port: 80\n    targetPort: 8080\n    nodePort: 30080";
 document.getElementById("loadSample").addEventListener("click",()=>document.getElementById("yamlInput").value=sample);
+
+const roboticsSample = "# Sample ROS2 Autonomous Rover / Manipulator Deployment Config\nrobot_node:\n  name: autonomous_rover_controller\n  ros_distro: humble\n  environment:\n    ROS_DOMAIN_ID: 0\n    dds_discovery_interface: \"0.0.0.0\"\n  motion_limits:\n    max_linear_velocity: 8.5\n    max_angular_velocity: 4.2\n  runtime:\n    image: daemon-robotics/nav2-controller:latest\n    securityContext:\n      privileged: true";
+document.getElementById("loadRoboticsSample").addEventListener("click",()=>{document.getElementById("yamlInput").value=roboticsSample;document.getElementById("aceGoal").value="Review ROS2 actuator velocity, DDS discovery exposure, image pinning and privileged edge runtime settings.";});
+
 document.getElementById("clearYaml").addEventListener("click",()=>{document.getElementById("yamlInput").value="";document.getElementById("preflightOutput").classList.remove("show");});
 document.getElementById("runPreflight").addEventListener("click",async()=>{
   const raw=document.getElementById("yamlInput").value;
@@ -428,7 +502,7 @@ document.getElementById("runPreflight").addEventListener("click",async()=>{
     if(!response.ok)throw new Error(data.error||"Preflight request failed.");
     const receipt=data.receipt,analysis=receipt.analysis||{},findings=analysis.findings||[];
     document.getElementById("preflightScore").textContent=(analysis.score??"—")+"/100";
-    document.getElementById("preflightVerdict").textContent=findings.some(x=>x.severity==="high")?"High-priority items found":findings.some(x=>x.severity==="medium")?"Review recommended":"No listed patterns detected";
+    document.getElementById("preflightVerdict").textContent=findings.some(x=>x.severity==="critical"||x.severity==="high")?"Critical / high-priority items found":findings.some(x=>x.severity==="medium")?"Review recommended":"No listed patterns detected";
     document.getElementById("preflightSummary").textContent=findings.length+" server-side heuristic finding(s). "+(receipt.ai?.status==="proposal_generated"?"AI configuration proposal prepared; full file requires checkout.":"AI proposal unavailable; operator configuration or provider availability needs attention.");
     document.getElementById("preflightFindings").innerHTML=findings.map(x=>'<div class="finding '+esc(x.severity)+'"><b>'+esc(String(x.severity).toUpperCase()+" · "+x.title)+'</b><br>'+esc(x.recommendation)+'</div>').join("");
     document.getElementById("preflightReceipt").textContent=JSON.stringify({receipt_id:data.receipt_id,goal:receipt.goal,analysis:receipt.analysis,ai:receipt.ai,limitations:receipt.limitations},null,2);
