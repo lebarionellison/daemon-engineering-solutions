@@ -362,6 +362,10 @@ async function getReceipt(request, env, path) {
   const row = await env.DB.prepare("SELECT receipt_json FROM receipts WHERE id = ?").bind(id).first();
   if (!row) return json({ error: "Receipt not found." }, 404);
   const receipt = JSON.parse(row.receipt_json);
+  if (receipt.proposed_config && !await hasAdminSession(request, env)) {
+    const { proposed_config, ...preview } = receipt;
+    return json({ receipt: preview, full_configuration_locked: true });
+  }
   if (receipt.record_type === "ai_generated_configuration_proposal" && !await hasAdminSession(request, env)) {
     return json({ error: "This proposal receipt is private. Authenticate through the dashboard to retrieve it." }, 401);
   }
