@@ -70,3 +70,33 @@ CREATE TABLE IF NOT EXISTS purchases (
 CREATE INDEX IF NOT EXISTS idx_purchases_created_at ON purchases(created_at DESC);
 CREATE INDEX IF NOT EXISTS idx_purchases_fulfillment_status ON purchases(fulfillment_status);
 ```
+
+
+## Customer preflight and paid configuration workflow (feature branch)
+
+This feature branch adds:
+- A visitor-supplied engineering goal and Kubernetes YAML submission to `POST /api/preflight`.
+- Server-side heuristic findings and an optional AI-generated proposed configuration using the encrypted `OPENAI_API_KEY` Worker secret.
+- A free preview that withholds the complete generated file.
+- A server-created Stripe Checkout Session for the existing $9 Hardened Configuration price, with the receipt ID attached as Checkout Session metadata.
+- A purchase claim endpoint that returns the configuration only after the signed Stripe webhook records a paid session linked to that receipt. The claim is single-use.
+
+### Additional deployment requirements
+
+Add these as **encrypted Worker secrets** (never browser variables):
+- `OPENAI_API_KEY`
+- `STRIPE_SECRET_KEY` (live secret key matching the live-mode price and webhook)
+- `STRIPE_WEBHOOK_SECRET`
+
+The existing `DB` D1 binding must be present. Apply migrations in order, including:
+- `migrations/0003_create_purchases.sql`
+- `migrations/0004_link_purchases_to_receipts.sql`
+
+The existing Stripe webhook must remain configured for `checkout.session.completed` and `checkout.session.async_payment_succeeded`. The $9 checkout endpoint creates a new Checkout Session directly; it does not use the old deactivated Payment Link.
+
+### Important current boundaries
+
+- The AI output is a proposal, not a validated or production-ready configuration. The Gatekeeper remains limited text-pattern screening; no YAML parser, Kubernetes dry-run, Terraform plan, tests, vulnerability scan, or live cluster connection is added by this change.
+- The purchase claim uses the unguessable Stripe Checkout Session ID and a single-use D1 fulfillment state. Customer email delivery and a customer account/download library are not implemented.
+- GitHub PR creation is **not enabled**. A secure customer-owned GitHub integration requires a GitHub App/OAuth authorization flow with per-customer repository grants, installation-token handling, webhook/state validation, and explicit repository/file consent. A shared owner PAT is not an acceptable substitute.
+- Production deployment remains disabled. Keep checkout disabled until the D1 migrations, secrets, webhook configuration, live deployment, and end-to-end payment test are completed. Do not test with a real charge.
