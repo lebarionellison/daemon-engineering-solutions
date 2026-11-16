@@ -278,8 +278,13 @@ async function createPreflight(request, env) {
   if (/nodeport|loadbalancer|externalips:/.test(lower)) add("medium","PUBLIC_SERVICE","Potentially exposed service","Review ingress, network policy and external access.");
   if (/allowprivilegeescalation:\s*true/.test(lower)) add("medium","PRIVILEGE_ESCALATION","Privilege escalation allowed","Set allowPrivilegeEscalation to false where compatible.");
   if (!/resources:/.test(lower) && /kind:\s*(deployment|pod|statefulset)/.test(lower)) add("medium","MISSING_RESOURCES","Resource settings not detected","Define CPU and memory requests and evaluate limits.");
+
+  // ROS2 / physical robotics pre-flight pattern checks. Thresholds are screening defaults, not certified hardware limits.
+  if (/max_(linear|angular)_velocity:\s*([3-9]|[1-9]\d+)(\.\d+)?/i.test(manifest)) add("critical","ROB-006","Actuator velocity value exceeds the configured screening threshold","Verify the safe linear and angular velocity envelope with the robot manufacturer and responsible lab safety engineer.");
+  if (/(ROS_DOMAIN_ID:\s*0\b|dds_discovery_interface:\s*['"]?0\.0\.0\.0['"]?)/i.test(manifest)) add("high","ROB-007","ROS2 DDS discovery domain or interface may be unisolated","Assign a lab-approved ROS_DOMAIN_ID and bind CycloneDDS/FastDDS discovery to an approved isolated interface or VPN.");
+
   if (!findings.length) add("info","NO_MATCHING_PATTERNS","No listed patterns detected","This does not establish that the manifest is secure.");
-  const score = Math.max(0,100-findings.reduce((n,f)=>n+(f.severity==="high"?25:f.severity==="medium"?12:0),0));
+  const score = Math.max(0,100-findings.reduce((n,f)=>n+(f.severity==="critical"?35:f.severity==="high"?25:f.severity==="medium"?12:0),0));
 
   let plan = null, proposed = null, aiStatus = "not_configured";
   if (env.OPENAI_API_KEY) {
