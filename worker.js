@@ -71,8 +71,8 @@ async function stripeWebhook(request, env) {
     return json({ error: "Stripe fulfillment is not configured." }, 503);
   }
   const signatureHeader = request.headers.get("Stripe-Signature") || "";
-  const timestampMatch = signatureHeader.match(/(?:^|,)\\s*t=(\\d+)(?:,|$)/);
-  const signatures = [...signatureHeader.matchAll(/(?:^|,)\\s*v1=([a-f0-9]{64})(?:,|$)/gi)].map(m => m[1].toLowerCase());
+  const timestampMatch = signatureHeader.match(/(?:^|,)\s*t=(\d+)(?:,|$)/);
+  const signatures = [...signatureHeader.matchAll(/(?:^|,)\s*v1=([a-f0-9]{64})(?:,|$)/gi)].map(m => m[1].toLowerCase());
   if (!timestampMatch || !signatures.length) return json({ error: "Missing or malformed Stripe signature." }, 400);
   const timestamp = Number(timestampMatch[1]);
   const now = Math.floor(Date.now() / 1000);
