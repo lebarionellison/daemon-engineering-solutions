@@ -12,7 +12,7 @@ export default {
     }
     if (path === "/api/stripe/webhook" && request.method === "POST") return stripeWebhook(request, env);
     if (path === "/api/health" && request.method === "GET") {
-      return json({ ok: true, lead_storage_configured: Boolean(env.DB), email_notifications: "disabled" });
+      return json({ ok: true, lead_storage_configured: Boolean(env.DB), stripe_webhook_configured: Boolean(env.STRIPE_WEBHOOK_SECRET), email_notifications: "disabled" });
     }
     if (path === "/api/preflight" && request.method === "POST") return createPreflight(request, env);
     if (path === "/api/generate" && request.method === "POST") return generateProposal(request, env);
