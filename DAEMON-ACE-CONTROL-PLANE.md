@@ -18,7 +18,7 @@ All endpoints are served by the Cloudflare Worker.
 
 - `POST /api/preflight` — JSON body `{"manifest":"..."}`; stores a heuristic receipt in D1.
 - `POST /api/generate` — requires `Authorization: Bearer <ACE_GENERATION_TOKEN>`; JSON body includes `goal`, `currentConfig`, optional `environment`, `fileName`, and optional customer-provided `costBaseline`. Calls the configured OpenAI Chat Completions endpoint and stores the proposed complete file plus a locked receipt in D1.
-- `GET /api/receipts/{uuid}` — retrieves a stored receipt.
+- `GET /api/receipts/{uuid}` — retrieves a stored receipt; AI-generated configuration proposal receipts require an authenticated dashboard session.
 - `POST /api/approvals` — requires the authenticated private dashboard session; body contains `receipt_id`, `decision` (`approved_for_manual_review` or `rejected`), and optional `note`.
 - `POST /api/deployments` — returns HTTP 501. No deployment adapter is connected.
 
@@ -36,7 +36,7 @@ The API key remains server-side. The generation token is a temporary private-pil
 
 The AI writer produces a **proposal**, not a production-ready or verified configuration. The current gatekeeper performs limited text-pattern checks only. A clean pattern screen is labeled `POLICY_REVIEW_REQUIRED`, never “verified safe.” Known policy patterns are marked `BLOCKED_BY_POLICY_PATTERN`.
 
-Every AI proposal receipt starts in `PENDING_HUMAN_APPROVAL` with `execution_locked: true`. The approval endpoint records a human decision for manual review only; it does not unlock an execution runner. The deployment endpoint remains disabled. No live infrastructure change can be made through this release.
+Every AI proposal receipt starts in `PENDING_HUMAN_APPROVAL` with `execution_locked: true`. AI proposal receipts are private to authenticated dashboard sessions when retrieved by ID. The approval endpoint blocks approval-for-review while gatekeeper patterns remain unresolved and records a human decision for manual review only; it does not unlock an execution runner. The deployment endpoint remains disabled. No live infrastructure change can be made through this release.
 
 The current checks are not a YAML/Terraform parser, OPA policy evaluation, Kubernetes server-side dry-run, Terraform plan, vulnerability scan, or test execution. Do not rely on them as a complete security gate.
 
