@@ -33,7 +33,7 @@ The endpoint verifies the Stripe-Signature HMAC against the raw request body, re
 
 ### D1 migration and deployment
 
-The GitHub Actions deployment workflow applies pending D1 migrations remotely before deploying the Worker. Confirm the workflow completes successfully before creating the Stripe webhook endpoint.
+The GitHub Actions workflow deploys the Worker, but the current Cloudflare API token lacks D1 database access (Cloudflare API error 7403). Apply the migration manually in Cloudflare Dashboard → **Workers & Pages → D1 → daemon-ace-leads → Console** before creating the Stripe webhook endpoint. Run this SQL once:
 
 After deployment:
 1. Create the live-mode Stripe webhook endpoint using the URL above and the two event types listed above.
@@ -44,3 +44,23 @@ After deployment:
 ### Fulfillment status
 
 A verified payment is recorded as `pending_secure_fulfillment`. This code does **not** yet issue download links, create customer entitlements, or deliver bundle files. Do not activate the payment links until the actual bundle artifacts and short-lived, per-purchase download delivery are implemented and tested. No shared DAEMON ACE generation token is exposed to buyers.
+
+```sql
+CREATE TABLE IF NOT EXISTS purchases (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  stripe_event_id TEXT NOT NULL UNIQUE,
+  checkout_session_id TEXT NOT NULL UNIQUE,
+  payment_intent_id TEXT,
+  product_code TEXT NOT NULL CHECK (product_code IN ('ACE-HARDENED-9','ACE-PRO-TERRAFORM-19')),
+  amount_total INTEGER NOT NULL,
+  currency TEXT NOT NULL CHECK (currency = 'usd'),
+  customer_email TEXT NOT NULL DEFAULT '',
+  payment_status TEXT NOT NULL CHECK (payment_status IN ('paid')),
+  fulfillment_status TEXT NOT NULL DEFAULT 'pending_secure_fulfillment'
+    CHECK (fulfillment_status IN ('pending_secure_fulfillment','fulfilled','refunded','revoked')),
+  created_at TEXT NOT NULL DEFAULT (datetime('now')),
+  fulfilled_at TEXT
+);
+CREATE INDEX IF NOT EXISTS idx_purchases_created_at ON purchases(created_at DESC);
+CREATE INDEX IF NOT EXISTS idx_purchases_fulfillment_status ON purchases(fulfillment_status);
+```
