@@ -10,6 +10,7 @@ export default {
     if ((path === "/admin" || path === "/admin/") && request.method === "GET") {
       return env.ASSETS.fetch(new Request(new URL("/admin.html", request.url), request));
     }
+    if (path === "/api/stripe/webhook" && request.method === "POST") return stripeWebhook(request, env);
     if (path === "/api/health" && request.method === "GET") {
       return json({ ok: true, lead_storage_configured: Boolean(env.DB), email_notifications: "disabled" });
     }
@@ -61,6 +62,67 @@ export default {
     return env.ASSETS.fetch(request);
   }
 };
+
+async function stripeWebhook(request, env) {
+  // Stripe requires the unmodified request body for signature verification.
+  if (!env.STRIPE_WEBHOOK_SECRET || !env.DB) {
+    return json({ error: "Stripe fulfillment is not configured." }, 503);
+  }
+  const signatureHeader = request.headers.get("Stripe-Signature") || "";
+  const timestampMatch = signatureHeader.match(/(?:^|,)\\s*t=(\\d+)(?:,|$)/);
+  const signatures = [...signatureHeader.matchAll(/(?:^|,)\\s*v1=([a-f0-9]{64})(?:,|$)/gi)].map(m => m[1].toLowerCase());
+  if (!timestampMatch || !signatures.length) return json({ error: "Missing or malformed Stripe signature." }, 400);
+  const timestamp = Number(timestampMatch[1]);
+  const now = Math.floor(Date.now() / 1000);
+  if (!Number.isSafeInteger(timestamp) || Math.abs(now - timestamp) > 300) {
+    return json({ error: "Stripe signature timestamp is outside the allowed tolerance." }, 400);
+  }
+  const rawBody = await request.text();
+  if (rawBody.length > 100000) return json({ error: "Webhook payload too large." }, 413);
+  const expected = await stripeHmacHex(env.STRIPE_WEBHOOK_SECRET, timestamp + "." + rawBody);
+  let valid = false;
+  for (const candidate of signatures) valid = (await constantTimeEqual(candidate, expected)) || valid;
+  if (!valid) return json({ error: "Invalid Stripe signature." }, 400);
+
+  let event;
+  try { event = JSON.parse(rawBody); } catch { return json({ error: "Invalid webhook JSON." }, 400); }
+  if (!event || typeof event.id !== "string" || !/^evt_[A-Za-z0-9]+$/.test(event.id)) {
+    return json({ error: "Invalid Stripe event." }, 400);
+  }
+  const supported = ["checkout.session.completed", "checkout.session.async_payment_succeeded"];
+  if (!supported.includes(event.type)) return json({ received: true, ignored: true });
+  const session = event.data?.object;
+  if (!session || session.object !== "checkout.session") return json({ error: "Invalid Checkout Session payload." }, 400);
+  if (session.payment_status !== "paid") return json({ received: true, pending_payment: true });
+  const code = String(session.metadata?.product_code || "");
+  const catalog = {
+    "ACE-HARDENED-9": { amount: 900, price: "price_1UcGNiH0QiF8TJHD3OeZOzQg" },
+    "ACE-PRO-TERRAFORM-19": { amount: 1900, price: "price_1UcGNmH0QiF8TJHDeCgNz9XZ" }
+  };
+  const item = catalog[code];
+  if (!item || session.currency !== "usd" || session.amount_total !== item.amount) {
+    return json({ error: "Checkout Session does not match the approved DAEMON ACE catalog." }, 400);
+  }
+  if (!session.id || !/^cs_/.test(session.id)) return json({ error: "Checkout Session ID missing." }, 400);
+  const email = clean(session.customer_details?.email || session.customer_email || "", 254).toLowerCase();
+  const paymentIntent = typeof session.payment_intent === "string" ? session.payment_intent : "";
+  try {
+    await env.DB.prepare(
+      "INSERT INTO purchases (stripe_event_id, checkout_session_id, payment_intent_id, product_code, amount_total, currency, customer_email, payment_status, fulfillment_status, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, 'paid', 'pending_secure_fulfillment', datetime('now')) ON CONFLICT(stripe_event_id) DO NOTHING"
+    ).bind(event.id, session.id, paymentIntent, code, item.amount, "usd", email).run();
+  } catch {
+    // A session can only be fulfilled once, even if Stripe emits more than one success event.
+    const existing = await env.DB.prepare("SELECT id FROM purchases WHERE checkout_session_id = ?").bind(session.id).first();
+    if (!existing) return json({ error: "Purchase could not be recorded." }, 500);
+  }
+  return json({ received: true, payment_verified: true, fulfillment_status: "pending_secure_fulfillment" });
+}
+
+async function stripeHmacHex(secret, value) {
+  const key = await crypto.subtle.importKey("raw", new TextEncoder().encode(secret), { name: "HMAC", hash: "SHA-256" }, false, ["sign"]);
+  const signature = await crypto.subtle.sign("HMAC", key, new TextEncoder().encode(value));
+  return [...new Uint8Array(signature)].map(byte => byte.toString(16).padStart(2, "0")).join("");
+}
 
 async function generateProposal(request, env) {
   if (!sameOrigin(request)) return json({ error: "Origin not allowed." }, 403);
