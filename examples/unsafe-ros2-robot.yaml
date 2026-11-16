@@ -1,0 +1,15 @@
+# Sample ROS2 Autonomous Rover / Manipulator Deployment Config
+# Intentionally unsafe test fixture. Do not deploy to physical hardware.
+robot_node:
+  name: autonomous_rover_controller
+  ros_distro: humble
+  environment:
+    ROS_DOMAIN_ID: 0
+    dds_discovery_interface: "0.0.0.0"
+  motion_limits:
+    max_linear_velocity: 8.5
+    max_angular_velocity: 4.2
+  runtime:
+    image: daemon-robotics/nav2-controller:latest
+    securityContext:
+      privileged: true
