@@ -78,15 +78,17 @@ This feature branch adds:
 - A visitor-supplied engineering goal and Kubernetes YAML submission to `POST /api/preflight`.
 - Server-side heuristic findings and an optional AI-generated proposed configuration using the encrypted `OPENAI_API_KEY` Worker secret.
 - A free preview that withholds the complete generated file.
-- A server-created Stripe Checkout Session for the existing $9 Hardened Configuration price, with the receipt ID attached as Checkout Session metadata.
+- A server-created Stripe Checkout Session for the $9 Hardened Configuration price selected by `ACE_HARDENED_PRICE_ID`, with the receipt ID attached as Checkout Session metadata.
 - A purchase claim endpoint that returns the configuration only after the signed Stripe webhook records a paid session linked to that receipt. The claim is single-use.
 
 ### Additional deployment requirements
 
 Add these as **encrypted Worker secrets** (never browser variables):
 - `OPENAI_API_KEY`
-- `STRIPE_SECRET_KEY` (live secret key matching the live-mode price and webhook)
-- `STRIPE_WEBHOOK_SECRET`
+- `STRIPE_SECRET_KEY` (use a test-mode key for sandbox testing; only switch to a live key for an intentional production launch)
+- `STRIPE_WEBHOOK_SECRET` (must come from a webhook destination in the same Stripe mode)
+
+Add `ACE_HARDENED_PRICE_ID` as a non-secret Worker environment variable containing the `$9` Price ID from the same Stripe mode as `STRIPE_SECRET_KEY`. Test and live Price IDs are different. The webhook rejects events whose `livemode` flag does not match the configured key mode.
 
 The existing `DB` D1 binding must be present. Apply migrations in order, including:
 - `migrations/0003_create_purchases.sql`
@@ -97,6 +99,6 @@ The existing Stripe webhook must remain configured for `checkout.session.complet
 ### Important current boundaries
 
 - The AI output is a proposal, not a validated or production-ready configuration. The Gatekeeper remains limited text-pattern screening; no YAML parser, Kubernetes dry-run, Terraform plan, tests, vulnerability scan, or live cluster connection is added by this change.
-- The purchase claim uses the unguessable Stripe Checkout Session ID and a single-use D1 fulfillment state. Customer email delivery and a customer account/download library are not implemented.
+- The purchase claim uses the unguessable Stripe Checkout Session ID and an atomic single-use D1 fulfillment state. The success page retries briefly while the Stripe webhook records payment. Customer email delivery and a customer account/download library are not implemented.
 - GitHub PR creation is **not enabled**. A secure customer-owned GitHub integration requires a GitHub App/OAuth authorization flow with per-customer repository grants, installation-token handling, webhook/state validation, and explicit repository/file consent. A shared owner PAT is not an acceptable substitute.
 - Production deployment remains disabled. Keep checkout disabled until the D1 migrations, secrets, webhook configuration, live deployment, and end-to-end payment test are completed. Do not test with a real charge.
