@@ -330,7 +330,7 @@ function sameOrigin(request) {
 async function readJson(request) {
   try {
     const raw = await request.text();
-    if (raw.length > 12000) return null;
+    if (raw.length > 30000) return null;
     return JSON.parse(raw);
   } catch { return null; }
 }
