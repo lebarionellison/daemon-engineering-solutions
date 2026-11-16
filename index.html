@@ -194,7 +194,7 @@ main > section:not(.hero), body > section{margin:36px auto!important;padding:24p
 <div class="receiptMock reveal"><div class="metric"><small>SECURITY TESTS</small><strong>Results shown</strong><span>Findings, severity, scope and unresolved exceptions</span></div><div class="metric"><small>COST IMPACT</small><strong>Modeled delta</strong><span>Estimate with baseline, assumptions and pricing inputs</span></div><div class="metric"><small>RELIABILITY</small><strong>Validation status</strong><span>Test coverage, health checks and known limitations</span></div><div class="metric"><small>CHANGE CONTROL</small><strong>Approval required</strong><span>Named approver, change scope and rollback plan</span></div></div>
 <div class="receiptAssurance reveal"><b>RISK &amp; COMPLIANCE EVIDENCE</b><p>Make proposed changes easier to challenge before they become incidents. Preserve the scope, findings, assumptions, unresolved exceptions, validation evidence and approval trail that security leaders and auditors need to review.</p><span>Evidence support · Not a compliance certification or guarantee</span></div>
 </div></section>
-<section class="dark" id="preflight"><div class="wrap"><div class="sectionHead reveal"><div class="kicker">FREE ENGINEERING UTILITY · RUNS IN YOUR BROWSER</div><h2>Free YAML X-Ray. Find configuration risk in about 30 seconds.</h2><p>Give an engineer a fast, self-serve first look—no account, procurement process or manager approval required. Paste a Kubernetes manifest, run the browser-based X-Ray and inspect heuristic findings plus a sample Receipt of Safety. The heuristic checks run in this browser, and the manifest is also sent to the Daemon API to store the generated receipt. Remove secrets and confidential details before scanning.</p><div style="margin-top:16px;padding:14px 16px;border:1px solid #63e8e855;border-radius:10px;background:#63e8e80b"><b style="display:block;color:#63e8e8;font-size:11px;letter-spacing:.8px">PRIVATE PILOT · AI FIX PROPOSALS</b><p style="margin:6px 0 0;color:#c1cfe0;font-size:12px">An authenticated DAEMON ACE CLI workflow can request a complete AI-generated replacement configuration and save it as a separate proposal file. Access requires a private pilot token. The public browser X-Ray below remains a heuristic scan; AI proposals are not yet enabled as a public, paid browser feature.</p><code style="display:block;margin-top:9px;color:#b9d5f2;font-size:10px;white-space:normal">daemon-ace fix ./deploy.yaml --goal "Harden this Kubernetes deployment"</code></div></div><div class="preflight reveal"><div class="promptLabel">KUBERNETES YAML</div><textarea id="yamlInput" spellcheck="false" aria-label="Paste Kubernetes YAML" placeholder="apiVersion: apps/v1
+<section class="dark" id="preflight"><div class="wrap"><div class="sectionHead reveal"><div class="kicker">FREE ENGINEERING UTILITY · RUNS IN YOUR BROWSER</div><h2>Free YAML X-Ray. Find configuration risk in about 30 seconds.</h2><p>Give an engineer a fast, self-serve first look—no account, procurement process or manager approval required. Paste a Kubernetes manifest, run the browser-based X-Ray and inspect heuristic findings plus a sample Receipt of Safety. The heuristic checks run in this browser, and the manifest is also sent to the Daemon API to store the generated receipt. Remove secrets and confidential details before scanning.</p><div style="margin-top:16px;padding:14px 16px;border:1px solid #63e8e855;border-radius:10px;background:#63e8e80b"><b style="display:block;color:#63e8e8;font-size:11px;letter-spacing:.8px">PRIVATE PILOT · AI FIX PROPOSALS</b><p style="margin:6px 0 0;color:#c1cfe0;font-size:12px">An authenticated DAEMON ACE CLI workflow can request a complete AI-generated replacement configuration and save it as a separate proposal file. Access requires a private pilot token. The public browser X-Ray below remains a heuristic scan; AI proposals are not yet enabled as a public, paid browser feature.</p><code style="display:block;margin-top:9px;color:#b9d5f2;font-size:10px;white-space:normal">daemon-ace fix ./deploy.yaml --goal "Harden this Kubernetes deployment"</code></div></div><div class="preflight reveal"><div class="promptLabel">KUBERNETES YAML</div><label for="aceGoal" style="display:block;margin:12px 0 6px;color:#cbd9e9;font-size:11px;font-weight:800">ENGINEERING GOAL</label><input id="aceGoal" type="text" maxlength="1200" placeholder="e.g. Harden this Kubernetes deployment and right-size resources" style="width:100%;padding:12px;border:1px solid #3b5672;border-radius:8px;background:#050c16;color:#e4f1ff;margin-bottom:12px"><textarea id="yamlInput" spellcheck="false" aria-label="Paste Kubernetes YAML" placeholder="apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: web
@@ -327,24 +327,53 @@ refreshReceipt();document.querySelectorAll(".scenario").forEach(b=>b.addEventLis
 const sample="apiVersion: apps/v1\nkind: Deployment\nmetadata:\n  name: demo-web\nspec:\n  template:\n    spec:\n      containers:\n      - name: web\n        image: nginx:latest\n        securityContext:\n          privileged: true\n---\napiVersion: v1\nkind: Service\nmetadata:\n  name: demo-web-public\nspec:\n  type: NodePort\n  ports:\n  - port: 80\n    targetPort: 8080\n    nodePort: 30080";
 document.getElementById("loadSample").addEventListener("click",()=>document.getElementById("yamlInput").value=sample);
 document.getElementById("clearYaml").addEventListener("click",()=>{document.getElementById("yamlInput").value="";document.getElementById("preflightOutput").classList.remove("show");});
-document.getElementById("runPreflight").addEventListener("click",()=>{const raw=document.getElementById("yamlInput").value,t=raw.toLowerCase(),f=[];if(!raw.trim()){alert("Paste a YAML snippet first.");return;}const add=(level,title,detail,points)=>f.push({level,title,detail,points});
-if(/privileged:\s*true/.test(t))add("high","Privileged container enabled","Review whether host-level privileges are necessary.",25);
-if(/runasnonroot:\s*false/.test(t)||/runasuser:\s*0\b/.test(t))add("high","Container may run as root","Set a non-root identity where the workload supports it.",20);
-if(/hostpath:/.test(t))add("high","HostPath volume present","Review host filesystem exposure, path scope and mount mode.",20);
-if(/image:\s*[^\n]+:latest\b/.test(t))add("medium","Mutable image tag","Prefer a pinned version or immutable digest and verify provenance.",12);
-if(/0\.0\.0\.0|nodeport|loadbalancer|externalips:/.test(t))add("medium","Potentially broad network exposure","Review service exposure, ingress and network policy.",12);
-if(!/resources:/.test(t)&&/kind:\s*(deployment|pod|statefulset)/.test(t))add("medium","Resource requests / limits not detected","Define CPU and memory requests and evaluate limits.",10);
-if(/allowprivilegeescalation:\s*true/.test(t))add("medium","Privilege escalation allowed","Set allowPrivilegeEscalation: false where compatible.",10);
-if(/kind:\s*(deployment|pod|statefulset)/.test(t)&&!/readinessprobe:/.test(t))add("medium","Readiness probe not detected","Consider readiness checks appropriate to the workload.",7);
-if(!f.length)f.push({level:"info",title:"No listed patterns detected",detail:"This is not evidence that the manifest is secure.",points:0});
-const score=Math.max(0,100-f.reduce((n,x)=>n+x.points,0));document.getElementById("preflightScore").textContent=score+"/100";document.getElementById("preflightVerdict").textContent=f.some(x=>x.level==="high")?"High-priority items found":f.some(x=>x.level==="medium")?"Review recommended":"No listed patterns detected";document.getElementById("preflightSummary").textContent=f.length+" heuristic finding(s). This score is not a security rating.";
-const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));document.getElementById("preflightFindings").innerHTML=f.map(x=>'<div class="finding '+x.level+'"><b>'+esc(x.level.toUpperCase()+" · "+x.title)+'</b><br>'+esc(x.detail)+'</div>').join("");
-document.getElementById("preflightReceipt").textContent=JSON.stringify({schema:"daemon-ace.browser-preflight.sample.v1",analysis_mode:"local_text_heuristics",transmitted_to_server:true,full_yaml_parser:false,score,findings:f,generated_at:new Date().toISOString(),limitations:["Text-pattern checks only","No cluster connection","No vulnerability scanner","No Helm/Kustomize/template resolution"]},null,2);document.getElementById("preflightOutput").classList.add("show");
-fetch("/api/preflight",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({manifest:raw})})
-.then(async r=>{const data=await r.json().catch(()=>({}));if(!r.ok)throw new Error(data.error||"Receipt API unavailable");document.getElementById("preflightSummary").textContent=f.length+" local heuristic finding(s). Server receipt saved: "+data.receipt_id;document.getElementById("preflightReceipt").textContent=JSON.stringify(data.receipt,null,2);})
-.catch(()=>{document.getElementById("preflightSummary").textContent=f.length+" local heuristic finding(s). Server receipt storage is not yet available; this result remains in this browser only.";});
+document.getElementById("runPreflight").addEventListener("click",async()=>{
+  const raw=document.getElementById("yamlInput").value;
+  const goal=document.getElementById("aceGoal").value.trim();
+  if(!raw.trim()){alert("Paste a YAML snippet first.");return;}
+  if(!goal){alert("Describe the engineering goal first.");return;}
+  const button=document.getElementById("runPreflight");
+  button.disabled=true;button.textContent="Analyzing…";
+  const esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+  try{
+    const response=await fetch("/api/preflight",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({manifest:raw,goal})});
+    const data=await response.json().catch(()=>({}));
+    if(!response.ok)throw new Error(data.error||"Preflight request failed.");
+    const receipt=data.receipt,analysis=receipt.analysis||{},findings=analysis.findings||[];
+    document.getElementById("preflightScore").textContent=(analysis.score??"—")+"/100";
+    document.getElementById("preflightVerdict").textContent=findings.some(x=>x.severity==="high")?"High-priority items found":findings.some(x=>x.severity==="medium")?"Review recommended":"No listed patterns detected";
+    document.getElementById("preflightSummary").textContent=findings.length+" server-side heuristic finding(s). "+(receipt.ai?.status==="proposal_generated"?"AI configuration proposal prepared; full file requires checkout.":"AI proposal unavailable; operator configuration or provider availability needs attention.");
+    document.getElementById("preflightFindings").innerHTML=findings.map(x=>'<div class="finding '+esc(x.severity)+'"><b>'+esc(String(x.severity).toUpperCase()+" · "+x.title)+'</b><br>'+esc(x.recommendation)+'</div>').join("");
+    document.getElementById("preflightReceipt").textContent=JSON.stringify({receipt_id:data.receipt_id,goal:receipt.goal,analysis:receipt.analysis,ai:receipt.ai,limitations:receipt.limitations},null,2);
+    document.getElementById("preflightOutput").classList.add("show");
+    let pay=document.getElementById("aceCheckoutButton");
+    if(!pay){pay=document.createElement("button");pay.id="aceCheckoutButton";pay.type="button";pay.className="approveBtn";document.getElementById("preflightOutput").appendChild(pay);}
+    pay.textContent=data.checkout_available?"Unlock complete proposed configuration · $9":"AI configuration unavailable — no checkout";
+    pay.disabled=!data.checkout_available;
+    pay.onclick=async()=>{
+      pay.disabled=true;pay.textContent="Creating secure checkout…";
+      try{
+        const checkout=await fetch("/api/checkout",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({receipt_id:data.receipt_id})});
+        const result=await checkout.json().catch(()=>({}));
+        if(!checkout.ok||!result.checkout_url)throw new Error(result.error||"Checkout could not be created.");
+        window.location.assign(result.checkout_url);
+      }catch(error){pay.disabled=false;pay.textContent="Retry $9 checkout";document.getElementById("preflightSummary").textContent=error.message;}
+    };
+  }catch(error){
+    document.getElementById("preflightOutput").classList.add("show");
+    document.getElementById("preflightSummary").textContent=error.message;
+  }finally{button.disabled=false;button.textContent="Run free YAML X-Ray";}
 });
-
+const acePurchase=new URLSearchParams(location.search).get("ace_purchase");
+if(acePurchase){
+  fetch("/api/purchases/"+encodeURIComponent(acePurchase)).then(async r=>{
+    if(!r.ok)throw new Error("Payment is still being verified or the secure download has already been claimed.");
+    const blob=await r.blob(),url=URL.createObjectURL(blob),a=document.createElement("a");
+    a.href=url;a.download="daemon-ace-hardened-configuration.yaml";document.body.appendChild(a);a.click();a.remove();URL.revokeObjectURL(url);
+    document.getElementById("preflightOutput").classList.add("show");
+    document.getElementById("preflightSummary").textContent="Verified purchase. Your configuration download has started.";
+  }).catch(error=>{const node=document.getElementById("preflightSummary");if(node)node.textContent=error.message;});
+}
 
 
 document.getElementById("bottomExecutiveBriefForm").addEventListener("submit",async e=>{
