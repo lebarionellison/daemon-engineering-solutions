@@ -230,7 +230,11 @@ async function getReceipt(request, env, path) {
   if (!/^[0-9a-f-]{36}$/i.test(id)) return json({ error: "Receipt not found." }, 404);
   const row = await env.DB.prepare("SELECT receipt_json FROM receipts WHERE id = ?").bind(id).first();
   if (!row) return json({ error: "Receipt not found." }, 404);
-  return json({ receipt: JSON.parse(row.receipt_json) });
+  const receipt = JSON.parse(row.receipt_json);
+  if (receipt.record_type === "ai_generated_configuration_proposal" && !await hasAdminSession(request, env)) {
+    return json({ error: "This proposal receipt is private. Authenticate through the dashboard to retrieve it." }, 401);
+  }
+  return json({ receipt });
 }
 
 async function recordApproval(request, env) {
@@ -242,8 +246,12 @@ async function recordApproval(request, env) {
   const decision = String(body?.decision || "");
   const note = clean(body?.note || "", 1000);
   if (!/^[0-9a-f-]{36}$/i.test(id) || !["approved_for_manual_review", "rejected"].includes(decision)) return json({ error: "Invalid approval decision." }, 400);
-  const row = await env.DB.prepare("SELECT id FROM receipts WHERE id = ?").bind(id).first();
+  const row = await env.DB.prepare("SELECT receipt_json FROM receipts WHERE id = ?").bind(id).first();
   if (!row) return json({ error: "Receipt not found." }, 404);
+  const storedReceipt = JSON.parse(row.receipt_json);
+  if (decision === "approved_for_manual_review" && storedReceipt.gatekeeper?.violations?.length) {
+    return json({ error: "Gatekeeper hold: resolve the listed policy patterns and generate a new proposal before approving for manual review.", violations: storedReceipt.gatekeeper.violations }, 409);
+  }
   await env.DB.prepare("INSERT INTO approvals (receipt_id, decision, note, actor, created_at) VALUES (?, ?, ?, 'dashboard-session', datetime('now'))").bind(id, decision, note).run();
   await env.DB.prepare("UPDATE receipts SET status = ?, updated_at = datetime('now') WHERE id = ?").bind(decision === "rejected" ? "rejected" : "approved_for_manual_review", id).run();
   return json({ ok: true, decision, deployment_executed: false, message: "Decision recorded. This endpoint does not deploy infrastructure." });
