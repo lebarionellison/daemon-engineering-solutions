@@ -91,15 +91,19 @@ async function stripeWebhook(request, env) {
   if (!event || typeof event.id !== "string" || !/^evt_[A-Za-z0-9]+$/.test(event.id)) {
     return json({ error: "Invalid Stripe event." }, 400);
   }
+  const expectedLiveMode = /^(sk|rk)_live_/.test(String(env.STRIPE_SECRET_KEY || ""));
   const supported = ["checkout.session.completed", "checkout.session.async_payment_succeeded"];
   if (!supported.includes(event.type)) return json({ received: true, ignored: true });
   const session = event.data?.object;
   if (!session || session.object !== "checkout.session") return json({ error: "Invalid Checkout Session payload." }, 400);
+  if (typeof session.livemode !== "boolean" || session.livemode !== expectedLiveMode) {
+    return json({ error: "Stripe event mode does not match the configured Worker secret." }, 400);
+  }
   if (session.payment_status !== "paid") return json({ received: true, pending_payment: true });
   const code = String(session.metadata?.product_code || "");
   const catalog = {
-    "ACE-HARDENED-9": { amount: 900, price: "price_1UcGNiH0QiF8TJHD3OeZOzQg" },
-    "ACE-PRO-TERRAFORM-19": { amount: 1900, price: "price_1UcGNmH0QiF8TJHDeCgNz9XZ" }
+    "ACE-HARDENED-9": { amount: 900 },
+    "ACE-PRO-TERRAFORM-19": { amount: 1900 }
   };
   const item = catalog[code];
   if (!item || session.currency !== "usd" || session.amount_total !== item.amount) {
@@ -328,10 +332,12 @@ async function createCheckout(request, env) {
   if (!row) return json({error:"Preflight receipt not found."},404);
   const receipt=JSON.parse(row.receipt_json);
   if (!receipt.proposed_config) return json({error:"An AI-generated configuration is not available for this receipt. No charge was created."},409);
+  const priceId=String(env.ACE_HARDENED_PRICE_ID || "");
+  if (!/^price_[A-Za-z0-9]+$/.test(priceId)) return json({error:"The Stripe price is not configured. Set ACE_HARDENED_PRICE_ID to the price ID from the same Stripe mode as STRIPE_SECRET_KEY."},503);
   const params=new URLSearchParams();
   params.set("mode","payment");params.set("success_url",new URL("/?ace_purchase={CHECKOUT_SESSION_ID}",request.url).toString());
   params.set("cancel_url",new URL("/#preflight",request.url).toString());
-  params.set("line_items[0][price]","price_1UcGNiH0QiF8TJHD3OeZOzQg");params.set("line_items[0][quantity]","1");
+  params.set("line_items[0][price]",priceId);params.set("line_items[0][quantity]","1");
   params.set("metadata[product_code]","ACE-HARDENED-9");params.set("metadata[receipt_id]",receiptId);
   params.set("payment_intent_data[metadata][product_code]","ACE-HARDENED-9");params.set("payment_intent_data[metadata][receipt_id]",receiptId);
   const response=await fetch("https://api.stripe.com/v1/checkout/sessions",{method:"POST",headers:{"Authorization":"Bearer "+env.STRIPE_SECRET_KEY,"Content-Type":"application/x-www-form-urlencoded"},body:params});
@@ -351,7 +357,8 @@ async function getPaidArtifact(request,env,path) {
   if(!row) return json({error:"Configuration artifact not found."},404);
   const receipt=JSON.parse(row.receipt_json);
   if(!receipt.proposed_config) return json({error:"Configuration artifact is unavailable."},404);
-  await env.DB.prepare("UPDATE purchases SET fulfillment_status='fulfilled',fulfilled_at=datetime('now') WHERE checkout_session_id=? AND fulfillment_status='pending_secure_fulfillment'").bind(sessionId).run();
+  const claim=await env.DB.prepare("UPDATE purchases SET fulfillment_status='fulfilled',fulfilled_at=datetime('now') WHERE checkout_session_id=? AND fulfillment_status='pending_secure_fulfillment'").bind(sessionId).run();
+  if (!claim.meta || claim.meta.changes !== 1) return json({error:"This purchase has already been claimed."},409);
   return new Response(receipt.proposed_config,{headers:{"Content-Type":"text/plain; charset=utf-8","Content-Disposition":"attachment; filename=\""+String(receipt.file_name||"configuration.yaml").replace(/[^A-Za-z0-9._-]/g,"_")+"\"","Cache-Control":"no-store","X-Content-Type-Options":"nosniff"}});
 }
 
