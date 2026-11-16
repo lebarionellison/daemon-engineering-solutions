@@ -2,17 +2,92 @@
 import fs from "node:fs";
 import path from "node:path";
 
-const [command, file, ...flags] = process.argv.slice(2);
-const jsonOutput = flags.includes("--json");
+const args = process.argv.slice(2);
+const command = args.shift();
+const jsonOutput = args.includes("--json");
+const value = (flag) => {
+  const index = args.indexOf(flag);
+  return index >= 0 ? args[index + 1] : undefined;
+};
 const usage = () => {
-  console.log("DAEMON ACE CLI (local heuristic preview)\n\nUsage:\n  daemon-ace preflight ./deploy.yaml [--json]\n\nThis command reads the file locally. It does not contact a cluster or deploy changes.");
+  console.log(`DAEMON ACE CLI
+
+Usage:
+  daemon-ace preflight ./deploy.yaml [--json]
+  daemon-ace fix ./deploy.yaml --goal "Harden this Kubernetes deployment" [--environment staging] [--json]
+
+Commands:
+  preflight  Run local text-pattern checks. No API call is made.
+  fix        Send the file to the authenticated DAEMON ACE proposal API and save
+             a complete proposed replacement beside the source file.
+
+Required for fix:
+  DAEMON_ACE_API_TOKEN  Private pilot API token
+Optional:
+  DAEMON_ACE_API_URL    Worker origin (default: https://daemon-engineering-solutions.lebarionellison.workers.dev)
+
+Fix creates a proposal only. It does not deploy, modify clusters, or approve changes.`);
 };
 if (!command || command === "--help" || command === "help") { usage(); process.exit(0); }
-if (command !== "preflight" || !file) { usage(); process.exit(2); }
+const file = args.find(x => !x.startsWith("--") && x !== value("--goal") && x !== value("--environment"));
+if (!file) { usage(); process.exit(2); }
 let manifest;
 try { manifest = fs.readFileSync(path.resolve(file), "utf8"); }
 catch (error) { console.error("Cannot read manifest:", error.message); process.exit(2); }
-if (!manifest.trim() || manifest.length > 20000) { console.error("Manifest must contain 1–20,000 characters."); process.exit(2); }
+if (!manifest.trim() || manifest.length > 18000) { console.error("Configuration must contain 1–18,000 characters."); process.exit(2); }
+
+if (command === "fix") {
+  const goal = value("--goal");
+  const token = process.env.DAEMON_ACE_API_TOKEN;
+  const baseUrl = (process.env.DAEMON_ACE_API_URL || "https://daemon-engineering-solutions.lebarionellison.workers.dev").replace(/\/$/, "");
+  if (!goal) { console.error('The --goal argument is required.'); process.exit(2); }
+  if (!token) { console.error("Set DAEMON_ACE_API_TOKEN in your shell before running fix."); process.exit(2); }
+  let response, data;
+  try {
+    response = await fetch(baseUrl + "/api/generate", {
+      method: "POST",
+      headers: { "Authorization": "Bearer " + token, "Content-Type": "application/json" },
+      body: JSON.stringify({
+        goal,
+        currentConfig: manifest,
+        environment: value("--environment") || "staging",
+        fileName: path.basename(file)
+      })
+    });
+    data = await response.json();
+  } catch (error) {
+    console.error("DAEMON ACE API request failed:", error.message);
+    process.exit(2);
+  }
+  if (!response.ok || !data?.receipt?.proposed_config) {
+    console.error(data?.error || "The proposal service did not return a complete configuration.");
+    process.exit(2);
+  }
+  const receipt = data.receipt;
+  const outputPath = path.resolve(file + ".daemon-ace.proposed");
+  try {
+    fs.writeFileSync(outputPath, receipt.proposed_config, { encoding: "utf8", flag: "wx" });
+  } catch (error) {
+    console.error("Could not create proposal file (it may already exist):", error.message);
+    console.error("Move the existing proposal or choose another source filename, then retry.");
+    process.exit(2);
+  }
+  if (jsonOutput) {
+    console.log(JSON.stringify({ receipt, proposed_file: outputPath }, null, 2));
+  } else {
+    console.log("\nDAEMON ACE · AI PROPOSAL RECEIPT");
+    console.log("Receipt:", receipt.id);
+    console.log("Status:", receipt.status);
+    console.log("Gatekeeper:", receipt.gatekeeper.status);
+    console.log("Policy patterns:", receipt.gatekeeper.violations.length);
+    console.log("Proposed file:", outputPath);
+    console.log("Estimated monthly savings:", receipt.plan.estimated_monthly_savings_usd == null ? "Not calculated — baseline required" : "$" + receipt.plan.estimated_monthly_savings_usd);
+    console.log("\nHuman review is required. No deployment or live infrastructure change was performed.");
+  }
+  process.exit(receipt.gatekeeper.violations.length ? 1 : 0);
+}
+
+if (command !== "preflight") { usage(); process.exit(2); }
 const lower = manifest.toLowerCase();
 const findings = [];
 const add = (severity, code, title, recommendation) => findings.push({ severity, code, title, recommendation });
