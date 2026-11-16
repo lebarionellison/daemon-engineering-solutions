@@ -138,13 +138,13 @@ async function generateProposal(request, env) {
   const lower = proposed.toLowerCase();
   const violations = [];
   const add = (code, title, recommendation) => violations.push({ code, title, recommendation });
-  if (/privileged:\\s*true/i.test(proposed)) add("PRIVILEGED_CONTAINER", "Privileged container execution detected", "Remove privileged mode unless a documented exception is approved.");
-  if (/runasnonroot:\\s*false/i.test(proposed) || /runasuser:\\s*0\\b/i.test(proposed)) add("ROOT_CONTAINER", "Root container identity detected", "Use a non-root identity where supported.");
-  if (/allowprivilegeescalation:\\s*true/i.test(proposed)) add("PRIVILEGE_ESCALATION", "Privilege escalation is enabled", "Disable privilege escalation where compatible.");
+  if (/privileged:\s*true/i.test(proposed)) add("PRIVILEGED_CONTAINER", "Privileged container execution detected", "Remove privileged mode unless a documented exception is approved.");
+  if (/runasnonroot:\s*false/i.test(proposed) || /runasuser:\s*0\b/i.test(proposed)) add("ROOT_CONTAINER", "Root container identity detected", "Use a non-root identity where supported.");
+  if (/allowprivilegeescalation:\s*true/i.test(proposed)) add("PRIVILEGE_ESCALATION", "Privilege escalation is enabled", "Disable privilege escalation where compatible.");
   if (/hostpath:/i.test(proposed)) add("HOST_PATH", "HostPath volume detected", "Review host filesystem exposure and mount scope.");
-  if (/0\\.0\\.0\\.0\\/0/.test(proposed)) add("OPEN_INGRESS", "Broad 0.0.0.0/0 network rule detected", "Restrict ingress to approved source ranges.");
-  if (/image:\\s*[^\\n]+:latest\\b/i.test(proposed)) add("MUTABLE_IMAGE_TAG", "Mutable image tag detected", "Pin an immutable image digest and verify provenance.");
-  if (!/resources:/i.test(proposed) && /kind:\\s*(deployment|pod|statefulset)/i.test(proposed)) add("MISSING_RESOURCES", "Workload resource settings not detected", "Define workload CPU and memory requests and limits.");
+  if (/0\.0\.0\.0\/0/.test(proposed)) add("OPEN_INGRESS", "Broad 0.0.0.0/0 network rule detected", "Restrict ingress to approved source ranges.");
+  if (/image:\s*[^\n]+:latest\b/i.test(proposed)) add("MUTABLE_IMAGE_TAG", "Mutable image tag detected", "Pin an immutable image digest and verify provenance.");
+  if (!/resources:/i.test(proposed) && /kind:\s*(deployment|pod|statefulset)/i.test(proposed)) add("MISSING_RESOURCES", "Workload resource settings not detected", "Define workload CPU and memory requests and limits.");
   const id = crypto.randomUUID();
   const receipt = {
     schema: "daemon-ace.receipt-of-safety.v1",
