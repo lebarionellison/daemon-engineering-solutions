@@ -35,11 +35,17 @@ The endpoint verifies the Stripe-Signature HMAC against the raw request body, re
 
 The GitHub Actions workflow deploys the Worker, but the current Cloudflare API token lacks D1 database access (Cloudflare API error 7403). Apply the migration manually in Cloudflare Dashboard → **Workers & Pages → D1 → daemon-ace-leads → Console** before creating the Stripe webhook endpoint. Run this SQL once:
 
-After deployment:
-1. Create the live-mode Stripe webhook endpoint using the URL above and the two event types listed above.
-2. Copy its signing secret into the Cloudflare encrypted Worker secret named `STRIPE_WEBHOOK_SECRET`.
-3. Redeploy/restart the Worker if required by the Cloudflare dashboard.
-4. Send a Stripe test webhook only in a test-mode endpoint/account first if available; the connected Stripe account currently used for catalog creation is live mode.
+The live-mode Stripe webhook endpoint has now been created:
+- Endpoint ID: `we_1UcGQmH0QiF8TJHD0Qrzyv5h`
+- URL: `https://daemon-engineering-solutions.lebarionellison.workers.dev/api/stripe/webhook`
+- Events: `checkout.session.completed`, `checkout.session.async_payment_succeeded`
+
+After applying the D1 SQL migration:
+1. Open Stripe Dashboard → Developers → Webhooks → select the DAEMON ACE endpoint above → reveal its signing secret.
+2. In Cloudflare Dashboard → Workers & Pages → `daemon-engineering-solutions` → Settings → Variables and Secrets, add an **encrypted secret** named `STRIPE_WEBHOOK_SECRET` and paste the signing secret there. Do not add it to GitHub or website code.
+3. Redeploy/restart the Worker if the dashboard requires it.
+4. Confirm `/api/health` reports `stripe_webhook_configured: true`.
+5. Do not activate the live payment links until the D1 migration and secure download fulfillment are complete. A live endpoint was created because the connected Stripe account used for the catalog is in live mode; use a separate test-mode endpoint/account for safe test transactions.
 
 ### Fulfillment status
 
