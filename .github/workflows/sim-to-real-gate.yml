@@ -1,0 +1,159 @@
+name: DAEMON ACE Sim-to-Real Gate
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, ready_for_review]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: sim-to-real-gate-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  virtualization-and-ros2:
+    name: Virtual Kubernetes + ROS 2 simulation preflight
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Check out pull request
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js for DAEMON ACE CLI
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Set up Python for receipt generation
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Create ephemeral Kubernetes cluster
+        uses: helm/kind-action@v1.10.0
+        with:
+          cluster_name: daemon-ace-sim
+          wait: 120s
+
+      - name: Verify Kubernetes control plane and workload scheduling
+        shell: bash
+        run: |
+          set -euo pipefail
+          kubectl cluster-info
+          kubectl create namespace daemon-ace-sim
+          kubectl -n daemon-ace-sim create deployment sim-control-plane --image=busybox:1.36 -- sh -c 'sleep 3600'
+          kubectl -n daemon-ace-sim rollout status deployment/sim-control-plane --timeout=120s
+          kubectl -n daemon-ace-sim get pods -o wide
+
+      - name: Run ROS 2 Humble messaging simulation
+        id: ros2
+        shell: bash
+        run: |
+          set -euo pipefail
+          docker run --rm ros:humble-ros-base bash -lc '
+            set -euo pipefail
+            apt-get update -qq
+            DEBIAN_FRONTEND=noninteractive apt-get install -y -qq ros-humble-demo-nodes-cpp
+            source /opt/ros/humble/setup.bash
+            timeout 18s ros2 run demo_nodes_cpp talker >/tmp/daemon-talker.log 2>&1 &
+            talker_pid=$!
+            sleep 4
+            timeout 9s ros2 run demo_nodes_cpp listener >/tmp/daemon-listener.log 2>&1 || listener_status=$?
+            kill "$talker_pid" 2>/dev/null || true
+            wait "$talker_pid" 2>/dev/null || true
+            cat /tmp/daemon-listener.log
+            grep -q "I heard" /tmp/daemon-listener.log
+          '
+
+      - name: Run DAEMON ACE configuration heuristics
+        id: ace
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p daemon-ace-receipts
+          python3 - <<'PY'
+          import json, pathlib, subprocess, sys
+          roots = [pathlib.Path("manifests"), pathlib.Path("k8s"), pathlib.Path("examples/preflight")]
+          files = sorted({p for root in roots if root.exists() for p in root.rglob("*") if p.is_file() and p.suffix.lower() in {".yaml", ".yml"}})
+          summary = []
+          failed = False
+          for path in files:
+              result = subprocess.run(["node", "bin/daemon-ace.mjs", "preflight", str(path), "--json"], text=True, capture_output=True)
+              try:
+                  receipt = json.loads(result.stdout)
+              except Exception:
+                  print(result.stderr or result.stdout, file=sys.stderr)
+                  raise SystemExit(f"Could not parse DAEMON ACE receipt for {path}")
+              receipt["source_file"] = str(path)
+              out = pathlib.Path("daemon-ace-receipts") / (path.as_posix().replace("/", "__") + ".json")
+              out.write_text(json.dumps(receipt, indent=2) + "\n", encoding="utf-8")
+              high = any(item.get("severity") == "high" for item in receipt.get("analysis", {}).get("findings", []))
+              failed = failed or high or result.returncode not in (0, 1)
+              summary.append({"file": str(path), "exit_code": result.returncode, "high_findings": high, "receipt": out.as_posix()})
+          pathlib.Path("daemon-ace-receipts/manifest-scan-summary.json").write_text(json.dumps({"files_scanned": len(files), "results": summary}, indent=2) + "\n", encoding="utf-8")
+          print(json.dumps({"files_scanned": len(files), "results": summary}, indent=2))
+          if not files:
+              print("No deployment manifests found in manifests/, k8s/, or examples/preflight/.")
+          if failed:
+              raise SystemExit("DAEMON ACE gate: high-severity heuristic finding(s) or scanner error. Review receipt artifacts.")
+          PY
+
+      - name: Generate Receipt of Safety
+        if: always()
+        env:
+          ROS2_OUTCOME: ${{ steps.ros2.outcome }}
+          ACE_OUTCOME: ${{ steps.ace.outcome }}
+          JOB_STATUS: ${{ job.status }}
+        shell: bash
+        run: |
+          mkdir -p daemon-ace-receipts
+          python3 - <<'PY'
+          import json, os, pathlib, datetime
+          checks = {
+            "kubernetes_cluster": "completed" if os.path.exists(os.environ.get("RUNNER_TEMP", "") + "/kind") else "see_job_logs",
+            "ros2_messaging_simulation": os.getenv("ROS2_OUTCOME", "not_run"),
+            "configuration_heuristics": os.getenv("ACE_OUTCOME", "not_run")
+          }
+          receipt = {
+            "schema": "daemon-ace.receipt-of-safety.v1",
+            "record_type": "pull_request_simulation_preflight",
+            "generated_at": datetime.datetime.now(datetime.timezone.utc).isoformat(),
+            "repository": os.getenv("GITHUB_REPOSITORY"),
+            "pull_request": os.getenv("GITHUB_EVENT_NUMBER"),
+            "commit_sha": os.getenv("GITHUB_SHA"),
+            "workflow_run": os.getenv("GITHUB_RUN_ID"),
+            "overall_workflow_status": os.getenv("JOB_STATUS"),
+            "checks": checks,
+            "scope": {
+              "kubernetes": "ephemeral kind cluster on GitHub-hosted runner",
+              "ros2": "ROS 2 Humble demo talker/listener messaging smoke simulation; not physics or hardware simulation",
+              "live_customer_infrastructure_accessed": False,
+              "physical_robot_tested": False,
+              "production_change_authorized": False,
+              "deployment_performed": False
+            },
+            "limitations": [
+              "Receipt records CI checks and text-pattern findings; it is not a safety certification.",
+              "ROS 2 messaging smoke test does not model robot dynamics, sensors, actuators, collision behavior, or Sim-to-Real transfer.",
+              "Kubernetes test cluster is ephemeral and does not represent the customer's production topology.",
+              "A passing workflow does not prove a configuration, robot, or deployment is safe."
+            ]
+          }
+          pathlib.Path("daemon-ace-receipts/receipt-of-safety.json").write_text(json.dumps(receipt, indent=2) + "\n", encoding="utf-8")
+          summary = pathlib.Path(os.environ["GITHUB_STEP_SUMMARY"])
+          with summary.open("a", encoding="utf-8") as f:
+            f.write("## DAEMON ACE — Receipt of Safety\n\n")
+            f.write(f"- Kubernetes / ROS 2 / heuristic check outcomes: {checks}\n")
+            f.write("- This receipt documents automated preflight execution only; it is not a safety certification or deployment approval.\n")
+          PY
+
+      - name: Upload Receipt of Safety and supporting evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: daemon-ace-receipt-of-safety-${{ github.run_number }}
+          path: daemon-ace-receipts/
+          if-no-files-found: warn
+          retention-days: 30
