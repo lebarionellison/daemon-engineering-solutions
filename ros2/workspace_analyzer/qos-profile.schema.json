@@ -1,0 +1,83 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://daemon-engineering-solutions.lebarionellison.workers.dev/schemas/ros2-qos-profile.v1.schema.json",
+  "title": "DAEMON ACE ROS 2 QoS Profile",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "profiles"
+  ],
+  "properties": {
+    "schema": {
+      "const": "daemon-ace.ros2-qos-profile.v1"
+    },
+    "profiles": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "topic",
+          "endpoint",
+          "reliability",
+          "durability",
+          "history"
+        ],
+        "properties": {
+          "topic": {
+            "type": "string",
+            "minLength": 1
+          },
+          "endpoint": {
+            "enum": [
+              "publisher",
+              "subscriber"
+            ]
+          },
+          "reliability": {
+            "enum": [
+              "reliable",
+              "best_effort"
+            ]
+          },
+          "durability": {
+            "enum": [
+              "volatile",
+              "transient_local"
+            ]
+          },
+          "history": {
+            "enum": [
+              "keep_last",
+              "keep_all"
+            ]
+          },
+          "depth": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "deadline_ms": {
+            "type": "number",
+            "minimum": 0
+          },
+          "lifespan_ms": {
+            "type": "number",
+            "minimum": 0
+          },
+          "liveliness": {
+            "enum": [
+              "automatic",
+              "manual_by_topic"
+            ]
+          },
+          "lease_duration_ms": {
+            "type": "number",
+            "minimum": 0
+          }
+        }
+      }
+    }
+  }
+}
