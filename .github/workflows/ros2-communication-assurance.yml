@@ -42,7 +42,8 @@ jobs:
           apt-get install -y --no-install-recommends \
             "ros-${ROS_DISTRO}-rmw-fastrtps-cpp" \
             "ros-${ROS_DISTRO}-rmw-cyclonedds-cpp" \
-            "ros-${ROS_DISTRO}-std-msgs"
+            "ros-${ROS_DISTRO}-std-msgs" \
+            "ros-${ROS_DISTRO}-rclpy"
       - name: Run live DDS QoS compatibility probes
         shell: bash
         run: |
