@@ -26,6 +26,9 @@ jobs:
         with:
           node-version: "20"
 
+      - name: Check Cloudflare Worker JavaScript syntax
+        run: node --check worker.js
+
       - name: Set up Python for receipt generation
         uses: actions/setup-python@v5
         with:
