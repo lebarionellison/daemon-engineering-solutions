@@ -1,0 +1,53 @@
+name: DAEMON ACE Jetson Orin ARM64 Build & Test
+on:
+  push:
+    branches: [main]
+    paths: ['jetson-orin/**', '.github/workflows/jetson-orin-release.yml']
+  pull_request:
+    paths: ['jetson-orin/**', '.github/workflows/jetson-orin-release.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: daemon-ace-jetson-orin-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  build-test-release:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - name: Enable ARM64 emulation
+        uses: docker/setup-qemu-action@v3
+        with:
+          platforms: arm64
+      - uses: docker/setup-buildx-action@v3
+      - name: Build NVIDIA L4T ARM64 image
+        run: docker buildx build --platform linux/arm64 --load -t daemon-ace-edge:jetson-orin jetson-orin
+      - name: Verify ROS 2 runtime is present
+        run: docker run --rm --platform linux/arm64 daemon-ace-edge:jetson-orin ros2 --help
+      - name: Smoke-test ROS 2 edge agent startup
+        shell: bash
+        run: |
+          set +e
+          output=$(docker run --rm --platform linux/arm64 daemon-ace-edge:jetson-orin timeout 8s python3 /opt/daemon_ace/edge_agent.py 2>&1)
+          status=$?
+          set -e
+          printf '%s\n' "$output"
+          if [[ "$status" -ne 124 ]] || ! grep -q 'DAEMON_ACE_EDGE_READY topic=/daemon_ace/edge/heartbeat' <<< "$output"; then
+            echo "::error::ROS 2 edge agent startup smoke test failed."
+            exit 1
+          fi
+      - name: Assemble device release bundle
+        run: |
+          mkdir -p release/daemon-ace-jetson-orin
+          docker save daemon-ace-edge:jetson-orin -o release/daemon-ace-jetson-orin/daemon-ace-edge-image.tar
+          cp jetson-orin/compose.yaml jetson-orin/deploy.sh jetson-orin/rollback.sh jetson-orin/README.md release/daemon-ace-jetson-orin/
+          chmod +x release/daemon-ace-jetson-orin/deploy.sh release/daemon-ace-jetson-orin/rollback.sh
+          tar -C release -czf daemon-ace-jetson-orin-release.tar.gz daemon-ace-jetson-orin
+      - uses: actions/upload-artifact@v4
+        with:
+          name: daemon-ace-jetson-orin-arm64-release
+          path: daemon-ace-jetson-orin-release.tar.gz
+          if-no-files-found: error
+          retention-days: 30
