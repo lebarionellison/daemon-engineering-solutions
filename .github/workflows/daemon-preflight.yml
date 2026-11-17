@@ -11,6 +11,8 @@ on:
       - 'index.html'
       - 'manifests/**'
       - 'k8s/**'
+      - 'ros2/**'
+      - '.github/workflows/ros2-evolution.yml'
       - '.github/workflows/daemon-preflight.yml'
   pull_request:
     paths:
@@ -22,7 +24,11 @@ on:
       - 'index.html'
       - 'manifests/**'
       - 'k8s/**'
+      - 'ros2/**'
+      - '.github/workflows/ros2-evolution.yml'
       - '.github/workflows/daemon-preflight.yml'
+  schedule:
+    - cron: '23 7 * * 1'
   workflow_dispatch:
 permissions:
   contents: read
@@ -114,3 +120,82 @@ jobs:
           path: daemon-ace-output/*.json
           if-no-files-found: error
           retention-days: 14
+
+  ros2-messaging-smoke-test:
+    name: ROS 2 ${{ matrix.distro }} messaging smoke test
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    strategy:
+      fail-fast: false
+      matrix:
+        distro: [humble, jazzy, lyrical, rolling]
+    container:
+      image: ros:${{ matrix.distro }}-ros-base
+    env:
+      ROS_DOMAIN_ID: "42"
+      ROS_LOCALHOST_ONLY: "1"
+    steps:
+      - name: Install distro-matched ROS 2 demo nodes and verify publisher/subscriber exchange
+        shell: bash
+        run: |
+          set -euo pipefail
+          echo "Testing ROS_DISTRO=${ROS_DISTRO}"
+          test "${ROS_DISTRO}" = "${{ matrix.distro }}"
+          apt-get update -qq
+          apt-get install -y --no-install-recommends "ros-${ROS_DISTRO}-demo-nodes-cpp"
+          source "/opt/ros/${ROS_DISTRO}/setup.bash"
+          ros2 run demo_nodes_cpp talker > /tmp/ros2-talker.log 2>&1 &
+          talker_pid=$!
+          ros2 run demo_nodes_cpp listener > /tmp/ros2-listener.log 2>&1 &
+          listener_pid=$!
+          cleanup() {
+            kill "$talker_pid" "$listener_pid" 2>/dev/null || true
+            wait "$talker_pid" "$listener_pid" 2>/dev/null || true
+          }
+          trap cleanup EXIT
+          for attempt in $(seq 1 15); do
+            if grep -q "Publishing:" /tmp/ros2-talker.log && grep -q "I heard:" /tmp/ros2-listener.log; then
+              break
+            fi
+            sleep 1
+          done
+          echo "--- TALKER ---"
+          cat /tmp/ros2-talker.log
+          echo "--- LISTENER ---"
+          cat /tmp/ros2-listener.log
+          grep -q "Publishing:" /tmp/ros2-talker.log
+          grep -q "I heard:" /tmp/ros2-listener.log
+          echo "PASS: ROS 2 publisher/subscriber messaging exchanged messages for ${ROS_DISTRO}."
+      - name: Upload ROS 2 messaging logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ros2-messaging-${{ matrix.distro }}
+          path: /tmp/ros2-*.log
+          if-no-files-found: ignore
+          retention-days: 14
+
+  validate-ros2-release-metadata:
+    name: Validate ROS 2 lifecycle metadata
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Validate compatibility matrix and guard planned release status
+        run: |
+          python -m json.tool ros2/compatibility-matrix.json >/dev/null
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          data = json.loads(Path("ros2/compatibility-matrix.json").read_text())
+          distros = {item["id"]: item for item in data["distributions"]}
+          assert set(distros) == {"humble", "jazzy", "lyrical", "makoa", "rolling"}
+          assert distros["makoa"]["daemon_ace_status"] == "planned-not-released"
+          assert distros["lyrical"]["upstream_eol"] == "2031-05"
+          assert distros["rolling"]["channel"] == "development"
+          print("ROS 2 lifecycle metadata is valid; Makoa remains planned, not released.")
+          PY
