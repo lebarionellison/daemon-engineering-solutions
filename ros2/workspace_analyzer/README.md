@@ -37,8 +37,11 @@ Contract and example:
 
 The validator checks required fields, supported reliability/durability/history/liveliness values, positive `keep_last` depth, non-negative timing fields, duplicate topic endpoints, and ROS 2 request/offered compatibility for reliability and durability when both publisher and subscriber are described. It does not parse arbitrary ROS parameter YAML, inspect a running RMW/DDS graph, or prove runtime interoperability.
 
+## Cross-distribution installed API/dependency catalog
+When `--build` runs inside each official ROS container, the analyzer also inventories installed ROS package names/versions and public-header declaration tokens. It compares adjacent selected distributions and reports package additions/removals/version changes, header additions/removals/content changes, and API symbol-token additions/removals. Catalog JSON files are retained in the report output directory. The token extractor is heuristic—not a compiler AST, semantic API or binary ABI diff.
+
 ## Actual per-distribution builds
-Requires Docker, network access, and a workspace with packages under `src/`:
+Requires Docker, network access, and a workspace with packages under `src/`. The build also captures the installed distro catalog after a successful colcon build:
 ```bash
 python3 ros2/workspace_analyzer/analyze.py ./candidate_ws --build \\
   --distro humble --distro jazzy --distro lyrical --distro rolling
