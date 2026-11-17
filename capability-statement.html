@@ -23,9 +23,9 @@
 </div>
 
 <section class="section naics" style="margin-top:15px">
-<h2>DAEMON ACE ROS WORKSPACE COMPATIBILITY ANALYZER — v1.0.0</h2>
-<p>Local-first ROS 2 workspace review utility for package and dependency inventory, versioned API migration pattern checks, DDS/QoS configuration review, and optional per-distribution dependency resolution plus colcon builds in official ROS containers. Reports are emitted as versioned JSON and Markdown artifacts and include a workspace SHA-256, selected target distributions, findings, build outcomes and explicit validation limitations.</p>
-<p style="margin-top:6px">Current analyzer CI covers unit tests and static analysis of a representative fixture workspace. Containerized build execution is opt-in and must pass independently for each selected distribution. Static pattern matches are engineering review signals—not complete API diffs or proof of runtime interoperability. DDS/QoS runtime behavior, simulation, hardware, real-time and safety qualification remain separate validation activities.</p>
+<h2>DAEMON ACE ROS WORKSPACE COMPATIBILITY ANALYZER — v1.1.0</h2>
+<p>Local-first ROS 2 workspace review utility for package and dependency inventory, baseline-to-candidate workspace diffs, versioned API pattern occurrence deltas, CMake find_package dependency changes, structured DAEMON ACE QoS JSON profile validation, and optional per-distribution dependency resolution plus colcon builds in official ROS containers. Versioned JSON and Markdown reports include a workspace SHA-256, selected target distributions, findings, optional migration diff, QoS validation results, build outcomes and explicit validation limitations.</p>
+<p style="margin-top:6px">Current analyzer CI covers unit tests and static analysis of a representative fixture workspace. Containerized build execution is opt-in and must pass independently for each selected distribution. Workspace diffs compare observed package manifests, CMake dependencies and configured source API patterns; they are not upstream ROS SDK header or binary ABI diffs. Structured QoS checks validate the DAEMON ACE profile contract and selected reliability/durability request-offered rules, not arbitrary ROS YAML or a live DDS graph. Simulation, hardware, real-time and safety qualification remain separate validation activities.</p>
 </section>
 <section class="section naics" style="margin-top:15px">
 <h2>ROS 2 EVOLUTION &amp; RELEASE-READINESS ENGINEERING</h2>
