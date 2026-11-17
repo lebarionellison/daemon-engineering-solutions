@@ -94,6 +94,42 @@ main > section:not(.hero), body > section{margin:36px auto!important;padding:24p
 .sharedApiCard code{font-size:10px;color:#a9d9e8;overflow-wrap:anywhere}
 .footerDisclaimer{max-width:900px;margin:14px auto 0;font-size:12px;line-height:1.6;color:#64748B}
 
+
+.governanceBanner{padding:24px 0 12px;background:transparent!important}
+.governanceBannerCard{max-width:1040px;margin:0 auto;padding:30px;border:1px solid rgba(56,189,248,.38);border-radius:16px;background:rgba(7,12,24,.76);backdrop-filter:blur(14px);box-shadow:0 18px 48px #0008}
+.governanceMeta{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;color:#38bdf8;font-size:10px;font-weight:900;letter-spacing:1.2px}
+.controlOnline{color:#34d399;background:#10b98120;border:1px solid #10b98166;padding:5px 10px;border-radius:999px;letter-spacing:.5px}
+.governanceBanner h1{font-size:clamp(30px,4.5vw,46px);line-height:1.12;letter-spacing:-.02em;margin:22px 0 12px;color:#f8fafc}
+.governanceBanner h1 em{font-style:normal;color:#38bdf8}
+.governanceBanner p{max-width:780px;color:#cbd5e1;font-size:14px}
+.governanceActions{display:flex;gap:12px;flex-wrap:wrap;margin-top:20px}
+.governanceActions a{display:inline-flex;padding:11px 16px;border-radius:8px;background:#38bdf8;color:#020617;font-size:12px;font-weight:900}
+.governanceActions a+ a{background:#0f172a;color:#f8fafc;border:1px solid #334155}
+.liveGatekeeper{margin:26px 0;padding:24px;border:1px solid rgba(56,189,248,.38);border-radius:14px;background:rgba(3,10,20,.82);box-shadow:0 16px 40px #0008}
+.liveGateTop{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;flex-wrap:wrap}
+.liveGateEyebrow{font-size:10px;font-weight:950;letter-spacing:1.1px;color:#38bdf8}
+.liveGateTop h3{font-size:clamp(21px,3vw,30px);margin:8px 0;color:#f8fafc}
+.liveGateTop p,.humanGate p{font-size:12px;color:#b8c7d9;margin:0}
+.gateLocked{white-space:nowrap;color:#fbbf24;border:1px solid #f59e0b66;background:#f59e0b15;border-radius:999px;padding:7px 11px;font-size:10px;font-weight:900}
+.gateLoaders{display:flex;gap:8px;flex-wrap:wrap;margin:18px 0}
+.gateLoaders button,.humanGate button{border:1px solid #34516d;background:#101d2d;color:#dceafa;border-radius:7px;padding:9px 12px;font-size:11px;font-weight:800;cursor:pointer}
+.liveGatekeeper label{display:block;color:#7dd3fc;font-size:10px;font-weight:900;letter-spacing:.8px;margin:12px 0 6px}
+.liveGatekeeper textarea,.liveGatekeeper input{display:block;width:100%;box-sizing:border-box;background:#050b15;color:#e5f2ff;border:1px solid #36516d;border-radius:8px;padding:12px;font:12px/1.6 ui-monospace,monospace}
+.liveGatekeeper textarea{min-height:230px;resize:vertical;white-space:pre}
+.gateEvaluate{margin-top:14px;border:0;border-radius:8px;background:#38bdf8;color:#02111c;padding:12px 16px;font-weight:950;cursor:pointer}
+.gateEvaluate:disabled{opacity:.6;cursor:wait}
+.sim2realResult{display:none;margin-top:16px;padding:16px;border:1px solid #34516d;border-radius:9px;background:#081321}
+.sim2realResult.show{display:block}
+.sim2realResult b{color:#7dd3fc;font-size:11px;letter-spacing:.8px}
+.sim2realResult p{color:#cbd5e1;font-size:12px}
+.sim2realResult pre{white-space:pre-wrap;overflow-wrap:anywhere;color:#9ee7d0;font-size:10px}
+.sim2realFinding{padding:10px;margin:8px 0;border-left:3px solid #f59e0b;background:#f59e0b10;color:#dceafa;font-size:11px}
+.humanGate{display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap;margin-top:16px;padding:14px;border:1px solid #f59e0b55;border-radius:9px;background:#f59e0b0c}
+.humanGate b{color:#fbbf24;font-size:10px;letter-spacing:.8px}
+.humanGate button:disabled{opacity:.5;cursor:not-allowed}
+.gateDisclosure{margin:14px 0 0;color:#91a3bb;font-size:10px;line-height:1.6}
+@media(max-width:640px){.governanceBannerCard{padding:21px}.liveGatekeeper{padding:16px}.gateLoaders button{flex:1 1 100%}}
+
 /* Command-center backdrop: kept behind content without flattening existing components */
 body{position:relative;isolation:isolate;background:#02050b}
 #daemon-command-bg{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden;background:#02050b}
@@ -117,7 +153,6 @@ main>section.alt{background-image:linear-gradient(180deg,rgba(8,14,26,.72),rgba(
   .modelEyebrow{font-size:9px;letter-spacing:.8px}
   .modelHeadline{font-size:clamp(17px,5vw,20px)}
 }
-@media(prefers-reduced-motion:reduce){.daemonRadarSweep{animation:none}}
 
 .productTrackPills{display:flex;flex-wrap:wrap;gap:10px;margin:14px 0 18px}
 .productTrackPills span,.productTrackPills a{display:inline-flex;align-items:center;border-radius:999px;padding:7px 13px;font-size:10px;font-weight:900;letter-spacing:.2px}
@@ -152,40 +187,50 @@ main>section.alt{background-image:linear-gradient(180deg,rgba(8,14,26,.72),rgba(
 <div id="daemon-command-bg" aria-hidden="true">
   <svg viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
     <defs>
-      <pattern id="daemonTacticalGrid" width="48" height="48" patternUnits="userSpaceOnUse">
-        <path d="M48 0H0V48" fill="none" stroke="#38bdf8" stroke-opacity=".12" stroke-width="1"/>
-        <circle cx="0" cy="0" r="1.2" fill="#38bdf8" fill-opacity=".32"/>
+      <pattern id="cmdMicroGrid" width="32" height="32" patternUnits="userSpaceOnUse">
+        <path d="M32 0H0V32" fill="none" stroke="rgba(56,189,248,.07)" stroke-width="1"/>
       </pattern>
-      <radialGradient id="daemonHeroAura" cx="50%" cy="18%" r="58%">
-        <stop offset="0%" stop-color="#38bdf8" stop-opacity=".20"/>
-        <stop offset="55%" stop-color="#10b981" stop-opacity=".07"/>
-        <stop offset="100%" stop-color="#02050b" stop-opacity="0"/>
+      <pattern id="cmdMajorGrid" width="160" height="160" patternUnits="userSpaceOnUse">
+        <rect width="160" height="160" fill="url(#cmdMicroGrid)"/>
+        <path d="M160 0H0V160M-3 0H3M0 -3V3" fill="none" stroke="rgba(56,189,248,.16)" stroke-width="1"/>
+      </pattern>
+      <radialGradient id="topCommandGlow" cx="50%" cy="0%" r="65%">
+        <stop offset="0%" stop-color="#38bdf8" stop-opacity=".22"/>
+        <stop offset="50%" stop-color="#10b981" stop-opacity=".08"/>
+        <stop offset="100%" stop-color="#03060d" stop-opacity="0"/>
       </radialGradient>
-      <linearGradient id="daemonRadarSweep" x1="0" y1="0" x2="1" y2="1">
+      <linearGradient id="beamHorizontal" x1="0%" y1="0%" x2="100%" y2="0%">
         <stop offset="0%" stop-color="#38bdf8" stop-opacity="0"/>
-        <stop offset="100%" stop-color="#38bdf8" stop-opacity=".24"/>
+        <stop offset="50%" stop-color="#38bdf8" stop-opacity=".45"/>
+        <stop offset="100%" stop-color="#38bdf8" stop-opacity="0"/>
       </linearGradient>
     </defs>
-    <rect width="1440" height="900" fill="#02050b"/>
-    <rect width="1440" height="900" fill="url(#daemonTacticalGrid)"/>
-    <rect width="1440" height="900" fill="url(#daemonHeroAura)"/>
-    <g fill="none" stroke-width="1.2">
-      <circle cx="720" cy="220" r="290" stroke="#38bdf8" stroke-opacity=".16" stroke-dasharray="8 7"/>
-      <circle cx="720" cy="220" r="440" stroke="#10b981" stroke-opacity=".12" stroke-dasharray="3 10"/>
-      <circle cx="720" cy="220" r="180" stroke="#38bdf8" stroke-opacity=".10"/>
-      <path d="M0 220H1440M720 0V900" stroke="#38bdf8" stroke-opacity=".09"/>
+    <rect width="1440" height="900" fill="#03060d"/>
+    <rect width="1440" height="900" fill="url(#cmdMajorGrid)"/>
+    <rect width="1440" height="900" fill="url(#topCommandGlow)"/>
+    <line x1="0" y1="112" x2="1440" y2="112" stroke="url(#beamHorizontal)" stroke-width="1.5"/>
+    <line x1="140" y1="0" x2="140" y2="900" stroke="rgba(56,189,248,.14)" stroke-dasharray="12 8"/>
+    <line x1="1300" y1="0" x2="1300" y2="900" stroke="rgba(16,185,129,.14)" stroke-dasharray="12 8"/>
+    <g fill="none" stroke-width="1.5">
+      <path d="M48 64V36H84M1392 64V36H1356" stroke="rgba(56,189,248,.5)"/>
+      <path d="M48 836V864H84M1392 836V864H1356" stroke="rgba(16,185,129,.45)"/>
+      <polyline points="140,260 210,260 235,285 320,285" stroke="rgba(56,189,248,.25)"/>
+      <polyline points="1300,340 1230,340 1205,365 1120,365" stroke="rgba(16,185,129,.25)"/>
     </g>
-    <path class="daemonRadarSweep" d="M720 220L720 -230A450 450 0 0 1 1038 88Z" fill="url(#daemonRadarSweep)"/>
-    <g fill="#38bdf8">
-      <circle cx="720" cy="220" r="3" opacity=".8"/>
-      <circle cx="430" cy="220" r="2" opacity=".55"/>
-      <circle cx="1010" cy="220" r="2" opacity=".55"/>
-      <circle cx="720" cy="510" r="2" opacity=".55"/>
-    </g>
+    <circle cx="320" cy="285" r="3" fill="#38bdf8" opacity=".65"/>
+    <circle cx="1120" cy="365" r="3" fill="#10b981" opacity=".65"/>
   </svg>
 </div>
 <header><div class="wrap nav"><a class="brand" href="#home">DAEMON <span>Engineering Solutions</span><small>ENGINEERING INTELLIGENCE · SECURITY · DELIVERY</small></a><nav class="navlinks"><a href="#proof">Proof-Loop</a><a href="#engines">How ACE works</a><a href="#team">Who it helps</a><a href="#enterprise">Enterprise</a><a href="#investors">Investors</a><a href="#robotics-gatekeeper">Robotics &amp; Edge</a><a href="#founder">Founder</a><a href="#contact" class="navcta">Talk to Engineering ↗</a></nav></div></header>
-<main>
+<main><section class="governanceBanner" aria-labelledby="governance-title">
+  <div class="wrap"><div class="governanceBannerCard">
+    <div class="governanceMeta"><span>DAEMON ENGINEERING SOLUTIONS · CREATORS OF DAEMON ACE</span><span class="controlOnline">● CONTROL PLANE ONLINE</span></div>
+    <h1 id="governance-title">Governed AI &amp; Robotics Infrastructure.<br><em>Virtualization · Zero-Trust Security.</em></h1>
+    <p><strong>DAEMON ACE</strong> is the pre-flight engineering gate between proposed AI infrastructure changes and human-reviewed production decisions. Inspect cloud, GPU and ROS2 configurations, create a traceable SHA-256 receipt, and keep execution locked until required simulation evidence and authorized human sign-off exist.</p>
+    <div class="productTrackPills"><span class="cloudTrack">⚡ DAEMON ACE · Cloud &amp; GPU Virtualization</span><a class="roboticsTrack" href="#robotics-gatekeeper">🤖 DAEMON ACE · Robotics &amp; Edge Gatekeeper ↓</a></div>
+    <div class="governanceActions"><a href="#live-ace-engine">Launch Pre-Flight Twin ↓</a><a href="#robotics-gatekeeper">Open Robotics Gatekeeper ↗</a></div>
+  </div></div>
+</section>
 <section class="hero" id="home"><div class="wrap heroGrid">
 <div class="heroCopy"><div class="eyebrow">MEET DAEMON ACE · YOUR AI INFRASTRUCTURE ENGINEER</div><div class="heroHeadlineRow"><h1>Your AI Infrastructure Engineer. <em>Without the Engineering Overhead.</em></h1><div class="telemetryNode" role="img" aria-label="DAEMON ACE topology illustration connecting the Pre-Flight Twin and safety review"><svg viewBox="0 0 260 150" width="100%" height="auto" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs><radialGradient id="aceNodeGlow"><stop offset="0%" stop-color="#38bdf8" stop-opacity=".28"/><stop offset="100%" stop-color="#38bdf8" stop-opacity="0"/></radialGradient></defs><circle cx="130" cy="75" r="70" fill="url(#aceNodeGlow)"/><circle cx="130" cy="75" r="58" fill="none" stroke="#1e293b" stroke-width="1.5" stroke-dasharray="6 4"/><circle cx="130" cy="75" r="42" fill="none" stroke="#38bdf8" stroke-width="1.5" class="telemetry-pulse"/><circle cx="130" cy="75" r="18" fill="#38bdf8" fill-opacity=".18" stroke="#38bdf8" stroke-width="2"/><text x="130" y="79" text-anchor="middle" fill="#f8fafc" font-family="ui-monospace,monospace" font-size="10" font-weight="700">ACE</text><line x1="72" y1="75" x2="112" y2="75" stroke="#38bdf8" stroke-width="1.5"/><circle cx="66" cy="75" r="6" fill="#0f172a" stroke="#38bdf8" stroke-width="2"/><text x="42" y="79" text-anchor="end" fill="#94a3b8" font-family="ui-monospace,monospace" font-size="9">TWIN</text><line x1="148" y1="75" x2="188" y2="75" stroke="#10b981" stroke-width="1.5"/><circle cx="194" cy="75" r="6" fill="#062016" stroke="#10b981" stroke-width="2"/><text x="206" y="79" text-anchor="start" fill="#34d399" font-family="ui-monospace,monospace" font-size="9">SAFE</text></svg><div class="telemetryLabel">PRE-FLIGHT NODE <span>· DEMO MODE</span></div></div></div>
 <div class="productTrackPills" aria-label="DAEMON ACE product tracks">
@@ -302,7 +347,28 @@ spec:
 <section id="robotics-gatekeeper" class="roboticsSpotlight">
   <div class="wrap">
     <div class="roboticsSpotlightCard">
-      <div class="roboticsSpotlightHead">
+      <div class="liveGatekeeper" id="live-sim2real-gate">
+  <div class="liveGateTop"><div><span class="liveGateEyebrow">LIVE CRYPTOGRAPHIC GATEKEEPER · SHA-256 SIM-TO-REAL SEAL</span><h3>Verify &amp; Seal Cloud or ROS2 Robotics Configs</h3><p>Run server-side configuration screening and mint an integrity receipt bound to the exact submitted UTF-8 bytes.</p></div><span class="gateLocked">🔒 PRODUCTION GATE LOCKED</span></div>
+  <div class="gateLoaders"><button type="button" data-gate-sample="unsafe-ros2">Load Unsafe ROS2 Robot</button><button type="button" data-gate-sample="unsafe-gpu">Load Unsafe GPU Pod</button><button type="button" data-gate-sample="hardened">Load Hardened ROS2 Config</button></div>
+  <label for="sim2realManifest">CONFIGURATION ARTIFACT (KUBERNETES / ROS2 / TERRAFORM)</label>
+  <textarea id="sim2realManifest" spellcheck="false" aria-label="Configuration artifact">robot_node:
+  name: autonomous_rover_controller
+  ros_distro: humble
+  environment:
+    ROS_DOMAIN_ID: 0
+    dds_discovery_interface: "0.0.0.0"
+  motion_limits:
+    max_linear_velocity: 8.5
+    max_angular_velocity: 4.2
+  runtime:
+    privileged: true</textarea>
+  <label for="sim2realGoal">ENGINEERING REVIEW GOAL</label>
+  <input id="sim2realGoal" value="Evaluate ROS2 network isolation, actuator screening limits, and container privilege boundaries before a human-reviewed lab trial." maxlength="1200">
+  <button type="button" id="sim2realEvaluate" class="gateEvaluate">🛡️ Evaluate Rubric &amp; Mint SHA-256 Receipt</button>
+  <div id="sim2realResult" class="sim2realResult" aria-live="polite"><b>RECEIPT OF SAFETY</b><p>Waiting for a configuration review.</p></div>
+  <div class="humanGate"><div><b>AUTHORIZED HUMAN GATEKEEPER APPROVAL</b><p>Signing remains unavailable until trusted simulation attestation and a separately authorized approval workflow are configured. A SHA-256 match alone never unlocks execution.</p></div><button type="button" disabled>✓ Sign &amp; Unlock · LOCKED</button></div>
+  <p class="gateDisclosure">Important: this live gate runs text-pattern heuristics and records a SHA-256 fingerprint. It does not run Gazebo/Isaac physics, validate actuator behavior, attest a physical robot, or authorize Kubernetes/edge execution. The current production verify endpoint fails closed without a trusted simulator attestation, human sign-off, and the separately configured admission token/enforcement component.</p>
+</div><div class="roboticsSpotlightHead">
         <div>
           <span class="roboticsEyebrow">FLAGSHIP PRODUCT TRACK · PHYSICAL AI &amp; AUTONOMOUS SYSTEMS</span>
           <h2>DAEMON ACE · Robotics &amp; Edge Gatekeeper</h2>
@@ -570,6 +636,86 @@ document.getElementById("bottomExecutiveBriefForm").addEventListener("submit",as
   }catch(error){status.textContent=error.message+" Please try again."}
   finally{button.disabled=false;button.textContent="Continue →"}
 });
+
+// DAEMON ACE Robotics & Edge Gatekeeper — public heuristic pre-flight + exact-byte SHA-256 receipt.
+(()=>{
+ const editor=document.getElementById("sim2realManifest");
+ const goal=document.getElementById("sim2realGoal");
+ const output=document.getElementById("sim2realResult");
+ const run=document.getElementById("sim2realEvaluate");
+ if(!editor||!goal||!output||!run)return;
+ const samples={
+  "unsafe-ros2":`robot_node:
+  name: autonomous_rover_controller
+  ros_distro: humble
+  environment:
+    ROS_DOMAIN_ID: 0
+    dds_discovery_interface: "0.0.0.0"
+  motion_limits:
+    max_linear_velocity: 8.5
+    max_angular_velocity: 4.2
+  runtime:
+    privileged: true`,
+  "unsafe-gpu":`apiVersion: v1
+kind: Pod
+metadata:
+  name: research-gpu-worker
+spec:
+  containers:
+  - name: trainer
+    image: nvidia/cuda:latest
+    securityContext:
+      privileged: true
+    resources: {}`,
+  "hardened":`robot_node:
+  name: autonomous_rover_controller
+  ros_distro: humble
+  environment:
+    ROS_DOMAIN_ID: 42
+    dds_discovery_interface: "eth0"
+  motion_limits:
+    max_linear_velocity: 0.5
+    max_angular_velocity: 0.4
+  runtime:
+    privileged: false
+    allowPrivilegeEscalation: false
+    runAsUser: 10001
+  resources:
+    requests:
+      cpu: "250m"
+      memory: "256Mi"
+    limits:
+      cpu: "1"
+      memory: "512Mi"`
+ };
+ document.querySelectorAll("[data-gate-sample]").forEach(button=>button.addEventListener("click",()=>{
+  editor.value=samples[button.dataset.gateSample]||samples["unsafe-ros2"];
+  goal.value=button.dataset.gateSample==="unsafe-gpu"?"Review GPU pod privilege, image pinning, and resource boundaries.":"Evaluate ROS2 network isolation, actuator screening limits, and container privilege boundaries before a human-reviewed lab trial.";
+  output.classList.remove("show");
+ }));
+ const esc=value=>String(value??"").replace(/[&<>"']/g,ch=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[ch]));
+ run.addEventListener("click",async()=>{
+  const manifest=editor.value;
+  if(!manifest.trim()){output.classList.add("show");output.innerHTML="<b>RECEIPT OF SAFETY</b><p>Add a configuration artifact first.</p>";return;}
+  if(!goal.value.trim()){output.classList.add("show");output.innerHTML="<b>RECEIPT OF SAFETY</b><p>Add an engineering review goal first.</p>";return;}
+  run.disabled=true;run.textContent="Evaluating configuration…";
+  output.classList.add("show");output.innerHTML="<b>RECEIPT OF SAFETY</b><p>Submitting to the DAEMON ACE pre-flight API…</p>";
+  try{
+   const response=await fetch("/api/preflight",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({manifest,goal:goal.value,fileName:"sim2real-configuration.yaml"})});
+   const data=await response.json().catch(()=>({}));
+   if(!response.ok)throw new Error(data.error||"Pre-flight request failed.");
+   const receipt=data.receipt||{},analysis=receipt.analysis||{},findings=analysis.findings||[],integrity=receipt.config_integrity||{};
+   const verdict=findings.some(x=>x.severity==="critical"||x.severity==="high")?"BLOCKED · HIGH-PRIORITY FINDINGS":findings.some(x=>x.severity==="medium")?"REVIEW REQUIRED":"NO LISTED PATTERNS DETECTED";
+   output.innerHTML="<b>RECEIPT OF SAFETY · "+esc(verdict)+"</b><p>Heuristic score: <strong>"+esc(analysis.score)+"/100</strong> · Receipt: <code>"+esc(data.receipt_id)+"</code></p>"+
+    findings.map(x=>'<div class="sim2realFinding"><strong>'+esc(String(x.severity).toUpperCase()+" · "+x.code+" · "+x.title)+'</strong><br>'+esc(x.recommendation)+'</div>').join("")+
+    '<p><strong>SHA-256:</strong></p><pre>'+esc(integrity.digest||"Digest unavailable")+'</pre>'+
+    '<p><strong>Integrity status:</strong> '+esc(integrity.status||"not recorded")+'<br><strong>Simulation attestation:</strong> NOT PRESENT<br><strong>Execution authorization:</strong> FALSE</p>'+
+    '<p>This receipt fingerprints the exact submitted UTF-8 configuration. It is not a digital signature, physical simulation result, safety certification, or deployment approval.</p>';
+  }catch(error){output.innerHTML="<b>RECEIPT OF SAFETY · REQUEST FAILED</b><p>"+esc(error.message)+"</p>";}
+  finally{run.disabled=false;run.textContent="🛡️ Evaluate Rubric & Mint SHA-256 Receipt";}
+ });
+})();
+
 </script>
 </body>
 </html>
