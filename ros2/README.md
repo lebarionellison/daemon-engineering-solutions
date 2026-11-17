@@ -79,3 +79,18 @@ The probe creates ROS 2 publisher/subscriber endpoints and runs six selected sce
 The CI matrix targets Humble, Jazzy, Lyrical and Rolling with rmw_fastrtps_cpp and rmw_cyclonedds_cpp. Reports record exact ROS/RMW environment, expected and observed outcomes, sample counts, incompatible-QoS events and same-host publish-to-callback timing observations.
 
 **Evidence boundary:** this is a single-host endpoint probe, not multi-host network qualification. Timing is diagnostic and not a real-time guarantee. It does not exhaustively test DDS discovery, all QoS policies, security, packet loss, congestion, failover, simulation, hardware, safety or production fleets. Publish compatibility claims only for exact matrix combinations whose jobs have passed; never infer full ROS distribution support from this probe.
+
+
+### First live communication assurance matrix result
+
+**PASS — November 17, 2026:** [DAEMON ACE ROS 2 Evolution Matrix run #44129071982](https://github.com/lebarionellison/daemon-engineering-solutions/actions/runs/44129071982). All eight ROS distribution/RMW combinations passed all six selected reliability/durability scenarios and report-contract checks:
+- Humble + Fast DDS — passed
+- Humble + Cyclone DDS — passed
+- Jazzy + Fast DDS — passed
+- Jazzy + Cyclone DDS — passed
+- Lyrical + Fast DDS — passed
+- Lyrical + Cyclone DDS — passed
+- Rolling + Fast DDS — passed
+- Rolling + Cyclone DDS — passed
+
+This validates only the six defined single-host scenarios in those exact CI containers/RMW implementations. It does not establish complete ROS distro support, multi-host network reliability, real-time performance, simulator fidelity, hardware readiness or safety certification.
