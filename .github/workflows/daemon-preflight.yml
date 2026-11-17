@@ -27,8 +27,6 @@ on:
       - 'ros2/**'
       - '.github/workflows/ros2-evolution.yml'
       - '.github/workflows/daemon-preflight.yml'
-  schedule:
-    - cron: '23 7 * * 1'
   workflow_dispatch:
 permissions:
   contents: read
