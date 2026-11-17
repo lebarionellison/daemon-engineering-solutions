@@ -43,7 +43,7 @@ def _api_inventory(root, rules_path):
 
 def _cmake_inventory(root):
     result={}
-    pattern=re.compile(r"find_package\\s*\\(\\s*([A-Za-z0-9_+-]+)([^)]*)\\)",re.I)
+    pattern=re.compile(r"find_package\s*\(\s*([A-Za-z0-9_+-]+)([^)]*)\)",re.I)
     for path in sorted(Path(root).rglob("CMakeLists.txt")):
         if any(part in SKIP for part in path.parts): continue
         try: body=path.read_text(errors="replace")
