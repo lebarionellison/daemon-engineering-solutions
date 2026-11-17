@@ -11,6 +11,7 @@ DISTROS=("humble","jazzy","lyrical","rolling")
 SKIP={".git","build","install","log",".venv","__pycache__"}
 SUFFIX={".py",".cpp",".cc",".cxx",".hpp",".h",".yaml",".yml",".xml",".cmake",".txt"}
 HERE=Path(__file__).resolve().parent
+sys.path.insert(0,str(HERE))
 from compatibility import compare_workspaces, validate_qos_profile
 
 def files(root):
@@ -89,6 +90,26 @@ def markdown(r):
     lines += ["","## Findings",""]
     for f in r["findings"]: lines += [f"### [{f['severity'].upper()}] {f['code']} — {f['message']}",f"- File: `{f.get('path') or 'workspace'}`",f"- Recommendation: {f['recommendation']}",f"- Evidence: `{f['evidence']}`",""]
     if not r["findings"]: lines.append("No findings from enabled static checks.")
+    if r.get("workspace_diff"):
+        d=r["workspace_diff"]; p=d["packages"]
+        lines += ["", "## Baseline comparison", f"- Baseline: {d['baseline_label']} -> candidate: {d['current_label']}",
+                  f"- Packages added: {', '.join(p['added']) or 'none'}",
+                  f"- Packages removed: {', '.join(p['removed']) or 'none'}",
+                  f"- Packages changed: {len(p['changed'])}",
+                  f"- API pattern changes: {len(d['api_usage_changes'])}",
+                  f"- CMake dependencies added: {', '.join(d['cmake_find_package_changes']['added']) or 'none'}",
+                  f"- CMake dependencies removed: {', '.join(d['cmake_find_package_changes']['removed']) or 'none'}"]
+        for item in p["changed"]:
+            lines.append(f"  - {item['package']} dependencies +{item['dependencies_added']} / -{item['dependencies_removed']}; version {item['version']['before']} -> {item['version']['after']}")
+        for item in d["api_usage_changes"]:
+            lines.append(f"  - {item['rule_id']} occurrences {item['occurrences_before']} -> {item['occurrences_after']} (delta {item['delta']:+})")
+    if r.get("qos_profile_validation"):
+        q=r["qos_profile_validation"]
+        lines += ["", "## Structured QoS profile validation", f"- Result: {'VALID' if q['valid'] else 'INVALID'}",
+                  f"- Publisher/subscriber topic pairs checked: {len(q['pair_checks'])}",
+                  f"- Errors: {len(q['errors'])} - warnings: {len(q['warnings'])}"]
+        for issue in q["errors"]+q["warnings"]:
+            lines.append(f"  - {issue['code']} {issue['message']}")
     lines += ["## Validation boundary","","Static checks are heuristics. A distribution is marked passed only when its containerized rosdep and colcon build exits successfully. DDS interoperability, runtime QoS, simulation, hardware, real-time performance and safety qualification require separate tests."]
     return "\n".join(lines)+"\n"
 def main():
