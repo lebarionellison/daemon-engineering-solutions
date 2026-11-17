@@ -5,12 +5,13 @@ import argparse, hashlib, json, re, shutil, subprocess, sys, xml.etree.ElementTr
 from datetime import datetime, timezone
 from pathlib import Path
 
-SCHEMA="daemon-ace.ros2-workspace-report.v1"
-VERSION="1.0.0"
+SCHEMA="daemon-ace.ros2-workspace-report.v2"
+VERSION="1.1.0"
 DISTROS=("humble","jazzy","lyrical","rolling")
 SKIP={".git","build","install","log",".venv","__pycache__"}
 SUFFIX={".py",".cpp",".cc",".cxx",".hpp",".h",".yaml",".yml",".xml",".cmake",".txt"}
 HERE=Path(__file__).resolve().parent
+from compatibility import compare_workspaces, validate_qos_profile
 
 def files(root):
     return sorted(p for p in root.rglob("*") if p.is_file() and p.suffix.lower() in SUFFIX and not any(x in SKIP for x in p.parts))
@@ -95,15 +96,19 @@ def main():
     ap.add_argument("workspace"); ap.add_argument("--distro",dest="distros",action="append",choices=DISTROS)
     ap.add_argument("--build",action="store_true",help="Run rosdep + colcon in official ROS Docker containers.")
     ap.add_argument("--timeout",type=int,default=1800); ap.add_argument("--output",default="daemon-ace-report")
+    ap.add_argument("--compare-to",help="Baseline ROS workspace directory to diff against the current workspace.")
+    ap.add_argument("--qos-profile",help="DAEMON ACE structured QoS profile JSON to validate.")
     a=ap.parse_args(); root=Path(a.workspace).resolve()
     if not root.is_dir(): ap.error("workspace directory does not exist")
     distros=a.distros or (list(DISTROS) if a.build else [])
     findings=[]; packages=package_inventory(root,findings); inspect_build(root,findings); inspect_api(root,findings); inspect_qos(root,findings)
+    comparison=compare_workspaces(root,Path(a.compare_to).resolve(),HERE/"api-migration-rules.json") if a.compare_to else None
+    qos_result=validate_qos_profile(a.qos_profile) if a.qos_profile else None
     builds=[build(root,d,a.timeout) for d in distros] if a.build else [{"distro":d,"status":"not-run","reason":"Use --build to execute a containerized build."} for d in distros]
-    r={"schema":SCHEMA,"report_version":VERSION,"generated_at":datetime.now(timezone.utc).isoformat(),"analyzer":{"name":"DAEMON ACE ROS Workspace Compatibility Analyzer","version":VERSION},"workspace":{"path_label":root.name,"sha256":workspace_hash(root),"packages":packages,"source_file_count":len(files(root))},"targets":distros,"build_matrix":builds,"findings":findings,"summary":{"disposition":disposition(findings,builds),"high":sum(x["severity"]=="high" for x in findings),"medium":sum(x["severity"]=="medium" for x in findings),"info":sum(x["severity"]=="info" for x in findings),"builds_passed":sum(x["status"]=="passed" for x in builds),"builds_failed":sum(x["status"]=="failed" for x in builds),"builds_not_run":sum(x["status"]=="not-run" for x in builds)},"limitations":["Static API and QoS rules are heuristic.","External dependencies require per-distro rosdep resolution.","QoS pattern detection is not live middleware testing.","No simulator, hardware, real-time or safety certification is performed."]}
+    r={"schema":SCHEMA,"report_version":VERSION,"generated_at":datetime.now(timezone.utc).isoformat(),"analyzer":{"name":"DAEMON ACE ROS Workspace Compatibility Analyzer","version":VERSION},"workspace":{"path_label":root.name,"sha256":workspace_hash(root),"packages":packages,"source_file_count":len(files(root))},"targets":distros,"build_matrix":builds,"findings":findings,"workspace_diff":comparison,"qos_profile_validation":qos_result,"summary":{"disposition":disposition(findings,builds),"high":sum(x["severity"]=="high" for x in findings),"medium":sum(x["severity"]=="medium" for x in findings),"info":sum(x["severity"]=="info" for x in findings),"builds_passed":sum(x["status"]=="passed" for x in builds),"builds_failed":sum(x["status"]=="failed" for x in builds),"builds_not_run":sum(x["status"]=="not-run" for x in builds),"qos_profile_valid":(qos_result["valid"] if qos_result else None)},"limitations":["Static API rules are heuristic; workspace diffs compare observed source patterns and package manifests, not upstream ROS SDK headers.","External dependencies require per-distro rosdep resolution.","QoS source-pattern detection is heuristic; structured profile checks validate the DAEMON ACE JSON contract and reliability/durability request-offered compatibility only.","No simulator, hardware, real-time or safety certification is performed."]}
     out=Path(a.output); out.mkdir(parents=True,exist_ok=True)
     (out/"ros-workspace-compatibility-report.json").write_text(json.dumps(r,indent=2)+"\n")
     (out/"ros-workspace-compatibility-report.md").write_text(markdown(r))
     print(json.dumps({"disposition":r["summary"]["disposition"],"packages":len(packages),"findings":len(findings),"build_matrix":builds,"output":str(out)},indent=2))
-    return 1 if r["summary"]["disposition"]=="action-required" else 0
+    return 1 if r["summary"]["disposition"]=="action-required" or (qos_result is not None and not qos_result["valid"]) else 0
 if __name__=="__main__": sys.exit(main())
