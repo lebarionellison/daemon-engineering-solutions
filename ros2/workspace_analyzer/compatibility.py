@@ -41,6 +41,18 @@ def _api_inventory(root, rules_path):
         if hits: result[rule["id"]]={"message":rule.get("message",""),"occurrences":sum(x["count"] for x in hits),"locations":hits}
     return result
 
+def _cmake_inventory(root):
+    result={}
+    pattern=re.compile(r"find_package\\s*\\(\\s*([A-Za-z0-9_+-]+)([^)]*)\\)",re.I)
+    for path in sorted(Path(root).rglob("CMakeLists.txt")):
+        if any(part in SKIP for part in path.parts): continue
+        try: body=path.read_text(errors="replace")
+        except OSError: continue
+        for match in pattern.finditer(body):
+            name=match.group(1)
+            result.setdefault(name,set()).add(path.relative_to(root).as_posix())
+    return {name:sorted(paths) for name,paths in sorted(result.items())}
+
 def compare_workspaces(current, baseline, rules_path):
     """Compare current workspace against a baseline directory; baseline is the before state."""
     now=_manifest_inventory(Path(current).resolve())
@@ -68,7 +80,7 @@ def compare_workspaces(current, baseline, rules_path):
             "current_label":Path(current).name,"packages":{"added":added,"removed":removed,"changed":changed},
             "api_usage_changes":api,
             "summary":{"packages_added":len(added),"packages_removed":len(removed),"packages_changed":len(changed),
-                       "api_patterns_changed":len(api)}}
+                       "api_patterns_changed":len(api),"cmake_dependencies_added":len(cmake["added"]),"cmake_dependencies_removed":len(cmake["removed"])}}
 
 QOS_ENUMS={
  "reliability":{"reliable","best_effort"},
