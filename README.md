@@ -29,7 +29,7 @@ cd daemon-engineering-solutions
 node ./bin/daemon-ace.mjs preflight ./examples/preflight/sample-deployment.yaml
 ```
 
-The CLI command is `daemon-ace preflight`; the checked-in direct invocation is `node ./bin/daemon-ace.mjs preflight`. The GitHub Actions workflow is `.github/workflows/daemon-preflight.yml`, and its uploaded artifact is named `daemon-ace-preflight-receipts`. Neither the workflow filename nor the artifact name is a GitHub repository.
+The CLI command is `daemon-ace preflight`; the checked-in direct invocation is `node ./bin/daemon-ace.mjs preflight`. The GitHub Actions workflow is `.github/workflows/daemon-preflight.yml`, and its uploaded artifact is named `daemon-engineering-solutions-preflight-receipts`. Neither the workflow filename nor the artifact name is a GitHub repository.
 
 ## Stripe payment verification (live checkout remains disabled)
 
