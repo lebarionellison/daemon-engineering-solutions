@@ -5,6 +5,7 @@ sys.path.insert(0,str(MODULE.parent))
 spec=importlib.util.spec_from_file_location("ace_analyzer",MODULE)
 m=importlib.util.module_from_spec(spec); spec.loader.exec_module(m)
 from compatibility import compare_workspaces, validate_qos_profile, compare_distro_catalogs
+from distro_catalog import inventory as distro_inventory
 
 class AnalyzerTests(unittest.TestCase):
  def test_manifest_inventory_and_external_dependency(self):
@@ -39,6 +40,16 @@ class AnalyzerTests(unittest.TestCase):
    self.assertEqual(result["packages"]["changed"][0]["dependencies_added"],["sensor_msgs"])
    self.assertEqual(result["cmake_find_package_changes"]["added"],["sensor_msgs"])
    self.assertIn("ROS-API-ROSCPP-001",{x["rule_id"] for x in result["api_usage_changes"]})
+ def test_distro_catalog_inventories_installed_package_and_header_symbols(self):
+  with tempfile.TemporaryDirectory() as t:
+   root=Path(t); share=root/"share"/"rclcpp"; include=root/"include"/"rclcpp"
+   share.mkdir(parents=True); include.mkdir(parents=True)
+   (share/"package.xml").write_text('<package><name>rclcpp</name><version>30.1.0</version></package>')
+   (include/"node.hpp").write_text("class Node {};\\nvoid spin();\\n")
+   result=distro_inventory(root,"jazzy")
+   self.assertEqual(result["packages"]["rclcpp"],"30.1.0")
+   self.assertIn("Node",result["api_symbols"])
+   self.assertIn("spin",result["api_symbols"])
  def test_cross_distribution_catalog_diff(self):
   catalogs=[
    {"distro":"humble","packages":{"rclcpp":"1.0","std_msgs":"1.0"},"headers":{"rclcpp/node.hpp":"aaa"},"api_symbols":["Node","spin"]},
