@@ -27,7 +27,7 @@ on:
 permissions:
   contents: read
 concurrency:
-  group: daemon-ace-preflight-${{ github.ref }}
+  group: daemon-engineering-solutions-preflight-${{ github.ref }}
   cancel-in-progress: true
 jobs:
   preflight:
@@ -110,7 +110,7 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: daemon-ace-preflight-receipts
+          name: daemon-engineering-solutions-preflight-receipts
           path: daemon-ace-output/*.json
           if-no-files-found: error
           retention-days: 14
