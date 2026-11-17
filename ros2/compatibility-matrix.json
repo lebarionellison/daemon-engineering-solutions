@@ -10,8 +10,10 @@
       "channel": "lts",
       "release_date": "2022-05-23",
       "upstream_eol": "2027-05",
-      "daemon_ace_status": "legacy-baseline",
-      "validation": "existing-humble-talker-listener-smoke-test-previously-passed"
+      "daemon_ace_status": "basic-messaging-smoke-test-passed",
+      "validation": "demo_nodes_cpp-talker-listener-ci-passed-2026-11-17",
+      "last_verified": "2026-11-17",
+      "workflow_run": "https://github.com/lebarionellison/daemon-engineering-solutions/actions/runs/44111443506"
     },
     {
       "id": "jazzy",
@@ -19,8 +21,10 @@
       "channel": "lts",
       "release_date": "2024-05-23",
       "upstream_eol": "2029-05",
-      "daemon_ace_status": "ci-validation-pending",
-      "validation": "messaging-matrix-pending-first-run"
+      "daemon_ace_status": "basic-messaging-smoke-test-passed",
+      "validation": "demo_nodes_cpp-talker-listener-ci-passed-2026-11-17",
+      "last_verified": "2026-11-17",
+      "workflow_run": "https://github.com/lebarionellison/daemon-engineering-solutions/actions/runs/44111443506"
     },
     {
       "id": "lyrical",
@@ -28,8 +32,10 @@
       "channel": "lts",
       "release_date": "2026-05-22",
       "upstream_eol": "2031-05",
-      "daemon_ace_status": "primary-forward-baseline-ci-pending",
-      "validation": "messaging-matrix-pending-first-run"
+      "daemon_ace_status": "basic-messaging-smoke-test-passed",
+      "validation": "demo_nodes_cpp-talker-listener-ci-passed-2026-11-17",
+      "last_verified": "2026-11-17",
+      "workflow_run": "https://github.com/lebarionellison/daemon-engineering-solutions/actions/runs/44111443506"
     },
     {
       "id": "makoa",
@@ -46,8 +52,10 @@
       "channel": "development",
       "release_date": null,
       "upstream_eol": null,
-      "daemon_ace_status": "early-warning-ci-pending",
-      "validation": "messaging-matrix-pending-first-run"
+      "daemon_ace_status": "basic-messaging-smoke-test-passed",
+      "validation": "demo_nodes_cpp-talker-listener-ci-passed-2026-11-17",
+      "last_verified": "2026-11-17",
+      "workflow_run": "https://github.com/lebarionellison/daemon-engineering-solutions/actions/runs/44111443506"
     }
   ],
   "validation_levels": [
@@ -64,5 +72,6 @@
     "real-time-qualification",
     "physical-robot-safety-certification",
     "production-deployment-authorization"
-  ]
+  ],
+  "validation_note": "Basic talker/listener message exchange passed in CI for Humble, Jazzy, Lyrical and Rolling on 2026-11-17. This is not complete distro or application compatibility certification."
 }
