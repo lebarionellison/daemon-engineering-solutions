@@ -1,6 +1,7 @@
 cmake_minimum_required(VERSION 3.8)
 project(ace_workspace_fixture)
 find_package(ament_cmake REQUIRED)
+find_package(ament_cmake_target_dependencies REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(std_msgs REQUIRED)
 add_executable(qos_probe src/qos_probe.cpp)
