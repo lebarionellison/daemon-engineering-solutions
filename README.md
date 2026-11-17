@@ -134,10 +134,10 @@ DAEMON ACE is being developed as a release-aware engineering layer above upstrea
 
 | Distribution | Upstream status | Release / support window | DAEMON ACE validation position |
 |---|---|---|---|
-| Lyrical Luth | Current LTS | Released 2026-05-22; upstream EOL May 2031 | Primary forward baseline; compatibility claim requires passing CI matrix |
+| Lyrical Luth | Current LTS | Released 2026-05-22; upstream EOL May 2031 | Basic messaging smoke test passed 2026-11-17; broader compatibility pending |
 | Makoa Mata-mata | Planned non-LTS | Planned May 2027; planned EOL December 2028 | Pre-release target once upstream packages are available; not released |
-| Rolling Ridley | Continuous development | Rolling development channel | Early-warning lane; not a production stability guarantee |
-| Jazzy Jalisco | Supported LTS | Released May 2024; upstream EOL May 2029 | Customer legacy baseline; validate per CI result |
+| Rolling Ridley | Continuous development | Rolling development channel | Basic messaging smoke test passed 2026-11-17; early-warning lane, not a production stability guarantee |
+| Jazzy Jalisco | Supported LTS | Released May 2024; upstream EOL May 2029 | Basic messaging smoke test passed 2026-11-17; broader compatibility pending |
 | Humble Hawksbill | Supported LTS | Released May 2022; upstream EOL May 2027 | Existing verified talker/listener smoke-test baseline |
 
 Upstream schedule and status:
@@ -156,3 +156,8 @@ Upstream schedule and status:
 The GitHub Actions workflow `.github/workflows/daemon-preflight.yml` runs the matrix on relevant pull requests and pushes to main. The standalone `.github/workflows/ros2-evolution.yml` workflow repeats it weekly and supports manual dispatch. Both test Humble, Jazzy, Lyrical and Rolling. A passing messaging job proves only that the tested ROS 2 demo publisher and subscriber exchanged messages in that CI container. It does not prove complete distribution compatibility, simulator fidelity, physical robot behavior, real-time performance, functional safety or production readiness. Makoa is not included in the runnable matrix until upstream prerelease packages are available.
 
 **Release discipline:** never mark a ROS distribution as DAEMON ACE supported from its upstream release announcement alone. Publish the exact CI run, tested image/distro, test scope and limitations with each compatibility update.
+
+
+### First expanded ROS 2 CI result
+
+**PASS — 2026-11-17:** [DAEMON ACE Pre-Flight run #44111443506](https://github.com/lebarionellison/daemon-engineering-solutions/actions/runs/44111443506). Basic ROS 2 talker/listener messaging passed in Humble, Jazzy, Lyrical and Rolling containers. This is a narrow messaging smoke test; it does not establish complete distribution compatibility, application behavior, simulator fidelity or hardware safety.
