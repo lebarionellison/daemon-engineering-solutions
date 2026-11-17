@@ -511,6 +511,26 @@ section .sectionHead h2,.sectionHead h2{font-size:clamp(30px,4vw,48px);line-heig
 @media(max-width:850px){.romiGrid{grid-template-columns:repeat(2,minmax(0,1fr))}.romiHeader{grid-template-columns:1fr 160px}}
 @media(max-width:600px){.aceSecureFlow,.aceSecureFoot,.romiGrid{grid-template-columns:1fr}.aceSecureFlow article:last-child{grid-column:auto}.romiHeader{grid-template-columns:1fr}.romiMark{min-height:90px}.romiLifecycle{justify-content:flex-start}}
 
+
+/* Buyer-first navigation and conversion path */
+.buyerHub{padding-top:42px;padding-bottom:46px;background:linear-gradient(180deg,#091525,#08111e);border-top:1px solid #ffffff14;border-bottom:1px solid #ffffff14}
+.buyerPathGrid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-top:20px}
+.buyerPathCard{display:flex;flex-direction:column;min-height:190px;padding:19px;border:1px solid #2b4662;border-radius:12px;background:linear-gradient(145deg,#12243a,#0a1524);transition:transform .18s,border-color .18s}
+.buyerPathCard:hover{transform:translateY(-3px);border-color:#63e8e8a8}
+.buyerPathCard>span{font-size:9px;font-weight:950;letter-spacing:1.1px;color:var(--cyan)}
+.buyerPathCard strong{font-size:16px;line-height:1.25;margin:11px 0 8px;color:#f4f8ff}
+.buyerPathCard small{font-size:11px;line-height:1.55;color:var(--muted)}
+.buyerPathCard i{font-style:normal;margin-top:auto;padding-top:15px;font-size:10px;font-weight:900;color:var(--cyan)}
+.buyerSteps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:18px}
+.buyerSteps>div{padding:15px 17px;border:1px solid #ffffff1b;border-radius:10px;background:#ffffff06}
+.buyerSteps span{font-size:9px;font-weight:950;letter-spacing:1.1px;color:var(--cyan)}
+.buyerSteps b{display:block;margin:4px 0 3px;font-size:12px;letter-spacing:.5px}
+.buyerSteps p{margin:0;color:var(--muted);font-size:10px;line-height:1.55}
+#control-plane{border-top:1px solid #ffffff18}
+#control-plane>div:first-child:before{content:"TECHNICAL APPENDIX · FOR ENGINEERING REVIEW";display:block;margin-bottom:7px;color:#8deeff;font-size:9px;font-weight:950;letter-spacing:1.4px}
+@media(max-width:900px){.buyerPathGrid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:600px){.buyerPathGrid,.buyerSteps{grid-template-columns:1fr}.buyerPathCard{min-height:0}.buyerHub{padding-top:34px}}
+
 </style>
 </head>
 <body>
@@ -552,7 +572,7 @@ section .sectionHead h2,.sectionHead h2{font-size:clamp(30px,4vw,48px);line-heig
     <circle cx="1120" cy="365" r="3" fill="#10b981" opacity=".65"/>
   </svg>
 </div>
-<header><div class="wrap nav"><a class="brand" href="#home">DAEMON <span>Engineering Solutions</span><small>ENGINEERING INTELLIGENCE · SECURITY · DELIVERY</small></a><nav class="navlinks" aria-label="Primary navigation"><a href="#jetson-delivery">Delivery Engine</a><a href="#jetson-delivery">Live Workbench</a><a href="#engines">AI + HPC</a><a href="#secure-ai">Secure AI</a><a href="#romi">RoMi Robotics</a><a href="#proof">Assurance</a><a href="infrastructure-services.html">Services</a><a href="#contact" class="navcta">Build With ACE ↗</a></nav></div></header>
+<header><div class="wrap nav"><a class="brand" href="#home">DAEMON <span>Engineering Solutions</span><small>ENGINEERING INTELLIGENCE · SECURITY · DELIVERY</small></a><nav class="navlinks" aria-label="Primary navigation"><a href="#engines">Platform</a><a href="#romi">Robotics + RoMi</a><a href="#secure-ai">Secure AI</a><a href="#jetson-delivery">Edge Delivery</a><a href="infrastructure-services.html">Services</a><a href="#preflight">Try Preflight</a><a href="#contact" class="navcta">Start a Project ↗</a></nav></div></header>
 <main><section class="governanceBanner cinematicHero" aria-labelledby="governance-title">
   <div class="cinematicGrid"></div>
   <div class="wrap cinematicLayout">
@@ -644,21 +664,24 @@ section .sectionHead h2,.sectionHead h2{font-size:clamp(30px,4vw,48px);line-heig
       <div class="terminalFooter"><span id="terminalState">ENGINE STANDBY</span><span>LOCAL DEMO TRACE</span></div>
     </section>
 
-<section class="discoveryHub" id="explore" aria-labelledby="discovery-title">
+<section class="discoveryHub buyerHub" id="explore" aria-labelledby="discovery-title">
  <div class="wrap">
-  <div class="discoveryHeading"><div><span class="discoveryEyebrow">FIND YOUR ENGINEERING PATH</span><h2 id="discovery-title">SELECT AN ENGINEERING WORKSTREAM.</h2><p>Choose a technical domain to inspect its architecture, tools, evidence and engagement path.</p></div><span class="discoveryIndex">DAEMON ACE / 01—06</span></div>
-  <div class="discoveryGrid">
-   <a class="discoveryCard lime" href="#engines"><span class="discoveryNo">01 / AI + HPC</span><strong>AI pipelines &amp; compute</strong><small>GPU infrastructure, Kubernetes workloads, data pipelines and cost-aware capacity design.</small><i>Explore engineering ↗</i></a>
-   <a class="discoveryCard violet" href="#robotics-gatekeeper"><span class="discoveryNo">02 / PHYSICAL AI</span><strong>Robotics &amp; simulation</strong><small>ROS 2 release readiness, edge containers, Sim-to-Real review and configuration screening for lab workflows.</small><i>Explore robotics ↗</i></a>
-   <a class="discoveryCard orange" href="#proof"><span class="discoveryNo">03 / TRUST LAYER</span><strong>Security &amp; governance</strong><small>Policy checks, change evidence, risk review and human approval boundaries.</small><i>Explore governance ↗</i></a>
-   <a class="discoveryCard teal" href="#preflight"><span class="discoveryNo">04 / HANDS-ON TOOLS</span><strong>Interactive pre-flight tools</strong><small>Test sample YAML, inspect findings and review a proposed configuration diff.</small><i>Launch free tools ↗</i></a>
-   <a class="discoveryCard blue" href="#enterprise"><span class="discoveryNo">05 / DELIVERY</span><strong>Build &amp; harden systems</strong><small>Scoped infrastructure engineering, pipeline delivery, pod design and technical validation.</small><i>View engagements ↗</i></a>
-   <a class="discoveryCard violet" href="#design-partners"><span class="discoveryNo">06 / COLLABORATE</span><strong>Research &amp; pilot programs</strong><small>Design-partner pilots for universities, AI labs, robotics teams and enterprise platforms.</small><i>Explore pilot program ↗</i></a>
+  <div class="discoveryHeading"><div><span class="discoveryEyebrow">START WITH YOUR ENGINEERING GOAL</span><h2 id="discovery-title">WHAT ARE YOU TRYING TO BUILD?</h2><p>Choose the path that matches your team. Each route leads to the relevant capabilities, current tools and a clear way to scope an engagement.</p></div><span class="discoveryIndex">DAEMON ACE / BUYER GUIDE</span></div>
+  <div class="buyerPathGrid">
+   <a class="buyerPathCard" href="#engines"><span>01 / AI + HPC</span><strong>Build and optimize AI infrastructure</strong><small>GPU compute, Kubernetes, model pipelines, data workflows and infrastructure cost engineering.</small><i>Explore platform engineering ↗</i></a>
+   <a class="buyerPathCard" href="#romi"><span>02 / ROBOTICS + RoMi</span><strong>Develop robotics and physical AI</strong><small>RoMi product engineering, ROS 2 integration, embedded AI, Jetson delivery and simulation-to-hardware validation.</small><i>Explore robotics ↗</i></a>
+   <a class="buyerPathCard" href="#secure-ai"><span>03 / SECURE AI</span><strong>Secure AI from code to execution</strong><small>Identity, model provenance, workload isolation, policy gates, evidence and human-authorized releases.</small><i>Explore secure AI ↗</i></a>
+   <a class="buyerPathCard" href="infrastructure-services.html"><span>04 / ENGINEERING SERVICES</span><strong>Get expert delivery support</strong><small>Scoped architecture, Kubernetes, CI/CD, cloud, security hardening and platform engineering engagements.</small><i>Explore services ↗</i></a>
+  </div>
+  <div class="buyerSteps" aria-label="How to engage with Daemon Engineering Solutions">
+   <div><span>STEP 01</span><b>EXPLORE</b><p>Review the platform, run a free preflight check or discuss your engineering objective.</p></div>
+   <div><span>STEP 02</span><b>SCOPE</b><p>Agree on the environment, deliverables, access boundaries, timeline and acceptance criteria.</p></div>
+   <div><span>STEP 03</span><b>BUILD THE PILOT</b><p>Receive a written proposal. Work begins after scope, authorization and commercial terms are approved.</p></div>
   </div>
  </div>
 </section>
 
-<section class="wrap" aria-labelledby="proof-diagram-title">
+<section id="release-journey" class="wrap" aria-labelledby="proof-diagram-title">
   <div class="proofDiagram reveal">
     <div class="proofDiagramHead">
       <div class="kicker">VISUAL ARCHITECTURE · ZERO BLIND TRUST</div>
@@ -1020,23 +1043,6 @@ async function sendLeadToWeb3Forms(fields,subject){
   const result=await response.json().catch(()=>({}));
   return response.ok&&result.success===true;
 }
-document.getElementById("quickBriefForm").addEventListener("submit",async e=>{
-  e.preventDefault();
-  const form=e.currentTarget,button=document.getElementById("quickContinue"),status=document.getElementById("quickBriefStatus");
-  const payload={name:document.getElementById("quickName").value.trim(),email:document.getElementById("quickEmail").value.trim(),requestType:"Executive Brief + Capability Statement",company:"Executive brief request",pain:"Please send the DAEMON ACE Executive Brief and Capability Statement."};
-  button.disabled=true;button.textContent="Sending…";status.textContent="";
-  try{
-    const response=await fetch("/api/leads",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(payload)});
-    const result=await response.json().catch(()=>({}));
-    if(!response.ok)throw new Error(result.error||"Unable to save your request.");
-    if(result.stored){
-      const emailed=await sendLeadToWeb3Forms(payload,"DAEMON ACE Executive Brief Request");
-      status.textContent=emailed?"Request received. We will follow up with the Executive Brief and Capability Statement.":"Your request was saved, but the email notification did not complete. Please contact daemonengineeringsolutions@gmail.com.";
-    }else{status.textContent="Request received. Thank you.";}
-    form.reset();
-  }catch(error){status.textContent=error.message+" Please try again.";}
-  finally{button.disabled=false;button.textContent="Continue →";}
-});
 document.getElementById("intakeForm").addEventListener("submit",async e=>{
   e.preventDefault();
   const form=e.currentTarget,submit=document.getElementById("submitLead"),status=document.getElementById("formStatus"),data=Object.fromEntries(new FormData(form).entries());
@@ -1241,14 +1247,16 @@ spec:
 </script>
 
 <script>
-// Keep the homepage as a guided technical tour: architecture → interactive lab → engineering domains → proof → engagement.
+// Guided buyer-first product tour. Keep the customer paths ahead of technical detail.
 (()=>{
- const main=document.querySelector("main"); if(!main)return;
- const ids=["home","engines","robotics-gatekeeper","ros-evolution","preflight","proof","ace-gateways","team","design-partners","enterprise","investors","founder","contact"];
+ const main=document.querySelector("main");
+ const hero=main?.querySelector(".cinematicHero");
+ if(!main||!hero)return;
+ const ids=["explore","home","engines","secure-ai","robotics-roadmap","romi","robotics-gatekeeper","jetson-delivery","ros-evolution","release-journey","preflight","proof","ace-gateways","team","design-partners","enterprise","investors","founder","contact"];
  const nodes=ids.map(id=>document.getElementById(id)).filter(Boolean);
- if(nodes.length<8)return;
- const tour=document.createElement("div");tour.className="engineeringTour";tour.id="engineering-tour";
- const first=nodes[0];main.insertBefore(tour,first);
+ if(nodes.length<12)return;
+ let tour=document.getElementById("engineering-tour");
+ if(!tour){tour=document.createElement("div");tour.className="engineeringTour";tour.id="engineering-tour";hero.insertAdjacentElement("afterend",tour);}
  nodes.forEach((node,index)=>{node.dataset.tourStep=String(index+1).padStart(2,"0");tour.appendChild(node);});
 })();
 </script>
