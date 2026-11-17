@@ -66,6 +66,9 @@ def compare_workspaces(current, baseline, rules_path):
         if old["version"]!=new["version"] or add_deps or drop_deps:
             changed.append({"package":name,"version":{"before":old["version"],"after":new["version"]},
                             "dependencies_added":add_deps,"dependencies_removed":drop_deps})
+    old_cmake=_cmake_inventory(Path(baseline).resolve())
+    new_cmake=_cmake_inventory(Path(current).resolve())
+    cmake={"added":sorted(set(new_cmake)-set(old_cmake)),"removed":sorted(set(old_cmake)-set(new_cmake))}
     old_api=_api_inventory(Path(baseline).resolve(),rules_path)
     new_api=_api_inventory(Path(current).resolve(),rules_path)
     api=[]
@@ -78,7 +81,7 @@ def compare_workspaces(current, baseline, rules_path):
                         "locations_after":new.get("locations",[])})
     return {"comparison_mode":"current-workspace-vs-baseline","baseline_label":Path(baseline).name,
             "current_label":Path(current).name,"packages":{"added":added,"removed":removed,"changed":changed},
-            "api_usage_changes":api,
+            "cmake_find_package_changes":cmake,"api_usage_changes":api,
             "summary":{"packages_added":len(added),"packages_removed":len(removed),"packages_changed":len(changed),
                        "api_patterns_changed":len(api),"cmake_dependencies_added":len(cmake["added"]),"cmake_dependencies_removed":len(cmake["removed"])}}
 
