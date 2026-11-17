@@ -16,12 +16,12 @@ permissions:
   contents: read
 
 concurrency:
-  group: daemon-ace-communication-assurance-\${{ github.ref }}
+  group: daemon-ace-communication-assurance-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
   qos-interoperability:
-    name: \${{ matrix.distro }} / \${{ matrix.rmw }}
+    name: ${{ matrix.distro }} / ${{ matrix.rmw }}
     runs-on: ubuntu-latest
     timeout-minutes: 20
     strategy:
@@ -30,11 +30,11 @@ jobs:
         distro: [humble, jazzy, lyrical, rolling]
         rmw: [rmw_fastrtps_cpp, rmw_cyclonedds_cpp]
     container:
-      image: ros:\${{ matrix.distro }}-ros-base
+      image: ros:${{ matrix.distro }}-ros-base
     env:
       ROS_DOMAIN_ID: '44'
       ROS_LOCALHOST_ONLY: '1'
-      RMW_IMPLEMENTATION: \${{ matrix.rmw }}
+      RMW_IMPLEMENTATION: ${{ matrix.rmw }}
       PYTHONUNBUFFERED: '1'
     steps:
       - uses: actions/checkout@v4
@@ -44,22 +44,22 @@ jobs:
           set -euo pipefail
           apt-get update -qq
           apt-get install -y --no-install-recommends \
-            "ros-\${ROS_DISTRO}-rmw-fastrtps-cpp" \
-            "ros-\${ROS_DISTRO}-rmw-cyclonedds-cpp" \
-            "ros-\${ROS_DISTRO}-std-msgs"
+            "ros-${ROS_DISTRO}-rmw-fastrtps-cpp" \
+            "ros-${ROS_DISTRO}-rmw-cyclonedds-cpp" \
+            "ros-${ROS_DISTRO}-std-msgs"
       - name: Run live DDS QoS compatibility probes
         shell: bash
         run: |
           set -euo pipefail
           set +u
-          source "/opt/ros/\${ROS_DISTRO}/setup.bash"
+          source "/opt/ros/${ROS_DISTRO}/setup.bash"
           set -u
-          test "\${ROS_DISTRO}" = "\${{ matrix.distro }}"
-          test "\${RMW_IMPLEMENTATION}" = "\${{ matrix.rmw }}"
+          test "${ROS_DISTRO}" = "${{ matrix.distro }}"
+          test "${RMW_IMPLEMENTATION}" = "${{ matrix.rmw }}"
           mkdir -p communication-assurance-results
           python3 ros2/communication_assurance/qos_probe.py \
             --scenario all --duration 3 \
-            --output "communication-assurance-results/\${ROS_DISTRO}-\${RMW_IMPLEMENTATION}.json"
+            --output "communication-assurance-results/${ROS_DISTRO}-${RMW_IMPLEMENTATION}.json"
       - name: Validate report contract and scenario coverage
         shell: bash
         run: |
@@ -86,7 +86,7 @@ jobs:
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: ros2-communication-\${{ matrix.distro }}-\${{ matrix.rmw }}
+          name: ros2-communication-${{ matrix.distro }}-${{ matrix.rmw }}
           path: communication-assurance-results/
           if-no-files-found: warn
           retention-days: 30
