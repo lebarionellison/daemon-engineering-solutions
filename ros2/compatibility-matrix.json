@@ -1,0 +1,77 @@
+{
+  "schema": "daemon-ace.ros2-compatibility-matrix.v1",
+  "checked_at": "2026-11-17",
+  "upstream_source": "https://github.com/ros2/ros2_documentation/blob/rolling/source/Releases.rst",
+  "policy": "Upstream release status is independent of DAEMON ACE validation status.",
+  "distributions": [
+    {
+      "id": "humble",
+      "name": "Humble Hawksbill",
+      "channel": "lts",
+      "release_date": "2022-05-23",
+      "upstream_eol": "2027-05",
+      "daemon_ace_status": "basic-messaging-smoke-test-passed",
+      "validation": "demo_nodes_cpp-talker-listener-ci-passed-2026-11-17",
+      "last_verified": "2026-11-17",
+      "workflow_run": "https://github.com/lebarionellison/daemon-engineering-solutions/actions/runs/44111443506"
+    },
+    {
+      "id": "jazzy",
+      "name": "Jazzy Jalisco",
+      "channel": "lts",
+      "release_date": "2024-05-23",
+      "upstream_eol": "2029-05",
+      "daemon_ace_status": "basic-messaging-smoke-test-passed",
+      "validation": "demo_nodes_cpp-talker-listener-ci-passed-2026-11-17",
+      "last_verified": "2026-11-17",
+      "workflow_run": "https://github.com/lebarionellison/daemon-engineering-solutions/actions/runs/44111443506"
+    },
+    {
+      "id": "lyrical",
+      "name": "Lyrical Luth",
+      "channel": "lts",
+      "release_date": "2026-05-22",
+      "upstream_eol": "2031-05",
+      "daemon_ace_status": "basic-messaging-smoke-test-passed",
+      "validation": "demo_nodes_cpp-talker-listener-ci-passed-2026-11-17",
+      "last_verified": "2026-11-17",
+      "workflow_run": "https://github.com/lebarionellison/daemon-engineering-solutions/actions/runs/44111443506"
+    },
+    {
+      "id": "makoa",
+      "name": "Makoa Mata-mata",
+      "channel": "planned-non-lts",
+      "planned_release": "2027-05",
+      "planned_upstream_eol": "2028-12",
+      "daemon_ace_status": "planned-not-released",
+      "validation": "enable-prerelease-validation-after-upstream-packages-are-published"
+    },
+    {
+      "id": "rolling",
+      "name": "Rolling Ridley",
+      "channel": "development",
+      "release_date": null,
+      "upstream_eol": null,
+      "daemon_ace_status": "basic-messaging-smoke-test-passed",
+      "validation": "demo_nodes_cpp-talker-listener-ci-passed-2026-11-17",
+      "last_verified": "2026-11-17",
+      "workflow_run": "https://github.com/lebarionellison/daemon-engineering-solutions/actions/runs/44111443506"
+    }
+  ],
+  "validation_levels": [
+    "messaging-smoke-test",
+    "workspace-build",
+    "api-message-qos-compatibility",
+    "simulation-regression",
+    "hardware-qualification"
+  ],
+  "exclusions_until_implemented": [
+    "complete-distribution-certification",
+    "gazebo-or-isaac-physics-validation",
+    "ros2-control-or-nav2-certification",
+    "real-time-qualification",
+    "physical-robot-safety-certification",
+    "production-deployment-authorization"
+  ],
+  "validation_note": "Basic talker/listener message exchange passed in CI for Humble, Jazzy, Lyrical and Rolling on 2026-11-17. This is not complete distro or application compatibility certification."
+}
