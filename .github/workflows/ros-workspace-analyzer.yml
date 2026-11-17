@@ -19,14 +19,16 @@ jobs:
         run: python -m unittest discover -s ros2/workspace_analyzer/tests -v
       - name: Analyze sample workspace
         run: |
-          python ros2/workspace_analyzer/analyze.py examples/ros2-workspace --distro humble --distro jazzy --distro lyrical --output daemon-ace-report
+          python ros2/workspace_analyzer/analyze.py examples/ros2-workspace --compare-to examples/ros2-workspace --qos-profile ros2/workspace_analyzer/examples/qos-profile.example.json --distro humble --distro jazzy --distro lyrical --output daemon-ace-report
           python - <<'PY'
           import json
           from pathlib import Path
           r=json.loads(Path("daemon-ace-report/ros-workspace-compatibility-report.json").read_text())
-          assert r["schema"] == "daemon-ace.ros2-workspace-report.v1"
+          assert r["schema"] == "daemon-ace.ros2-workspace-report.v2"
           assert r["workspace"]["packages"]
           assert len(r["build_matrix"]) == 3
+          assert r["workspace_diff"]["summary"]["packages_added"] == 0
+          assert r["qos_profile_validation"]["valid"] is True
           assert all(x["status"] == "not-run" for x in r["build_matrix"])
           print("Analyzer report schema and sample inventory passed.")
           PY
@@ -60,3 +62,38 @@ jobs:
           rosdep install --from-paths examples/ros2-workspace/src --ignore-src -r -y --rosdistro ${{ matrix.distro }}
           cd examples/ros2-workspace
           colcon build --event-handlers console_direct+
+          mkdir -p "$GITHUB_WORKSPACE/distro-catalogs"
+          python3 "$GITHUB_WORKSPACE/ros2/workspace_analyzer/distro_catalog.py" --ros-root /opt/ros/${{ matrix.distro }} --distro ${{ matrix.distro }} --output "$GITHUB_WORKSPACE/distro-catalogs/ros-distro-catalog-${{ matrix.distro }}.json"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ros-distro-catalog-${{ matrix.distro }}
+          path: distro-catalogs/ros-distro-catalog-${{ matrix.distro }}.json
+          retention-days: 30
+  compare-distro-catalogs:
+    runs-on: ubuntu-latest
+    needs: container-build-matrix
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: ros-distro-catalog-*
+          path: distro-catalogs
+          merge-multiple: true
+      - name: Compare installed ROS package and header API catalogs
+        run: |
+          python ros2/workspace_analyzer/compare_distro_catalogs.py --catalog-dir distro-catalogs --output ros-distro-api-diff.json
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          report=json.loads(Path("ros-distro-api-diff.json").read_text())
+          assert len(report["distributions"]) == 4
+          assert len(report["comparisons"]) == 3
+          print("Four-distribution package and header API catalog comparison passed.")
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: daemon-ace-cross-distro-api-diff
+          path: ros-distro-api-diff.json
+          retention-days: 30

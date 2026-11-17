@@ -1,0 +1,37 @@
+{
+  "schema": "daemon-ace.ros2-qos-profile.v1",
+  "profiles": [
+    {
+      "topic": "/camera/image",
+      "endpoint": "publisher",
+      "reliability": "best_effort",
+      "durability": "volatile",
+      "history": "keep_last",
+      "depth": 5
+    },
+    {
+      "topic": "/camera/image",
+      "endpoint": "subscriber",
+      "reliability": "best_effort",
+      "durability": "volatile",
+      "history": "keep_last",
+      "depth": 10
+    },
+    {
+      "topic": "/robot/status",
+      "endpoint": "publisher",
+      "reliability": "reliable",
+      "durability": "transient_local",
+      "history": "keep_last",
+      "depth": 1
+    },
+    {
+      "topic": "/robot/status",
+      "endpoint": "subscriber",
+      "reliability": "reliable",
+      "durability": "volatile",
+      "history": "keep_last",
+      "depth": 10
+    }
+  ]
+}
