@@ -1,10 +1,6 @@
 name: DAEMON ACE ROS 2 Communication Assurance
 
 on:
-  pull_request:
-    paths:
-      - 'ros2/communication_assurance/**'
-      - '.github/workflows/ros2-communication-assurance.yml'
   push:
     branches: [main]
     paths:
