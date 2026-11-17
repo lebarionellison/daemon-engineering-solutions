@@ -4,9 +4,32 @@ Company website and DAEMON ACE flagship platform.
 
 **Parent company:** Daemon Engineering Solutions  
 **Flagship product:** DAEMON ACE  
+**GitHub owner:** `lebarionellison`  
+**Canonical GitHub repository:** `lebarionellison/daemon-engineering-solutions`  
+**Default branch:** `main`  
 **Cloudflare Worker:** `daemon-engineering-solutions`  
 **Website:** https://daemon-engineering-solutions.lebarionellison.workers.dev
 
+## Repository name and DAEMON ACE preflight command
+
+The repository is named **`daemon-engineering-solutions`**. The string **`daemon-ace-preflight` is not a repository name**; it refers only to the DAEMON ACE preflight workflow/artifact naming. Do not use it in GitHub's Owner/Repository field, a clone URL, or a repository URL.
+
+Use these exact values wherever a setup screen asks for the GitHub repository:
+
+- Owner: `lebarionellison`
+- Repository: `daemon-engineering-solutions`
+- Full name: `lebarionellison/daemon-engineering-solutions`
+- Clone URL: `https://github.com/lebarionellison/daemon-engineering-solutions.git`
+
+Clone the correct repository and run the preflight CLI from its root:
+
+```bash
+git clone https://github.com/lebarionellison/daemon-engineering-solutions.git
+cd daemon-engineering-solutions
+node ./bin/daemon-ace.mjs preflight ./examples/preflight/sample-deployment.yaml
+```
+
+The CLI command is `daemon-ace preflight`; the checked-in direct invocation is `node ./bin/daemon-ace.mjs preflight`. The GitHub Actions workflow is `.github/workflows/daemon-preflight.yml`, and its uploaded artifact is named `daemon-ace-preflight-receipts`. Neither the workflow filename nor the artifact name is a GitHub repository.
 
 ## Stripe payment verification (live checkout remains disabled)
 
@@ -71,10 +94,9 @@ CREATE INDEX IF NOT EXISTS idx_purchases_created_at ON purchases(created_at DESC
 CREATE INDEX IF NOT EXISTS idx_purchases_fulfillment_status ON purchases(fulfillment_status);
 ```
 
+## Customer preflight and paid configuration workflow (merged into main)
 
-## Customer preflight and paid configuration workflow (feature branch)
-
-This feature branch adds:
+The main branch includes:
 - A visitor-supplied engineering goal and Kubernetes YAML submission to `POST /api/preflight`.
 - Server-side heuristic findings and an optional AI-generated proposed configuration using the encrypted `OPENAI_API_KEY` Worker secret.
 - A free preview that withholds the complete generated file.
@@ -101,4 +123,4 @@ The existing Stripe webhook must remain configured for `checkout.session.complet
 - The AI output is a proposal, not a validated or production-ready configuration. The Gatekeeper remains limited text-pattern screening; no YAML parser, Kubernetes dry-run, Terraform plan, tests, vulnerability scan, or live cluster connection is added by this change.
 - The purchase claim uses the unguessable Stripe Checkout Session ID and an atomic single-use D1 fulfillment state. The success page retries briefly while the Stripe webhook records payment. Customer email delivery and a customer account/download library are not implemented.
 - GitHub PR creation is **not enabled**. A secure customer-owned GitHub integration requires a GitHub App/OAuth authorization flow with per-customer repository grants, installation-token handling, webhook/state validation, and explicit repository/file consent. A shared owner PAT is not an acceptable substitute.
-- Production deployment remains disabled. Keep checkout disabled until the D1 migrations, secrets, webhook configuration, live deployment, and end-to-end payment test are completed. Do not test with a real charge.
+- Production deployment and payment fulfillment still require the documented D1 migrations, secrets, webhook configuration, and end-to-end verification. Do not test with a real charge.
