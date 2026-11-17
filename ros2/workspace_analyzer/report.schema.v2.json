@@ -1,0 +1,176 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://daemon-engineering-solutions.lebarionellison.workers.dev/schemas/ros-workspace-report.v2.schema.json",
+  "title": "DAEMON ACE ROS Workspace Compatibility Report v2",
+  "type": "object",
+  "required": [
+    "schema",
+    "report_version",
+    "generated_at",
+    "analyzer",
+    "workspace",
+    "targets",
+    "build_matrix",
+    "findings",
+    "workspace_diff",
+    "qos_profile_validation",
+    "summary",
+    "limitations"
+  ],
+  "properties": {
+    "schema": {
+      "const": "daemon-ace.ros2-workspace-report.v2"
+    },
+    "report_version": {
+      "const": "1.1.0"
+    },
+    "generated_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "analyzer": {
+      "type": "object",
+      "required": [
+        "name",
+        "version"
+      ],
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "version": {
+          "const": "1.1.0"
+        }
+      }
+    },
+    "workspace": {
+      "type": "object",
+      "required": [
+        "path_label",
+        "sha256",
+        "packages",
+        "source_file_count"
+      ],
+      "properties": {
+        "path_label": {
+          "type": "string"
+        },
+        "sha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "packages": {
+          "type": "array"
+        },
+        "source_file_count": {
+          "type": "integer",
+          "minimum": 0
+        }
+      }
+    },
+    "targets": {
+      "type": "array",
+      "items": {
+        "enum": [
+          "humble",
+          "jazzy",
+          "lyrical",
+          "rolling"
+        ]
+      }
+    },
+    "build_matrix": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "distro",
+          "status"
+        ],
+        "properties": {
+          "distro": {
+            "enum": [
+              "humble",
+              "jazzy",
+              "lyrical",
+              "rolling"
+            ]
+          },
+          "status": {
+            "enum": [
+              "passed",
+              "failed",
+              "not-run"
+            ]
+          }
+        }
+      }
+    },
+    "findings": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "severity",
+          "category",
+          "code",
+          "message",
+          "recommendation",
+          "evidence"
+        ],
+        "properties": {
+          "severity": {
+            "enum": [
+              "high",
+              "medium",
+              "info"
+            ]
+          },
+          "category": {
+            "type": "string"
+          },
+          "code": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          },
+          "path": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "recommendation": {
+            "type": "string"
+          },
+          "evidence": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "workspace_diff": {
+      "type": [
+        "object",
+        "null"
+      ]
+    },
+    "qos_profile_validation": {
+      "type": [
+        "object",
+        "null"
+      ]
+    },
+    "summary": {
+      "type": "object"
+    },
+    "limitations": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "additionalProperties": true
+}
