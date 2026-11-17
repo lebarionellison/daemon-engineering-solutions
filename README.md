@@ -166,3 +166,12 @@ The GitHub Actions workflow `.github/workflows/daemon-preflight.yml` runs the ma
 ## DAEMON ACE ROS Workspace Compatibility Analyzer
 
 A local-first ROS 2 utility for package/dependency inventory, versioned API migration heuristics, DDS/QoS configuration review, and optional Docker-based rosdep + colcon builds across Humble, Jazzy, Lyrical and Rolling. It emits versioned JSON and Markdown reports with a workspace SHA-256 and explicit validation boundaries. See [analyzer documentation](ros2/workspace_analyzer/README.md) and [product overview](ros-workspace-analyzer.html).
+
+
+## ACE Edge Intelligence (embedded AI product MVP)
+
+Product page: ace-edge-intelligence.html — /ace-edge-intelligence.html.
+
+The current browser-based MVP creates an embedded deployment blueprint for selected edge hardware families (NVIDIA Jetson, Qualcomm Dragonwing, ARM/Linux and x86 edge), recommends a model runtime based on the selected target, runs local configuration/readiness checks, and exports a YAML deployment profile plus JSON validation report. It does not connect to physical hardware, benchmark a device, flash firmware, deploy a model, manage a fleet, or certify hardware compatibility. The report explicitly distinguishes configuration checks from tests that require physical-device evidence.
+
+The next engineering milestone is a signed device-side agent and authenticated control-plane API for hardware inventory, model transfer, runtime deployment, telemetry, update/rollback and attested test evidence. Build those integrations against actual supported device SDKs and lab hardware; do not present browser-only planning as live device management.
