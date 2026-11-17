@@ -36,7 +36,6 @@ jobs:
           path: daemon-ace-report/
           retention-days: 30
   container-build-matrix:
-    if: ${{ github.event_name == 'workflow_dispatch' }}
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
