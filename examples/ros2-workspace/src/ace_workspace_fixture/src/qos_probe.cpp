@@ -9,3 +9,11 @@ public:
 private:
  rclcpp::Publisher<std_msgs::msg::String>::SharedPtr publisher_;
 };
+
+int main(int argc, char **argv) {
+  rclcpp::init(argc, argv);
+  auto node = std::make_shared<QosProbe>();
+  rclcpp::spin(node);
+  rclcpp::shutdown();
+  return 0;
+}
