@@ -381,6 +381,29 @@ html{scroll-padding-top:78px}section{padding:58px 0}.sectionHead{margin-bottom:2
 .hero{background:radial-gradient(ellipse at 78% 35%,#8a6cff24,transparent 42%),radial-gradient(ellipse at 8% 85%,#d2ff381a,transparent 36%),linear-gradient(120deg,#080b0a,#111913 60%,#0b1210)}
 .demo,.preflight,.twin,.designPartner{border-color:#d2ff3877}.scenario.active{border-color:#d2ff38;background:#d2ff381a;color:#d2ff38}.demoActions button,.preflightActions button{border-color:#d2ff3877;color:#d2ff38}.receipt strong,.status{color:#65e6c3}
 @media(max-width:700px){section{padding:44px 0}.discoveryCard{min-height:unset}}
+
+/* ROS Evolution Engineering — release-aware, high-contrast product surface */
+.rosEvolution{background:linear-gradient(145deg,#0b100d,#111a13 58%,#10101a);border-top:1px solid #d2ff3833;border-bottom:1px solid #b7a0ff33}
+.rosReleaseGrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:20px 0}
+.rosReleaseCard{padding:18px;border:1px solid #344238;border-radius:12px;background:linear-gradient(145deg,#151e18,#0b100d);min-width:0}
+.rosReleaseCard.current{border-color:#d2ff3880}.rosReleaseCard.next{border-color:#b7a0ff88;background:linear-gradient(145deg,#201a30,#11101a)}
+.rosReleaseCard small,.rosFeature small{display:block;color:#d2ff38;font-size:9px;font-weight:950;letter-spacing:1.2px}
+.rosReleaseCard h3{font-size:19px;line-height:1.15;margin:9px 0 7px}.rosReleaseCard strong{display:block;color:#65e6c3;font-size:9px;letter-spacing:.7px}
+.rosReleaseCard p{color:#b0bbae;font-size:11px;margin:9px 0 0}
+.rosFeatureGrid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin:18px 0}
+.rosFeature{padding:15px;border:1px solid #344238;border-radius:10px;background:#101713}
+.rosFeature b{display:block;font-size:12px;margin:7px 0 5px}.rosFeature p{margin:0;color:#b0bbae;font-size:10px}
+.rosReadiness{display:grid;grid-template-columns:minmax(0,.75fr) minmax(0,1.25fr);gap:16px;align-items:center;padding:18px;border:1px solid #d2ff3866;border-radius:12px;background:#0b100d}
+.rosReadiness label{display:block;color:#d2ff38;font-size:9px;font-weight:950;letter-spacing:1px;margin-bottom:8px}
+.rosReadiness select{width:100%;padding:11px;border-radius:7px;border:1px solid #4b5b4c;background:#080d09;color:#f4f7ef;font:inherit}
+.rosReadinessOutput{padding:12px;border-left:3px solid #65e6c3;background:#65e6c30c;color:#cbd8ca;font-size:11px;min-height:74px}
+.rosReadinessOutput b{display:block;color:#65e6c3;margin-bottom:5px}
+.rosDisclosure{font-size:10px;color:#9eaa9e;margin-top:13px}
+.rosSourceLinks{display:flex;flex-wrap:wrap;gap:14px;margin-top:14px;font-size:10px;color:#d2ff38}
+.rosSourceLinks a{text-decoration:underline;text-underline-offset:3px}
+@media(max-width:800px){.rosFeatureGrid{grid-template-columns:repeat(2,minmax(0,1fr))}.rosReadiness{grid-template-columns:1fr}}
+@media(max-width:560px){.rosReleaseGrid,.rosFeatureGrid{grid-template-columns:1fr}.rosReleaseCard{padding:15px}}
+
 </style>
 </head>
 <body>
@@ -422,7 +445,7 @@ html{scroll-padding-top:78px}section{padding:58px 0}.sectionHead{margin-bottom:2
     <circle cx="1120" cy="365" r="3" fill="#10b981" opacity=".65"/>
   </svg>
 </div>
-<header><div class="wrap nav"><a class="brand" href="#home">DAEMON <span>Engineering Solutions</span><small>ENGINEERING INTELLIGENCE · SECURITY · DELIVERY</small></a><nav class="navlinks" aria-label="Primary navigation"><a href="#explore">Explore</a><a href="#engines">AI + HPC</a><a href="#robotics-gatekeeper">Robotics</a><a href="#proof">Governance</a><a href="#contact" class="navcta">Talk to Engineering ↗</a></nav></div></header>
+<header><div class="wrap nav"><a class="brand" href="#home">DAEMON <span>Engineering Solutions</span><small>ENGINEERING INTELLIGENCE · SECURITY · DELIVERY</small></a><nav class="navlinks" aria-label="Primary navigation"><a href="#explore">Explore</a><a href="#engines">AI + HPC</a><a href="#robotics-gatekeeper">Robotics + ROS</a><a href="#proof">Governance</a><a href="#contact" class="navcta">Talk to Engineering ↗</a></nav></div></header>
 <main><section class="governanceBanner cinematicHero" aria-labelledby="governance-title">
   <div class="cinematicGrid"></div>
   <div class="wrap cinematicLayout">
@@ -466,7 +489,7 @@ html{scroll-padding-top:78px}section{padding:58px 0}.sectionHead{margin-bottom:2
   <div class="discoveryHeading"><div><span class="discoveryEyebrow">FIND YOUR ENGINEERING PATH</span><h2 id="discovery-title">SELECT AN ENGINEERING WORKSTREAM.</h2><p>Choose a technical domain to inspect its architecture, tools, evidence and engagement path.</p></div><span class="discoveryIndex">DAEMON ACE / 01—06</span></div>
   <div class="discoveryGrid">
    <a class="discoveryCard lime" href="#engines"><span class="discoveryNo">01 / AI + HPC</span><strong>AI pipelines &amp; compute</strong><small>GPU infrastructure, Kubernetes workloads, data pipelines and cost-aware capacity design.</small><i>Explore engineering ↗</i></a>
-   <a class="discoveryCard violet" href="#robotics-gatekeeper"><span class="discoveryNo">02 / PHYSICAL AI</span><strong>Robotics &amp; simulation</strong><small>ROS 2, edge containers, Sim-to-Real review and configuration screening for lab workflows.</small><i>Explore robotics ↗</i></a>
+   <a class="discoveryCard violet" href="#robotics-gatekeeper"><span class="discoveryNo">02 / PHYSICAL AI</span><strong>Robotics &amp; simulation</strong><small>ROS 2 release readiness, edge containers, Sim-to-Real review and configuration screening for lab workflows.</small><i>Explore robotics ↗</i></a>
    <a class="discoveryCard orange" href="#proof"><span class="discoveryNo">03 / TRUST LAYER</span><strong>Security &amp; governance</strong><small>Policy checks, change evidence, risk review and human approval boundaries.</small><i>Explore governance ↗</i></a>
    <a class="discoveryCard teal" href="#preflight"><span class="discoveryNo">04 / HANDS-ON TOOLS</span><strong>Interactive pre-flight tools</strong><small>Test sample YAML, inspect findings and review a proposed configuration diff.</small><i>Launch free tools ↗</i></a>
    <a class="discoveryCard blue" href="#enterprise"><span class="discoveryNo">05 / DELIVERY</span><strong>Build &amp; harden systems</strong><small>Scoped infrastructure engineering, pipeline delivery, pod design and technical validation.</small><i>View engagements ↗</i></a>
@@ -586,6 +609,34 @@ spec:
       containers:
       - name: app
         image: nginx:latest"></textarea><div class="preflightActions"><button type="button" id="runPreflight">Run free YAML X-Ray</button><button type="button" id="loadSample">Load sample YAML</button><button type="button" id="loadRoboticsSample">Load ROS2 sample</button><button type="button" id="clearYaml">Clear</button></div><div class="preflightOutput" id="preflightOutput" aria-live="polite"><div style="display:flex;gap:15px;align-items:center;flex-wrap:wrap"><div class="score" id="preflightScore">—</div><div><b id="preflightVerdict">Waiting for input</b><p class="warning" id="preflightSummary"></p></div></div><div id="preflightFindings"></div><details class="artifactToggle"><summary>Inspect generated static-check receipt (JSON)</summary><pre id="preflightReceipt"></pre></details></div></div></div></section>
+
+
+<section id="ros-evolution" class="rosEvolution" aria-labelledby="ros-evolution-title">
+ <div class="wrap">
+  <div class="sectionHead reveal">
+   <div class="kicker">DAEMON ACE · ROS EVOLUTION ENGINEERING</div>
+   <h2 id="ros-evolution-title">ENGINEER AHEAD OF THE NEXT ROS 2 RELEASE.</h2>
+   <p>Keep robotics applications portable as distributions, APIs, dependencies and deployment targets evolve. DAEMON ACE is being developed as a release-aware engineering layer above upstream ROS 2—not a replacement distribution.</p>
+  </div>
+  <div class="rosReleaseGrid" aria-label="ROS 2 release lifecycle">
+   <article class="rosReleaseCard current"><small>UPSTREAM LTS BASELINE</small><h3>ROS 2 Lyrical Luth</h3><strong>RELEASED · MAY 22, 2026</strong><p>Current LTS distribution. Upstream support is scheduled through May 2031.</p></article>
+   <article class="rosReleaseCard next"><small>NEXT PLANNED DISTRIBUTION</small><h3>Makoa Mata-mata</h3><strong>PLANNED · MAY 2027</strong><p>Upcoming non-LTS release. Target early compatibility assessment as prerelease packages become available; upstream end-of-life is planned for December 2028.</p></article>
+   <article class="rosReleaseCard"><small>FORWARD-COMPATIBILITY CHANNEL</small><h3>Rolling Ridley</h3><strong>CONTINUOUS DEVELOPMENT</strong><p>Use as an early-warning lane for upstream changes. Rolling is a development channel, not a production stability promise.</p></article>
+  </div>
+  <div class="rosFeatureGrid">
+   <article class="rosFeature"><small>01 / DISTRIBUTION MATRIX</small><b>Build across ROS versions</b><p>Exercise Lyrical, Jazzy and Humble customer baselines, with Rolling as an early-warning target.</p></article>
+   <article class="rosFeature"><small>02 / INTERFACE INTELLIGENCE</small><b>Detect migration pressure</b><p>Track package, dependency, API, message and build changes before they become upgrade blockers.</p></article>
+   <article class="rosFeature"><small>03 / DDS &amp; QOS VALIDATION</small><b>Verify node communication</b><p>Run repeatable publisher/subscriber smoke tests and capture domain, discovery and reliability assumptions.</p></article>
+   <article class="rosFeature"><small>04 / SIM-TO-REAL ROADMAP</small><b>Extend beyond compilation</b><p>Stage simulator regression, hardware qualification and approved deployment evidence as separate validation levels.</p></article>
+  </div>
+  <div class="rosReadiness">
+   <div><label for="rosDistroSelect">EXPLORE A ROS 2 TARGET</label><select id="rosDistroSelect"><option value="lyrical">Lyrical Luth · current LTS</option><option value="makoa">Makoa Mata-mata · planned 2027</option><option value="rolling">Rolling Ridley · development</option><option value="jazzy">Jazzy Jalisco · supported LTS</option><option value="humble">Humble Hawksbill · legacy LTS</option></select></div>
+   <div class="rosReadinessOutput" id="rosReadinessOutput" aria-live="polite"><b>LYRICAL · CURRENT LTS TARGET</b>Use as the forward baseline for new customer evaluations. The expanded multi-distribution CI matrix must pass before DAEMON ACE claims Lyrical compatibility.</div>
+  </div>
+  <p class="rosDisclosure">Validation boundary: the existing verified ROS 2 check is a Humble talker/listener messaging smoke test. The new distribution matrix is being added to CI; results will be published only after each job passes. This does not imply Gazebo/Isaac physics validation, ros2_control or Nav2 certification, real-time qualification, physical robot testing or safety certification.</p>
+  <div class="rosSourceLinks"><a href="https://github.com/ros2/ros2_documentation/blob/rolling/source/Releases.rst" target="_blank" rel="noopener noreferrer">Upstream distribution schedule ↗</a><a href="https://docs.ros.org/en/rolling/Releases/Release-Makoa-Mata-mata.html" target="_blank" rel="noopener noreferrer">Makoa release planning ↗</a><a href="https://github.com/ros2/ros2/releases" target="_blank" rel="noopener noreferrer">Upstream ROS 2 releases ↗</a></div>
+ </div>
+</section>
 
 <section id="robotics-gatekeeper" class="roboticsSpotlight">
   <div class="wrap">
@@ -961,11 +1012,26 @@ spec:
 
 </script>
 
+
+<script>
+// ROS Evolution target selector: presents the validation plan without implying a test has run.
+(()=>{const select=document.getElementById("rosDistroSelect"),out=document.getElementById("rosReadinessOutput");if(!select||!out)return;
+ const targets={
+  lyrical:["LYRICAL · CURRENT LTS TARGET","Use as the forward baseline for new customer evaluations. The expanded multi-distribution CI matrix must pass before DAEMON ACE claims Lyrical compatibility."],
+  makoa:["MAKOA · PLANNED RELEASE · MAY 2027","Not released yet. Prepare package, API and messaging checks against upstream prerelease artifacts when maintainers publish them. No Makoa compatibility claim is available today."],
+  rolling:["ROLLING · EARLY-WARNING CHANNEL","Continuously changing development branch. Use for forward-compatibility signals and breakage detection, not as a production support guarantee."],
+  jazzy:["JAZZY · CUSTOMER LTS BASELINE","Retain as a supported customer-environment target. Run build and messaging checks before declaring a DAEMON ACE compatibility result."],
+  humble:["HUMBLE · LEGACY CUSTOMER BASELINE","Existing verified talker/listener smoke-test baseline. Keep in the matrix for customers approaching its upstream May 2027 end-of-life."]
+ };
+ select.addEventListener("change",()=>{const v=targets[select.value];out.innerHTML="<b>"+v[0]+"</b>"+v[1];});
+})();
+</script>
+
 <script>
 // Keep the homepage as a guided technical tour: architecture → interactive lab → engineering domains → proof → engagement.
 (()=>{
  const main=document.querySelector("main"); if(!main)return;
- const ids=["home","engines","robotics-gatekeeper","preflight","proof","ace-gateways","team","design-partners","enterprise","investors","founder","contact"];
+ const ids=["home","engines","robotics-gatekeeper","ros-evolution","preflight","proof","ace-gateways","team","design-partners","enterprise","investors","founder","contact"];
  const nodes=ids.map(id=>document.getElementById(id)).filter(Boolean);
  if(nodes.length<8)return;
  const tour=document.createElement("div");tour.className="engineeringTour";tour.id="engineering-tour";
