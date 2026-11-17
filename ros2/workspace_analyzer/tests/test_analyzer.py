@@ -45,7 +45,7 @@ class AnalyzerTests(unittest.TestCase):
    root=Path(t); share=root/"share"/"rclcpp"; include=root/"include"/"rclcpp"
    share.mkdir(parents=True); include.mkdir(parents=True)
    (share/"package.xml").write_text('<package><name>rclcpp</name><version>30.1.0</version></package>')
-   (include/"node.hpp").write_text("class Node {};\\nvoid spin();\\n")
+   (include/"node.hpp").write_text("class Node {};\nvoid spin();\n")
    result=distro_inventory(root,"jazzy")
    self.assertEqual(result["packages"]["rclcpp"],"30.1.0")
    self.assertIn("Node",result["api_symbols"])
