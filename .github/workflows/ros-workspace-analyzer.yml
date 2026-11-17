@@ -54,7 +54,9 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
+          set +u
           source /opt/ros/${{ matrix.distro }}/setup.bash
+          set -u
           rosdep install --from-paths examples/ros2-workspace/src --ignore-src -r -y --rosdistro ${{ matrix.distro }}
           cd examples/ros2-workspace
           colcon build --event-handlers console_direct+
