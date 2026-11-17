@@ -95,7 +95,7 @@ def run_retention(name,spec,duration):
           "subscriber":{"reliability":spec["subscriber_reliability"],"durability":spec["subscriber_durability"]},
           "expected":"retained_samples","observed":"retained_samples_received" if received else "no_retained_samples",
           "passed":bool(received) and not incompatible,"messages_published_before_and_after_join":sequence,
-          "messages_received_after_subscriber_join":len(received),"incompatible_qos_events":len(incompatible),
+          "messages_received":len(received),"messages_received_after_subscriber_join":len(received),"incompatible_qos_events":len(incompatible),
           "latency_ms":{"sample_count":0,"median":None,"p95":None,"measurement_note":"Late-joiner retention probe; latency is not measured."}}
     finally:
         if timer: pub_node.destroy_timer(timer)
