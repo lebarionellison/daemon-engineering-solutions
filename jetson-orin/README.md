@@ -1,25 +1,25 @@
-# DAEMON ACE — Jetson Orin reference release
+# DAEMON ACE — Jetson Orin native edge release
 
 ## Target baseline
 - NVIDIA Jetson Orin family; initial board profile: Orin Nano
 - JetPack 7.2.1 / Jetson Linux 39.2.1
 - Ubuntu 24.04 / ARM64
-- ROS 2 Jazzy
-- NVIDIA L4T base: nvcr.io/nvidia/l4t-base:r39.2.1
+- ROS 2 Jazzy LTS
+- Native ARM64 Debian package; systemd-managed ROS 2 service
 
 ## Included behavior
-The edge agent publishes a one-second ROS 2 heartbeat to `/daemon_ace/edge/heartbeat`. Its JSON payload reports hostname, architecture, OS, uptime and memory totals. It explicitly labels the data `os_baseline_only`; no GPU, camera, sensor, actuator, thermal, power or inference telemetry is claimed.
+The edge agent publishes a one-second ROS 2 heartbeat to `/daemon_ace/edge/heartbeat`. Its JSON payload reports hostname, architecture, OS, uptime and memory totals. It explicitly labels the data `os_baseline_only`; it does not claim GPU, camera, sensor, actuator, thermal, power or model-inference telemetry.
 
 ## Build and test
-The workflow `.github/workflows/jetson-orin-release.yml` builds the ARM64 L4T image using QEMU/buildx, runs Python payload tests and starts the ROS 2 agent under ARM64 emulation. It uploads an image archive with Compose and local install/rollback scripts. This is cross-architecture CI validation, not a physical Jetson board test.
+The workflow runs on a native ARM64 Ubuntu 24.04 GitHub runner, installs ROS 2 Jazzy, runs Python tests, smoke-tests ROS 2 node startup, assembles an ARM64 Debian package and uploads a release bundle. This validates the software on ARM64; it is not a physical Jetson board test.
 
-## Device install
-1. Provision a Jetson Orin with the target JetPack baseline.
-2. Install Docker, NVIDIA Container Runtime and Docker Compose v2 using NVIDIA's device guidance.
+## Install
+1. Provision a Jetson Orin with JetPack 7.2.1 / Jetson Linux 39.2.1.
+2. Ensure the device has network access to the ROS 2 package repository.
 3. Extract the release bundle on the device.
 4. Run `chmod +x deploy.sh rollback.sh && ./deploy.sh`.
-5. Confirm the process is healthy and inspect `/daemon_ace/edge/heartbeat` from an authorized ROS 2 node.
-6. Roll back with `./rollback.sh`.
+5. Check `systemctl status daemon-ace-edge` and inspect `/daemon_ace/edge/heartbeat` from an authorized ROS 2 node.
+6. Remove the service and package with `./rollback.sh`.
 
 ## Production boundary
-This is a deployable ROS 2 edge-agent reference package, not a complete autonomous robot product. It does not flash firmware, run customer models, command actuators, install OTA updates, enroll devices in a cloud fleet manager, or certify functional safety. Physical GPU inference, camera/sensor integration, power/thermal behavior, carrier-board qualification and production acceptance require real target hardware and must be tested separately. Jetson developer kits are pre-production validation devices; production shipments must be qualified on the selected production module and carrier system.
+This is a deployable ROS 2 edge-agent reference package, not a complete autonomous robot application. It does not flash firmware, run customer models, command actuators, install OTA updates, enroll devices in a cloud fleet manager, or certify functional safety. Physical GPU inference, camera/sensor integration, power/thermal behavior, carrier-board qualification and production acceptance require real target hardware and must be tested separately. Jetson developer kits are pre-production validation devices; production shipments must be qualified on the selected production module and carrier system.

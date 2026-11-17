@@ -1,10 +1,6 @@
 #!/usr/bin/env bash
 set -euo pipefail
-cd "$(dirname -- "${BASH_SOURCE[0]}")"
-if [[ ! -f .previous-image ]]; then docker compose down; echo "No previous image recorded; service stopped."; exit 0; fi
-previous="$(cat .previous-image)"
-docker image inspect "$previous" >/dev/null
-docker tag "$previous" daemon-ace-edge:jetson-orin
-docker compose up -d
-docker compose ps
-echo "Previous DAEMON ACE image restored."
+sudo systemctl disable --now daemon-ace-edge.service 2>/dev/null || true
+sudo apt-get remove -y daemon-ace-edge
+sudo systemctl daemon-reload
+echo "DAEMON ACE Edge Agent removed. No robot firmware or model files were changed."

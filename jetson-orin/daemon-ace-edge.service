@@ -1,0 +1,22 @@
+[Unit]
+Description=DAEMON ACE Jetson Orin ROS 2 Edge Agent
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+DynamicUser=true
+Environment=ROS_DOMAIN_ID=42
+Environment=RMW_IMPLEMENTATION=rmw_fastrtps_cpp
+ExecStart=/usr/local/bin/daemon-ace-edge-start
+Restart=on-failure
+RestartSec=3
+NoNewPrivileges=true
+ProtectSystem=strict
+ProtectHome=true
+PrivateTmp=true
+RestrictSUIDSGID=true
+LockPersonality=true
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,10 @@
+Package: daemon-ace-edge
+Version: 0.1.0
+Section: misc
+Priority: optional
+Architecture: arm64
+Depends: python3, ros-jazzy-rclpy, ros-jazzy-std-msgs, systemd
+Maintainer: Daemon Engineering Solutions <daemonengineeringsolutions@gmail.com>
+Description: DAEMON ACE ROS 2 edge heartbeat agent for NVIDIA Jetson Orin
+ A small systemd-managed ROS 2 agent that publishes explicitly scoped
+ operating-system baseline telemetry for edge-device integration.
