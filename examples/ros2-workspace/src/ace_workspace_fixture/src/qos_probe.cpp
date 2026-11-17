@@ -17,11 +17,3 @@ int main(int argc, char **argv) {
   rclcpp::shutdown();
   return 0;
 }
-
-int main(int argc, char **argv) {
-  rclcpp::init(argc, argv);
-  auto node = std::make_shared<QosProbe>();
-  rclcpp::spin(node);
-  rclcpp::shutdown();
-  return 0;
-}
