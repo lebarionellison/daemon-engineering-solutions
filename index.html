@@ -619,7 +619,7 @@ spec:
    <p>Keep robotics applications portable as distributions, APIs, dependencies and deployment targets evolve. DAEMON ACE is being developed as a release-aware engineering layer above upstream ROS 2—not a replacement distribution.</p>
   </div>
   <div class="rosReleaseGrid" aria-label="ROS 2 release lifecycle">
-   <article class="rosReleaseCard current"><small>UPSTREAM LTS BASELINE</small><h3>ROS 2 Lyrical Luth</h3><strong>RELEASED · MAY 22, 2026</strong><p>Current LTS distribution. Upstream support is scheduled through May 2031.</p></article>
+   <article class="rosReleaseCard current"><small>UPSTREAM LTS BASELINE</small><h3>ROS 2 Lyrical Luth</h3><strong>RELEASED · MAY 22, 2026</strong><p>Current LTS distribution; upstream support is scheduled through May 2031. DAEMON ACE's basic publisher/subscriber messaging smoke test passed in CI on November 17, 2026.</p></article>
    <article class="rosReleaseCard next"><small>NEXT PLANNED DISTRIBUTION</small><h3>Makoa Mata-mata</h3><strong>PLANNED · MAY 2027</strong><p>Upcoming non-LTS release. Target early compatibility assessment as prerelease packages become available; upstream end-of-life is planned for December 2028.</p></article>
    <article class="rosReleaseCard"><small>FORWARD-COMPATIBILITY CHANNEL</small><h3>Rolling Ridley</h3><strong>CONTINUOUS DEVELOPMENT</strong><p>Use as an early-warning lane for upstream changes. Rolling is a development channel, not a production stability promise.</p></article>
   </div>
@@ -631,9 +631,9 @@ spec:
   </div>
   <div class="rosReadiness">
    <div><label for="rosDistroSelect">EXPLORE A ROS 2 TARGET</label><select id="rosDistroSelect"><option value="lyrical">Lyrical Luth · current LTS</option><option value="makoa">Makoa Mata-mata · planned 2027</option><option value="rolling">Rolling Ridley · development</option><option value="jazzy">Jazzy Jalisco · supported LTS</option><option value="humble">Humble Hawksbill · legacy LTS</option></select></div>
-   <div class="rosReadinessOutput" id="rosReadinessOutput" aria-live="polite"><b>LYRICAL · CURRENT LTS TARGET</b>Use as the forward baseline for new customer evaluations. The expanded multi-distribution CI matrix must pass before DAEMON ACE claims Lyrical compatibility.</div>
+   <div class="rosReadinessOutput" id="rosReadinessOutput" aria-live="polite"><b>LYRICAL · CURRENT LTS TARGET</b>Basic ROS 2 publisher/subscriber messaging smoke test passed in CI on November 17, 2026. Workspace builds, API/QoS compatibility, simulation and hardware qualification remain separate validation levels.</div>
   </div>
-  <p class="rosDisclosure">Validation boundary: the existing verified ROS 2 check is a Humble talker/listener messaging smoke test. The new distribution matrix is being added to CI; results will be published only after each job passes. This does not imply Gazebo/Isaac physics validation, ros2_control or Nav2 certification, real-time qualification, physical robot testing or safety certification.</p>
+  <p class="rosDisclosure">Validation boundary: on November 17, 2026, basic ROS 2 talker/listener messaging smoke tests passed in CI for Humble, Jazzy, Lyrical and Rolling. This verifies message exchange in the tested containers only—not full distro compatibility, customer workspace builds, API/QoS coverage, Gazebo/Isaac physics validation, ros2_control or Nav2 certification, real-time qualification, physical robot testing or safety certification. This does not imply Gazebo/Isaac physics validation, ros2_control or Nav2 certification, real-time qualification, physical robot testing or safety certification.</p>
   <div class="rosSourceLinks"><a href="https://github.com/ros2/ros2_documentation/blob/rolling/source/Releases.rst" target="_blank" rel="noopener noreferrer">Upstream distribution schedule ↗</a><a href="https://docs.ros.org/en/rolling/Releases/Release-Makoa-Mata-mata.html" target="_blank" rel="noopener noreferrer">Makoa release planning ↗</a><a href="https://github.com/ros2/ros2/releases" target="_blank" rel="noopener noreferrer">Upstream ROS 2 releases ↗</a></div>
  </div>
 </section>
@@ -1019,9 +1019,9 @@ spec:
  const targets={
   lyrical:["LYRICAL · CURRENT LTS TARGET","Use as the forward baseline for new customer evaluations. The expanded multi-distribution CI matrix must pass before DAEMON ACE claims Lyrical compatibility."],
   makoa:["MAKOA · PLANNED RELEASE · MAY 2027","Not released yet. Prepare package, API and messaging checks against upstream prerelease artifacts when maintainers publish them. No Makoa compatibility claim is available today."],
-  rolling:["ROLLING · EARLY-WARNING CHANNEL","Continuously changing development branch. Use for forward-compatibility signals and breakage detection, not as a production support guarantee."],
-  jazzy:["JAZZY · CUSTOMER LTS BASELINE","Retain as a supported customer-environment target. Run build and messaging checks before declaring a DAEMON ACE compatibility result."],
-  humble:["HUMBLE · LEGACY CUSTOMER BASELINE","Existing verified talker/listener smoke-test baseline. Keep in the matrix for customers approaching its upstream May 2027 end-of-life."]
+  rolling:["ROLLING · EARLY-WARNING CHANNEL","Basic publisher/subscriber messaging smoke test passed in CI on November 17, 2026. Rolling remains a continuously changing development branch—not a production support guarantee."],
+  jazzy:["JAZZY · CUSTOMER LTS BASELINE","Basic publisher/subscriber messaging smoke test passed in CI on November 17, 2026. Customer workspace builds and API/QoS compatibility remain unverified."],
+  humble:["HUMBLE · LEGACY CUSTOMER BASELINE","Basic publisher/subscriber messaging smoke test passed in CI on November 17, 2026. Keep in the matrix for customers approaching its upstream May 2027 end-of-life."]
  };
  select.addEventListener("change",()=>{const v=targets[select.value];out.innerHTML="<b>"+v[0]+"</b>"+v[1];});
 })();
