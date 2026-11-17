@@ -1,15 +1,6 @@
 name: DAEMON ACE ROS 2 Evolution Matrix
 
 on:
-  pull_request:
-    paths:
-      - "ros2/**"
-      - ".github/workflows/ros2-evolution.yml"
-  push:
-    branches: [main]
-    paths:
-      - "ros2/**"
-      - ".github/workflows/ros2-evolution.yml"
   schedule:
     - cron: "23 7 * * 1"
   workflow_dispatch:
