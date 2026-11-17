@@ -3,7 +3,7 @@
   "rules": [
     {
       "id": "ROS-API-TF1-001",
-      "pattern": "\\\\btf::(TransformListener|TransformBroadcaster|StampedTransform)\\\\b",
+      "pattern": "\\btf::(TransformListener|TransformBroadcaster|StampedTransform)\\b",
       "severity": "high",
       "message": "ROS 1 tf API symbol detected.",
       "recommendation": "Evaluate tf2_ros Buffer, TransformListener and TransformBroadcaster APIs; validate semantics and executor lifecycle.",
@@ -11,7 +11,7 @@
     },
     {
       "id": "ROS-API-CATKIN-001",
-      "pattern": "\\\\b(catkin_package|catkin_install_python|find_package\\\\s*\\\\(\\\\s*catkin)\\\\b",
+      "pattern": "\\b(catkin_package|catkin_install_python|find_package\\s*\\(\\s*catkin)\\b",
       "severity": "high",
       "message": "ROS 1 catkin build API detected.",
       "recommendation": "Migrate ROS 2-native package metadata and build logic to ament, or isolate an intentional ROS 1 bridge.",
@@ -19,7 +19,7 @@
     },
     {
       "id": "ROS-API-ROSCPP-001",
-      "pattern": "\\\\b(ros::NodeHandle|ros::Publisher|ros::Subscriber|ros::spinOnce)\\\\b",
+      "pattern": "\\b(ros::NodeHandle|ros::Publisher|ros::Subscriber|ros::spinOnce)\\b",
       "severity": "high",
       "message": "ROS 1 roscpp API detected.",
       "recommendation": "Plan an rclcpp migration and review lifecycle, callback groups, executors, parameters and QoS.",
@@ -27,7 +27,7 @@
     },
     {
       "id": "ROS-API-ROS-PY-001",
-      "pattern": "\\\\b(rospy\\\\.(init_node|Publisher|Subscriber|spin))\\\\b",
+      "pattern": "\\b(rospy\\.(init_node|Publisher|Subscriber|spin))\\b",
       "severity": "high",
       "message": "ROS 1 rospy API detected.",
       "recommendation": "Plan an rclpy migration and validate lifecycle, callback execution, parameters and QoS.",
@@ -35,11 +35,11 @@
     },
     {
       "id": "ROS-API-OLD-QOS-001",
-      "pattern": "\\\\b(rclcpp::QoS\\\\s*\\\\(\\\\s*0\\\\s*\\\\)|KeepLast\\\\s*\\\\(\\\\s*0\\\\s*\\\\))",
+      "pattern": "\\b(rclcpp::QoS\\s*\\(\\s*0\\s*\\)|KeepLast\\s*\\(\\s*0\\s*\\))",
       "severity": "medium",
       "message": "Potential zero-depth QoS configuration detected.",
       "recommendation": "Review history and depth against intended QoS and target RMW implementation.",
       "evidence": "zero-depth QoS expression"
     }
   ]
-}\n
+}
