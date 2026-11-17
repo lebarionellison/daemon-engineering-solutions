@@ -71,7 +71,7 @@ def inspect_qos(root,out):
 def build(root,distro,timeout):
     if not shutil.which("docker"): return {"distro":distro,"status":"not-run","reason":"Docker executable not found."}
     cmd=["docker","run","--rm","-v",f"{root.resolve()}:/ws","-w","/ws",f"ros:{distro}-ros-base","bash","-lc",
-      "set -euo pipefail; apt-get update -qq; apt-get install -y --no-install-recommends python3-colcon-common-extensions python3-rosdep; rosdep init 2>/dev/null || true; rosdep update --rosdistro "+distro+" --include-eol-distros; source /opt/ros/"+distro+"/setup.bash; rosdep install --from-paths src --ignore-src -r -y --rosdistro "+distro+"; colcon build --event-handlers console_direct+"]
+      "set -euo pipefail; apt-get update -qq; apt-get install -y --no-install-recommends python3-colcon-common-extensions python3-rosdep; rosdep init 2>/dev/null || true; rosdep update --rosdistro "+distro+" --include-eol-distros; set +u; source /opt/ros/"+distro+"/setup.bash; set -u; rosdep install --from-paths src --ignore-src -r -y --rosdistro "+distro+"; colcon build --event-handlers console_direct+"]
     try:
         p=subprocess.run(cmd,capture_output=True,text=True,timeout=timeout)
         return {"distro":distro,"status":"passed" if p.returncode==0 else "failed","exit_code":p.returncode,"log_tail":(p.stdout+"\n"+p.stderr)[-10000:]}
