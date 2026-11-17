@@ -15,7 +15,8 @@
     "workspace_diff",
     "qos_profile_validation",
     "summary",
-    "limitations"
+    "limitations",
+    "distribution_api_diff"
   ],
   "properties": {
     "schema": {
@@ -170,6 +171,12 @@
       "items": {
         "type": "string"
       }
+    },
+    "distribution_api_diff": {
+      "type": [
+        "object",
+        "null"
+      ]
     }
   },
   "additionalProperties": true
