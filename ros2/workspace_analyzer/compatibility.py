@@ -127,8 +127,8 @@ def validate_qos_profile(path):
         if key is not None: seen.add(key)
     by_topic={}
     for p in profiles:
-        if isinstance(p,dict) and isinstance(p.get("topic"),str):
-            by_topic.setdefault(p["topic"],{})[p.get("endpoint")]=p
+        if isinstance(p,dict) and isinstance(p.get("topic"),str) and isinstance(p.get("endpoint"),str):
+            by_topic.setdefault(p["topic"],{})[p["endpoint"]]=p
     pair_checks=[]
     for topic,endpoints in sorted(by_topic.items()):
         pub=endpoints.get("publisher"); sub=endpoints.get("subscriber")
@@ -136,6 +136,8 @@ def validate_qos_profile(path):
             warnings.append({"code":"QOS-PAIR-001","message":f"{topic}: only one endpoint is described; publisher/subscriber compatibility was not evaluated."})
             continue
         compatible=True; reasons=[]
+        if pub.get("reliability") not in QOS_ENUMS["reliability"] or sub.get("reliability") not in QOS_ENUMS["reliability"] or pub.get("durability") not in QOS_ENUMS["durability"] or sub.get("durability") not in QOS_ENUMS["durability"]:
+            compatible=False; reasons.append("One or more endpoint policies are invalid; compatibility cannot be established.")
         # ROS 2 request-vs-offered compatibility: subscriber requests no more than publisher offers.
         if pub.get("reliability")=="best_effort" and sub.get("reliability")=="reliable":
             compatible=False; reasons.append("Reliable subscriber requests more than best-effort publisher offers.")
