@@ -38,6 +38,7 @@ jobs:
           wait: 120s
 
       - name: Verify Kubernetes control plane and workload scheduling
+        id: k8s
         shell: bash
         run: |
           set -euo pipefail
@@ -103,6 +104,7 @@ jobs:
       - name: Generate Receipt of Safety
         if: always()
         env:
+          K8S_OUTCOME: ${{ steps.k8s.outcome }}
           ROS2_OUTCOME: ${{ steps.ros2.outcome }}
           ACE_OUTCOME: ${{ steps.ace.outcome }}
           JOB_STATUS: ${{ job.status }}
@@ -112,7 +114,7 @@ jobs:
           python3 - <<'PY'
           import json, os, pathlib, datetime
           checks = {
-            "kubernetes_cluster": "completed" if os.path.exists(os.environ.get("RUNNER_TEMP", "") + "/kind") else "see_job_logs",
+            "kubernetes_cluster": os.getenv("K8S_OUTCOME", "not_run"),
             "ros2_messaging_simulation": os.getenv("ROS2_OUTCOME", "not_run"),
             "configuration_heuristics": os.getenv("ACE_OUTCOME", "not_run")
           }
@@ -121,7 +123,7 @@ jobs:
             "record_type": "pull_request_simulation_preflight",
             "generated_at": datetime.datetime.now(datetime.timezone.utc).isoformat(),
             "repository": os.getenv("GITHUB_REPOSITORY"),
-            "pull_request": os.getenv("GITHUB_EVENT_NUMBER"),
+            "pull_request": "${{ github.event.pull_request.number || '' }}",
             "commit_sha": os.getenv("GITHUB_SHA"),
             "workflow_run": os.getenv("GITHUB_RUN_ID"),
             "overall_workflow_status": os.getenv("JOB_STATUS"),
