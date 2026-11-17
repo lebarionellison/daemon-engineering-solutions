@@ -15,6 +15,7 @@ export default {
       return json({ ok: true, lead_storage_configured: Boolean(env.DB), stripe_webhook_configured: Boolean(env.STRIPE_WEBHOOK_SECRET), email_notifications: "disabled" });
     }
     if (path === "/api/preflight" && request.method === "POST") return createPreflight(request, env);
+    if (path === "/api/sim2real/verify" && request.method === "POST") return verifySim2Real(request, env);
     if (path === "/api/checkout" && request.method === "POST") return createCheckout(request, env);
     if (path.startsWith("/api/purchases/") && request.method === "GET") return getPaidArtifact(request, env, path);
     if (path === "/api/generate" && request.method === "POST") return generateProposal(request, env);
@@ -269,6 +270,7 @@ async function createPreflight(request, env) {
   const baseline = body.costBaseline && typeof body.costBaseline === "object" ? body.costBaseline : null;
   if (!manifest.trim() || manifest.length > 18000 || !goal) return json({ error: "Provide an engineering goal and configuration between 1 and 18,000 characters." }, 400);
 
+  const manifestSha256 = await sha256Hex(manifest);
   const lower = manifest.toLowerCase(), findings = [];
   const add = (severity, code, title, recommendation) => findings.push({ severity, code, title, recommendation });
   if (/privileged:\s*true/.test(lower)) add("high","PRIVILEGED_CONTAINER","Privileged container enabled","Review whether host-level privileges are required.");
@@ -316,6 +318,8 @@ async function createPreflight(request, env) {
     schema:"daemon-ace.receipt-of-safety.v1",id,record_type:"customer_preflight",created_at:new Date().toISOString(),
     status:"PREVIEW_READY",goal,file_name:fileName,
     analysis:{mode:"text_pattern_heuristics",score,findings,manifest_bytes:new TextEncoder().encode(manifest).length},
+    config_integrity:{algorithm:"SHA-256",digest:manifestSha256,encoding:"UTF-8",scope:"exact submitted preflight manifest bytes; no newline or whitespace normalization",status:"fingerprinted_not_simulated"},
+    sim2real_gate:{status:"BLOCKED",execution_authorized:false,reason:"A matching digest is necessary but not sufficient. A verified simulator attestation and explicit human sign-off are also required."},
     ai:{status:aiStatus,summary:plan?clean(plan.summary,3000):null,risks_mitigated:Array.isArray(plan?.risks_mitigated)?plan.risks_mitigated.slice(0,20).map(x=>clean(x,300)):[],assumptions:Array.isArray(plan?.assumptions)?plan.assumptions.slice(0,20).map(x=>clean(x,300)):[],estimated_monthly_savings_usd:Number.isFinite(plan?.estimated_monthly_savings_usd)?plan.estimated_monthly_savings_usd:null,savings_basis:clean(plan?.savings_basis||"No defensible savings estimate without a verified cost and utilization baseline.",1200)},
     scope:{live_cluster_connected:false,tests_executed:false,production_change_authorized:false},
     gatekeeper:{mode:"limited_text_pattern_screen",full_yaml_validation:false,cluster_dry_run:false,terraform_plan:false,tests_executed:false},
@@ -326,6 +330,71 @@ async function createPreflight(request, env) {
   await env.DB.prepare("INSERT INTO receipts (id,status,receipt_json,created_at) VALUES (?,'pending',?,datetime('now'))").bind(id,JSON.stringify(receipt)).run();
   const {proposed_config,...preview}=receipt;
   return json({ok:true,receipt_id:id,receipt:preview,full_configuration_locked:Boolean(proposed),checkout_available:Boolean(proposed)});
+}
+
+async function verifySim2Real(request, env) {
+  if (!env.DB) return json({ error: "Receipt storage is not configured.", execution_authorized: false }, 503);
+  if (!env.ACE_ADMISSION_TOKEN) return json({ error: "Admission verification is not configured. Set ACE_ADMISSION_TOKEN as a Cloudflare Worker secret.", execution_authorized: false }, 503);
+  const auth = request.headers.get("Authorization") || "";
+  const supplied = auth.startsWith("Bearer ") ? auth.slice(7) : "";
+  if (!supplied || !(await constantTimeEqual(supplied, env.ACE_ADMISSION_TOKEN))) {
+    return json({ error: "A valid admission verification token is required.", execution_authorized: false }, 401);
+  }
+  if (!(request.headers.get("Content-Type") || "").toLowerCase().includes("application/json")) {
+    return json({ error: "JSON required.", execution_authorized: false }, 415);
+  }
+  const body = await readJson(request);
+  const receiptId = String(body?.receipt_id || "");
+  const manifest = typeof body?.manifest === "string" ? body.manifest : null;
+  if (!/^[0-9a-f-]{36}$/i.test(receiptId) || manifest === null || !manifest.trim() || manifest.length > 18000) {
+    return json({ error: "Provide a valid receipt_id and the exact UTF-8 manifest string to verify.", execution_authorized: false }, 400);
+  }
+  const row = await env.DB.prepare("SELECT receipt_json FROM receipts WHERE id = ?").bind(receiptId).first();
+  if (!row) return json({ error: "Receipt not found.", execution_authorized: false }, 404);
+  let receipt;
+  try { receipt = JSON.parse(row.receipt_json); } catch {
+    return json({ error: "Stored receipt is invalid. Verification failed closed.", execution_authorized: false }, 409);
+  }
+  const expectedDigest = String(receipt.config_integrity?.digest || "");
+  const observedDigest = await sha256Hex(manifest);
+  if (!/^[a-f0-9]{64}$/i.test(expectedDigest) || !(await constantTimeEqual(observedDigest, expectedDigest.toLowerCase()))) {
+    return json({
+      ok: false,
+      gate: "BLOCKED",
+      reason: "CONFIGURATION_DRIFT",
+      expected_sha256: expectedDigest || null,
+      observed_sha256: observedDigest,
+      integrity_match: false,
+      execution_authorized: false
+    }, 409);
+  }
+  const simulationPassed = receipt.sim2real_attestation?.simulation_status === "passed";
+  const humanSignedOff = receipt.sim2real_attestation?.human_signoff === true;
+  if (!simulationPassed || !humanSignedOff) {
+    return json({
+      ok: false,
+      gate: "BLOCKED",
+      reason: "SIMULATION_ATTESTATION_AND_HUMAN_SIGNOFF_REQUIRED",
+      integrity_match: true,
+      simulation_attested: simulationPassed,
+      human_signoff: humanSignedOff,
+      execution_authorized: false
+    }, 409);
+  }
+  return json({
+    ok: true,
+    gate: "ELIGIBLE_FOR_DOWNSTREAM_ADMISSION_POLICY",
+    integrity_match: true,
+    simulation_attested: true,
+    human_signoff: true,
+    execution_authorized: false,
+    note: "The Worker verifies receipt integrity and required attestations. A separately installed Kubernetes admission controller or edge agent must enforce the response before execution."
+  });
+}
+
+async function sha256Hex(value) {
+  const digest = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(value));
+  return [...new Uint8Array(digest)].map(byte => byte.toString(16).padStart(2, "0")).join("");
 }
 
 async function createCheckout(request, env) {
