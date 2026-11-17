@@ -203,6 +203,80 @@ section:not(.hero):not(.governanceBanner){position:relative}section.alt{backgrou
 #proof:before,#engines:before,#ace-gateways:before{content:"";display:block;position:absolute;top:0;left:4%;right:4%;height:1px;background:linear-gradient(90deg,transparent,rgba(92,231,255,.25),rgba(167,139,250,.2),transparent)}#robotics-gatekeeper{background:radial-gradient(ellipse at 50% 0%,rgba(50,130,210,.12),transparent 55%),#070e19}.cta{background:radial-gradient(ellipse at 80% 0%,rgba(62,125,208,.2),transparent 48%),#07101e}.ctaBox{background:linear-gradient(120deg,#10233b,#0a1526)}footer{background:#040812}
 @media(max-width:850px){.governanceBanner{padding:30px 0 18px!important}.governanceBannerCard{padding:30px}.governanceSequence{gap:7px}.governanceSequence i{width:13px}.heroGrid{padding:55px 0}.navlinks a:nth-child(2){display:inline}}
 @media(max-width:600px){.governanceBannerCard{padding:24px 20px}.governanceBanner h1{font-size:clamp(39px,11vw,56px);letter-spacing:-.055em;margin:27px 0 16px}.governanceSequence{font-size:8px;gap:6px}.governanceSequence i{width:8px}.governanceActions a{width:100%;justify-content:center}.heroHeadlineRow h1{font-size:clamp(36px,10vw,48px)}.heroGrid{padding:48px 0}.productTrackPills span,.productTrackPills a{font-size:8px}}
+
+/* CINEMATIC PLATFORM REDESIGN — a bold first-visit experience */
+:root{--max:1240px}
+body{background:#030711;color:#f4f8ff}
+header{background:rgba(3,7,17,.78);backdrop-filter:blur(22px);border-bottom:1px solid rgba(98,199,255,.18)}
+.brand{font-size:15px;letter-spacing:1.4px}.brand span{color:#65e5ff}.brand small{letter-spacing:2.4px}
+.navcta{background:linear-gradient(110deg,#68e8ff,#8faaff);color:#04101e;border:0;box-shadow:0 0 28px rgba(90,206,255,.2)}
+.cinematicHero{position:relative;isolation:isolate;overflow:hidden;min-height:710px;padding:0!important;background:radial-gradient(ellipse at 73% 45%,rgba(31,95,180,.28),transparent 39%),radial-gradient(ellipse at 17% 70%,rgba(103,52,180,.16),transparent 38%),linear-gradient(112deg,#030711 0%,#071326 54%,#050b18 100%)!important}
+.cinematicHero:before{content:"";position:absolute;inset:0;z-index:-2;opacity:.2;background-image:linear-gradient(rgba(117,190,255,.2) 1px,transparent 1px),linear-gradient(90deg,rgba(117,190,255,.2) 1px,transparent 1px);background-size:54px 54px;mask-image:linear-gradient(90deg,black,rgba(0,0,0,.6) 72%,transparent)}
+.cinematicGrid{position:absolute;inset:0;z-index:-1;pointer-events:none;background:radial-gradient(circle at 72% 48%,rgba(51,176,255,.12),transparent 28%),linear-gradient(90deg,transparent 0 49.9%,rgba(93,191,255,.1) 50%,transparent 50.1%);opacity:.8}
+.cinematicLayout{position:relative;display:grid;grid-template-columns:.92fr 1.08fr;align-items:center;gap:clamp(24px,4vw,60px);min-height:650px;padding-top:68px;padding-bottom:68px}
+.cinematicCopy{position:relative;z-index:3;padding:20px 0}
+.cinematicEyebrow{display:flex;align-items:center;gap:10px;color:#9db8d5;font-size:9px;font-weight:950;letter-spacing:2px;margin-bottom:28px}
+.cinematicEyebrow b{color:#4ddcff}.eyebrowPulse{width:7px;height:7px;border-radius:50%;background:#66e9ff;box-shadow:0 0 16px #66e9ff;animation:acePulse 2s infinite}
+.cinematicOverline{font-size:10px;font-weight:950;letter-spacing:2.6px;color:#76dfff;margin-bottom:17px}
+.cinematicHero h1{font-size:clamp(66px,8.2vw,116px);line-height:.79;letter-spacing:-.085em;font-weight:950;margin:0 0 30px;text-wrap:balance}
+.cinematicHero h1 em{font-style:normal;display:inline-block;color:transparent;background:linear-gradient(100deg,#68eaff 0%,#8db7ff 47%,#c19aff 100%);background-clip:text;-webkit-background-clip:text;filter:drop-shadow(0 0 28px rgba(79,171,255,.2))}
+.cinematicLead{font-size:clamp(17px,1.65vw,22px);line-height:1.4;font-weight:750;color:#f0f7ff;max-width:520px;margin:0 0 13px}
+.cinematicBody{max-width:540px;font-size:13px;line-height:1.8;color:#a9bdd5;margin:0}.cinematicBody strong{color:#eaf8ff}
+.cinematicActions{display:flex;gap:11px;flex-wrap:wrap;margin-top:28px}
+.cinematicPrimary,.cinematicSecondary{min-height:49px;display:inline-flex;align-items:center;justify-content:center;gap:20px;padding:0 17px;border-radius:6px;font-size:10px;font-weight:950;letter-spacing:1px;transition:.25s}
+.cinematicPrimary{color:#03101d;background:linear-gradient(105deg,#62e8ff,#a1b5ff);box-shadow:0 10px 38px rgba(76,196,255,.22)}
+.cinematicSecondary{border:1px solid rgba(136,183,235,.35);background:rgba(9,22,41,.58);color:#d8e9ff}
+.cinematicPrimary:hover,.cinematicSecondary:hover{transform:translateY(-3px);box-shadow:0 12px 40px rgba(72,180,255,.2)}
+.cinematicPrimary span,.cinematicSecondary span{font-size:16px}
+.cinematicAudience{display:flex;align-items:center;flex-wrap:wrap;gap:10px;margin-top:37px;color:#91a8c2;font-size:8px;letter-spacing:1px}
+.cinematicAudience span{color:#5fdfff;font-weight:950;letter-spacing:1.8px;margin-right:4px}.cinematicAudience b{font-size:8px;color:#b8cbe1}.cinematicAudience i{width:3px;height:3px;border-radius:50%;background:#5ddcff;opacity:.7}
+.aceUniverse{position:relative;min-width:0;min-height:535px;border:1px solid rgba(106,187,255,.2);border-radius:17px;background:linear-gradient(145deg,rgba(12,30,55,.76),rgba(5,12,27,.82));box-shadow:0 35px 110px rgba(0,0,0,.42),inset 0 1px rgba(255,255,255,.07);overflow:hidden}
+.aceUniverse:before{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(107,180,255,.09) 1px,transparent 1px),linear-gradient(90deg,rgba(107,180,255,.09) 1px,transparent 1px);background-size:28px 28px;mask-image:radial-gradient(ellipse at center,black,transparent 82%);opacity:.65}
+.aceUniverse:after{content:"";position:absolute;inset:12px;border:1px solid rgba(130,194,255,.12);clip-path:polygon(0 0,18% 0,18% 1px,1px 1px,1px 18%,0 18%,0 0,100% 0,100% 18%,calc(100% - 1px) 18%,calc(100% - 1px) 1px,82% 1px,82% 0,100% 0,100% 100%,82% 100%,82% calc(100% - 1px),calc(100% - 1px) calc(100% - 1px),calc(100% - 1px) 82%,100% 82%,100% 100%,0 100%,0 82%,1px 82%,1px calc(100% - 1px),18% calc(100% - 1px),18% 100%,0 100%);pointer-events:none}
+.universeTopline{position:absolute;top:19px;left:23px;right:23px;display:flex;justify-content:space-between;gap:12px;color:#7e9bbd;font:850 8px ui-monospace,monospace;letter-spacing:1.5px;z-index:5}
+.universeTopline span+span{color:#66dfff}.universeTopline i,.coreStatus i{display:inline-block;width:6px;height:6px;background:#66e9bd;border-radius:50%;box-shadow:0 0 12px #66e9bd;margin-right:6px}
+.universeStage{position:absolute;inset:54px 12px 45px;min-height:420px}
+.universeOrbit{position:absolute;left:50%;top:50%;border:1px solid rgba(88,188,255,.24);border-radius:50%;transform:translate(-50%,-50%);pointer-events:none}
+.orbitOuter{width:min(88%,440px);aspect-ratio:1;border-style:dashed;animation:orbitSpin 55s linear infinite}
+.orbitMid{width:min(70%,350px);aspect-ratio:1;border-color:rgba(154,139,255,.28);animation:orbitSpin 40s linear infinite reverse}
+.orbitInner{width:min(51%,255px);aspect-ratio:1;border-color:rgba(91,225,255,.32);box-shadow:0 0 45px rgba(54,167,255,.08),inset 0 0 45px rgba(54,167,255,.06)}
+.aceCore{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:170px;height:170px;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;background:radial-gradient(circle at 50% 38%,#163d61 0%,#0a1a32 55%,#07101f 100%);border:1px solid rgba(105,224,255,.78);box-shadow:0 0 0 8px rgba(73,183,255,.055),0 0 0 20px rgba(73,183,255,.035),0 0 70px rgba(58,181,255,.25),inset 0 0 36px rgba(84,212,255,.18);z-index:3}
+.coreHalo{position:absolute;inset:-13px;border:1px solid rgba(102,218,255,.4);border-radius:50%;border-top-color:#a4eaff;animation:orbitSpin 12s linear infinite}
+.coreMark{font-size:39px;line-height:1;font-weight:1000;letter-spacing:-4px;color:#e8fbff;text-shadow:0 0 22px #61dfff}
+.aceCore>b{font-size:10px;letter-spacing:2px;color:#75eaff;margin-top:7px}.aceCore>small{font-size:6px;letter-spacing:1.4px;color:#91aeca;margin-top:3px}
+.coreStatus{font-size:6px;letter-spacing:1px;color:#9bb8d3;margin-top:12px}.coreStatus i{width:5px;height:5px}
+.universeNode{position:absolute;z-index:4;min-width:132px;padding:11px 12px;border:1px solid rgba(105,190,255,.32);border-radius:8px;background:linear-gradient(140deg,rgba(13,34,60,.96),rgba(7,16,32,.96));box-shadow:0 12px 32px rgba(0,0,0,.35),inset 0 1px rgba(255,255,255,.05);display:grid;grid-template-columns:28px 1fr;column-gap:8px;align-items:center}
+.universeNode:before{content:"";position:absolute;inset:-4px;border:1px solid rgba(95,208,255,.08);border-radius:10px}
+.nodeGlyph{grid-row:span 2;width:28px;height:28px;display:grid;place-items:center;border-radius:6px;background:rgba(77,201,255,.12);color:#73e5ff;font-size:17px}
+.universeNode b{font-size:8px;letter-spacing:.8px;color:#e6f4ff;white-space:nowrap}.universeNode small{font-size:6px;letter-spacing:.9px;color:#85a5c6;margin-top:3px;white-space:nowrap}
+.nodeAI{left:50%;top:1%;transform:translateX(-50%)}.nodeRobot{right:1%;top:50%;transform:translateY(-50%)}.nodeGov{left:50%;bottom:1%;transform:translateX(-50%)}.nodeInfra{left:1%;top:50%;transform:translateY(-50%)}
+.nodeRobot .nodeGlyph{background:rgba(170,131,255,.14);color:#c3aaff}.nodeGov .nodeGlyph{background:rgba(87,232,184,.13);color:#70edc0}.nodeInfra .nodeGlyph{background:rgba(107,154,255,.14);color:#9bbaff}
+.universeBeam{position:absolute;left:50%;top:50%;height:1px;width:34%;transform-origin:left center;background:linear-gradient(90deg,rgba(94,219,255,.05),rgba(94,219,255,.6),rgba(94,219,255,.05));z-index:1}
+.beamA{transform:rotate(-90deg)}.beamB{transform:rotate(0deg)}.beamC{transform:rotate(90deg)}.beamD{transform:rotate(180deg)}
+.universeSignal{position:absolute;width:5px;height:5px;border-radius:50%;background:#b3f5ff;box-shadow:0 0 16px 4px rgba(89,220,255,.55);z-index:2}
+.signalOne{left:50%;top:15%;animation:signalTravel 4s ease-in-out infinite}.signalTwo{right:17%;top:50%;animation:signalTravel 4s 1s ease-in-out infinite}.signalThree{left:50%;bottom:15%;animation:signalTravel 4s 2s ease-in-out infinite}
+.universeFooter{position:absolute;bottom:17px;left:22px;right:22px;display:flex;justify-content:space-between;gap:8px;color:#7e9dbd;font:800 7px ui-monospace,monospace;letter-spacing:1px}
+.universeCaption{position:absolute;bottom:42px;left:0;right:0;text-align:center;color:#5bcff6;font:900 7px ui-monospace,monospace;letter-spacing:1.8px;opacity:.78}
+.cinematicBottom{border-top:1px solid rgba(111,188,255,.16);background:rgba(4,11,23,.72);position:relative}
+.cinematicCapabilities{min-height:72px;display:flex;align-items:center;justify-content:space-between;gap:13px;flex-wrap:wrap}
+.cinematicCapabilities span{font-size:8px;color:#6485a8;font-weight:950;letter-spacing:1.5px}.cinematicCapabilities b{font-size:9px;color:#c7d9ee;letter-spacing:1.1px}.cinematicCapabilities i{width:3px;height:3px;border-radius:50%;background:#56dfff}
+#home.hero{padding:48px 0 10px!important;background:linear-gradient(180deg,#07101e,#050a14)!important;border-top:1px solid rgba(106,192,255,.12)}
+#home .heroCopy{display:none!important}#home .heroGrid{display:block;padding:0}
+#home .demo{max-width:1120px;margin:0 auto;border-color:rgba(95,204,255,.28);background:linear-gradient(145deg,#0d2038,#07111f);box-shadow:0 30px 100px rgba(0,0,0,.38)}
+#home .demo:before{content:"INTERACTIVE PRODUCT PREVIEW / PRE-FLIGHT TWIN";display:block;margin:-4px 0 18px;color:#67dfff;font:900 9px ui-monospace,monospace;letter-spacing:2px}
+#home .commandTitle h2{font-size:clamp(25px,3vw,36px);letter-spacing:-1px}
+#home .quickBriefWrap{margin-top:25px}
+section:not(.cinematicHero){scroll-margin-top:84px}
+#proof,#engines,#robotics-gatekeeper,#investors{background-image:radial-gradient(ellipse at 85% 0%,rgba(42,116,191,.09),transparent 40%)}
+.sectionHead h2{letter-spacing:-.045em}
+.card,.panel,.gatewayCard,.investorMetric,.compareBox,.metric{border-radius:14px}
+@keyframes acePulse{0%,100%{opacity:1;box-shadow:0 0 7px #66e9ff}50%{opacity:.45;box-shadow:0 0 18px #66e9ff}}
+@keyframes orbitSpin{to{transform:translate(-50%,-50%) rotate(360deg)}}
+@keyframes signalTravel{0%,100%{opacity:.15;transform:scale(.65)}50%{opacity:1;transform:scale(1.5)}}
+@media(max-width:980px){.cinematicLayout{grid-template-columns:1fr;gap:12px;padding-top:55px;padding-bottom:38px}.cinematicCopy{padding:12px 0 0}.cinematicHero h1{font-size:clamp(68px,12vw,105px)}.aceUniverse{min-height:500px}.cinematicHero{min-height:auto}.cinematicCapabilities{justify-content:center;padding:17px 0}.cinematicCapabilities span{width:100%;text-align:center}}
+@media(max-width:620px){.cinematicLayout{padding-top:40px}.cinematicEyebrow{font-size:7px;letter-spacing:1.2px;margin-bottom:22px}.cinematicOverline{font-size:8px;letter-spacing:1.7px}.cinematicHero h1{font-size:clamp(59px,16vw,86px);margin-bottom:23px}.cinematicLead{font-size:18px}.cinematicBody{font-size:12px}.cinematicActions{display:grid;grid-template-columns:1fr}.cinematicPrimary,.cinematicSecondary{width:100%}.cinematicAudience{gap:7px;margin-top:25px}.cinematicAudience b{font-size:7px}.aceUniverse{min-height:405px;border-radius:11px}.universeStage{inset:48px 3px 42px;min-height:310px}.aceCore{width:124px;height:124px}.coreMark{font-size:31px}.aceCore>b{font-size:8px}.aceCore>small{font-size:5px}.coreStatus{font-size:5px;margin-top:8px}.orbitOuter{width:min(91%,340px)}.orbitMid{width:min(75%,280px)}.orbitInner{width:min(55%,210px)}.universeNode{min-width:105px;padding:8px 7px;grid-template-columns:22px 1fr;column-gap:5px}.nodeGlyph{width:22px;height:22px;font-size:13px}.universeNode b{font-size:6px;letter-spacing:.4px}.universeNode small{font-size:5px;letter-spacing:.3px}.nodeAI{top:0}.nodeGov{bottom:0}.nodeInfra{left:0}.nodeRobot{right:0}.universeTopline{left:12px;right:12px;font-size:6px}.universeFooter{left:10px;right:10px;font-size:5px;letter-spacing:.3px}.universeCaption{bottom:35px;font-size:5px;letter-spacing:1px}.cinematicCapabilities{gap:9px}.cinematicCapabilities b{font-size:7px}.cinematicCapabilities i{display:none}#home.hero{padding-top:32px!important}}
+@media(prefers-reduced-motion:reduce){.eyebrowPulse,.orbitOuter,.orbitMid,.coreHalo,.universeSignal{animation:none!important}}
+
 </style>
 </head>
 <body>
@@ -245,14 +319,38 @@ section:not(.hero):not(.governanceBanner){position:relative}section.alt{backgrou
   </svg>
 </div>
 <header><div class="wrap nav"><a class="brand" href="#home">DAEMON <span>Engineering Solutions</span><small>ENGINEERING INTELLIGENCE · SECURITY · DELIVERY</small></a><nav class="navlinks"><a href="#proof">Proof-Loop</a><a href="#engines">How ACE works</a><a href="#team">Who it helps</a><a href="#enterprise">Enterprise</a><a href="#investors">Investors</a><a href="#robotics-gatekeeper">Robotics &amp; Edge</a><a href="#founder">Founder</a><a href="#contact" class="navcta">Talk to Engineering ↗</a></nav></div></header>
-<main><section class="governanceBanner" aria-labelledby="governance-title">
-  <div class="wrap"><div class="governanceBannerCard">
-    <div class="governanceMeta"><span>DAEMON ENGINEERING SOLUTIONS · CREATORS OF DAEMON ACE</span><span class="controlOnline">● CONTROL PLANE ONLINE</span></div>
-    <h1 id="governance-title">BUILD INTELLIGENCE.<br><em>GOVERN THE SYSTEM. SHIP THE FUTURE.</em></h1>
-    <p class="governancePromise"><strong>DAEMON ACE</strong> brings AI pipelines, robotics and edge systems, infrastructure engineering, and AI governance into <strong>one connected engineering workflow</strong>—so teams can design, configure, evaluate, and move toward deployment with less friction and clearer control.</p><p class="governanceSupport">From the first architecture decision to the pre-flight review: build faster, surface risk earlier, and keep people in command of what ships.</p>
-    <div class="productTrackPills"><span class="cloudTrack">✦ AI PIPELINES &amp; COMPUTE</span><a class="roboticsTrack" href="#robotics-gatekeeper">◈ ROBOTICS &amp; EDGE</a><span class="cloudTrack">⬡ AI GOVERNANCE &amp; SECURITY</span><span class="roboticsTrack">↗ CONTROLLED DELIVERY</span></div>
-    <div class="governanceActions"><a href="#live-ace-engine">EXPLORE THE ACE WORKFLOW ↓</a><a href="#contact">ENGINEER YOUR NEXT MOVE ↗</a></div><div class="governanceSequence" aria-label="DAEMON ACE workflow"><span>01 BUILD</span><i></i><span>02 CONNECT</span><i></i><span>03 GOVERN</span><i></i><span>04 VALIDATE</span><i></i><span>05 SHIP</span></div>
-  </div></div>
+<main><section class="governanceBanner cinematicHero" aria-labelledby="governance-title">
+  <div class="cinematicGrid"></div>
+  <div class="wrap cinematicLayout">
+    <div class="cinematicCopy">
+      <div class="cinematicEyebrow"><span class="eyebrowPulse"></span> DAEMON ENGINEERING SOLUTIONS <b>·</b> INTRODUCING DAEMON ACE</div>
+      <div class="cinematicOverline">THE ENGINEERING LAYER FOR THE AI + ROBOTICS ERA</div>
+      <h1 id="governance-title">MAKE<br><em>INTELLIGENCE</em><br>MOVE.</h1>
+      <p class="cinematicLead">AI is moving beyond the screen. Your infrastructure should be ready.</p>
+      <p class="cinematicBody"><strong>DAEMON ACE</strong> connects AI engineering, robotics and edge systems, and governance into one engineered path—from complex ideas to controlled deployment readiness.</p>
+      <div class="cinematicActions">
+        <a class="cinematicPrimary" href="#demo">EXPLORE THE PLATFORM <span>↗</span></a>
+        <a class="cinematicSecondary" href="#investors">INVESTOR &amp; PARTNER BRIEF <span>→</span></a>
+      </div>
+      <div class="cinematicAudience"><span>BUILT FOR</span><b>AI &amp; ROBOTICS TEAMS</b><i></i><b>RESEARCH INSTITUTIONS</b><i></i><b>ENTERPRISE</b></div>
+    </div>
+    <div class="aceUniverse" aria-label="DAEMON ACE architecture illustration connecting AI intelligence, robotics and edge systems, governance, and infrastructure delivery">
+      <div class="universeTopline"><span>DAEMON ACE / SYSTEM ARCHITECTURE</span><span><i></i> ENGINEERING BLUEPRINT</span></div>
+      <div class="universeStage">
+        <div class="universeOrbit orbitOuter"></div><div class="universeOrbit orbitMid"></div><div class="universeOrbit orbitInner"></div>
+        <div class="universeBeam beamA"></div><div class="universeBeam beamB"></div><div class="universeBeam beamC"></div><div class="universeBeam beamD"></div>
+        <div class="universeNode nodeAI"><span class="nodeGlyph">✳</span><b>AI SYSTEMS</b><small>MODELS · PIPELINES</small></div>
+        <div class="universeNode nodeRobot"><span class="nodeGlyph">⌘</span><b>ROBOTICS + EDGE</b><small>ROS 2 · AUTONOMY</small></div>
+        <div class="universeNode nodeGov"><span class="nodeGlyph">⬡</span><b>AI GOVERNANCE</b><small>POLICY · EVIDENCE</small></div>
+        <div class="universeNode nodeInfra"><span class="nodeGlyph">▦</span><b>INFRASTRUCTURE</b><small>GPU · CLOUD · K8S</small></div>
+        <div class="aceCore"><div class="coreHalo"></div><div class="coreMark">ACE</div><b>DAEMON ACE</b><small>ENGINEERING INTELLIGENCE</small><span class="coreStatus"><i></i> CONNECTED WORKFLOW</span></div>
+        <div class="universeSignal signalOne"></div><div class="universeSignal signalTwo"></div><div class="universeSignal signalThree"></div>
+      </div>
+      <div class="universeFooter"><span>01 / DESIGN</span><span>02 / INTEGRATE</span><span>03 / GOVERN</span><span>04 / VALIDATE</span><span>05 / DELIVER</span></div>
+      <div class="universeCaption">ONE ENGINEERING PATHWAY. MULTIPLE WORLDS CONNECTED.</div>
+    </div>
+  </div>
+  <div class="cinematicBottom"><div class="wrap cinematicCapabilities"><span>ENGINEER THE NEXT GENERATION OF</span><b>AI PIPELINES</b><i></i><b>ROBOTICS &amp; EDGE</b><i></i><b>GOVERNED AI</b><i></i><b>INTELLIGENT INFRASTRUCTURE</b></div></div>
 </section>
 <section class="hero" id="home"><div class="wrap heroGrid">
 <div class="heroCopy"><div class="eyebrow">THE GOVERNED ENGINEERING PATHWAY · POWERED BY DAEMON ACE</div><div class="heroHeadlineRow"><h1>From AI concept to deployment. <em>One controlled engineering workflow.</em></h1><div class="telemetryNode" role="img" aria-label="DAEMON ACE topology illustration connecting the Pre-Flight Twin and safety review"><svg viewBox="0 0 260 150" width="100%" height="auto" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs><radialGradient id="aceNodeGlow"><stop offset="0%" stop-color="#38bdf8" stop-opacity=".28"/><stop offset="100%" stop-color="#38bdf8" stop-opacity="0"/></radialGradient></defs><circle cx="130" cy="75" r="70" fill="url(#aceNodeGlow)"/><circle cx="130" cy="75" r="58" fill="none" stroke="#1e293b" stroke-width="1.5" stroke-dasharray="6 4"/><circle cx="130" cy="75" r="42" fill="none" stroke="#38bdf8" stroke-width="1.5" class="telemetry-pulse"/><circle cx="130" cy="75" r="18" fill="#38bdf8" fill-opacity=".18" stroke="#38bdf8" stroke-width="2"/><text x="130" y="79" text-anchor="middle" fill="#f8fafc" font-family="ui-monospace,monospace" font-size="10" font-weight="700">ACE</text><line x1="72" y1="75" x2="112" y2="75" stroke="#38bdf8" stroke-width="1.5"/><circle cx="66" cy="75" r="6" fill="#0f172a" stroke="#38bdf8" stroke-width="2"/><text x="42" y="79" text-anchor="end" fill="#94a3b8" font-family="ui-monospace,monospace" font-size="9">TWIN</text><line x1="148" y1="75" x2="188" y2="75" stroke="#10b981" stroke-width="1.5"/><circle cx="194" cy="75" r="6" fill="#062016" stroke="#10b981" stroke-width="2"/><text x="206" y="79" text-anchor="start" fill="#34d399" font-family="ui-monospace,monospace" font-size="9">SAFE</text></svg><div class="telemetryLabel">PRE-FLIGHT NODE <span>· DEMO MODE</span></div></div></div>
