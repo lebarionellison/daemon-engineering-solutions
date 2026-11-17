@@ -35,7 +35,9 @@ jobs:
           test "${ROS_DISTRO}" = "${{ matrix.distro }}"
           apt-get update -qq
           apt-get install -y --no-install-recommends "ros-${ROS_DISTRO}-demo-nodes-cpp"
+          set +u
           source "/opt/ros/${ROS_DISTRO}/setup.bash"
+          set -u
           ros2 --help >/dev/null
           ros2 run demo_nodes_cpp talker > /tmp/ros2-talker.log 2>&1 &
           talker_pid=$!
