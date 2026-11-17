@@ -63,7 +63,7 @@ jobs:
           cd examples/ros2-workspace
           colcon build --event-handlers console_direct+
           mkdir -p "$GITHUB_WORKSPACE/distro-catalogs"
-          python "$GITHUB_WORKSPACE/ros2/workspace_analyzer/distro_catalog.py" --ros-root /opt/ros/${{ matrix.distro }} --distro ${{ matrix.distro }} --output "$GITHUB_WORKSPACE/distro-catalogs/ros-distro-catalog-${{ matrix.distro }}.json"
+          python3 "$GITHUB_WORKSPACE/ros2/workspace_analyzer/distro_catalog.py" --ros-root /opt/ros/${{ matrix.distro }} --distro ${{ matrix.distro }} --output "$GITHUB_WORKSPACE/distro-catalogs/ros-distro-catalog-${{ matrix.distro }}.json"
       - uses: actions/upload-artifact@v4
         with:
           name: ros-distro-catalog-${{ matrix.distro }}
