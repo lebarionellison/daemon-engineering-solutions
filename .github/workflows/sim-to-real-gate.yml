@@ -75,7 +75,9 @@ jobs:
         run: |
           set -euo pipefail
           docker run --rm ros:humble-ros-base bash -lc '
-            set -euo pipefail
+            # ROS 2 Humble setup scripts reference optional environment variables;
+            # nounset (-u) aborts before the nodes can start.
+            set -eo pipefail
             apt-get update -qq
             DEBIAN_FRONTEND=noninteractive apt-get install -y -qq ros-humble-demo-nodes-cpp
             source /opt/ros/humble/setup.bash
