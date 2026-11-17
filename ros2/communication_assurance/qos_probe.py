@@ -9,7 +9,10 @@ from typing import Any
 try:
     import rclpy
     from rclpy.node import Node
-    from rclpy.event_handler import SubscriptionEventCallbacks
+    try:
+        from rclpy.event_handler import SubscriptionEventCallbacks
+    except ImportError:  # ROS 2 Humble exposes event callbacks from qos_event
+        from rclpy.qos_event import SubscriptionEventCallbacks
     from rclpy.qos import DurabilityPolicy, HistoryPolicy, QoSProfile, ReliabilityPolicy
     from std_msgs.msg import String
 except ImportError as exc:
