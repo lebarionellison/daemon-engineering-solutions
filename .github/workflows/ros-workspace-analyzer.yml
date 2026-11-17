@@ -1,0 +1,62 @@
+name: DAEMON ACE ROS Workspace Analyzer CI
+on:
+  pull_request:
+    paths: ['ros2/workspace_analyzer/**','examples/ros2-workspace/**','.github/workflows/ros-workspace-analyzer.yml']
+  push:
+    branches: [main]
+    paths: ['ros2/workspace_analyzer/**','examples/ros2-workspace/**','.github/workflows/ros-workspace-analyzer.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  analyzer-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - name: Unit tests
+        run: python -m unittest discover -s ros2/workspace_analyzer/tests -v
+      - name: Analyze sample workspace
+        run: |
+          python ros2/workspace_analyzer/analyze.py examples/ros2-workspace --distro humble --distro jazzy --distro lyrical --output daemon-ace-report
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          r=json.loads(Path("daemon-ace-report/ros-workspace-compatibility-report.json").read_text())
+          assert r["schema"] == "daemon-ace.ros2-workspace-report.v1"
+          assert r["workspace"]["packages"]
+          assert len(r["build_matrix"]) == 3
+          assert all(x["status"] == "not-run" for x in r["build_matrix"])
+          print("Analyzer report schema and sample inventory passed.")
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: daemon-ace-ros-workspace-compatibility-report
+          path: daemon-ace-report/
+          retention-days: 30
+  container-build-matrix:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix: {distro: [humble, jazzy, lyrical, rolling]}
+    container:
+      image: ros:${{ matrix.distro }}-ros-base
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install build tools
+        run: |
+          apt-get update -qq
+          apt-get install -y --no-install-recommends python3-colcon-common-extensions python3-rosdep
+          rosdep init 2>/dev/null || true
+          rosdep update --rosdistro ${{ matrix.distro }} --include-eol-distros
+      - name: Resolve and build fixture workspace
+        shell: bash
+        run: |
+          set -euo pipefail
+          set +u
+          source /opt/ros/${{ matrix.distro }}/setup.bash
+          set -u
+          rosdep install --from-paths examples/ros2-workspace/src --ignore-src -r -y --rosdistro ${{ matrix.distro }}
+          cd examples/ros2-workspace
+          colcon build --event-handlers console_direct+

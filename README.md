@@ -161,3 +161,8 @@ The GitHub Actions workflow `.github/workflows/daemon-preflight.yml` runs the ma
 ### First expanded ROS 2 CI result
 
 **PASS — 2026-11-17:** [DAEMON ACE Pre-Flight run #44111443506](https://github.com/lebarionellison/daemon-engineering-solutions/actions/runs/44111443506). Basic ROS 2 talker/listener messaging passed in Humble, Jazzy, Lyrical and Rolling containers. This is a narrow messaging smoke test; it does not establish complete distribution compatibility, application behavior, simulator fidelity or hardware safety.
+
+
+## DAEMON ACE ROS Workspace Compatibility Analyzer
+
+A local-first ROS 2 utility for package/dependency inventory, versioned API migration heuristics, DDS/QoS configuration review, and optional Docker-based rosdep + colcon builds across Humble, Jazzy, Lyrical and Rolling. It emits versioned JSON and Markdown reports with a workspace SHA-256 and explicit validation boundaries. See [analyzer documentation](ros2/workspace_analyzer/README.md) and [product overview](ros-workspace-analyzer.html).

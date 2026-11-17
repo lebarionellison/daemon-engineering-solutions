@@ -23,6 +23,11 @@
 </div>
 
 <section class="section naics" style="margin-top:15px">
+<h2>DAEMON ACE ROS WORKSPACE COMPATIBILITY ANALYZER — v1.0.0</h2>
+<p>Local-first ROS 2 workspace review utility for package and dependency inventory, versioned API migration pattern checks, DDS/QoS configuration review, and optional per-distribution dependency resolution plus colcon builds in official ROS containers. Reports are emitted as versioned JSON and Markdown artifacts and include a workspace SHA-256, selected target distributions, findings, build outcomes and explicit validation limitations.</p>
+<p style="margin-top:6px">Current analyzer CI covers unit tests and static analysis of a representative fixture workspace. Containerized build execution is opt-in and must pass independently for each selected distribution. Static pattern matches are engineering review signals—not complete API diffs or proof of runtime interoperability. DDS/QoS runtime behavior, simulation, hardware, real-time and safety qualification remain separate validation activities.</p>
+</section>
+<section class="section naics" style="margin-top:15px">
 <h2>ROS 2 EVOLUTION &amp; RELEASE-READINESS ENGINEERING</h2>
 <p><b>Current upstream LTS:</b> ROS 2 Lyrical Luth (released May 22, 2026; upstream support scheduled through May 2031). <b>Next planned upstream distribution:</b> Makoa Mata-mata (planned May 2027; non-LTS; not yet released). DAEMON ACE's roadmap is to validate customer workspaces across current LTS distributions, monitor Rolling as an early-warning channel, and prepare migration assessments before new releases become operational dependencies.</p>
 <p style="margin-top:6px">Planned engineering scope: distribution build matrix · dependency/API migration analysis · ROS 2 publisher/subscriber smoke tests · DDS/QoS review · simulator regression · separately authorized hardware qualification. A green messaging smoke test is not complete distro certification or proof of physical robot safety.</p>
