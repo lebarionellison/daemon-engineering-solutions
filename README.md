@@ -175,3 +175,8 @@ Product page: ace-edge-intelligence.html — /ace-edge-intelligence.html.
 The current browser-based MVP creates an embedded deployment blueprint for selected edge hardware families (NVIDIA Jetson, Qualcomm Dragonwing, ARM/Linux and x86 edge), recommends a model runtime based on the selected target, runs local configuration/readiness checks, and exports a YAML deployment profile plus JSON validation report. It does not connect to physical hardware, benchmark a device, flash firmware, deploy a model, manage a fleet, or certify hardware compatibility. The report explicitly distinguishes configuration checks from tests that require physical-device evidence.
 
 The next engineering milestone is a signed device-side agent and authenticated control-plane API for hardware inventory, model transfer, runtime deployment, telemetry, update/rollback and attested test evidence. Build those integrations against actual supported device SDKs and lab hardware; do not present browser-only planning as live device management.
+
+
+## RoMi + secure robotics architecture
+
+The RoMi robotic micro-manufacturing application/IP track is developed on DAEMON ACE's secure AI engineering and delivery foundation. The architecture, security layers, release gates, IP boundaries and staged qualification plan are documented in [docs/romi-daemon-ace-secure-robotics-architecture.md](docs/romi-daemon-ace-secure-robotics-architecture.md). Treat simulator, hardware, signed-artifact enforcement and runtime authorization capabilities as roadmap until their acceptance evidence exists.
