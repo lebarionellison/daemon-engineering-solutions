@@ -404,6 +404,28 @@ html{scroll-padding-top:78px}section{padding:58px 0}.sectionHead{margin-bottom:2
 @media(max-width:800px){.rosFeatureGrid{grid-template-columns:repeat(2,minmax(0,1fr))}.rosReadiness{grid-template-columns:1fr}}
 @media(max-width:560px){.rosReleaseGrid,.rosFeatureGrid{grid-template-columns:1fr}.rosReleaseCard{padding:15px}}
 
+
+/* Robotics infrastructure roadmap — clear product maturity and customer journey */
+.roboticsVision{padding:76px 0;background:radial-gradient(ellipse at 82% 0%,#8a6cff20,transparent 42%),linear-gradient(180deg,#090e16,#0b111b);border-top:1px solid #b7a0ff33;border-bottom:1px solid #63e8e833}
+.roboticsVisionFlow{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap;margin:22px 0;padding:16px;border:1px solid #ffffff20;border-radius:11px;background:#ffffff06}
+.roboticsVisionFlow span{font-size:9px;font-weight:950;letter-spacing:.8px;color:#dbe9f8}
+.roboticsVisionFlow i{font-style:normal;color:var(--cyan);font-weight:900}
+.roboticsVisionGrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.roboticsVisionCard{min-height:190px;padding:19px;border:1px solid #2c4056;border-radius:11px;background:linear-gradient(145deg,#122039,#0b1421)}
+.roboticsVisionCard small{display:block;font-size:9px;font-weight:950;letter-spacing:1px;color:#b7a0ff}
+.roboticsVisionCard.available{border-color:#63e8e888}.roboticsVisionCard.available small{color:var(--green)}
+.roboticsVisionCard.foundation{border-color:#63e8e866}.roboticsVisionCard.foundation small{color:var(--cyan)}
+.roboticsVisionCard.research small{color:#b7a0ff}
+.roboticsVisionCard h3{font-size:17px;line-height:1.2;margin:10px 0 8px}
+.roboticsVisionCard p{font-size:11px;color:var(--muted);margin:0}
+.roboticsVisionCard a{display:inline-block;margin-top:13px;color:var(--cyan);font-size:10px;font-weight:900;text-decoration:underline;text-underline-offset:3px}
+.roboticsVisionFoot{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:14px}
+.roboticsVisionFoot>div{padding:17px;border:1px solid #ffffff20;border-radius:10px;background:#ffffff06}
+.roboticsVisionFoot b{font-size:10px;letter-spacing:1px;color:var(--cyan)}
+.roboticsVisionFoot p{font-size:11px;color:var(--muted);margin:7px 0 0}
+.roboticsVisionDisclosure{font-size:10px;color:#9eacbd;margin-top:15px}
+@media(max-width:850px){.roboticsVisionGrid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:600px){.roboticsVision{padding:55px 0}.roboticsVisionGrid,.roboticsVisionFoot{grid-template-columns:1fr}.roboticsVisionFlow{justify-content:flex-start}.roboticsVisionFlow i{margin:0 2px}}
 </style>
 </head>
 <body>
@@ -618,7 +640,7 @@ spec:
    <h2 id="ros-evolution-title">ENGINEER AHEAD OF THE NEXT ROS 2 RELEASE.</h2>
    <p>Keep robotics applications portable as distributions, APIs, dependencies and deployment targets evolve. DAEMON ACE is being developed as a release-aware engineering layer above upstream ROS 2—not a replacement distribution.</p>
   <div class="rosAnalyzerCallout" style="display:grid;grid-template-columns:minmax(0,1fr) auto;gap:18px;align-items:center;margin:22px 0;padding:22px;border:1px solid #d2ff3880;border-radius:12px;background:linear-gradient(120deg,#18231a,#11121a)">
-   <div><div class="kicker">NEW ENGINEERING MILESTONE · ANALYZER v1.0.0</div><h3 style="font-size:clamp(20px,2.6vw,29px);margin:7px 0">BUILD THE WORKSPACE. EXPOSE THE MIGRATION RISK.</h3><p style="margin:0;color:#b0bbae;font-size:12px;max-width:760px">Run package and dependency inventory, versioned ROS API migration checks, DDS/QoS configuration review, and optional Docker-based rosdep + colcon builds across Humble, Jazzy, Lyrical and Rolling. Every run produces a versioned JSON and Markdown compatibility report tied to a workspace SHA-256.</p></div>
+   <div><div class="kicker">AVAILABLE ENGINEERING TOOL · ANALYZER v1.1.0</div><h3 style="font-size:clamp(20px,2.6vw,29px);margin:7px 0">BUILD THE WORKSPACE. EXPOSE THE MIGRATION RISK.</h3><p style="margin:0;color:#b0bbae;font-size:12px;max-width:760px">Compare baseline and candidate workspaces, inspect package/dependency and configured API-pattern deltas, validate a structured DAEMON ACE QoS profile, and optionally run Docker-based rosdep + colcon builds. Version 1.1.0 produces schema-v2 JSON and Markdown evidence, including optional cross-distribution package/header/API-token catalog comparisons.</p></div>
    <a class="btn primary" href="ros-workspace-analyzer.html">Explore the Analyzer ↗</a>
   </div>
   </div>
@@ -629,16 +651,58 @@ spec:
   </div>
   <div class="rosFeatureGrid">
    <article class="rosFeature"><small>01 / DISTRIBUTION MATRIX</small><b>Build across ROS versions</b><p>Exercise Lyrical, Jazzy and Humble customer baselines, with Rolling as an early-warning target.</p></article>
-   <article class="rosFeature"><small>02 / INTERFACE INTELLIGENCE</small><b>Detect migration pressure</b><p>Track package, dependency, API, message and build changes before they become upgrade blockers.</p></article>
-   <article class="rosFeature"><small>03 / DDS &amp; QOS VALIDATION</small><b>Verify node communication</b><p>Run repeatable publisher/subscriber smoke tests and capture domain, discovery and reliability assumptions.</p></article>
-   <article class="rosFeature"><small>04 / SIM-TO-REAL ROADMAP</small><b>Extend beyond compilation</b><p>Stage simulator regression, hardware qualification and approved deployment evidence as separate validation levels.</p></article>
+   <article class="rosFeature"><small>02 / MIGRATION INTELLIGENCE</small><b>Compare engineering baselines</b><p>Diff package manifests, versions, CMake dependencies and configured API-pattern usage; catalog comparisons use documented header and token heuristics.</p></article>
+   <article class="rosFeature"><small>03 / DDS &amp; QOS FOUNDATION</small><b>Review communication contracts</b><p>Validate structured QoS profiles and run basic ROS 2 messaging smoke tests in CI. Live DDS/RMW graph interoperability testing remains a future milestone.</p></article>
+   <article class="rosFeature"><small>04 / SIM-TO-REAL ROADMAP</small><b>Extend beyond compilation</b><p>Plan simulator regression, hardware-in-the-loop qualification and approved deployment evidence as separately scoped validation levels.</p></article>
   </div>
   <div class="rosReadiness">
    <div><label for="rosDistroSelect">EXPLORE A ROS 2 TARGET</label><select id="rosDistroSelect"><option value="lyrical">Lyrical Luth · current LTS</option><option value="makoa">Makoa Mata-mata · planned 2027</option><option value="rolling">Rolling Ridley · development</option><option value="jazzy">Jazzy Jalisco · supported LTS</option><option value="humble">Humble Hawksbill · legacy LTS</option></select></div>
    <div class="rosReadinessOutput" id="rosReadinessOutput" aria-live="polite"><b>LYRICAL · CURRENT LTS TARGET</b>Basic ROS 2 publisher/subscriber messaging smoke test passed in CI on November 17, 2026. Workspace builds, API/QoS compatibility, simulation and hardware qualification remain separate validation levels.</div>
   </div>
-  <p class="rosDisclosure">Validation boundary: on November 17, 2026, basic ROS 2 talker/listener messaging smoke tests passed in CI for Humble, Jazzy, Lyrical and Rolling. This verifies message exchange in the tested containers only—not full distro compatibility, customer workspace builds, API/QoS coverage, Gazebo/Isaac physics validation, ros2_control or Nav2 certification, real-time qualification, physical robot testing or safety certification. This does not imply Gazebo/Isaac physics validation, ros2_control or Nav2 certification, real-time qualification, physical robot testing or safety certification.</p>
+  <p class="rosDisclosure">Validation boundary: on November 17, 2026, basic ROS 2 talker/listener messaging smoke tests passed in CI for Humble, Jazzy, Lyrical and Rolling. This verifies message exchange in the tested containers only—not full distro compatibility, customer workspace qualification, live DDS/RMW interoperability, Gazebo/Isaac physics validation, ros2_control or Nav2 certification, real-time qualification, physical robot testing or safety certification.</p>
   <div class="rosSourceLinks"><a href="https://github.com/ros2/ros2_documentation/blob/rolling/source/Releases.rst" target="_blank" rel="noopener noreferrer">Upstream distribution schedule ↗</a><a href="https://docs.ros.org/en/rolling/Releases/Release-Makoa-Mata-mata.html" target="_blank" rel="noopener noreferrer">Makoa release planning ↗</a><a href="https://github.com/ros2/ros2/releases" target="_blank" rel="noopener noreferrer">Upstream ROS 2 releases ↗</a></div>
+ </div>
+</section>
+
+<section id="robotics-roadmap" class="roboticsVision" aria-labelledby="robotics-vision-title">
+ <div class="wrap">
+  <div class="sectionHead reveal">
+   <div class="kicker">DAEMON ACE · NEXT-GENERATION ROBOTICS INFRASTRUCTURE</div>
+   <h2 id="robotics-vision-title">FROM ROS WORKSPACE TO ROBOT FLEET.</h2>
+   <p>Our strategy is to build the engineering layer that connects robotics software, communication, simulation, compute and operations. Build above ROS 2 today. Research beyond ROS 2 only when a measurable technical advantage justifies it.</p>
+  </div>
+  <div class="roboticsVisionFlow" aria-label="Planned robotics engineering workflow">
+   <span>WORKSPACE</span><i>→</i><span>COMPATIBILITY</span><i>→</i><span>BUILD + TEST</span><i>→</i><span>SIMULATION</span><i>→</i><span>HARDWARE REVIEW</span><i>→</i><span>OPERATE</span>
+  </div>
+  <div class="roboticsVisionGrid">
+   <article class="roboticsVisionCard available">
+    <small>01 · AVAILABLE ENGINEERING TOOL</small><h3>ROS Workspace Compatibility Analyzer</h3>
+    <p>Local-first CLI for workspace inventory, baseline migration diffs, configured API-pattern deltas, structured QoS JSON validation, optional per-distro builds and versioned schema-v2 reports.</p>
+    <a href="ros-workspace-analyzer.html">Explore analyzer v1.1.0 ↗</a>
+   </article>
+   <article class="roboticsVisionCard foundation">
+    <small>02 · FOUNDATION EXISTS / EXPANSION IN DEVELOPMENT</small><h3>Robotics Communication Assurance</h3>
+    <p>Current foundation: CI talker/listener smoke tests and structured QoS profile checks. Planned expansion: live DDS/RMW interoperability, discovery behavior, latency, loss and network-failure testing.</p>
+   </article>
+   <article class="roboticsVisionCard roadmap">
+    <small>03 · PRODUCT ROADMAP</small><h3>Simulation-to-Reality Validation</h3>
+    <p>Planned simulator regression, reproducible scenario evidence, simulation-to-hardware comparison and separately authorized hardware-in-the-loop testing. No physics or physical-safety qualification is claimed today.</p>
+   </article>
+   <article class="roboticsVisionCard roadmap">
+    <small>04 · PRODUCT ROADMAP</small><h3>Robotics Compute Orchestration</h3>
+    <p>Planned integration of ROS workloads with container build pipelines, Kubernetes scheduling, GPU/CPU resource profiles, edge deployment packaging and controlled promotion gates.</p>
+   </article>
+   <article class="roboticsVisionCard research">
+    <small>05 · RESEARCH DIRECTION</small><h3>Runtime &amp; Fleet Intelligence</h3>
+    <p>Research targets include robot/workload telemetry, resource-pressure correlation, fleet health, fault diagnosis and human-approved recovery workflows.</p>
+   </article>
+  </div>
+  <div class="roboticsVisionFoot">
+   <div><b>WHAT CUSTOMERS CAN EVALUATE NOW</b><p>Analyzer source, documented CLI workflow, versioned reports, QoS profile validation and the published CI evidence for representative ROS 2 test workloads.</p></div>
+   <div><b>WHAT WE ARE BUILDING TOWARD</b><p>A qualified engineering pipeline that carries evidence from source workspace through communication tests, simulation, hardware review and operational monitoring.</p></div>
+  </div>
+  <p class="roboticsVisionDisclosure">Product maturity is explicit: the analyzer is an available local engineering utility; CI results cover representative test workspaces and messaging smoke tests; communication expansion, simulator integration, robotics compute orchestration and fleet intelligence are roadmap or research items. DAEMON ACE is not a ROS 3 distribution and does not claim to replace upstream ROS 2.</p>
+  <div class="rosSourceLinks"><a href="ros-workspace-analyzer.html">Analyzer details ↗</a><a href="capability-statement.html">Enterprise capability statement ↗</a><a href="#robotics-gatekeeper">Explore current robotics preflight ↗</a></div>
  </div>
 </section>
 
