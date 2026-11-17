@@ -150,3 +150,26 @@ def validate_qos_profile(path):
         pair_checks.append({"topic":topic,"compatible":compatible,"reasons":reasons})
         if not compatible: errors.append({"code":"QOS-COMPAT-001","message":f"{topic}: "+" ".join(reasons)})
     return {"valid":not errors,"errors":errors,"warnings":warnings,"profiles":profiles,"pair_checks":pair_checks}
+
+
+def compare_distro_catalogs(catalogs):
+    """Compare adjacent distro inventories; API names are heuristic header declaration tokens."""
+    ordered=sorted(catalogs,key=lambda x:("humble","jazzy","lyrical","rolling").index(x["distro"]) if x.get("distro") in ("humble","jazzy","lyrical","rolling") else 99)
+    diffs=[]
+    for before,after in zip(ordered,ordered[1:]):
+        bp,ap=before.get("packages",{}),after.get("packages",{})
+        bh,ah=before.get("headers",{}),after.get("headers",{})
+        bs,ass=set(before.get("api_symbols",[])),set(after.get("api_symbols",[]))
+        diffs.append({"from":before["distro"],"to":after["distro"],
+          "packages_added":sorted(set(ap)-set(bp)),"packages_removed":sorted(set(bp)-set(ap)),
+          "package_versions_changed":[{"package":n,"from":bp[n],"to":ap[n]} for n in sorted(set(bp)&set(ap)) if bp[n]!=ap[n]],
+          "headers_added":sorted(set(ah)-set(bh)),"headers_removed":sorted(set(bh)-set(ah)),
+          "headers_content_changed":sorted(n for n in set(ah)&set(bh) if ah[n]!=bh[n]),
+          "api_symbols_added":sorted(ass-bs),"api_symbols_removed":sorted(bs-ass),
+          "summary":{"packages_added":len(set(ap)-set(bp)),"packages_removed":len(set(bp)-set(ap)),
+                     "headers_added":len(set(ah)-set(bh)),"headers_removed":len(set(bh)-set(ah)),
+                     "api_symbols_added":len(ass-bs),"api_symbols_removed":len(bs-ass)}})
+    return {"comparison_mode":"installed-ROS-distribution-catalogs","catalog_count":len(ordered),
+            "distributions":[x.get("distro") for x in ordered],"comparisons":diffs,
+            "limitations":["API symbol extraction is regex-based over installed public headers and is not a compiler AST, ABI or semantic API diff.",
+                           "Package presence/version and header changes do not prove application compatibility; build and runtime tests remain required."]}
