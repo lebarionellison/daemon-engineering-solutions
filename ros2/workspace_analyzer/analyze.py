@@ -45,7 +45,7 @@ def inspect_build(root,out):
         body=p.read_text(errors="replace")
         if re.search(r"find_package\s*\(\s*catkin|\bcatkin_package\s*\(",body):
             finding(out,"high","migration","ROS-BUILD-CATKIN-001","ROS 1 catkin build metadata detected.",p.relative_to(root).as_posix(),"Migrate ROS 2-native packages to ament or document an intentional ROS 1 bridge.")
-        if "find_package(ament_cmake" in body and "ament_target_dependencies" not in body:
+        if "find_package(ament_cmake" in body and "ament_target_dependencies" not in body and "target_link_libraries" not in body:
             finding(out,"medium","build","ROS-BUILD-AMENT-001","ament_cmake found without ament_target_dependencies.",p.relative_to(root).as_posix(),"Review target dependency declarations; this heuristic may not fit every layout.")
 def inspect_api(root,out):
     try: rules=json.loads((HERE/"api-migration-rules.json").read_text())["rules"]
