@@ -1,0 +1,82 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "rubric_id": "DAEMON-SIM2REAL-RUBRIC-V1",
+  "version": "1.0.0",
+  "product": "DAEMON ACE",
+  "status": "reference_prototype",
+  "target_domains": [
+    "Cloud_GPU_Virtualization",
+    "ROS2_Physical_Robotics"
+  ],
+  "description": "A fail-closed evaluation rubric specification for cloud/GPU workloads and ROS 2 robotics configurations. It does not itself run Gazebo, NVIDIA Isaac Sim, GPU fault injection, hardware tests, or safety certification.",
+  "scoring_scale": {
+    "minimum": 0,
+    "maximum": 100,
+    "higher_is_better": true,
+    "weights_must_sum_to": 1
+  },
+  "scoring_axes": [
+    {
+      "axis": "KINEMATIC_AND_ACTUATOR_SAFETY",
+      "weight": 0.4,
+      "status": "specification_only",
+      "hard_fail_conditions": [
+        "max_linear_velocity > 2.0",
+        "max_angular_velocity > 1.5",
+        "missing_emergency_stop_watchdog == true"
+      ],
+      "threshold_notice": "The numeric velocity thresholds are sample screening defaults only. They must be replaced or approved for the exact robot, payload, operating mode, manufacturer limits, and lab safety case."
+    },
+    {
+      "axis": "EDGE_AND_CLOUD_ZERO_TRUST",
+      "weight": 0.35,
+      "status": "partially_screened_by_text_patterns",
+      "hard_fail_conditions": [
+        "dds_discovery_interface == '0.0.0.0'",
+        "privileged_container == true",
+        "runAsUser == 0",
+        "wildcard_iam_policy == true"
+      ],
+      "network_notice": "Distributed ROS 2 may require an explicitly approved isolated interface; do not force loopback without validating the deployment topology."
+    },
+    {
+      "axis": "VIRTUAL_COMPUTE_AND_GPU_EFFICIENCY",
+      "weight": 0.25,
+      "status": "specification_only",
+      "hard_fail_conditions": [
+        "missing_resource_limits == true",
+        "unpartitioned_gpu_idle_ratio > 0.50"
+      ],
+      "gpu_notice": "GPU utilization, idle ratio, MIG partition state, and resource limits require telemetry or semantic inspection; text-pattern scanning alone cannot prove them."
+    }
+  ],
+  "gatekeeper_policy": "FAIL_CLOSED_WITHOUT_HUMAN_RECEIPT",
+  "decision_policy": {
+    "hard_fail_overrides_weighted_score": true,
+    "missing_or_unknown_evidence": "fail_closed",
+    "human_signoff_required": true,
+    "passing_score_authorizes_hardware_execution": false
+  },
+  "receipt_integrity": {
+    "hash_algorithm": "SHA-256",
+    "hash_scope": "exact UTF-8 bytes of the submitted preflight manifest, without newline or whitespace normalization",
+    "digest_is_signature": false,
+    "signature_and_key_custody": "A SHA-256 digest detects byte changes but does not authenticate the issuer. A production digital signature requires managed signing keys, key custody, rotation, and verification."
+  },
+  "implementation_disclosure": {
+    "currently_available": [
+      "Cloudflare Worker fingerprints the submitted /api/preflight manifest and stores its SHA-256 digest in the receipt.",
+      "An authenticated verification endpoint compares the exact submitted manifest bytes against the stored digest and blocks on mismatch.",
+      "The verifier fails closed unless a simulation attestation and explicit human sign-off are present."
+    ],
+    "not_yet_available": [
+      "Gazebo or NVIDIA Isaac Sim physics integration",
+      "Physical robot or NVIDIA Jetson boot enforcement",
+      "Native Kubernetes AdmissionReview webhook/controller integration",
+      "Trusted simulator attestation issuance and signing",
+      "Robot actuator, emergency-stop, geofence, torque, and battery safety enforcement",
+      "GPU telemetry-backed idle-ratio or MIG verification"
+    ],
+    "safety_notice": "The current ROS 2 CI messaging smoke test is not a physics simulation. The Worker verification endpoint is not itself an admission controller and does not stop a device from booting. A separately installed cluster admission controller or edge agent must enforce the verification decision."
+  }
+}
