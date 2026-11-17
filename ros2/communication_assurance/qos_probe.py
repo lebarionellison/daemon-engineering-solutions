@@ -9,7 +9,8 @@ from typing import Any
 try:
     import rclpy
     from rclpy.node import Node
-    from rclpy.qos import DurabilityPolicy, HistoryPolicy, QoSProfile, ReliabilityPolicy, SubscriptionEventCallbacks
+    from rclpy.event_handler import SubscriptionEventCallbacks
+    from rclpy.qos import DurabilityPolicy, HistoryPolicy, QoSProfile, ReliabilityPolicy
     from std_msgs.msg import String
 except ImportError as exc:
     raise SystemExit("ROS 2 Python packages unavailable. Source /opt/ros/<distro>/setup.bash and install rclpy + std_msgs.") from exc
