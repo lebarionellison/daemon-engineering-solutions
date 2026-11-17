@@ -31,6 +31,24 @@ jobs:
         with:
           python-version: "3.12"
 
+      - name: Validate Sim-to-Real rubric and scoring weights
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import json, math, pathlib
+          rubric = json.loads(pathlib.Path("rubric-v1-sim2real.json").read_text(encoding="utf-8"))
+          axes = rubric.get("scoring_axes", [])
+          weights = [axis.get("weight") for axis in axes]
+          if len(axes) != 3 or any(not isinstance(w, (int, float)) for w in weights):
+              raise SystemExit("Rubric must define exactly three numeric scoring axes.")
+          if not math.isclose(sum(weights), 1.0, abs_tol=1e-9):
+              raise SystemExit(f"Rubric weights must sum to 1.0; got {sum(weights)}")
+          if rubric.get("gatekeeper_policy") != "FAIL_CLOSED_WITHOUT_HUMAN_RECEIPT":
+              raise SystemExit("Rubric gatekeeper policy is not fail-closed.")
+          print(f"Validated {rubric['rubric_id']}: weights={weights}, total={sum(weights):.2f}")
+          PY
+
       - name: Create ephemeral Kubernetes cluster
         uses: helm/kind-action@v1.10.0
         with:
@@ -75,7 +93,7 @@ jobs:
           set -euo pipefail
           mkdir -p daemon-ace-receipts
           python3 - <<'PY'
-          import json, pathlib, subprocess, sys
+          import hashlib, json, pathlib, subprocess, sys
           roots = [pathlib.Path("manifests"), pathlib.Path("k8s"), pathlib.Path("examples/preflight")]
           files = sorted({p for root in roots if root.exists() for p in root.rglob("*") if p.is_file() and p.suffix.lower() in {".yaml", ".yml"}})
           summary = []
@@ -92,7 +110,8 @@ jobs:
               out.write_text(json.dumps(receipt, indent=2) + "\n", encoding="utf-8")
               high = any(item.get("severity") == "high" for item in receipt.get("analysis", {}).get("findings", []))
               failed = failed or high or result.returncode not in (0, 1)
-              summary.append({"file": str(path), "exit_code": result.returncode, "high_findings": high, "receipt": out.as_posix()})
+              digest = hashlib.sha256(path.read_bytes()).hexdigest()
+              summary.append({"file": str(path), "sha256": digest, "hash_scope": "exact file bytes", "exit_code": result.returncode, "high_findings": high, "receipt": out.as_posix()})
           pathlib.Path("daemon-ace-receipts/manifest-scan-summary.json").write_text(json.dumps({"files_scanned": len(files), "results": summary}, indent=2) + "\n", encoding="utf-8")
           print(json.dumps({"files_scanned": len(files), "results": summary}, indent=2))
           if not files:
@@ -128,6 +147,12 @@ jobs:
             "workflow_run": os.getenv("GITHUB_RUN_ID"),
             "overall_workflow_status": os.getenv("JOB_STATUS"),
             "checks": checks,
+            "integrity": {
+              "algorithm": "SHA-256",
+              "manifest_digests": "Recorded per file in manifest-scan-summary.json when files are scanned",
+              "simulation_to_real_execution_authorized": False,
+              "note": "A digest detects byte changes; it is not a digital signature or physical execution authorization."
+            },
             "scope": {
               "kubernetes": "ephemeral kind cluster on GitHub-hosted runner",
               "ros2": "ROS 2 Humble demo talker/listener messaging smoke simulation; not physics or hardware simulation",
