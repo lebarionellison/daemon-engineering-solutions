@@ -15,7 +15,7 @@ Writes versioned JSON and Markdown reports to `daemon-ace-report/`.
 Pass the current/candidate workspace as the positional argument and the before/baseline workspace to `--compare-to`:
 ```bash
 python3 ros2/workspace_analyzer/analyze.py ./candidate_ws \\
-  --compare-to ./baseline_ws \\
+  --compare-to ./baseline_ws --build \\
   --distro humble --distro jazzy --distro lyrical --distro rolling
 ```
 The report compares:
