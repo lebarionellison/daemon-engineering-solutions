@@ -426,6 +426,19 @@ html{scroll-padding-top:78px}section{padding:58px 0}.sectionHead{margin-bottom:2
 .roboticsVisionDisclosure{font-size:10px;color:#9eacbd;margin-top:15px}
 @media(max-width:850px){.roboticsVisionGrid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:600px){.roboticsVision{padding:55px 0}.roboticsVisionGrid,.roboticsVisionFoot{grid-template-columns:1fr}.roboticsVisionFlow{justify-content:flex-start}.roboticsVisionFlow i{margin:0 2px}}
+
+/* Readability + NVIDIA-inspired engineering hierarchy refresh */
+:root{--signal:#63e8e8;--signal-strong:#8cf4f4}
+h1,h2,h3,h4{font-weight:900;color:#f7faff}
+.sectionHead h2,.commandTitle h2,.twin h3,.ctaBox h2{font-weight:950;letter-spacing:-1.9px;text-wrap:balance}
+.card h3,.panel h3,.compareBox h3{font-weight:900;color:#f4f8ff}
+.kicker,.eyebrow,.card .index{color:var(--signal-strong);font-weight:950}
+.gateLocked,.humanGate b{color:#8cf4f4;border-color:#63e8e877;background:#63e8e815}
+.nodeInfra .nodeGlyph{color:#63e8e8;background:rgba(99,232,232,.14)}
+.discoveryCard.lime{--accent:#63e8e8}
+.finding{border-left-color:#63e8e8}
+.finding.medium{border-color:#83aaff}
+
 </style>
 </head>
 <body>
