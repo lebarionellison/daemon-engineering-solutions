@@ -62,8 +62,8 @@ jobs:
           rosdep install --from-paths examples/ros2-workspace/src --ignore-src -r -y --rosdistro ${{ matrix.distro }}
           cd examples/ros2-workspace
           colcon build --event-handlers console_direct+
-          mkdir -p distro-catalogs
-          python ros2/workspace_analyzer/distro_catalog.py --ros-root /opt/ros/${{ matrix.distro }} --distro ${{ matrix.distro }} --output distro-catalogs/ros-distro-catalog-${{ matrix.distro }}.json
+          mkdir -p "$GITHUB_WORKSPACE/distro-catalogs"
+          python "$GITHUB_WORKSPACE/ros2/workspace_analyzer/distro_catalog.py" --ros-root /opt/ros/${{ matrix.distro }} --distro ${{ matrix.distro }} --output "$GITHUB_WORKSPACE/distro-catalogs/ros-distro-catalog-${{ matrix.distro }}.json"
       - uses: actions/upload-artifact@v4
         with:
           name: ros-distro-catalog-${{ matrix.distro }}
