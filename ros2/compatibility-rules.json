@@ -1,0 +1,41 @@
+{
+  "schema": "daemon-ace.ros-workspace-rules.v1",
+  "supported_build_targets": ["humble", "jazzy", "lyrical", "rolling"],
+  "api_patterns": [
+    {
+      "id": "ROS1_NODEHANDLE",
+      "pattern": "\\bros::NodeHandle\\b",
+      "severity": "error",
+      "message": "ROS 1 ros::NodeHandle usage detected.",
+      "recommendation": "Port node ownership and interfaces to rclcpp::Node or rclpy.node.Node; verify lifecycle, parameters and executor behavior."
+    },
+    {
+      "id": "ROS1_ADVERTISE_SUBSCRIBE",
+      "pattern": "\\b(node_handle|nh)\\.(advertise|subscribe)\\s*<",
+      "severity": "error",
+      "message": "ROS 1 NodeHandle advertise/subscribe API pattern detected.",
+      "recommendation": "Migrate to create_publisher/create_subscription and validate QoS profiles."
+    },
+    {
+      "id": "ROS1_TF_LISTENER",
+      "pattern": "\\btf::TransformListener\\b",
+      "severity": "error",
+      "message": "ROS 1 tf::TransformListener API detected.",
+      "recommendation": "Review migration to tf2_ros::Buffer and tf2_ros::TransformListener."
+    },
+    {
+      "id": "ROS1_PACKAGE_DEPENDENCY",
+      "pattern": "<depend>\\s*roscpp\\s*</depend>|<depend>\\s*rospy\\s*</depend>",
+      "severity": "error",
+      "message": "ROS 1 client library dependency declared.",
+      "recommendation": "Replace ROS 1 client-library dependencies with rclcpp or rclpy and port launch/build metadata."
+    },
+    {
+      "id": "RCLCPP_QOS_DEFAULT",
+      "pattern": "\\brmw_qos_profile_default\\b",
+      "severity": "review",
+      "message": "Default RMW QoS profile is used explicitly.",
+      "recommendation": "Document the intended reliability, durability, history and depth contract for each critical endpoint."
+    }
+  ]
+}
