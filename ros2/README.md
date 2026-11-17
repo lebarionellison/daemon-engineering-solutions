@@ -6,11 +6,11 @@
 
 | Distribution | Upstream status | Release | Upstream EOL | DAEMON ACE position |
 |---|---|---:|---:|---|
-| Lyrical Luth | LTS | 2026-05-22 | May 2031 | Primary forward baseline; pending matrix validation |
+| Lyrical Luth | LTS | 2026-05-22 | May 2031 | Basic messaging smoke test passed; broader compatibility pending |
 | Makoa Mata-mata | Planned non-LTS | May 2027 (planned) | December 2028 (planned) | Pre-release readiness target; not yet released |
-| Rolling Ridley | Development | Continuous | N/A | Early-warning lane, not production support |
-| Jazzy Jalisco | LTS | 2024-05-23 | May 2029 | Customer compatibility baseline |
-| Humble Hawksbill | LTS | 2022-05-23 | May 2027 | Legacy customer baseline; existing Humble messaging smoke test passed previously |
+| Rolling Ridley | Development | Continuous | N/A | Basic messaging smoke test passed; early-warning lane, not production support |
+| Jazzy Jalisco | LTS | 2024-05-23 | May 2029 | Basic messaging smoke test passed; broader compatibility pending |
+| Humble Hawksbill | LTS | 2022-05-23 | May 2027 | Basic messaging smoke test passed; legacy customer baseline |
 
 Official upstream sources:
 - [ROS 2 distributions and future release schedule](https://github.com/ros2/ros2_documentation/blob/rolling/source/Releases.rst)
@@ -47,3 +47,16 @@ It installs the distro-matched `ros-<distro>-demo-nodes-cpp` package, starts a t
 - Do not infer Lyrical compatibility, Makoa readiness or Rolling support from a container pull or upstream announcement.
 - Publish distro, image tag/digest, workflow run, test coverage, limitations and known failures with each compatibility statement.
 - Do not advertise physics simulation, hardware validation, ros2_control/Nav2 coverage, real-time qualification or safety certification unless those exact tests have been implemented and passed.
+
+
+## First expanded matrix result
+
+**PASS — November 17, 2026:** [DAEMON ACE Pre-Flight run #44111443506](https://github.com/lebarionellison/daemon-engineering-solutions/actions/runs/44111443506)
+
+All four container jobs passed the basic `demo_nodes_cpp` talker/listener exchange:
+- Humble — passed
+- Jazzy — passed
+- Lyrical — passed
+- Rolling — passed
+
+The lifecycle metadata guard and DAEMON ACE pre-flight receipt job also passed. This is a messaging smoke-test result, not full distribution compatibility certification. Makoa remains planned and is not yet testable as a released distribution.
