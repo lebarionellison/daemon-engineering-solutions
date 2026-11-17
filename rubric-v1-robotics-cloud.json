@@ -1,0 +1,274 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "schema_version": "1.0.0",
+  "id": "daemon-ace.preflight-twin.evaluation-rubric.v1",
+  "title": "DAEMON ACE Pre-Flight Twin Evaluation Rubric",
+  "description": "A versioned sample scoring rubric for proposed cloud, GPU, Kubernetes, ROS 2 and robotics-control changes. It defines evaluation criteria and evidence requirements; it is not itself an executable simulator, certified safety standard, or proof that all listed tests are currently implemented.",
+  "status": "reference_rubric_prototype",
+  "product": "DAEMON ACE",
+  "environment_concepts": [
+    {
+      "name": "Virtual Cloud & GPU Chaos Twin",
+      "status": "planned_extension",
+      "description": "Isolated Kubernetes and infrastructure test environments with controlled fault injection. GPU nodes may be represented by mocks or emulators unless actual GPU hardware is explicitly provisioned.",
+      "candidate_faults": [
+        "memory_pressure_spike",
+        "malformed_kubernetes_manifest",
+        "public_ingress_or_0_0_0_0_0",
+        "over_permissive_iam_policy",
+        "pod_crash_or_restart",
+        "node_pressure_or_capacity_exhaustion",
+        "gpu_allocation_or_partition_mismatch"
+      ]
+    },
+    {
+      "name": "Sim-to-Real Robotics Physics Twin",
+      "status": "planned_extension",
+      "description": "Integration target for ROS 2 control policies and physics simulators such as Gazebo or NVIDIA Isaac Sim. A messaging smoke test is not a physics simulation.",
+      "candidate_disturbances": [
+        "sensor_noise",
+        "payload_mass_or_center_of_gravity_shift",
+        "network_latency_and_packet_loss",
+        "obstacle_and_geofence_edge_cases",
+        "actuator_saturation",
+        "battery_reserve_depletion"
+      ]
+    }
+  ],
+  "scoring": {
+    "scale": {
+      "minimum": 0,
+      "maximum": 100,
+      "direction": "higher_is_better",
+      "missing_evidence": "not_scored_and_gate_requires_human_review"
+    },
+    "overall_score_formula": "sum(axis_score * axis_weight) / 100",
+    "decision_bands": [
+      {
+        "name": "eligible_for_human_review",
+        "minimum_score": 90,
+        "conditions": [
+          "no_critical_or_high_blocking_findings",
+          "all_required_evidence_present",
+          "human_signoff_still_required"
+        ]
+      },
+      {
+        "name": "conditional_review",
+        "minimum_score": 75,
+        "maximum_score": 89.99,
+        "conditions": [
+          "remediation_required",
+          "no_automatic_deployment"
+        ]
+      },
+      {
+        "name": "hold_for_remediation",
+        "minimum_score": 0,
+        "maximum_score": 74.99,
+        "conditions": [
+          "do_not_advance_to_hardware_or_production_without_reassessment"
+        ]
+      }
+    ],
+    "hard_gates": [
+      "Any confirmed geofence breach, actuator-limit violation, or unsafe torque command blocks robotics progression regardless of aggregate score.",
+      "Any confirmed public management interface, unintended public DDS exposure, privileged/root workload where prohibited, or wildcard IAM permission blocks cloud/edge progression regardless of aggregate score.",
+      "Missing limits, missing test evidence, or an unvalidated simulator profile must be reported as unknown, never silently treated as pass.",
+      "A passing score is evidence for human review only and never authorizes deployment or motor power."
+    ],
+    "axes": [
+      {
+        "id": "physical_kinematic_safety",
+        "domain": "robotics",
+        "weight": 30,
+        "status": "specification_only",
+        "criteria": [
+          {
+            "id": "max_linear_velocity",
+            "weight_within_axis": 30,
+            "test": "Compare commanded linear velocity against an approved platform-specific max_linear_velocity limit under nominal and injected disturbances.",
+            "pass_condition": "Every observed command remains within the approved limit including tolerance and sampling policy.",
+            "required_evidence": [
+              "approved_limit_source",
+              "command_trace",
+              "simulator_profile",
+              "test_timestamp"
+            ]
+          },
+          {
+            "id": "joint_torque_ceiling",
+            "weight_within_axis": 25,
+            "test": "Check commanded and simulated joint torque against approved per-joint ceilings.",
+            "pass_condition": "No torque ceiling is exceeded."
+          },
+          {
+            "id": "battery_reserve_floor",
+            "weight_within_axis": 15,
+            "test": "Inject mission load and battery-state disturbances and evaluate reserve floor policy.",
+            "pass_condition": "Policy prevents continuation below the approved reserve floor."
+          },
+          {
+            "id": "geofence_boundary",
+            "weight_within_axis": 30,
+            "test": "Exercise boundary, localization-noise and obstacle-edge cases.",
+            "pass_condition": "No commanded or simulated trajectory crosses the configured safety boundary."
+          }
+        ]
+      },
+      {
+        "id": "zero_trust_network_isolation",
+        "domain": "cloud_edge_robotics",
+        "weight": 25,
+        "status": "partially_implemented_pattern_checks",
+        "criteria": [
+          {
+            "id": "dds_discovery_scope",
+            "weight_within_axis": 35,
+            "test": "Verify DDS discovery and transport are restricted to explicitly approved interfaces and peers. A loopback-only profile may require 127.0.0.1; distributed ROS 2 deployments require an explicitly approved isolated network rather than blindly forcing loopback.",
+            "pass_condition": "No unintended public discovery or unapproved peer communication is possible."
+          },
+          {
+            "id": "container_privilege",
+            "weight_within_axis": 30,
+            "test": "Inspect pod/container security contexts for privileged mode, root UID and privilege escalation.",
+            "pass_condition": "Workloads comply with the approved non-root and least-privilege baseline."
+          },
+          {
+            "id": "iam_least_privilege",
+            "weight_within_axis": 35,
+            "test": "Evaluate IAM actions, resources, principals, trust relationships and wildcard permissions against a customer-approved policy baseline.",
+            "pass_condition": "No unapproved wildcard or excessive permission remains."
+          }
+        ]
+      },
+      {
+        "id": "compute_reliability_resilience",
+        "domain": "cloud_gpu",
+        "weight": 20,
+        "status": "planned_extension",
+        "criteria": [
+          {
+            "id": "memory_pressure_recovery",
+            "weight_within_axis": 35,
+            "test": "Inject controlled memory pressure and observe scheduling, restart behavior, service health and recovery.",
+            "pass_condition": "Workload remains within defined SLO and recovers within agreed thresholds."
+          },
+          {
+            "id": "gpu_partition_and_capacity",
+            "weight_within_axis": 35,
+            "test": "Evaluate GPU allocation, MIG profile compatibility where supported, quotas and node capacity.",
+            "pass_condition": "No unsupported partition claim, oversubscription or unapproved capacity contention."
+          },
+          {
+            "id": "failure_containment",
+            "weight_within_axis": 30,
+            "test": "Inject pod, node or network failures in an isolated test environment.",
+            "pass_condition": "Fault remains within the defined blast radius and recovery objectives."
+          }
+        ]
+      },
+      {
+        "id": "compute_finops_efficiency",
+        "domain": "cloud_gpu",
+        "weight": 15,
+        "status": "specification_only",
+        "criteria": [
+          {
+            "id": "cost_guardrails",
+            "weight_within_axis": 40,
+            "test": "Compare proposed resource changes against explicit budget, quota and cost ceilings.",
+            "pass_condition": "No configured spend ceiling or quota is exceeded."
+          },
+          {
+            "id": "utilization_and_autoscaling",
+            "weight_within_axis": 35,
+            "test": "Evaluate utilization and autoscaling behavior against workload-specific targets.",
+            "pass_condition": "Scaling remains within cost and capacity bounds without sustained starvation."
+          },
+          {
+            "id": "resource_efficiency",
+            "weight_within_axis": 25,
+            "test": "Compare CPU, memory and GPU allocation to workload demand and baseline.",
+            "pass_condition": "No unjustified allocation increase or starvation regression."
+          }
+        ]
+      },
+      {
+        "id": "evidence_and_human_governance",
+        "domain": "cross_domain",
+        "weight": 10,
+        "status": "receipt_schema_concept",
+        "criteria": [
+          {
+            "id": "traceability",
+            "weight_within_axis": 35,
+            "test": "Record model identifier, prompt or policy version, input digest, source commit and test environment.",
+            "pass_condition": "Evidence can be traced to the evaluated proposal and environment."
+          },
+          {
+            "id": "remediation_diff",
+            "weight_within_axis": 30,
+            "test": "Attach proposed remediation diff and before/after evaluation evidence.",
+            "pass_condition": "Changes are reviewable and linked to findings."
+          },
+          {
+            "id": "human_signoff",
+            "weight_within_axis": 35,
+            "test": "Require named authorized reviewer, decision, timestamp and scope before progression.",
+            "pass_condition": "No production or hardware progression without recorded approval."
+          }
+        ]
+      }
+    ]
+  },
+  "receipt_of_safety_example": {
+    "receipt_id": "sample-not-a-real-evaluation",
+    "model": {
+      "name": "example-agent",
+      "version": "not-specified"
+    },
+    "source_commit": "example-sha",
+    "environment_profile": "example-isolated-profile",
+    "axis_scores": {
+      "physical_kinematic_safety": null,
+      "zero_trust_network_isolation": null,
+      "compute_reliability_resilience": null,
+      "compute_finops_efficiency": null,
+      "evidence_and_human_governance": null
+    },
+    "overall_score": null,
+    "findings": [],
+    "edge_case_traces": [],
+    "proposed_remediation_diff": null,
+    "human_signoff": {
+      "required": true,
+      "reviewer": null,
+      "decision": "pending",
+      "signed_at": null
+    },
+    "integrity": {
+      "algorithm": "SHA-256",
+      "digest": null,
+      "signature": null,
+      "note": "A digest is not a digital signature. Production signing requires a managed signing key, key custody policy and verification process."
+    },
+    "evaluation_status": "sample_template_not_executed"
+  },
+  "implementation_disclosure": {
+    "currently_demonstrated_in_repository": [
+      "ROS 2 DDS and velocity text-pattern checks in the existing preflight scanner",
+      "Ephemeral kind Kubernetes cluster creation and basic workload scheduling check in the new CI workflow"
+    ],
+    "not_yet_implemented_or_not_yet_verified": [
+      "Gazebo or NVIDIA Isaac Sim physics integration",
+      "robot dynamics, torque, battery and geofence enforcement",
+      "GPU chaos injection on real GPU nodes",
+      "automated IAM semantic policy evaluation",
+      "MIG partition orchestration and measured GPU optimization",
+      "deterministic model action scoring and RLHF/RLAIF export pipeline",
+      "cryptographic signing and verification of receipts"
+    ],
+    "safety_notice": "This rubric is a proposed evaluation framework. Values, thresholds, test profiles and acceptance criteria must be approved for each robot, workload and customer environment by qualified owners. It does not constitute a safety certification, formal audit, or authorization to deploy."
+  }
+}
