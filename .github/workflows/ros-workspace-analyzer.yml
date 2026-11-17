@@ -19,14 +19,16 @@ jobs:
         run: python -m unittest discover -s ros2/workspace_analyzer/tests -v
       - name: Analyze sample workspace
         run: |
-          python ros2/workspace_analyzer/analyze.py examples/ros2-workspace --distro humble --distro jazzy --distro lyrical --output daemon-ace-report
+          python ros2/workspace_analyzer/analyze.py examples/ros2-workspace --compare-to examples/ros2-workspace --qos-profile ros2/workspace_analyzer/examples/qos-profile.example.json --distro humble --distro jazzy --distro lyrical --output daemon-ace-report
           python - <<'PY'
           import json
           from pathlib import Path
           r=json.loads(Path("daemon-ace-report/ros-workspace-compatibility-report.json").read_text())
-          assert r["schema"] == "daemon-ace.ros2-workspace-report.v1"
+          assert r["schema"] == "daemon-ace.ros2-workspace-report.v2"
           assert r["workspace"]["packages"]
           assert len(r["build_matrix"]) == 3
+          assert r["workspace_diff"]["summary"]["packages_added"] == 0
+          assert r["qos_profile_validation"]["valid"] is True
           assert all(x["status"] == "not-run" for x in r["build_matrix"])
           print("Analyzer report schema and sample inventory passed.")
           PY
