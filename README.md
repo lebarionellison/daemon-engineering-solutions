@@ -124,3 +124,35 @@ The existing Stripe webhook must remain configured for `checkout.session.complet
 - The purchase claim uses the unguessable Stripe Checkout Session ID and an atomic single-use D1 fulfillment state. The success page retries briefly while the Stripe webhook records payment. Customer email delivery and a customer account/download library are not implemented.
 - GitHub PR creation is **not enabled**. A secure customer-owned GitHub integration requires a GitHub App/OAuth authorization flow with per-customer repository grants, installation-token handling, webhook/state validation, and explicit repository/file consent. A shared owner PAT is not an acceptable substitute.
 - Production deployment and payment fulfillment still require the documented D1 migrations, secrets, webhook configuration, and end-to-end verification. Do not test with a real charge.
+
+
+## ROS 2 Evolution Engineering
+
+DAEMON ACE is being developed as a release-aware engineering layer above upstream ROS 2. It does not fork or replace ROS 2 and does not control upstream release dates.
+
+### Upstream lifecycle targets (checked 2026-11-17)
+
+| Distribution | Upstream status | Release / support window | DAEMON ACE validation position |
+|---|---|---|---|
+| Lyrical Luth | Current LTS | Released 2026-05-22; upstream EOL May 2031 | Primary forward baseline; compatibility claim requires passing CI matrix |
+| Makoa Mata-mata | Planned non-LTS | Planned May 2027; planned EOL December 2028 | Pre-release target once upstream packages are available; not released |
+| Rolling Ridley | Continuous development | Rolling development channel | Early-warning lane; not a production stability guarantee |
+| Jazzy Jalisco | Supported LTS | Released May 2024; upstream EOL May 2029 | Customer legacy baseline; validate per CI result |
+| Humble Hawksbill | Supported LTS | Released May 2022; upstream EOL May 2027 | Existing verified talker/listener smoke-test baseline |
+
+Upstream schedule and status:
+- https://github.com/ros2/ros2_documentation/blob/rolling/source/Releases.rst
+- https://github.com/ros2/ros2/releases
+- https://docs.ros.org/en/rolling/Releases/Release-Makoa-Mata-mata.html
+
+### DAEMON ACE validation levels
+
+1. **Build/package:** dependency resolution and workspace compilation.
+2. **Messaging:** ROS 2 publisher/subscriber talker-listener smoke tests.
+3. **Interface and QoS:** planned package/API/message compatibility and DDS/QoS scenario checks.
+4. **Simulation:** planned simulator regression (e.g. Gazebo / Isaac Sim) with versioned test scenarios.
+5. **Hardware qualification:** separately authorized testing on named physical platforms with documented lab procedures.
+
+The GitHub Actions workflow `.github/workflows/ros2-evolution.yml` runs isolated messaging smoke tests across Humble, Jazzy, Lyrical and Rolling. A passing messaging job proves only that the tested ROS 2 demo publisher and subscriber exchanged messages in that CI container. It does not prove complete distribution compatibility, simulator fidelity, physical robot behavior, real-time performance, functional safety or production readiness. Makoa is not included in the runnable matrix until upstream prerelease packages are available.
+
+**Release discipline:** never mark a ROS distribution as DAEMON ACE supported from its upstream release announcement alone. Publish the exact CI run, tested image/distro, test scope and limitations with each compatibility update.
