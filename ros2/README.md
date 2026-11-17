@@ -37,7 +37,7 @@ It installs the distro-matched `ros-<distro>-demo-nodes-cpp` package, starts a t
 
 1. **Messaging smoke test — automated:** basic publisher/subscriber exchange.
 2. **Workspace build and dependency validation — next:** build representative customer workspaces per distro.
-3. **API/message/QoS compatibility — planned:** detect changed interfaces and validate specified DDS policies.
+3. **Selected live DDS QoS assurance — implemented in v1.0.0:** run six reliability/durability endpoint scenarios and observe incompatible-QoS events across tested RMW implementations. This is not exhaustive DDS qualification.
 4. **Simulation regression — planned:** compare deterministic scenarios in named Gazebo / Isaac Sim versions.
 5. **Hardware qualification — customer-specific:** separately authorized lab testing on identified platforms with recorded safety procedures.
 
@@ -60,3 +60,22 @@ All four container jobs passed the basic `demo_nodes_cpp` talker/listener exchan
 - Rolling — passed
 
 The lifecycle metadata guard and DAEMON ACE pre-flight receipt job also passed. This is a messaging smoke-test result, not full distribution compatibility certification. Makoa remains planned and is not yet testable as a released distribution.
+
+## Live DDS QoS Communication Assurance — v1.0.0
+
+Tool: ros2/communication_assurance/qos_probe.py  
+Runbook: ros2/communication_assurance/README.md  
+Report contract: ros2/communication_assurance/report.schema.v1.json  
+Workflow: .github/workflows/ros2-communication-assurance.yml
+
+The probe creates ROS 2 publisher/subscriber endpoints and runs six selected scenarios:
+- Reliable publisher → reliable subscriber (positive message-flow test).
+- Reliable publisher → best-effort subscriber (compatible request/offered test).
+- Best-effort publisher → reliable subscriber (negative compatibility test; expects incompatible-QoS event and no samples).
+- Transient-local late-joining subscriber (expects retained samples).
+- Transient-local publisher → volatile subscriber (compatible durability test).
+- Volatile publisher → transient-local subscriber (negative compatibility test; expects incompatible-QoS event and no samples).
+
+The CI matrix targets Humble, Jazzy, Lyrical and Rolling with rmw_fastrtps_cpp and rmw_cyclonedds_cpp. Reports record exact ROS/RMW environment, expected and observed outcomes, sample counts, incompatible-QoS events and same-host publish-to-callback timing observations.
+
+**Evidence boundary:** this is a single-host endpoint probe, not multi-host network qualification. Timing is diagnostic and not a real-time guarantee. It does not exhaustively test DDS discovery, all QoS policies, security, packet loss, congestion, failover, simulation, hardware, safety or production fleets. Publish compatibility claims only for exact matrix combinations whose jobs have passed; never infer full ROS distribution support from this probe.

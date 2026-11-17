@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://daemon-engineering-solutions.lebarionellison.workers.dev/schemas/ros2-communication-assurance.v1.schema.json",
+  "title": "DAEMON ACE ROS 2 Communication Assurance Report",
+  "type": "object",
+  "required": ["schema", "report_version", "generated_at", "environment", "summary", "scenarios", "limitations"],
+  "properties": {
+    "schema": {"const": "daemon-ace.ros2-communication-assurance.v1"},
+    "report_version": {"const": "1.0.0"},
+    "generated_at": {"type": "string", "format": "date-time"},
+    "environment": {"type": "object", "required": ["ros_distro", "rmw_implementation", "ros_domain_id"], "properties": {"ros_distro": {"type": "string"}, "rmw_implementation": {"type": "string"}, "ros_domain_id": {"type": "string"}}, "additionalProperties": true},
+    "summary": {"type": "object", "required": ["scenarios_total", "scenarios_passed", "scenarios_failed", "disposition"], "properties": {"scenarios_total": {"type": "integer", "minimum": 1}, "scenarios_passed": {"type": "integer", "minimum": 0}, "scenarios_failed": {"type": "integer", "minimum": 0}, "disposition": {"enum": ["PASS", "REVIEW_REQUIRED"]}}},
+    "scenarios": {"type": "array", "items": {"type": "object", "required": ["name", "expected", "observed", "passed", "messages_received", "incompatible_qos_events"], "properties": {"name": {"type": "string"}, "expected": {"enum": ["compatible", "incompatible", "retained_samples"]}, "observed": {"type": "string"}, "passed": {"type": "boolean"}, "messages_received": {"type": "integer", "minimum": 0}, "incompatible_qos_events": {"type": "integer", "minimum": 0}}, "additionalProperties": true}},
+    "limitations": {"type": "array", "items": {"type": "string"}}
+  },
+  "additionalProperties": true
+}

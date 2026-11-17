@@ -1,0 +1,89 @@
+name: DAEMON ACE ROS 2 Communication Assurance
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'ros2/communication_assurance/**'
+      - '.github/workflows/ros2-communication-assurance.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: daemon-ace-communication-assurance-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  qos-interoperability:
+    name: ${{ matrix.distro }} / ${{ matrix.rmw }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    strategy:
+      fail-fast: false
+      matrix:
+        distro: [humble, jazzy, lyrical, rolling]
+        rmw: [rmw_fastrtps_cpp, rmw_cyclonedds_cpp]
+    container:
+      image: ros:${{ matrix.distro }}-ros-base
+    env:
+      ROS_DOMAIN_ID: '44'
+      ROS_LOCALHOST_ONLY: '1'
+      RMW_IMPLEMENTATION: ${{ matrix.rmw }}
+      PYTHONUNBUFFERED: '1'
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install supported RMW implementations and message package
+        shell: bash
+        run: |
+          set -euo pipefail
+          apt-get update -qq
+          apt-get install -y --no-install-recommends \
+            "ros-${ROS_DISTRO}-rmw-fastrtps-cpp" \
+            "ros-${ROS_DISTRO}-rmw-cyclonedds-cpp" \
+            "ros-${ROS_DISTRO}-std-msgs" \
+            "ros-${ROS_DISTRO}-rclpy"
+      - name: Run live DDS QoS compatibility probes
+        shell: bash
+        run: |
+          set -euo pipefail
+          set +u
+          source "/opt/ros/${ROS_DISTRO}/setup.bash"
+          set -u
+          test "${ROS_DISTRO}" = "${{ matrix.distro }}"
+          test "${RMW_IMPLEMENTATION}" = "${{ matrix.rmw }}"
+          mkdir -p communication-assurance-results
+          python3 ros2/communication_assurance/qos_probe.py \
+            --scenario all --duration 3 \
+            --output "communication-assurance-results/${ROS_DISTRO}-${RMW_IMPLEMENTATION}.json"
+      - name: Validate report contract and scenario coverage
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import json, os, pathlib
+          path = pathlib.Path("communication-assurance-results") / f"{os.environ['ROS_DISTRO']}-{os.environ['RMW_IMPLEMENTATION']}.json"
+          report = json.loads(path.read_text(encoding="utf-8"))
+          expected = {
+              "reliable_to_reliable", "reliable_to_best_effort",
+              "best_effort_to_reliable", "transient_local_retention",
+              "transient_local_to_volatile", "volatile_to_transient_local",
+          }
+          actual = {item["name"] for item in report["scenarios"]}
+          assert report["schema"] == "daemon-ace.ros2-communication-assurance.v1"
+          assert report["report_version"] == "1.0.0"
+          assert actual == expected, f"Scenario mismatch: {actual}"
+          assert report["summary"]["scenarios_passed"] == 6, report["summary"]
+          assert report["summary"]["scenarios_failed"] == 0, report["summary"]
+          assert report["summary"]["disposition"] == "PASS"
+          assert report["environment"]["rmw_implementation"] == os.environ["RMW_IMPLEMENTATION"]
+          print(f"PASS: {path} — {len(actual)} QoS scenarios")
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: ros2-communication-${{ matrix.distro }}-${{ matrix.rmw }}
+          path: communication-assurance-results/
+          if-no-files-found: warn
+          retention-days: 30
