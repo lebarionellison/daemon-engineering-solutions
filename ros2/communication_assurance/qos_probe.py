@@ -13,7 +13,7 @@ try:
     from rclpy.qos import DurabilityPolicy, HistoryPolicy, QoSProfile, ReliabilityPolicy
     from std_msgs.msg import String
 except ImportError as exc:
-    raise SystemExit("ROS 2 Python packages unavailable. Source /opt/ros/<distro>/setup.bash and install rclpy + std_msgs.") from exc
+    raise SystemExit(f"ROS 2 Python package import failed: {exc!r}. Source /opt/ros/<distro>/setup.bash and install rclpy + std_msgs.") from exc
 
 SCENARIOS = {
  "reliable_to_reliable": {"publisher_reliability":"reliable","subscriber_reliability":"reliable","publisher_durability":"volatile","subscriber_durability":"volatile","expected":"compatible","description":"Reliable publisher to reliable subscriber"},
