@@ -108,10 +108,10 @@ def validate_qos_profile(path):
         for field in ("topic","endpoint","reliability","durability","history"):
             if not isinstance(p.get(field),str) or not p[field].strip():
                 errors.append({"code":"QOS-FIELD-001","message":f"{label}.{field} is required"})
-        if p.get("endpoint") not in {"publisher","subscriber"}:
+        if not isinstance(p.get("endpoint"),str) or p.get("endpoint") not in {"publisher","subscriber"}:
             errors.append({"code":"QOS-ENDPOINT-001","message":f"{label}.endpoint must be publisher or subscriber"})
         for field,allowed in QOS_ENUMS.items():
-            if field in p and p[field] not in allowed:
+            if field in p and (not isinstance(p[field],str) or p[field] not in allowed):
                 errors.append({"code":"QOS-ENUM-001","message":f"{label}.{field} must be one of {sorted(allowed)}"})
         if p.get("history")=="keep_last":
             depth=p.get("depth")
@@ -122,9 +122,9 @@ def validate_qos_profile(path):
         for field in ("deadline_ms","lifespan_ms","lease_duration_ms"):
             if field in p and (not isinstance(p[field],(int,float)) or isinstance(p[field],bool) or p[field]<0):
                 errors.append({"code":"QOS-DURATION-001","message":f"{label}.{field} must be a non-negative number"})
-        key=(p.get("topic"),p.get("endpoint"))
-        if key in seen: errors.append({"code":"QOS-DUPLICATE-001","message":f"Duplicate {key[1]} profile for topic {key[0]}"})
-        seen.add(key)
+        key=(p.get("topic"),p.get("endpoint")) if isinstance(p.get("topic"),str) and isinstance(p.get("endpoint"),str) else None
+        if key is not None and key in seen: errors.append({"code":"QOS-DUPLICATE-001","message":f"Duplicate {key[1]} profile for topic {key[0]}"})
+        if key is not None: seen.add(key)
     by_topic={}
     for p in profiles:
         if isinstance(p,dict) and isinstance(p.get("topic"),str):
@@ -132,7 +132,9 @@ def validate_qos_profile(path):
     pair_checks=[]
     for topic,endpoints in sorted(by_topic.items()):
         pub=endpoints.get("publisher"); sub=endpoints.get("subscriber")
-        if not pub or not sub: continue
+        if not pub or not sub:
+            warnings.append({"code":"QOS-PAIR-001","message":f"{topic}: only one endpoint is described; publisher/subscriber compatibility was not evaluated."})
+            continue
         compatible=True; reasons=[]
         # ROS 2 request-vs-offered compatibility: subscriber requests no more than publisher offers.
         if pub.get("reliability")=="best_effort" and sub.get("reliability")=="reliable":
