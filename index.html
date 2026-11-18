@@ -1111,7 +1111,184 @@ spec:
   <p class="jetsonDisclosure">Reference baseline: JetPack 7.2.1 / Jetson Linux 39.2.1 on the Jetson Orin family. ROS 2 Jazzy is the initial middleware target for Ubuntu 24.04 ARM64. Jetson developer kits are pre-production validation hardware; production shipments must be qualified on the selected production module and carrier system. <a href="https://developer.nvidia.com/embedded/jetpack/downloads" target="_blank" rel="noopener noreferrer">NVIDIA JetPack release notes ↗</a> · <a href="https://docs.ros.org/en/jazzy/" target="_blank" rel="noopener noreferrer">ROS 2 Jazzy documentation ↗</a></p>
  </div>
 </section>
-   <section id="robotics-roadmap" class="roboticsVision" aria-labelledby="robotics-vision-title">
+   <section id="robotics-gatekeeper" class="roboticsSpotlight">
+  <div class="wrap">
+    <div class="roboticsSpotlightCard">
+      <div class="liveGatekeeper" id="live-sim2real-gate">
+  <div class="liveGateTop"><div><span class="liveGateEyebrow">LIVE CRYPTOGRAPHIC GATEKEEPER · SHA-256 SIM-TO-REAL SEAL</span><h3>Verify &amp; Seal Cloud or ROS2 Robotics Configs</h3><p>Run server-side configuration screening and mint an integrity receipt bound to the exact submitted UTF-8 bytes.</p></div><span class="gateLocked">🔒 PRODUCTION GATE LOCKED</span></div>
+  <div class="gateLoaders"><button type="button" data-gate-sample="unsafe-ros2">Load Unsafe ROS2 Robot</button><button type="button" data-gate-sample="unsafe-gpu">Load Unsafe GPU Pod</button><button type="button" data-gate-sample="hardened">Load Hardened ROS2 Config</button></div>
+  <label for="sim2realManifest">CONFIGURATION ARTIFACT (KUBERNETES / ROS2 / TERRAFORM)</label>
+  <textarea id="sim2realManifest" spellcheck="false" aria-label="Configuration artifact">robot_node:
+  name: autonomous_rover_controller
+  ros_distro: humble
+  environment:
+    ROS_DOMAIN_ID: 0
+    dds_discovery_interface: "0.0.0.0"
+  motion_limits:
+    max_linear_velocity: 8.5
+    max_angular_velocity: 4.2
+  runtime:
+    privileged: true</textarea>
+  <label for="sim2realGoal">ENGINEERING REVIEW GOAL</label>
+  <input id="sim2realGoal" value="Evaluate ROS2 network isolation, actuator screening limits, and container privilege boundaries before a human-reviewed lab trial." maxlength="1200">
+  <button type="button" id="sim2realEvaluate" class="gateEvaluate">🛡️ Evaluate Rubric &amp; Mint SHA-256 Receipt</button>
+  <div id="sim2realResult" class="sim2realResult" aria-live="polite"><b>RECEIPT OF SAFETY</b><p>Waiting for a configuration review.</p></div>
+  <div class="humanGate"><div><b>AUTHORIZED HUMAN GATEKEEPER APPROVAL</b><p>Signing remains unavailable until trusted simulation attestation and a separately authorized approval workflow are configured. A SHA-256 match alone never unlocks execution.</p></div><button type="button" disabled>✓ Sign &amp; Unlock · LOCKED</button></div>
+  <p class="gateDisclosure">Important: this live gate runs text-pattern heuristics and records a SHA-256 fingerprint. It does not run Gazebo/Isaac physics, validate actuator behavior, attest a physical robot, or authorize Kubernetes/edge execution. The current production verify endpoint fails closed without a trusted simulator attestation, human sign-off, and the separately configured admission token/enforcement component.</p>
+</div><div class="roboticsSpotlightHead">
+        <div>
+          <span class="roboticsEyebrow">FLAGSHIP PRODUCT TRACK · PHYSICAL AI &amp; AUTONOMOUS SYSTEMS</span>
+          <h2>HARDEN THE ROBOTICS RELEASE BEFORE HARDWARE.</h2>
+          <p class="roboticsIntro">A Sim-to-Real pre-flight review workflow for universities, research labs and robotics teams. Review ROS2 nodes, NVIDIA Jetson edge containers, actuator boundaries and edge-image controls before proposed code is considered for physical deployment.</p>
+        </div>
+        <a class="roboticsPilotBtn" href="#contact">Request Robotics &amp; Lab Pilot ↗</a>
+      </div>
+      <div class="roboticsCapabilityGrid">
+        <article>
+          <span>01 · SIM-TO-REAL FLIGHT RECORDER</span>
+          <h3>Hardware &amp; Velocity Boundaries</h3>
+          <p>Flag configured linear and angular velocity values above a screening threshold, then route the finding for review against verified lab and hardware limits.</p>
+        </article>
+        <article>
+          <span>02 · EDGE &amp; DDS NETWORK REVIEW</span>
+          <h3>Review Robot Telemetry Exposure</h3>
+          <p>Identify public DDS discovery interface patterns, unpinned edge image tags and privileged container settings in submitted configuration text.</p>
+        </article>
+        <article>
+          <span>03 · UNIVERSITY LAB WORKFLOWS</span>
+          <h3>Student &amp; Researcher Pre-Flight</h3>
+          <p>Give robotics teams a repeatable first-pass review artifact for lab directors and qualified engineers to inspect before any hardware trial.</p>
+        </article>
+      </div>
+      <div class="roboticsBottomStrip">
+        <span><b>BUILT FOR:</b> University Robotics &amp; AI Labs · Technical Colleges · Autonomous Fleet Teams · Research Partners</span>
+        <button type="button" onclick="setScenario('robotics');document.getElementById('live-ace-engine')?.scrollIntoView({behavior:'smooth'});">▶ Test Robotics Gate in Demo</button>
+      </div>
+      <p class="roboticsCaveat">Scope note: these are text-pattern pre-flight checks and a scripted demonstration. They do not validate physical safety, execute a ROS2 simulation, inspect a live Jetson device, verify an OTA signature or block a robot from moving. Thresholds must be set and approved by the responsible lab and hardware safety team.</p>
+    </div>
+  </div>
+</section>
+  </div>
+ </div>
+</section>
+
+<section class="discoveryHub buyerHub productAisle" id="explore" aria-labelledby="discovery-title">
+ <div class="wrap">
+  <div class="aisleTop">
+   <div><span class="discoveryEyebrow">DAEMON ACE CONTROL MARKET · CHOOSE YOUR MISSION</span><h2 id="discovery-title">CHOOSE THE MISSION. SEE THE CONTROLS. ENGINEER THE OUTCOME.</h2><p>One control plane for the AI systems your organization builds, buys, trains, simulates and deploys. Choose a mission aisle, see how all four ACE engines work together, then configure the outcome your team needs.</p></div>
+   <div class="aisleStamp"><b>DAEMON ACE</b><span>EXPLORE → SELECT → ENGINEER</span></div>
+  </div>
+  <div class="smartProductFinder" id="smart-product-finder">
+   <div class="finderIntro"><span>DAEMON ACE SMART FINDER</span><h3>WHAT ARE YOU TRYING TO MAKE POSSIBLE?</h3><p>Search in your own words. Explore a product area, compare what it does, and decide when you are ready to request a custom build. No pressure to submit.</p></div>
+   <div class="finderControls"><label for="aceProductSearch">SEARCH PRODUCTS, CAPABILITIES OR OUTCOMES</label><div class="finderInputWrap"><span>⌕</span><input id="aceProductSearch" type="search" autocomplete="off" placeholder="Try: AI agent security, digital twin, ROS 2, simulation, GPU governance, self-healing…" aria-describedby="aceSearchHelp"><button type="button" id="aceSearchClear">CLEAR</button></div><small id="aceSearchHelp">Search terms like “control what agents can do”, “robot simulation”, “Jetson deployment”, or “audit evidence”.</small></div>
+   <div class="finderResults" id="aceFinderResults" aria-live="polite"><div class="finderEmpty">Popular destinations: <button type="button" data-finder-query="AI agents">AI agents</button><button type="button" data-finder-query="simulation">Simulation</button><button type="button" data-finder-query="robotics">Robotics</button><button type="button" data-finder-query="security">AI security</button><button type="button" data-finder-query="GPU">GPU infrastructure</button></div></div>
+  </div>
+  <div class="daemonDifference" aria-label="Why build with Daemon">
+   <div class="differenceLead"><span>NOT A SOFTWARE CATALOG. NOT A RESELLER.</span><h3>WE GOVERN THE SYSTEM AROUND YOUR MISSION.</h3><p>Teams bring their AI agents, models, research, simulators, robots or enterprise workflows. DAEMON ACE establishes the identity, policy, execution boundaries, validation path and evidence trail around them—then engineers the governed system for deployment.</p></div>
+   <div class="differencePillars">
+    <div><b>01 / YOUR IP</b><span>Your models, data, workflows and product requirements stay at the center of the design.</span></div>
+    <div><b>02 / OUR ENGINEERING</b><span>Four coordinated engines, policy enforcement, self-healing recovery workflows and integration—not a bundle of third-party licenses.</span></div>
+    <div><b>03 / PROOF BEFORE SHIP</b><span>Simulation, runtime controls, human approvals, recovery evidence, safety receipts and controlled release handoff.</span></div>
+   </div>
+  </div>
+  <div class="aisleSearch"><span>PRODUCT FINDER</span><div class="aisleSearchPrompt">What AI system do you need to govern, secure or deploy?</div><a href="#custom-build">CUSTOMIZE A BUILD ↓</a></div>
+  <div class="productShelf">
+   <a class="shelfCard shelfFeatured" href="#engines"><span class="shelfNo">01 / AI ENGINEERING</span><b>AI PIPELINES &amp; MODEL DELIVERY</b><p>Model intake, pipeline assembly, evaluation, packaging, deployment gates and release evidence.</p><small>BUILD AN AI DELIVERY PIPELINE ↗</small></a>
+   <a class="shelfCard" href="#romi"><span class="shelfNo">02 / AUTONOMOUS ROBOTICS</span><b>ROS 2 &amp; ROBOTICS SYSTEMS</b><p>ROS 2 workspaces, node and communication policy, simulation-to-real validation and robot release engineering.</p><small>ENGINEER A ROBOTICS BUILD ↗</small></a>
+   <a class="shelfCard" href="#robotics-roadmap"><span class="shelfNo">03 / SIMULATION + DIGITAL TWINS</span><b>SIMULATORS, DIGITAL TWINS &amp; VISUALIZATION</b><p>Govern simulation agents, scenario execution, synthetic data, model evaluation, digital-twin workflows and simulation-to-real evidence.</p><small>GOVERN A SIMULATION WORKFLOW ↗</small></a>
+   <a class="shelfCard" href="#robotics-roadmap"><span class="shelfNo">04 / EDGE + EMBEDDED AI</span><b>NVIDIA JETSON &amp; EDGE EXECUTION</b><p>Govern edge workloads, device identity, model releases, resource limits, health signals and operator-authorized updates.</p><small>CONTROL AN EDGE DEPLOYMENT ↗</small></a>
+   <a class="shelfCard" href="#secure-ai"><span class="shelfNo">05 / AI GOVERNANCE</span><b>AI SECURITY &amp; POLICY CONTROLS</b><p>Identity, model provenance, workload isolation, policy boundaries, audit evidence and human approval.</p><small>GOVERN AN AI SYSTEM ↗</small></a>
+   <a class="shelfCard" href="#preflight"><span class="shelfNo">06 / CLOUD + GPU CONTROL</span><b>KUBERNETES, GPU &amp; CLOUD</b><p>Workload configuration, GPU-aware scheduling, Kubernetes validation, CI/CD hardening and cost review.</p><small>ENGINEER THE COMPUTE STACK ↗</small></a>
+   <a class="shelfCard shelfCustom" href="#custom-build" id="custom-build"><span class="shelfNo">07 / CUSTOM ENGINEERING</span><b>COMBINE. CUSTOMIZE. SHIP.</b><p>Bring your model, robot, cluster or product requirement. Daemon scopes the build, assembles the toolchain and defines acceptance gates with your team.</p><small>CONFIGURE A CUSTOM BUILD ↗</small></a>
+  </div>
+  <div class="aceBuildMenu" id="build-menu">
+   <div class="menuHeading"><div><span class="trackerKicker">DAEMON ACE · CONFIGURE YOUR BUILD</span><h3>BUILD YOUR STACK. YOUR REQUIREMENTS. YOUR RELEASE.</h3><p>Choose the engineering path and delivery options. Daemon turns the selections into a scoped build plan for review—no toolchain assembly scavenger hunt.</p></div><div class="menuTag">CUSTOM BUILD MENU<br><b>DESIGN YOUR CONFIG</b></div></div>
+   <div class="menuGrid">
+    <label class="menuField"><span>01 · WHAT ARE WE BUILDING?</span><select id="aceBuildType"><option>Autonomous AI pipeline</option><option>ROS 2 robotics application</option><option>RoMi robotic micro-manufacturing</option><option>AI inference and edge deployment</option><option>Kubernetes / GPU infrastructure</option><option>AI governance and security</option><option>Integrated custom system</option></select></label>
+    <label class="menuField"><span>02 · WHERE WILL IT RUN?</span><select id="aceTarget"><option>Cloud / Kubernetes</option><option>NVIDIA Jetson edge device</option><option>On-premises GPU / HPC</option><option>Hybrid cloud + edge</option><option>Robotics lab / simulation</option><option>Not decided — recommend a target</option></select></label>
+    <label class="menuField"><span>03 · BUILD INTELLIGENCE</span><select id="aceIntelligence"><option>Self-healing pipeline design</option><option>AI-assisted pipeline optimization</option><option>Autonomous workflow with approval gates</option><option>Standard repeatable CI/CD pipeline</option></select></label>
+    <label class="menuField"><span>04 · GOVERNANCE LEVEL</span><select id="aceGovernance"><option>Secure defaults + artifact provenance</option><option>Identity, policy and workload isolation</option><option>Regulated / enterprise control review</option><option>Robotics command and actuator boundaries</option></select></label>
+    <label class="menuField"><span>05 · VALIDATION PACKAGE</span><select id="aceValidation"><option>Build tests + release evidence</option><option>Simulation + integration validation</option><option>Security + supply-chain review</option><option>Full agreed acceptance test plan</option></select></label>
+    <label class="menuField"><span>06 · DELIVERY HANDOFF</span><select id="aceHandoff"><option>Versioned package + deployment guide</option><option>Customer-approved deployment support</option><option>Edge-device install + health verification</option><option>Engineering handoff + team walkthrough</option></select></label>
+   </div>
+   <div class="menuExtras"><div><b>ADD BUILD OPTIONS</b><label><input type="checkbox" id="aceFeedback" checked> Runtime feedback loop and health signals</label><label><input type="checkbox" id="aceRecovery" checked> Approved recovery and retry policies</label><label><input type="checkbox" id="aceAlerts" checked> Milestone alerts and delivery updates</label><label><input type="checkbox" id="aceDocs" checked> Build manifest, runbook and release notes</label></div><div class="menuSummary"><span>YOUR BUILD CONFIGURATION</span><strong id="aceConfigName">Autonomous AI pipeline</strong><p id="aceConfigSummary">Cloud / Kubernetes · Self-healing pipeline design · Build tests + release evidence</p><button type="button" id="aceRequestBuild" class="aisleConfigure">REQUEST THIS CUSTOM BUILD ↗</button><small>Selections create a scoped inquiry—not an instant purchase or guaranteed quote. Final scope, price, hardware, access and acceptance criteria are agreed with Daemon.</small></div></div>
+  </div>
+  <details class="aceAfterOrder">
+   <summary><span>AFTER YOU PLACE YOUR ORDER</span><b>Preview your DAEMON ACE Build Tracker + delivery updates ↗</b></summary>
+   <div class="afterOrderNote">This tracker is intended for the customer workspace after an order and project scope are accepted. The preview below illustrates the planned experience; it is not a live order or connected build.</div>
+   <div class="aceBuildTracker" aria-labelledby="ace-tracker-title">
+   <div class="trackerIntro">
+    <div><span class="trackerKicker">DAEMON ACE · CUSTOMER BUILD EXPERIENCE</span><h3 id="ace-tracker-title">YOUR BUILD. VISIBLE FROM START TO SHIPMENT.</h3><p>A customer-facing Build Twin gives your team one place to follow the engineered release—from intake and pipeline construction through validation and shipment.</p></div>
+    <div class="trackerOrder"><small>BUILD TWIN</small><b>ACE / BUILD-TRACKER</b><span>ILLUSTRATIVE CUSTOMER VIEW</span></div>
+   </div>
+   <div class="trackerStages" aria-label="Illustrative build stages">
+    <div class="trackerStage complete"><i>✓</i><b>01 · INTAKE</b><span>Requirements received</span></div>
+    <div class="trackerStage active"><i>02</i><b>02 · BUILDING</b><span>AI pipeline assembling</span></div>
+    <div class="trackerStage"><i>03</i><b>03 · VALIDATING</b><span>Tests and release gates</span></div>
+    <div class="trackerStage"><i>04</i><b>04 · READY</b><span>Customer approval</span></div>
+    <div class="trackerStage"><i>05</i><b>05 · SHIPPED</b><span>Release handoff</span></div>
+   </div>
+   <div class="trackerBottom">
+    <div class="trackerHeal"><span class="trackerPulse"></span><div><b>SELF-HEALING PIPELINE INTELLIGENCE</b><p>Detect a known build failure → attempt an approved recovery → rerun validation → notify the engineer if the issue persists. Recovery actions remain policy-controlled.</p></div></div>
+    <div class="trackerAlerts"><b>BUILD STATUS &amp; ALERTS</b><div><i>●</i><span><strong>Build started</strong><small>Notify when pipeline assembly begins</small></span></div><div><i>●</i><span><strong>Validation complete</strong><small>Share test results and release evidence</small></span></div><div><i>●</i><span><strong>Ready to ship / Shipped</strong><small>Send customer approval and delivery updates</small></span></div></div>
+   </div>
+   <div class="trackerNote">CONCEPT PREVIEW · Status stages, self-healing actions and customer notifications are part of the proposed DAEMON ACE delivery experience; live job synchronization and notification channels require implementation and customer integration.</div>
+  </div>
+  </details>
+  <div class="aisleFooter"><div><b>ONE DELIVERY OWNER. ONE CONNECTED ENGINEERING PATH.</b><span>Daemon selects, integrates and validates the toolchain for the agreed target—rather than sending customers to assemble disconnected products themselves.</span></div><a class="aisleConfigure" href="#build-menu">CUSTOMIZE YOUR BUILD ↑</a></div>
+ </div>
+</section>
+
+<section id="release-journey" class="wrap" aria-labelledby="proof-diagram-title">
+  <div class="proofDiagram reveal">
+    <div class="proofDiagramHead">
+      <div class="kicker">VISUAL ARCHITECTURE · ZERO BLIND TRUST</div>
+      <h3 id="proof-diagram-title">A RELEASE PIPELINE WITH EVIDENCE AT EVERY GATE</h3>
+    </div>
+    <div class="proofDiagramScroll">
+      <svg viewBox="0 0 960 210" role="img" aria-labelledby="proof-svg-title proof-svg-desc" xmlns="http://www.w3.org/2000/svg">
+        <title id="proof-svg-title">DAEMON ACE proof-loop workflow</title>
+        <desc id="proof-svg-desc">Four stages: define an engineering goal, run a scoped pre-flight analysis, review a sample evidence receipt, and require an authorized human decision before any production rollout.</desc>
+        <defs>
+          <linearGradient id="proofSkyGlow" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="#0284c7"/><stop offset="100%" stop-color="#38bdf8"/></linearGradient>
+          <linearGradient id="proofEmeraldGlow" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="#059669"/><stop offset="100%" stop-color="#10b981"/></linearGradient>
+        </defs>
+        <line x1="215" y1="105" x2="255" y2="105" stroke="#38bdf8" stroke-width="2.5" stroke-dasharray="4 4"/><polygon points="255,100 265,105 255,110" fill="#38bdf8"/>
+        <line x1="465" y1="105" x2="505" y2="105" stroke="#38bdf8" stroke-width="2.5" stroke-dasharray="4 4"/><polygon points="505,100 515,105 505,110" fill="#38bdf8"/>
+        <line x1="715" y1="105" x2="755" y2="105" stroke="#10b981" stroke-width="2.5"/><polygon points="755,100 765,105 755,110" fill="#10b981"/>
+        <rect x="15" y="30" width="200" height="150" rx="12" fill="#0f172a" stroke="#334155" stroke-width="1.5"/>
+        <text x="32" y="58" fill="#38bdf8" font-family="Inter, sans-serif" font-size="11" font-weight="700">01 · INTENT &amp; CONFIG</text>
+        <text x="32" y="84" fill="#f8fafc" font-family="Inter, sans-serif" font-size="16" font-weight="700">Engineering Goal</text>
+        <text x="32" y="108" fill="#94a3b8" font-family="Inter, sans-serif" font-size="12">Plain-English directive,</text>
+        <text x="32" y="125" fill="#94a3b8" font-family="Inter, sans-serif" font-size="12">sample YAML manifest,</text>
+        <text x="32" y="142" fill="#94a3b8" font-family="Inter, sans-serif" font-size="12">or proposed code change.</text>
+        <rect x="265" y="30" width="200" height="150" rx="12" fill="#0f172a" stroke="url(#proofSkyGlow)" stroke-width="2"/>
+        <text x="282" y="58" fill="#38bdf8" font-family="Inter, sans-serif" font-size="11" font-weight="700">02 · PRE-FLIGHT REVIEW</text>
+        <text x="282" y="84" fill="#f8fafc" font-family="Inter, sans-serif" font-size="16" font-weight="700">Pre-Flight Twin™</text>
+        <text x="282" y="108" fill="#cbd5e1" font-family="Inter, sans-serif" font-size="12">Runs scoped demo checks,</text>
+        <text x="282" y="125" fill="#cbd5e1" font-family="Inter, sans-serif" font-size="12">reviews configuration risks,</text>
+        <text x="282" y="142" fill="#cbd5e1" font-family="Inter, sans-serif" font-size="12">models proposed changes.</text>
+        <rect x="515" y="30" width="200" height="150" rx="12" fill="#0f172a" stroke="url(#proofSkyGlow)" stroke-width="2"/>
+        <text x="532" y="58" fill="#38bdf8" font-family="Inter, sans-serif" font-size="11" font-weight="700">03 · REVIEWABLE EVIDENCE</text>
+        <text x="532" y="84" fill="#f8fafc" font-family="Inter, sans-serif" font-size="16" font-weight="700">Receipt of Safety</text>
+        <text x="532" y="108" fill="#cbd5e1" font-family="Inter, sans-serif" font-size="12">Shows proposed config diff,</text>
+        <text x="532" y="125" fill="#cbd5e1" font-family="Inter, sans-serif" font-size="12">modeled indicators &amp; checks,</text>
+        <text x="532" y="142" fill="#cbd5e1" font-family="Inter, sans-serif" font-size="12">assumptions and limitations.</text>
+        <rect x="765" y="30" width="180" height="150" rx="12" fill="#062016" stroke="url(#proofEmeraldGlow)" stroke-width="2"/>
+        <text x="782" y="58" fill="#34d399" font-family="Inter, sans-serif" font-size="11" font-weight="700">04 · HUMAN GATE</text>
+        <text x="782" y="84" fill="#f8fafc" font-family="Inter, sans-serif" font-size="16" font-weight="700">Authorized Review</text>
+        <text x="782" y="108" fill="#a7f3d0" font-family="Inter, sans-serif" font-size="12">Engineer inspects evidence</text>
+        <text x="782" y="125" fill="#a7f3d0" font-family="Inter, sans-serif" font-size="12">and decides whether to</text>
+        <text x="782" y="142" fill="#a7f3d0" font-family="Inter, sans-serif" font-size="12">approve a rollout.</text>
+      </svg>
+    </div>
+    <p class="proofDiagramNote">Workflow concept, not a claim of live cluster cloning or automatic production deployment. The current Pre-Flight Twin is an illustrative simulation; modeled indicators are not measured or verified savings. Production changes require separately authorized implementation.</p>
+  </div>
+</section>
+
+<!-- ros-evolution moved into unified workbench -->
+
+<section id="robotics-roadmap" class="roboticsVision" aria-labelledby="robotics-vision-title">
  <div class="wrap">
   <div class="sectionHead reveal">
    <div class="kicker">DAEMON ACE · NEXT-GENERATION ROBOTICS INFRASTRUCTURE</div>
