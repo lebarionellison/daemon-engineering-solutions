@@ -736,6 +736,24 @@ footer{background:#071525!important;border-top-color:#315b7d}
 @media(max-width:760px){.aisleTop{grid-template-columns:1fr}.aisleStamp{display:none}.productShelf{grid-template-columns:repeat(2,minmax(0,1fr))}.aisleSearch{grid-template-columns:1fr;gap:5px}.aisleFooter{align-items:flex-start;flex-direction:column}.aisleConfigure{width:100%}}
 @media(max-width:520px){.productShelf{grid-template-columns:1fr}.shelfCard{min-height:0}.aisleTop h2{font-size:29px}}
 
+
+/* DAEMON ACE storefront-first product narrative */
+.cinematicHero{min-height:0!important;padding:0!important}
+.cinematicLayout{min-height:0!important;padding:40px 0 34px!important;grid-template-columns:minmax(0,1.02fr) minmax(300px,.98fr)!important;gap:28px!important}
+.cinematicCopy{padding:0!important}.cinematicEyebrow{margin-bottom:12px!important}.cinematicOverline{margin-bottom:10px!important}
+.cinematicHero h1{font-size:clamp(43px,5.6vw,76px)!important;line-height:.98!important;letter-spacing:-.055em!important;margin:0 0 14px!important;max-width:720px;text-wrap:pretty!important}
+.cinematicHero h1 em{display:inline!important}.cinematicLead{font-size:clamp(15px,1.4vw,19px)!important;line-height:1.3!important;margin:0 0 8px!important}
+.cinematicBody{font-size:12px!important;line-height:1.6!important;max-width:680px!important}.cinematicActions{margin-top:16px!important}.cinematicAudience{margin-top:16px!important}.oneGlanceCapabilities{margin-top:14px!important}
+.productAisle{margin:0!important;padding:24px 0 25px!important}.aisleTop{margin-bottom:12px!important}.aisleTop h2{font-size:clamp(24px,3.2vw,38px)!important}
+.aisleSearch{margin:10px 0!important}.productShelf{gap:8px!important}.shelfCard{min-height:118px!important;padding:12px!important}.shelfCard p{font-size:10px!important;line-height:1.42!important}
+.engineeringWorkbench{padding:22px 0!important}.workbenchHeader{margin-bottom:13px!important;gap:12px!important}.workbenchHeader h2{font-size:clamp(24px,3.2vw,38px)!important;line-height:1.04!important}
+.workbenchSubhead{padding:14px 16px!important;margin-bottom:12px!important}.engineeringWorkbench .sectionHead{margin-bottom:14px!important}
+.engineeringTour>section:not(.cinematicHero){padding-top:22px!important;padding-bottom:22px!important}
+#release-journey{padding:12px 0!important;margin:0 auto!important}#release-journey .proofDiagram{margin:0 auto!important}
+#founder{padding:18px 0!important}#contact{padding:20px 0!important}
+@media(max-width:760px){.cinematicLayout{grid-template-columns:1fr!important;padding:28px 0 24px!important;gap:16px!important}.cinematicHero h1{font-size:clamp(40px,10vw,58px)!important}.cinematicHero .cinematicActions{gap:8px}.productShelf{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:520px){.productShelf{grid-template-columns:1fr}.shelfCard{min-height:0!important}.aisleTop h2{font-size:27px!important}.aisleFooter{gap:9px}}
+
 </style>
 </head>
 <body>
@@ -783,20 +801,17 @@ footer{background:#071525!important;border-top-color:#315b7d}
   <div class="wrap cinematicLayout">
     <div class="cinematicCopy">
       <div class="cinematicEyebrow"><span class="eyebrowPulse"></span> DAEMON ENGINEERING SOLUTIONS <b>·</b> FLAGSHIP PLATFORM</div>
-      <div class="cinematicOverline">AUTONOMOUS AI DELIVERY SYSTEM · DEVELOPMENT TO EDGE</div>
-      <h1 id="governance-title">BUILD AUTONOMOUS AI.<br><em>SHIP IT TO THE EDGE.</em></h1>
-      <p class="cinematicLead">FROM FIRST MODEL TO FIELD-READY RELEASE.</p>
-      <p class="cinematicBody"><strong>DAEMON ACE</strong> is being engineered as an autonomous AI delivery system: define the workload, build the application, validate the package, produce a versioned release and deploy through an explicitly authorized device workflow. One product path from development to operation.</p>
+      <div class="cinematicOverline">AUTONOMOUS AI · ROBOTICS · GOVERNED INFRASTRUCTURE</div>
+      <h1 id="governance-title">ENGINEER AI.<br><em>DEPLOY TO REALITY.</em></h1>
+      <p class="cinematicLead">FROM MODEL AND ROBOT WORKSPACE TO A VALIDATED, SHIP-READY RELEASE.</p>
+      <p class="cinematicBody"><strong>DAEMON ACE</strong> is the build-and-delivery system from Daemon Engineering Solutions. Bring your AI model, ROS 2 application, Jetson target or Kubernetes workload. Daemon engineers the pipeline, integrates the toolchain, tests the agreed scope, packages the release and prepares deployment with your team.</p>
       <div class="oneGlanceCapabilities" aria-label="Three DAEMON ACE capabilities">
         <a href="#engines"><span>01</span><b>BUILD THE WORKLOAD</b><small>Models · data · runtime · pipelines</small></a>
         <a href="ace-edge-intelligence.html"><span>02</span><b>SHIP TO THE EDGE</b><small>ROS 2 · NVIDIA Jetson · ARM64</small></a>
         <a href="#proof"><span>03</span><b>RELEASE ASSURANCE</b><small>Tests · provenance · approvals</small></a>
       </div>
-      <div class="cinematicActions">
-        <a class="cinematicPrimary" href="#demo">EXPLORE THE DELIVERY ENGINE <span>↗</span></a>
-        <a class="cinematicSecondary" href="#contact">REQUEST AN ENGINEERING PILOT <span>→</span></a>
-      </div>
-      <div class="cinematicAudience"><span>BUILT FOR</span><b>ROBOTICS</b><i></i><b>AI PRODUCT TEAMS</b><i></i><b>RESEARCH + ENTERPRISE</b></div>
+      <div class="cinematicActions"><a class="cinematicPrimary" href="#explore">SHOP BUILD PATHS <span>↓</span></a><a class="cinematicSecondary" href="#custom-build">CONFIGURE A CUSTOM SYSTEM <span>↗</span></a></div>
+      <div class="cinematicAudience"><span>BUILT &amp; DELIVERED BY DAEMON</span><b>AI PIPELINES</b><b>ROS 2 + ROBOTICS</b><b>JETSON EDGE</b><b>AI GOVERNANCE</b><b>GPU + KUBERNETES</b></div>
     </div>
     <div class="aceUniverse" aria-label="DAEMON ACE architecture illustration connecting AI intelligence, robotics and edge systems, governance, and infrastructure delivery">
       <div class="universeTopline"><span>DAEMON ACE / SYSTEM ARCHITECTURE</span><span><i></i> ENGINEERING BLUEPRINT</span></div>
@@ -819,13 +834,13 @@ footer{background:#071525!important;border-top-color:#315b7d}
 
 <section id="engineering-workbench" class="engineeringWorkbench" aria-labelledby="workbench-title">
  <div class="wrap">
-  <div class="workbenchHeader"><div><div class="kicker">DAEMON ACE · LIVE ENGINEERING WORKBENCH</div><h2 id="workbench-title">ONE WORKBENCH. TWO DELIVERY PATHS.</h2><p>Review cloud workloads or prepare robotics releases from one place. Each path opens its existing interactive engineering tools.</p></div>
+  <div class="workbenchHeader"><div><div class="kicker">DAEMON ACE · PRODUCT VALIDATION LAB</div><h2 id="workbench-title">TEST THE BUILD. REVIEW THE EVIDENCE. CONTROL THE RELEASE.</h2><p>After choosing a product path, use these evaluation tools to inspect configuration risks and review current ROS 2 / Jetson release evidence. These are scoped engineering checks—not a substitute for full customer acceptance testing.</p></div>
    <div class="workbenchTabs" role="tablist" aria-label="Choose engineering review path">
     <button type="button" class="workbenchTab is-active" id="tab-cloud" role="tab" aria-selected="true" aria-controls="panel-cloud" data-workbench-tab="cloud">CLOUD / KUBERNETES X-RAY</button>
     <button type="button" class="workbenchTab" id="tab-robotics" role="tab" aria-selected="false" aria-controls="panel-robotics" data-workbench-tab="robotics">ROS 2 / JETSON RELEASE GATE</button>
    </div>
   </div>
-  <div class="workbenchPanel is-active" id="panel-cloud" role="tabpanel" aria-labelledby="tab-cloud" data-workbench-panel="cloud"><section class="dark" id="preflight"><div class="wrap"><div class="sectionHead reveal"><div class="kicker">FREE ENGINEERING UTILITY · RUNS IN YOUR BROWSER</div><h2>RUN PREFLIGHT BEFORE YOU SHIP THE WORKLOAD.</h2><p>Give an engineer a fast, self-serve first look—no account, procurement process or manager approval required. Paste a Kubernetes manifest, run the browser-based X-Ray and inspect heuristic findings plus a sample Receipt of Safety. The heuristic checks run in this browser, and the manifest is also sent to the Daemon API to store the generated receipt. Remove secrets and confidential details before scanning.</p><div style="margin-top:16px;padding:14px 16px;border:1px solid #63e8e855;border-radius:10px;background:#63e8e80b"><b style="display:block;color:#63e8e8;font-size:11px;letter-spacing:.8px">PRIVATE PILOT · AI FIX PROPOSALS</b><p style="margin:6px 0 0;color:#c1cfe0;font-size:12px">An authenticated DAEMON ACE CLI workflow can request a complete AI-generated replacement configuration and save it as a separate proposal file. Access requires a private pilot token. The public browser X-Ray below remains a heuristic scan; AI proposals are not yet enabled as a public, paid browser feature.</p><code style="display:block;margin-top:9px;color:#b9d5f2;font-size:10px;white-space:normal">daemon-ace fix ./deploy.yaml --goal "Harden this Kubernetes deployment"</code></div></div><div class="preflight reveal"><div class="promptLabel">KUBERNETES YAML</div><label for="aceGoal" style="display:block;margin:12px 0 6px;color:#cbd9e9;font-size:11px;font-weight:800">ENGINEERING GOAL</label><input id="aceGoal" type="text" maxlength="1200" placeholder="e.g. Harden this Kubernetes deployment and right-size resources" style="width:100%;padding:12px;border:1px solid #3b5672;border-radius:8px;background:#050c16;color:#e4f1ff;margin-bottom:12px"><textarea id="yamlInput" spellcheck="false" aria-label="Paste Kubernetes YAML" placeholder="apiVersion: apps/v1
+  <div class="workbenchPanel is-active" id="panel-cloud" role="tabpanel" aria-labelledby="tab-cloud" data-workbench-panel="cloud"><section class="dark" id="preflight"><div class="wrap"><div class="sectionHead reveal"><div class="kicker">CLOUD &amp; KUBERNETES · CONFIGURATION X-RAY</div><h2>CHECK THE CONFIGURATION BEFORE RELEASE.</h2><p>Give an engineer a fast, self-serve first look—no account, procurement process or manager approval required. Paste a Kubernetes manifest, run the browser-based X-Ray and inspect heuristic findings plus a sample Receipt of Safety. The heuristic checks run in this browser, and the manifest is also sent to the Daemon API to store the generated receipt. Remove secrets and confidential details before scanning.</p><div style="margin-top:16px;padding:14px 16px;border:1px solid #63e8e855;border-radius:10px;background:#63e8e80b"><b style="display:block;color:#63e8e8;font-size:11px;letter-spacing:.8px">PRIVATE PILOT · AI FIX PROPOSALS</b><p style="margin:6px 0 0;color:#c1cfe0;font-size:12px">An authenticated DAEMON ACE CLI workflow can request a complete AI-generated replacement configuration and save it as a separate proposal file. Access requires a private pilot token. The public browser X-Ray below remains a heuristic scan; AI proposals are not yet enabled as a public, paid browser feature.</p><code style="display:block;margin-top:9px;color:#b9d5f2;font-size:10px;white-space:normal">daemon-ace fix ./deploy.yaml --goal "Harden this Kubernetes deployment"</code></div></div><div class="preflight reveal"><div class="promptLabel">KUBERNETES YAML</div><label for="aceGoal" style="display:block;margin:12px 0 6px;color:#cbd9e9;font-size:11px;font-weight:800">ENGINEERING GOAL</label><input id="aceGoal" type="text" maxlength="1200" placeholder="e.g. Harden this Kubernetes deployment and right-size resources" style="width:100%;padding:12px;border:1px solid #3b5672;border-radius:8px;background:#050c16;color:#e4f1ff;margin-bottom:12px"><textarea id="yamlInput" spellcheck="false" aria-label="Paste Kubernetes YAML" placeholder="apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: web
@@ -836,7 +851,7 @@ spec:
       - name: app
         image: nginx:latest"></textarea><div class="preflightActions"><button type="button" id="runPreflight">Run free YAML X-Ray</button><button type="button" id="loadSample">Load sample YAML</button><button type="button" id="loadRoboticsSample">Load ROS2 sample</button><button type="button" id="clearYaml">Clear</button></div><div class="preflightOutput" id="preflightOutput" aria-live="polite"><div style="display:flex;gap:15px;align-items:center;flex-wrap:wrap"><div class="score" id="preflightScore">—</div><div><b id="preflightVerdict">Waiting for input</b><p class="warning" id="preflightSummary"></p></div></div><div id="preflightFindings"></div><details class="artifactToggle"><summary>Inspect generated static-check receipt (JSON)</summary><pre id="preflightReceipt"></pre></details></div></div></div></section></div>
   <div class="workbenchPanel" id="panel-robotics" role="tabpanel" aria-labelledby="tab-robotics" data-workbench-panel="robotics" hidden>
-   <div class="workbenchSubhead"><span class="kicker">ROBOTICS DELIVERY TRACK</span><h3>FROM WORKSPACE ANALYSIS TO EDGE RELEASE.</h3><p>Check ROS 2 compatibility, inspect configuration integrity and review the Jetson ARM64 release path before hardware deployment.</p></div>
+   <div class="workbenchSubhead"><span class="kicker">ROBOTICS DELIVERY TRACK</span><h3>ROS 2 &amp; JETSON · RELEASE READINESS CHECKS</h3><p>Check ROS 2 compatibility, inspect configuration integrity and review the Jetson ARM64 release path before hardware deployment.</p></div>
    <section id="jetson-delivery" class="jetsonDelivery" aria-labelledby="jetson-delivery-title">
  <div class="wrap">
   <div class="jetsonTopline"><span>DAEMON ACE / REFERENCE DELIVERY TARGET</span><span class="jetsonLive"><i></i> NVIDIA JETSON ORIN · ARM64</span></div>
@@ -1478,7 +1493,7 @@ spec:
  const main=document.querySelector("main");
  const hero=main?.querySelector(".cinematicHero");
  if(!main||!hero)return;
- const ids=["explore","founder","home","engineering-workbench","release-journey","robotics-roadmap","secure-ai","romi","engines","team","proof","ace-gateways","design-partners","enterprise","investors","founder","contact"];
+ const ids=["explore","engines","romi","robotics-roadmap","secure-ai","engineering-workbench","release-journey","team","proof","ace-gateways","design-partners","enterprise","investors","founder","contact"];
  const nodes=ids.map(id=>document.getElementById(id)).filter(Boolean);
  if(nodes.length<12)return;
  // Keep the product boundary, the complete ACE journey and founder profile in the primary page flow.
