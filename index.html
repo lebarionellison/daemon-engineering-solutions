@@ -968,6 +968,27 @@ main{background:transparent!important}
 @media(max-width:850px){.aceEngineOverview,.missionEngineGrid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:560px){.aceEngineOverview,.missionEngineGrid{grid-template-columns:1fr}.missionEngineAisle{padding:14px}.healLoop{justify-content:flex-start}.healLoop i{display:none}}
 
+
+/* Customer-led discovery and product selection */
+.investorNavLink{display:inline-flex;align-items:center;color:#a9dfff!important;font-size:9px!important;font-weight:950;letter-spacing:1px;padding:9px 10px;border:1px solid #66dfff66;border-radius:7px;background:#46caff0d}
+.smartProductFinder{display:grid;grid-template-columns:1fr 1.1fr;gap:20px;align-items:center;margin:18px 0 23px;padding:22px;border:1px solid #5edcff88;border-radius:15px;background:radial-gradient(ellipse at 95% 0%,#2d68a455,transparent 45%),linear-gradient(120deg,#081a30,#102b49);box-shadow:0 18px 55px #0004}
+.finderIntro>span{font-size:9px;letter-spacing:1.7px;color:#73e8ff;font-weight:950}.finderIntro h3{font-size:clamp(20px,2.6vw,29px);line-height:1.06;margin:8px 0}.finderIntro p{font-size:12px;color:#bfd2e5;max-width:540px;margin:0}
+.finderControls label{display:block;color:#86eaff;font-size:9px;font-weight:950;letter-spacing:1px;margin-bottom:8px}
+.finderInputWrap{display:flex;align-items:center;gap:9px;padding:5px 8px 5px 12px;border:1px solid #72dcff99;border-radius:9px;background:#030c19}
+.finderInputWrap>span{font-size:22px;color:#6ce5ff}.finderInputWrap input{width:100%;min-width:0;border:0;outline:0;background:transparent;color:#f3f8ff;padding:11px 2px;font-size:13px}
+.finderInputWrap button{border:1px solid #ffffff30;background:#ffffff0c;color:#bcd5e8;border-radius:6px;padding:8px;font-size:8px;font-weight:900;cursor:pointer}
+.finderControls>small{display:block;margin-top:8px;color:#9fb6cc;font-size:9px;line-height:1.5}
+.finderResults{grid-column:1/-1;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.finderEmpty{grid-column:1/-1;color:#bcd0e2;font-size:10px}.finderEmpty button{margin:7px 5px 0 0;padding:7px 9px;border:1px solid #4f9cbe66;border-radius:20px;background:#0d2b45;color:#8be9ff;font-size:9px;cursor:pointer}
+.finderResult{display:block;text-decoration:none!important;padding:12px;border:1px solid #ffffff24;border-radius:9px;background:#ffffff08;transition:.18s}
+.finderResult:hover{border-color:#73e7ff;background:#1b4a6a}.finderResult b{display:block;color:#f3f8ff;font-size:11px}.finderResult span{display:block;color:#b6cadd;font-size:9px;line-height:1.45;margin-top:5px}.finderResult small{display:block;color:#76eaff;font-size:8px;font-weight:950;letter-spacing:.7px;margin-top:8px}
+.missionEngineAisle{scroll-margin-top:100px}
+.missionNextStep{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-top:12px;padding-top:11px;border-top:1px solid #ffffff20}
+.missionNextStep p{margin:0;color:#c2d4e7;font-size:10px;max-width:650px}
+.missionNextStep a{display:inline-flex;padding:10px 13px;border-radius:7px;background:linear-gradient(100deg,#63e8e8,#83aaff);color:#061321!important;font-size:9px;font-weight:950;text-decoration:none!important;white-space:nowrap}
+@media(max-width:760px){.smartProductFinder{grid-template-columns:1fr;padding:16px}.finderResults{grid-template-columns:1fr 1fr}.investorNavLink{display:none}}
+@media(max-width:480px){.finderResults{grid-template-columns:1fr}}
+
 </style>
 </head>
 <body>
@@ -1009,7 +1030,7 @@ main{background:transparent!important}
     <circle cx="1120" cy="365" r="3" fill="#10b981" opacity=".65"/>
   </svg>
 </div>
-<header><div class="wrap nav"><a class="brand" href="#home">DAEMON <span>Engineering Solutions</span><small>ENGINEERING INTELLIGENCE · SECURITY · DELIVERY</small></a><nav class="navlinks" aria-label="Primary navigation"><a href="#engines">Platform</a><a href="#romi">Robotics + RoMi</a><a href="#secure-ai">Secure AI</a><a href="#jetson-delivery">Edge Delivery</a><a href="infrastructure-services.html">Services</a><a href="#preflight">Try Preflight</a><details class="productNavDropdown"><summary>Products <span>⌄</span></summary><div class="productNavPanel"><a href="#home"><b>DAEMON ACE</b><small>Autonomous AI engineering · build · validate · deploy</small></a><div class="productNavDivider"></div><div class="productNavOs"><b>DAEMON OS <span>· SEPARATE PRODUCT</span></b><small>Infrastructure operations and intelligence for the compute and platforms that run AI.</small><small><strong>GPU FLEETS:</strong> NVIDIA GPU Operator, MIG, DCGM, scheduling and capacity.</small><small><strong>AI PLATFORMS:</strong> training, KServe, vLLM and NVIDIA Triton inference.</small><small><strong>CLOUD + DEVOPS:</strong> AWS, Azure, Terraform, Ansible, Jenkins and Kubernetes.</small><small><strong>ENTERPRISE:</strong> VCF, NSX-T, HCX, Nutanix, multi-cluster, vCluster and SRE.</small><a class="productNavServices" href="infrastructure-services.html">Explore infrastructure engineering services ↗</a></div><p>ACE builds and ships AI and robotics workloads. OS operates the infrastructure beneath them. Purchase separately or together.</p></div></details><a href="#contact" class="navcta">Start a Project ↗</a></nav></div></header>
+<header><div class="wrap nav"><a class="brand" href="#home">DAEMON <span>Engineering Solutions</span><small>ENGINEERING INTELLIGENCE · SECURITY · DELIVERY</small></a><nav class="navlinks" aria-label="Primary navigation"><a href="#engines">Platform</a><a href="#romi">Robotics + RoMi</a><a href="#secure-ai">Secure AI</a><a href="#jetson-delivery">Edge Delivery</a><a href="infrastructure-services.html">Services</a><a href="#preflight">Try Preflight</a><details class="productNavDropdown"><summary>Products <span>⌄</span></summary><div class="productNavPanel"><a href="#home"><b>DAEMON ACE</b><small>Autonomous AI engineering · build · validate · deploy</small></a><div class="productNavDivider"></div><div class="productNavOs"><b>DAEMON OS <span>· SEPARATE PRODUCT</span></b><small>Infrastructure operations and intelligence for the compute and platforms that run AI.</small><small><strong>GPU FLEETS:</strong> NVIDIA GPU Operator, MIG, DCGM, scheduling and capacity.</small><small><strong>AI PLATFORMS:</strong> training, KServe, vLLM and NVIDIA Triton inference.</small><small><strong>CLOUD + DEVOPS:</strong> AWS, Azure, Terraform, Ansible, Jenkins and Kubernetes.</small><small><strong>ENTERPRISE:</strong> VCF, NSX-T, HCX, Nutanix, multi-cluster, vCluster and SRE.</small><a class="productNavServices" href="infrastructure-services.html">Explore infrastructure engineering services ↗</a></div><p>ACE builds and ships AI and robotics workloads. OS operates the infrastructure beneath them. Purchase separately or together.</p></div></details><a href="#investors" class="investorNavLink">INVESTORS ↗</a><a href="#contact" class="navcta">Start a Project ↗</a></nav></div></header>
 <main><section class="governanceBanner cinematicHero" aria-labelledby="governance-title">
   <div class="cinematicGrid"></div>
   <div class="wrap cinematicLayout">
@@ -1213,7 +1234,12 @@ spec:
  <div class="wrap">
   <div class="aisleTop">
    <div><span class="discoveryEyebrow">DAEMON ACE CONTROL MARKET · CHOOSE YOUR MISSION</span><h2 id="discovery-title">CHOOSE THE MISSION. SEE THE CONTROLS. ENGINEER THE OUTCOME.</h2><p>One control plane for the AI systems your organization builds, buys, trains, simulates and deploys. Choose a mission aisle, see how all four ACE engines work together, then configure the outcome your team needs.</p></div>
-   <div class="aisleStamp"><b>DAEMON ACE</b><span>BUILD → VALIDATE → SHIP</span></div>
+   <div class="aisleStamp"><b>DAEMON ACE</b><span>EXPLORE → SELECT → ENGINEER</span></div>
+  </div>
+  <div class="smartProductFinder" id="smart-product-finder">
+   <div class="finderIntro"><span>DAEMON ACE SMART FINDER</span><h3>WHAT ARE YOU TRYING TO MAKE POSSIBLE?</h3><p>Search in your own words. Explore a product area, compare what it does, and decide when you are ready to request a custom build. No pressure to submit.</p></div>
+   <div class="finderControls"><label for="aceProductSearch">SEARCH PRODUCTS, CAPABILITIES OR OUTCOMES</label><div class="finderInputWrap"><span>⌕</span><input id="aceProductSearch" type="search" autocomplete="off" placeholder="Try: AI agent security, digital twin, ROS 2, simulation, GPU governance, self-healing…" aria-describedby="aceSearchHelp"><button type="button" id="aceSearchClear">CLEAR</button></div><small id="aceSearchHelp">Search terms like “control what agents can do”, “robot simulation”, “Jetson deployment”, or “audit evidence”.</small></div>
+   <div class="finderResults" id="aceFinderResults" aria-live="polite"><div class="finderEmpty">Popular destinations: <button type="button" data-finder-query="AI agents">AI agents</button><button type="button" data-finder-query="simulation">Simulation</button><button type="button" data-finder-query="robotics">Robotics</button><button type="button" data-finder-query="security">AI security</button><button type="button" data-finder-query="GPU">GPU infrastructure</button></div></div>
   </div>
   <div class="daemonDifference" aria-label="Why build with Daemon">
    <div class="differenceLead"><span>NOT A SOFTWARE CATALOG. NOT A RESELLER.</span><h3>WE GOVERN THE SYSTEM AROUND YOUR MISSION.</h3><p>Teams bring their AI agents, models, research, simulators, robots or enterprise workflows. DAEMON ACE establishes the identity, policy, execution boundaries, validation path and evidence trail around them—then engineers the governed system for deployment.</p></div>
@@ -1834,6 +1860,37 @@ spec:
  missions.forEach(m=>{const section=document.getElementById(m.id);if(!section||section.querySelector(".missionEngineAisle"))return;const head=section.querySelector(".sectionHead,.romiHeader,.workbenchHeader");const host=head?.parentElement||section.querySelector(".wrap")||section;if(head)head.insertAdjacentHTML("afterend",engineMarkup(m));else host.insertAdjacentHTML("afterbegin",engineMarkup(m));});
  const hero=document.querySelector(".cinematicHero");
  if(hero&&!hero.querySelector(".controlPlanePromise")){const promise=document.createElement("div");promise.className="controlPlanePromise";promise.innerHTML='<b>THE CONTROL PLANE BETWEEN AI CAPABILITY AND REAL-WORLD ACTION</b><span>IDENTITY → POLICY → APPROVAL → EXECUTION → EVIDENCE → ADAPTATION</span>';document.querySelector(".cinematicCopy")?.appendChild(promise);}
+})();
+</script>
+
+
+<script>
+(()=> {
+ const input=document.getElementById("aceProductSearch"),results=document.getElementById("aceFinderResults"),clear=document.getElementById("aceSearchClear");
+ if(!input||!results)return;
+ const items=[
+  {title:"Autonomous AI & Agent Governance",href:"#engines",desc:"AI inventories, agent identity, tool permissions, model controls, human approvals, runtime guardrails and evidence.",tags:"agent agents autonomous ai model governance llm tools permissions policy identity approval runtime audit"},
+  {title:"Robotics, ROS 2 & RoMi",href:"#romi",desc:"ROS 2 workspaces, robot software, embedded AI, command boundaries, edge packaging and controlled machine workflows.",tags:"robot robot arm robotics romi ros ros2 actuator physical ai manufacturing jetson embedded edge"},
+  {title:"Simulation, Digital Twins & Visualization",href:"#robotics-roadmap",desc:"Simulator environments, digital twins, synthetic data, scenario orchestration, GPU workloads and simulation-to-real evidence.",tags:"simulation simulator visualization visualisation digital twin omniverse isaac sim synthetic data scenario physics render"},
+  {title:"Enterprise AI Security & Governance",href:"#secure-ai",desc:"AI asset discovery, trust architecture, access boundaries, policy enforcement, approvals, risk controls and audit evidence.",tags:"security secure ciso enterprise compliance audit risk zero trust identity policy data governance"},
+  {title:"Cloud, GPU & Kubernetes Control",href:"#engineering-workbench",desc:"GPU scheduling, cluster governance, workload isolation, cloud infrastructure, capacity, deployment and recovery workflows.",tags:"gpu nvidia cuda mig dcgm kubernetes aws azure gcp cloud infrastructure hpc finops capacity"},
+  {title:"Jetson & Edge AI Delivery",href:"#robotics-roadmap",desc:"ARM64 packaging, edge model deployment preparation, device identity, runtime health and release qualification.",tags:"jetson orin edge arm64 nvidia device deployment inference embedded"},
+  {title:"Self-Healing & Governed Recovery",href:"#engines",desc:"Detect, diagnose, authorize, recover, revalidate and record—without bypassing human approval or security policy.",tags:"self healing self-healing recovery retry diagnose repair rollback incident resilience"},
+  {title:"ACE Safety Receipts & Audit Evidence",href:"#proof",desc:"Traceable build, policy, validation, approval and deployment evidence associated with a governed release.",tags:"safety receipt evidence audit provenance sbom signature validation proof approval release"}
+ ];
+ function show(query){
+  const q=query.trim().toLowerCase();
+  if(!q){results.innerHTML='<div class="finderEmpty">Popular destinations: <button type="button" data-finder-query="AI agents">AI agents</button><button type="button" data-finder-query="simulation">Simulation</button><button type="button" data-finder-query="robotics">Robotics</button><button type="button" data-finder-query="security">AI security</button><button type="button" data-finder-query="GPU">GPU infrastructure</button></div>';return;}
+  const terms=q.split(/\s+/).filter(Boolean);
+  const ranked=items.map(x=>{const hay=(x.title+" "+x.desc+" "+x.tags).toLowerCase();return {...x,score:terms.reduce((n,t)=>n+(hay.includes(t)?(x.title.toLowerCase().includes(t)?4:1):0),0)}}).filter(x=>x.score>0).sort((a,b)=>b.score-a.score).slice(0,5);
+  if(!ranked.length){results.innerHTML='<div class="finderEmpty">No exact match yet. Try “agents”, “ROS 2”, “simulation”, “security”, “GPU” or <a href="#contact">ask Daemon to scope a custom build</a>.</div>';return;}
+  results.innerHTML=ranked.map(x=>'<a class="finderResult" href="'+x.href+'"><b>'+x.title+'</b><span>'+x.desc+'</span><small>EXPLORE THIS PRODUCT AREA ↗</small></a>').join("");
+ }
+ input.addEventListener("input",()=>show(input.value));
+ clear?.addEventListener("click",()=>{input.value="";show("");input.focus();});
+ results.addEventListener("click",e=>{const b=e.target.closest("[data-finder-query]");if(b){input.value=b.dataset.finderQuery;show(input.value);input.focus();}});
+ document.querySelectorAll(".missionEngineAisle").forEach((panel,i)=>{if(panel.querySelector(".missionNextStep"))return;const m=panel.querySelector("header h3")?.textContent||"this mission";const next=document.createElement("div");next.className="missionNextStep";next.innerHTML='<p><b>YOUR NEXT STEP:</b> Review this mission, compare the four engine roles, then configure only the capabilities your team needs. You can explore without submitting a request.</p><a href="#custom-build" data-mission="'+i+'">CONFIGURE THIS BUILD ↗</a>';panel.appendChild(next);});
+ document.querySelectorAll("[data-mission]").forEach(a=>a.addEventListener("click",()=>{const select=document.querySelector("#custom-build select");if(select){const target=["Autonomous AI pipeline","ROS 2","Integrated custom"][Number(a.dataset.mission)]||"Integrated custom";const option=[...select.options].find(o=>o.text.toLowerCase().includes(target.toLowerCase())||o.value.toLowerCase().includes(target.toLowerCase()));if(option)select.value=option.value;}}));
 })();
 </script>
 
