@@ -754,6 +754,81 @@ footer{background:#071525!important;border-top-color:#315b7d}
 @media(max-width:760px){.cinematicLayout{grid-template-columns:1fr!important;padding:28px 0 24px!important;gap:16px!important}.cinematicHero h1{font-size:clamp(40px,10vw,58px)!important}.cinematicHero .cinematicActions{gap:8px}.productShelf{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:520px){.productShelf{grid-template-columns:1fr}.shelfCard{min-height:0!important}.aisleTop h2{font-size:27px!important}.aisleFooter{gap:9px}}
 
+
+/* Whole-page storefront layout: remove legacy viewport-sized panels and accumulated spacing. */
+html{scroll-behavior:smooth}
+main{display:block!important;min-height:0!important}
+.engineeringTour{display:flex!important;flex-direction:column!important;gap:0!important;min-height:0!important}
+.engineeringTour>section,.engineeringTour>div{box-sizing:border-box;min-height:0!important;height:auto!important;max-height:none!important;flex:none!important;margin-block:0!important}
+.engineeringTour>section{padding-block:clamp(20px,2.8vw,34px)!important;scroll-margin-top:86px}
+.engineeringTour .wrap{min-height:0!important}
+.engineeringTour .sectionHead{margin:0 0 16px!important}
+.engineeringTour .sectionHead h2{font-size:clamp(23px,3.3vw,39px)!important;line-height:1.04!important;letter-spacing:-.035em!important;margin:5px 0 9px!important;max-width:1000px}
+.engineeringTour .sectionHead p{font-size:12px!important;line-height:1.55!important;max-width:950px!important;margin:0!important}
+.engineeringTour .reveal{opacity:1!important;transform:none!important;filter:none!important}
+.engineeringTour .reveal.visible{opacity:1!important;transform:none!important}
+.engineeringTour .grid,.engineeringTour .four,.engineeringTour .gatewayGrid,.engineeringTour .aceSecureFlow,.engineeringTour .romiGrid,.engineeringTour .roboticsVisionGrid,.engineeringTour .enterpriseTiers,.engineeringTour .investorGrid{row-gap:10px!important;column-gap:10px!important}
+.productSolutionBand{max-width:1200px;margin:0 auto 13px!important;padding:10px 13px;border:1px solid #4ab8e477;border-left:3px solid #56e2f4;border-radius:7px;background:linear-gradient(100deg,#102f49,#0b1d31);display:flex;flex-direction:column;gap:4px}
+.productSolutionBand span{font-size:9px;font-weight:900;letter-spacing:.65px;color:#ffd58a;line-height:1.4}
+.productSolutionBand b{font-size:10px;line-height:1.5;color:#d9efff;font-weight:700}
+.productAisle{order:1}
+#engines,#romi,#robotics-roadmap,#secure-ai{border-top:1px solid #4a9ac344;border-bottom:1px solid #4a9ac322}
+#engines{background:linear-gradient(110deg,#102a43,#0d2035)!important}
+#romi{background:linear-gradient(110deg,#122d43,#10243a)!important}
+#robotics-roadmap{background:linear-gradient(110deg,#102b47,#0d1f34)!important}
+#secure-ai{background:linear-gradient(110deg,#132941,#0b1d31)!important}
+#engineering-workbench{background:#071524!important;border-block:1px solid #54b8df55}
+#release-journey{width:auto!important;max-width:none!important;padding-inline:20px!important;background:#0b1e31}
+#release-journey .proofDiagram{max-width:1160px;margin:0 auto!important}
+#team,#proof,#ace-gateways,#enterprise,#design-partners,#investors,#founder,#contact,#control-plane,#executive-brief{min-height:0!important;height:auto!important}
+#team,#proof,#ace-gateways{background:#0b1c2e!important}
+#enterprise,#investors{background:#10253a!important}
+#design-partners{background:#0a1a2b!important}
+#founder{display:block!important;visibility:visible!important;opacity:1!important;background:#102b43!important}
+#founder .founderCard{margin:0 auto!important;max-width:1160px}
+#contact{background:#071727!important}
+#control-plane,#executive-brief{max-width:1160px!important;margin:0 auto!important;padding:22px 20px!important}
+#home{display:none!important}
+main>.terminalPanel{display:none!important}
+.cinematicHero{min-height:0!important;height:auto!important;padding:0!important}
+.cinematicLayout{min-height:0!important;height:auto!important;padding:34px 0 28px!important}
+.cinematicHero h1{font-size:clamp(42px,5.5vw,74px)!important;line-height:.98!important;max-width:780px}
+.cinematicHero .cinematicBody{max-width:760px!important}
+.productAisle{padding:24px 0!important}
+.productShelf{grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:10px!important}
+.shelfCard{min-height:0!important;height:100%;padding:14px!important}
+.shelfCard p{font-size:11px!important;line-height:1.5!important}
+.aisleTop{margin-bottom:10px!important}
+.aisleSearch{margin:10px 0!important}
+.aisleFooter{margin-top:10px!important}
+#engineering-workbench .workbenchHeader{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:14px;align-items:end}
+#engineering-workbench .workbenchHeader p{max-width:850px;font-size:12px;line-height:1.5}
+#engineering-workbench .workbenchPanel[hidden]{display:none!important}
+#preflight,#jetson-delivery,#ros-evolution,#robotics-gatekeeper{padding:18px 0!important;min-height:0!important}
+#preflight .sectionHead,#jetson-delivery .jetsonHeroGrid,#ros-evolution .sectionHead{margin-bottom:14px!important}
+#preflight .preflight,#jetson-delivery .jetsonTerminal,#robotics-gatekeeper .roboticsSpotlightCard{margin-top:10px!important}
+#romi .sectionHead,#secure-ai .sectionHead,#robotics-roadmap .sectionHead{margin-bottom:15px!important}
+#proof .twin{margin-top:12px!important}
+#proof .sectionHead[style]{margin-top:20px!important}
+#ace-gateways .gatewayGrid{margin-top:14px!important}
+#enterprise .enterpriseTiers{margin-top:14px!important}
+#founder{padding:20px 0!important}
+#contact{padding:22px 0!important}
+@media(max-width:760px){
+ .productShelf{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+ #engineering-workbench .workbenchHeader{grid-template-columns:1fr!important}
+ .productSolutionBand{margin-inline:12px!important}
+ .cinematicLayout{padding:26px 0 20px!important}
+}
+@media(max-width:520px){
+ .productShelf{grid-template-columns:1fr!important}
+ .shelfCard{min-height:0!important}
+ .productSolutionBand{margin-inline:10px!important}
+ .productSolutionBand span{font-size:8px}
+ .productSolutionBand b{font-size:9px}
+ .engineeringTour>section{padding-block:18px!important}
+}
+
 </style>
 </head>
 <body>
@@ -1488,18 +1563,36 @@ spec:
 </script>
 
 <script>
-// Guided buyer-first product tour. Keep the customer paths ahead of technical detail.
+// DAEMON ACE storefront sequence: every section is a customer problem aisle.
 (()=>{
  const main=document.querySelector("main");
  const hero=main?.querySelector(".cinematicHero");
  if(!main||!hero)return;
- const ids=["explore","engines","romi","robotics-roadmap","secure-ai","engineering-workbench","release-journey","team","proof","ace-gateways","design-partners","enterprise","investors","founder","contact"];
+ const ids=["explore","engines","romi","robotics-roadmap","secure-ai","engineering-workbench","release-journey","team","proof","ace-gateways","enterprise","design-partners","investors","founder","contact","control-plane","executive-brief"];
  const nodes=ids.map(id=>document.getElementById(id)).filter(Boolean);
- if(nodes.length<12)return;
- // Keep the product boundary, the complete ACE journey and founder profile in the primary page flow.
  let tour=document.getElementById("engineering-tour");
  if(!tour){tour=document.createElement("div");tour.className="engineeringTour";tour.id="engineering-tour";hero.insertAdjacentElement("afterend",tour);}
  nodes.forEach((node,index)=>{node.dataset.tourStep=String(index+1).padStart(2,"0");tour.appendChild(node);});
+ // The former generic hero duplicated the opening and pushed the real catalog down-page.
+ document.getElementById("home")?.remove();
+ document.querySelector("main>.terminalPanel")?.remove();
+ const aisleMessages={
+  "engines":["PROBLEM: AI MODELS AND DATA PIPELINES TAKE TOO LONG TO ENGINEER.","DAEMON ACE BUILD: INTAKE, PIPELINE ASSEMBLY, EVALUATION, PACKAGING AND DEPLOYMENT HANDOFF."],
+  "romi":["PROBLEM: ROBOTIC WORKCELLS NEED SOFTWARE, COMPUTE AND MACHINE CONTROL TO WORK TOGETHER.","DAEMON ACE BUILD: RoMi ROBOTIC MICRO-MANUFACTURING ENGINEERING WITH ROS 2, EDGE COMPUTE AND CONTROLLED MACHINE ACCESS."],
+  "robotics-roadmap":["PROBLEM: ROS 2 WORKSPACES BREAK ACROSS DEPENDENCIES, MIDDLEWARE AND HARDWARE TARGETS.","DAEMON ACE BUILD: WORKSPACE ANALYSIS, COMMUNICATION CHECKS, SIMULATION PLANNING AND EDGE RELEASE PREPARATION."],
+  "secure-ai":["PROBLEM: AI SYSTEMS CAN ACT WITHOUT CLEAR IDENTITY, POLICY OR RELEASE EVIDENCE.","DAEMON ACE BUILD: IDENTITY, MODEL PROVENANCE, ISOLATION, POLICY BOUNDARIES AND HUMAN-APPROVED RELEASE GATES."],
+  "engineering-workbench":["CUSTOMER EVALUATION: YOU NEED EVIDENCE BEFORE ACCEPTING A BUILD.","DAEMON ACE VALIDATION LAB: RUN THE AVAILABLE CONFIGURATION AND ROS 2 / JETSON CHECKS BEFORE RELEASE."],
+  "release-journey":["DELIVERY METHOD: KNOW WHAT DAEMON WILL BUILD AND WHAT YOU WILL RECEIVE.","OUTPUT: A SCOPED ARTIFACT, TEST EVIDENCE, RELEASE PACKAGE AND CUSTOMER-CONTROLLED DEPLOYMENT DECISION."]
+ };
+ Object.entries(aisleMessages).forEach(([id,copy])=>{
+  const section=document.getElementById(id);if(!section||section.querySelector(".productSolutionBand"))return;
+  const band=document.createElement("div");band.className="productSolutionBand";
+  band.innerHTML="<span></span><b></b>";
+  band.querySelector("span").textContent=copy[0];
+  band.querySelector("b").textContent=copy[1];
+  const wrap=section.querySelector(":scope > .wrap")||section.firstElementChild;
+  if(wrap)section.insertBefore(band,wrap);
+ });
 })();
 </script>
 <script>
