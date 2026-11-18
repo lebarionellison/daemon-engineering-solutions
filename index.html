@@ -698,6 +698,44 @@ footer{background:#071525!important;border-top-color:#315b7d}
 @media(max-width:600px){section{padding:34px 0}.productNavPanel{right:-58px}.discoveryHub{padding:22px 0!important}.buyerPathCard{min-height:0!important}}
 
 .productNavOs{padding:12px;border-radius:8px;background:linear-gradient(145deg,#173b59,#122b44)}.productNavOs>b{display:block;color:#f4faff;font-size:13px;letter-spacing:.7px}.productNavOs>b span{color:#78e5ff;font-size:9px}.productNavOs>small{display:block;margin-top:7px;color:#c7d9e9;font-size:10px;line-height:1.45}.productNavOs>small strong{color:#86eaff}.productNavOs .productNavServices{display:inline-block;margin-top:10px;color:#7deaff;font-size:10px;font-weight:900}
+
+/* DAEMON ACE storefront: one product aisle, tight delivery flow, founder up front. */
+.productAisle{padding:26px 0 30px!important;background:linear-gradient(115deg,#123a5c,#102b47 56%,#0b1d32)!important;border-top:1px solid #55c8ef55;border-bottom:1px solid #55c8ef44}
+.aisleTop{display:grid;grid-template-columns:minmax(0,1fr) 180px;gap:18px;align-items:center;margin-bottom:17px}
+.aisleTop h2{font-size:clamp(26px,3.6vw,42px);line-height:1.02;letter-spacing:-1.4px;margin:7px 0 8px;max-width:900px}
+.aisleTop p{font-size:12px;color:#d2e1ef;margin:0;max-width:850px}
+.aisleStamp{border:1px solid #5bdfff88;border-radius:10px;padding:13px;background:linear-gradient(145deg,#16476a,#0a1d31);text-align:center;box-shadow:0 10px 30px #020b1766}
+.aisleStamp b{display:block;color:#fff;font-size:22px;letter-spacing:1px}.aisleStamp span{display:block;color:#70eaff;font-size:8px;font-weight:950;letter-spacing:1.1px;margin-top:5px}
+.aisleSearch{display:grid;grid-template-columns:150px 1fr auto;align-items:center;gap:12px;padding:10px 14px;margin:15px 0;border:1px solid #64dff277;border-radius:9px;background:#07182a}
+.aisleSearch span{color:#68eaff;font-size:9px;font-weight:950;letter-spacing:1.2px}.aisleSearchPrompt{color:#d8e8f8;font-size:12px}.aisleSearch a{color:#75eaff;font-size:9px;font-weight:950;white-space:nowrap}
+.productShelf{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px}
+.shelfCard{display:flex;flex-direction:column;min-height:132px;padding:14px;border:1px solid #47708e;border-radius:9px;background:linear-gradient(145deg,#15324e,#0c2036);transition:transform .18s,border-color .18s,background .18s}
+.shelfCard:hover{transform:translateY(-2px);border-color:#70eaff;background:linear-gradient(145deg,#1b4568,#102b46)}
+.shelfNo{color:#70eaff;font-size:8px;font-weight:950;letter-spacing:1.2px}
+.shelfCard b{font-size:14px;line-height:1.15;margin:8px 0 5px;color:#fff}
+.shelfCard p{font-size:10px;line-height:1.5;color:#c2d3e4;margin:0 0 10px}
+.shelfCard small{margin-top:auto;color:#78eaff;font-size:8px;font-weight:950;letter-spacing:.8px}
+.shelfFeatured{border-color:#71eaff;background:linear-gradient(145deg,#17496a,#102943);box-shadow:inset 0 0 0 1px #67dfff22}
+.shelfCustom{border-color:#a78bfa88;background:linear-gradient(145deg,#28264d,#14243b)}
+.aisleFooter{display:flex;justify-content:space-between;align-items:center;gap:14px;margin-top:12px;padding:12px 14px;border:1px solid #ffffff22;border-radius:9px;background:#071729}
+.aisleFooter b,.aisleFooter span{display:block}.aisleFooter b{font-size:10px;color:#fff;letter-spacing:.6px}.aisleFooter span{font-size:9px;color:#b8cadc;margin-top:3px}
+.aisleConfigure{flex:none;border:0;border-radius:7px;padding:11px 14px;background:linear-gradient(100deg,#63e8e8,#83aaff);color:#07111d;font-size:9px;font-weight:950;cursor:pointer}
+#founder{padding:16px 0!important;background:#0b1c30!important}
+#founder .founderCard{padding:16px 20px!important;border-color:#64dfff99!important;background:linear-gradient(110deg,#19476a,#102b45)!important}
+#founder .founderCard h2{font-size:21px!important}
+#founder .founderCard p{font-size:11px!important;line-height:1.5!important}
+#home.hero{padding:18px 0 20px!important}
+.engineeringWorkbench{padding:22px 0!important}
+.engineeringTour>section,.engineeringTour>div{min-height:0!important}
+.engineeringTour>section:not(.cinematicHero){padding-top:24px!important;padding-bottom:24px!important}
+#release-journey{padding:10px 0!important}
+#release-journey .proofDiagram{margin:8px auto 12px!important}
+#robotics-roadmap,#secure-ai,#romi,#engines,#team,#proof,#ace-gateways,#design-partners,#enterprise,#investors,#contact{min-height:0!important}
+#romi .romiHeader{margin-bottom:14px!important}
+#contact{padding:20px 0!important}
+@media(max-width:760px){.aisleTop{grid-template-columns:1fr}.aisleStamp{display:none}.productShelf{grid-template-columns:repeat(2,minmax(0,1fr))}.aisleSearch{grid-template-columns:1fr;gap:5px}.aisleFooter{align-items:flex-start;flex-direction:column}.aisleConfigure{width:100%}}
+@media(max-width:520px){.productShelf{grid-template-columns:1fr}.shelfCard{min-height:0}.aisleTop h2{font-size:29px}}
+
 </style>
 </head>
 <body>
@@ -942,21 +980,22 @@ spec:
       <div class="terminalFooter"><span id="terminalState">ENGINE STANDBY</span><span>LOCAL DEMO TRACE</span></div>
     </section>
 
-<section class="discoveryHub buyerHub" id="explore" aria-labelledby="discovery-title">
+<section class="discoveryHub buyerHub productAisle" id="explore" aria-labelledby="discovery-title">
  <div class="wrap">
-  <div class="discoveryHeading"><div><span class="discoveryEyebrow">START WITH YOUR ENGINEERING GOAL</span><h2 id="discovery-title">WHAT ARE YOU TRYING TO BUILD?</h2><p>Choose the path that matches your team. Each route leads to the relevant capabilities, current tools and a clear way to scope an engagement.</p></div><span class="discoveryIndex">DAEMON ACE / BUYER GUIDE</span></div>
-  <div class="buyerPathGrid">
-   <a class="buyerPathCard" href="#engines"><span>01 / DAEMON ACE</span><strong>Build and ship AI workloads</strong><small>AI pipelines, secure workload packaging, Kubernetes delivery, validation evidence and controlled releases.</small><i>Explore DAEMON ACE ↗</i></a>
-   <a class="buyerPathCard" href="#romi"><span>02 / DAEMON ACE · ROBOTICS</span><strong>Engineer autonomous and physical AI</strong><small>ROS 2, embedded AI, Jetson edge builds, RoMi robotic micro-manufacturing and simulation-to-real validation.</small><i>Explore robotics ↗</i></a>
-   <a class="buyerPathCard" href="#secure-ai"><span>03 / DAEMON ACE · TRUST</span><strong>Secure the AI delivery lifecycle</strong><small>Identity, model and software provenance, isolation, policy gates, validation evidence and human-approved releases.</small><i>Explore secure AI ↗</i></a>
-   
+  <div class="aisleTop">
+   <div><span class="discoveryEyebrow">DAEMON ACE PRODUCT CATALOG · CHOOSE A BUILD PATH</span><h2 id="discovery-title">FIND THE SYSTEM. CONFIGURE THE BUILD. SHIP WITH DAEMON.</h2><p>One engineering source for autonomous AI, robotics, governance and infrastructure delivery. Select a ready-to-scope build path or combine capabilities into one engineered release.</p></div>
+   <div class="aisleStamp"><b>DAEMON ACE</b><span>BUILD → VALIDATE → SHIP</span></div>
   </div>
-  <div class="buyerSteps" aria-label="How to engage with Daemon Engineering Solutions">
-   <div><span>STEP 01</span><b>EXPLORE</b><p>Review the platform, run a free preflight check or discuss your engineering objective.</p></div>
-   <div><span>STEP 02</span><b>SCOPE</b><p>Agree on the environment, deliverables, access boundaries, timeline and acceptance criteria.</p></div>
-   <div><span>STEP 03</span><b>BUILD THE PILOT</b><p>Receive a written proposal. Work begins after scope, authorization and commercial terms are approved.</p></div>
+  <div class="aisleSearch"><span>PRODUCT FINDER</span><div class="aisleSearchPrompt">What do you need to build or deploy?</div><a href="#custom-build">CUSTOMIZE A BUILD ↓</a></div>
+  <div class="productShelf">
+   <a class="shelfCard shelfFeatured" href="#engines"><span class="shelfNo">01 / AI ENGINEERING</span><b>AI PIPELINES &amp; MODEL DELIVERY</b><p>Model intake, pipeline assembly, evaluation, packaging, deployment gates and release evidence.</p><small>BUILD AN AI DELIVERY PIPELINE ↗</small></a>
+   <a class="shelfCard" href="#romi"><span class="shelfNo">02 / AUTONOMOUS ROBOTICS</span><b>ROS 2 &amp; ROBOTICS SYSTEMS</b><p>ROS 2 workspaces, node and communication policy, simulation-to-real validation and robot release engineering.</p><small>ENGINEER A ROBOTICS BUILD ↗</small></a>
+   <a class="shelfCard" href="#robotics-roadmap"><span class="shelfNo">03 / EDGE COMPUTE</span><b>NVIDIA JETSON &amp; EDGE AI</b><p>ARM64 packaging, edge runtime preparation, device qualification and controlled deployment workflows.</p><small>PREPARE AN EDGE RELEASE ↗</small></a>
+   <a class="shelfCard" href="#secure-ai"><span class="shelfNo">04 / AI GOVERNANCE</span><b>AI SECURITY &amp; POLICY CONTROLS</b><p>Identity, model provenance, workload isolation, policy boundaries, audit evidence and human approval.</p><small>GOVERN AN AI SYSTEM ↗</small></a>
+   <a class="shelfCard" href="#preflight"><span class="shelfNo">05 / INFRASTRUCTURE</span><b>KUBERNETES, GPU &amp; CLOUD</b><p>Workload configuration, GPU-aware scheduling, Kubernetes validation, CI/CD hardening and cost review.</p><small>ENGINEER THE COMPUTE STACK ↗</small></a>
+   <a class="shelfCard shelfCustom" href="#custom-build" id="custom-build"><span class="shelfNo">06 / CUSTOM ENGINEERING</span><b>COMBINE. CUSTOMIZE. SHIP.</b><p>Bring your model, robot, cluster or product requirement. Daemon scopes the build, assembles the toolchain and defines acceptance gates with your team.</p><small>CONFIGURE A CUSTOM BUILD ↗</small></a>
   </div>
-  <div class="buyerActionRow"><div><b>NOT SURE WHICH PATH FITS?</b><span>Tell us what you are building. We will help define a practical first scope.</span></div><button class="btn primary" type="button" data-open-intake>Talk through your project ↗</button><a class="btn secondary" href="#preflight">Try a free preflight check</a></div>
+  <div class="aisleFooter"><div><b>ONE DELIVERY OWNER. ONE CONNECTED ENGINEERING PATH.</b><span>Daemon selects, integrates and validates the toolchain for the agreed target—rather than sending customers to assemble disconnected products themselves.</span></div><button class="aisleConfigure" type="button" data-open-intake>CONFIGURE YOUR BUILD ↗</button></div>
  </div>
 </section>
 
@@ -1439,7 +1478,7 @@ spec:
  const main=document.querySelector("main");
  const hero=main?.querySelector(".cinematicHero");
  if(!main||!hero)return;
- const ids=["explore","home","engineering-workbench","release-journey","robotics-roadmap","secure-ai","romi","engines","team","proof","ace-gateways","design-partners","enterprise","investors","founder","contact"];
+ const ids=["explore","founder","home","engineering-workbench","release-journey","robotics-roadmap","secure-ai","romi","engines","team","proof","ace-gateways","design-partners","enterprise","investors","founder","contact"];
  const nodes=ids.map(id=>document.getElementById(id)).filter(Boolean);
  if(nodes.length<12)return;
  // Keep the product boundary, the complete ACE journey and founder profile in the primary page flow.
