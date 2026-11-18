@@ -865,6 +865,39 @@ main>.terminalPanel{display:none!important}
 .trackerNote{font-size:7px;line-height:1.4;color:#8199ad;margin-top:9px;letter-spacing:.2px}
 @media(max-width:650px){.trackerIntro{flex-direction:column}.trackerOrder{min-width:0;width:100%}.trackerStages{grid-template-columns:1fr;gap:5px}.trackerStage{display:grid;grid-template-columns:25px 1fr;align-items:center;gap:3px 8px;padding:8px}.trackerStage i{grid-row:span 2}.trackerStage:not(:last-child):after{display:none}.trackerStage span{grid-column:2}.trackerBottom{grid-template-columns:1fr}.aceBuildTracker{padding:12px}}
 
+
+/* DAEMON ACE build menu: product configurator before order, tracker after order */
+.aceBuildMenu{margin:14px 0 10px;padding:16px;border:1px solid #5bcdf088;border-radius:10px;background:linear-gradient(120deg,#0a1c2d,#143652 60%,#0b1e31)}
+.menuHeading{display:flex;justify-content:space-between;gap:14px;align-items:flex-start;margin-bottom:13px}
+.menuHeading h3{font-size:clamp(17px,2.2vw,25px);line-height:1.06;color:#fff;margin:5px 0}
+.menuHeading p{font-size:10px;line-height:1.5;color:#c3d6e7;margin:0;max-width:720px}
+.menuTag{flex:none;border:1px solid #5bdfff66;border-radius:7px;padding:9px 11px;color:#8deaff;font-size:8px;line-height:1.6;letter-spacing:.7px;text-align:center}
+.menuTag b{color:#fff}
+.menuGrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.menuField{display:block;min-width:0;padding:9px;border:1px solid #355774;border-radius:7px;background:#071827}
+.menuField>span{display:block;font-size:8px;font-weight:950;letter-spacing:.7px;color:#75eaff;margin-bottom:6px}
+.menuField select{width:100%;min-width:0;padding:9px 25px 9px 9px;border:1px solid #45637c;border-radius:6px;background:#102b42;color:#f2f8ff;font:600 10px/1.3 inherit}
+.menuExtras{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:9px}
+.menuExtras>div{padding:11px;border:1px solid #355774;border-radius:7px;background:#071827}
+.menuExtras>div:first-child>b{display:block;color:#75eaff;font-size:8px;letter-spacing:.8px;margin-bottom:7px}
+.menuExtras label{display:flex;gap:7px;align-items:center;margin:7px 0;color:#d3e1ef;font-size:9px}
+.menuExtras input{accent-color:#53ddeb}
+.menuSummary>span{display:block;font-size:8px;letter-spacing:.8px;color:#72eaff;font-weight:950}
+.menuSummary>strong{display:block;font-size:14px;color:#fff;margin:5px 0}
+.menuSummary>p{font-size:9px;line-height:1.45;color:#c3d6e7;margin:0 0 9px}
+.menuSummary .aisleConfigure{display:inline-block;border:0;text-decoration:none;cursor:pointer}
+.menuSummary>small{display:block;font-size:8px;line-height:1.4;color:#8fa9bf;margin-top:7px}
+.aceAfterOrder{margin:10px 0 3px;border:1px solid #52748d;border-radius:9px;background:#081a2b;overflow:hidden}
+.aceAfterOrder summary{cursor:pointer;list-style:none;padding:12px 14px;display:flex;justify-content:space-between;gap:12px;align-items:center}
+.aceAfterOrder summary::-webkit-details-marker{display:none}
+.aceAfterOrder summary span{font-size:8px;font-weight:950;letter-spacing:1px;color:#74eaff}
+.aceAfterOrder summary b{font-size:10px;color:#eaf7ff}
+.afterOrderNote{padding:0 14px 7px;color:#9fb5c9;font-size:9px;line-height:1.45}
+.aceAfterOrder .aceBuildTracker{margin:8px 12px 12px}
+.aisleFooter .aisleConfigure{display:inline-block;text-decoration:none;white-space:nowrap}
+@media(max-width:760px){.menuGrid{grid-template-columns:repeat(2,minmax(0,1fr))}.menuHeading{flex-direction:column}.menuExtras{grid-template-columns:1fr}.aceAfterOrder summary{align-items:flex-start;flex-direction:column}}
+@media(max-width:520px){.menuGrid{grid-template-columns:1fr}.aceBuildMenu{padding:12px}.menuField select{font-size:11px}}
+
 </style>
 </head>
 <body>
@@ -1121,7 +1154,22 @@ spec:
    <a class="shelfCard" href="#preflight"><span class="shelfNo">05 / INFRASTRUCTURE</span><b>KUBERNETES, GPU &amp; CLOUD</b><p>Workload configuration, GPU-aware scheduling, Kubernetes validation, CI/CD hardening and cost review.</p><small>ENGINEER THE COMPUTE STACK ↗</small></a>
    <a class="shelfCard shelfCustom" href="#custom-build" id="custom-build"><span class="shelfNo">06 / CUSTOM ENGINEERING</span><b>COMBINE. CUSTOMIZE. SHIP.</b><p>Bring your model, robot, cluster or product requirement. Daemon scopes the build, assembles the toolchain and defines acceptance gates with your team.</p><small>CONFIGURE A CUSTOM BUILD ↗</small></a>
   </div>
-  <div class="aceBuildTracker" aria-labelledby="ace-tracker-title">
+  <div class="aceBuildMenu" id="build-menu">
+   <div class="menuHeading"><div><span class="trackerKicker">DAEMON ACE · CONFIGURE YOUR BUILD</span><h3>BUILD YOUR STACK. YOUR REQUIREMENTS. YOUR RELEASE.</h3><p>Choose the engineering path and delivery options. Daemon turns the selections into a scoped build plan for review—no toolchain assembly scavenger hunt.</p></div><div class="menuTag">CUSTOM BUILD MENU<br><b>DESIGN YOUR CONFIG</b></div></div>
+   <div class="menuGrid">
+    <label class="menuField"><span>01 · WHAT ARE WE BUILDING?</span><select id="aceBuildType"><option>Autonomous AI pipeline</option><option>ROS 2 robotics application</option><option>RoMi robotic micro-manufacturing</option><option>AI inference and edge deployment</option><option>Kubernetes / GPU infrastructure</option><option>AI governance and security</option><option>Integrated custom system</option></select></label>
+    <label class="menuField"><span>02 · WHERE WILL IT RUN?</span><select id="aceTarget"><option>Cloud / Kubernetes</option><option>NVIDIA Jetson edge device</option><option>On-premises GPU / HPC</option><option>Hybrid cloud + edge</option><option>Robotics lab / simulation</option><option>Not decided — recommend a target</option></select></label>
+    <label class="menuField"><span>03 · BUILD INTELLIGENCE</span><select id="aceIntelligence"><option>Self-healing pipeline design</option><option>AI-assisted pipeline optimization</option><option>Autonomous workflow with approval gates</option><option>Standard repeatable CI/CD pipeline</option></select></label>
+    <label class="menuField"><span>04 · GOVERNANCE LEVEL</span><select id="aceGovernance"><option>Secure defaults + artifact provenance</option><option>Identity, policy and workload isolation</option><option>Regulated / enterprise control review</option><option>Robotics command and actuator boundaries</option></select></label>
+    <label class="menuField"><span>05 · VALIDATION PACKAGE</span><select id="aceValidation"><option>Build tests + release evidence</option><option>Simulation + integration validation</option><option>Security + supply-chain review</option><option>Full agreed acceptance test plan</option></select></label>
+    <label class="menuField"><span>06 · DELIVERY HANDOFF</span><select id="aceHandoff"><option>Versioned package + deployment guide</option><option>Customer-approved deployment support</option><option>Edge-device install + health verification</option><option>Engineering handoff + team walkthrough</option></select></label>
+   </div>
+   <div class="menuExtras"><div><b>ADD BUILD OPTIONS</b><label><input type="checkbox" id="aceFeedback" checked> Runtime feedback loop and health signals</label><label><input type="checkbox" id="aceRecovery" checked> Approved recovery and retry policies</label><label><input type="checkbox" id="aceAlerts" checked> Milestone alerts and delivery updates</label><label><input type="checkbox" id="aceDocs" checked> Build manifest, runbook and release notes</label></div><div class="menuSummary"><span>YOUR BUILD CONFIGURATION</span><strong id="aceConfigName">Autonomous AI pipeline</strong><p id="aceConfigSummary">Cloud / Kubernetes · Self-healing pipeline design · Build tests + release evidence</p><button type="button" id="aceRequestBuild" class="aisleConfigure">REQUEST THIS CUSTOM BUILD ↗</button><small>Selections create a scoped inquiry—not an instant purchase or guaranteed quote. Final scope, price, hardware, access and acceptance criteria are agreed with Daemon.</small></div></div>
+  </div>
+  <details class="aceAfterOrder">
+   <summary><span>AFTER YOU PLACE YOUR ORDER</span><b>Preview your DAEMON ACE Build Tracker + delivery updates ↗</b></summary>
+   <div class="afterOrderNote">This tracker is intended for the customer workspace after an order and project scope are accepted. The preview below illustrates the planned experience; it is not a live order or connected build.</div>
+   <div class="aceBuildTracker" aria-labelledby="ace-tracker-title">
    <div class="trackerIntro">
     <div><span class="trackerKicker">DAEMON ACE · CUSTOMER BUILD EXPERIENCE</span><h3 id="ace-tracker-title">YOUR BUILD. VISIBLE FROM START TO SHIPMENT.</h3><p>A customer-facing Build Twin gives your team one place to follow the engineered release—from intake and pipeline construction through validation and shipment.</p></div>
     <div class="trackerOrder"><small>BUILD TWIN</small><b>ACE / BUILD-TRACKER</b><span>ILLUSTRATIVE CUSTOMER VIEW</span></div>
@@ -1139,7 +1187,10 @@ spec:
    </div>
    <div class="trackerNote">CONCEPT PREVIEW · Status stages, self-healing actions and customer notifications are part of the proposed DAEMON ACE delivery experience; live job synchronization and notification channels require implementation and customer integration.</div>
   </div>
-  <div class="aisleFooter"><div><b>ONE DELIVERY OWNER. ONE CONNECTED ENGINEERING PATH.</b><span>Daemon selects, integrates and validates the toolchain for the agreed target—rather than sending customers to assemble disconnected products themselves.</span></div><button class="aisleConfigure" type="button" data-open-intake>CONFIGURE YOUR BUILD ↗</button></div>
+  </details>
+  <div class="aisleFooter"><div><b>ONE DELIVERY OWNER. ONE CONNECTED ENGINEERING PATH.</b><span>Daemon selects, integrates and validates the toolchain for the agreed target—rather than sending customers to assemble disconnected products themselves.</span></div><a class="aisleConfigure" href="#build-menu">CUSTOMIZE YOUR BUILD ↑</a></div>
+ </div>
+</section><div><b>ONE DELIVERY OWNER. ONE CONNECTED ENGINEERING PATH.</b><span>Daemon selects, integrates and validates the toolchain for the agreed target—rather than sending customers to assemble disconnected products themselves.</span></div><button class="aisleConfigure" type="button" data-open-intake>CONFIGURE YOUR BUILD ↗</button></div>
  </div>
 </section>
 
@@ -1651,5 +1702,26 @@ spec:
 </script>
 <script>
 (()=>{const tabs=[...document.querySelectorAll("[data-workbench-tab]")];const panels=[...document.querySelectorAll("[data-workbench-panel]")];function activate(name,focus=false){tabs.forEach(tab=>{const active=tab.dataset.workbenchTab===name;tab.classList.toggle("is-active",active);tab.setAttribute("aria-selected",String(active));tab.tabIndex=active?0:-1;if(active&&focus)tab.focus();});panels.forEach(panel=>{const active=panel.dataset.workbenchPanel===name;panel.hidden=!active;panel.classList.toggle("is-active",active);});}tabs.forEach((tab,index)=>{tab.addEventListener("click",()=>activate(tab.dataset.workbenchTab));tab.addEventListener("keydown",event=>{if(event.key!=="ArrowRight"&&event.key!=="ArrowLeft")return;event.preventDefault();const next=tabs[(index+(event.key==="ArrowRight"?1:tabs.length-1))%tabs.length];activate(next.dataset.workbenchTab,true);});});activate("cloud");})();
-</script></body>
+</script>
+<script>
+(()=>{
+ const ids=["aceBuildType","aceTarget","aceIntelligence","aceGovernance","aceValidation","aceHandoff"];
+ const labels=["Build","Target","Intelligence","Governance","Validation","Handoff"];
+ const extras=[["aceFeedback","Runtime feedback loop"],["aceRecovery","Approved recovery and retry"],["aceAlerts","Milestone alerts"],["aceDocs","Build manifest and runbook"]];
+ const getConfig=()=>{const values=ids.map(id=>document.getElementById(id)?.value||"");const selected=extras.filter(([id])=>document.getElementById(id)?.checked).map(x=>x[1]);return {values,selected};};
+ const update=()=>{const c=getConfig();document.getElementById("aceConfigName").textContent=c.values[0];document.getElementById("aceConfigSummary").textContent=c.values.slice(1).join(" · ")+(c.selected.length?" · "+c.selected.join(" · "):"");};
+ ids.concat(extras.map(x=>x[0])).forEach(id=>document.getElementById(id)?.addEventListener("change",update));
+ document.getElementById("aceRequestBuild")?.addEventListener("click",()=>{
+  const c=getConfig(),lines=["DAEMON ACE CUSTOM BUILD CONFIGURATION",...labels.map((label,i)=>label+": "+c.values[i]),"Add-ons: "+(c.selected.join(", ")||"None"),"Please review this configuration and contact me to define scope, estimated cost, delivery schedule, dependencies and acceptance criteria."];
+  document.getElementById("requestType").value="Custom DAEMON ACE build configuration";
+  document.getElementById("intakeTitle").textContent="Review your custom DAEMON ACE build.";
+  document.getElementById("intakeCompany").value="";
+  document.getElementById("intakePain").value=lines.join("\n");
+  document.getElementById("intakeBackdrop").classList.add("open");
+  document.getElementById("intakeName").focus();
+ });
+ update();
+})();
+</script>
+</body>
 </html>
