@@ -646,6 +646,56 @@ footer{background:#091524!important;border-top-color:#344c66}
 .engineeringTour{display:flow-root}
 @media(max-width:900px){.daemonOsHeader{grid-template-columns:1fr 140px}.daemonOsGrid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:620px){section{padding:38px 0}.cinematicHero{min-height:0!important}.buyerHub{padding:24px 0!important}.daemonOsHeader{grid-template-columns:1fr}.daemonOsMark{min-height:110px}.daemonOsGrid,.daemonOsFooter{grid-template-columns:1fr}.daemonOsCard{min-height:0}.founderCard{grid-template-columns:58px minmax(0,1fr)!important}.founderAvatar{width:54px!important;height:54px!important}}
+
+/* Compact product navigation: DAEMON ACE remains the single homepage sales story. */
+.navlinks{position:relative}
+.productNavDropdown{position:relative;display:inline-flex;align-items:center}
+.productNavDropdown summary{list-style:none;cursor:pointer;color:#dbeafe;font-size:11px;font-weight:850;letter-spacing:.35px;padding:9px 12px;border:1px solid #426587;border-radius:7px;background:linear-gradient(135deg,#173b5d,#142a43)}
+.productNavDropdown summary::-webkit-details-marker{display:none}
+.productNavDropdown summary span{color:#6de2ff;margin-left:5px}
+.productNavPanel{position:absolute;z-index:1000;right:0;top:calc(100% + 10px);width:min(340px,calc(100vw - 32px));padding:10px;border:1px solid #4b789e;border-radius:12px;background:#10243a;box-shadow:0 22px 55px #020914d9}
+.productNavPanel>a{display:block;padding:12px;border-radius:8px;text-decoration:none}
+.productNavPanel>a:hover{background:#1a3b5a}
+.productNavPanel b{display:block;color:#f3f9ff;font-size:13px;letter-spacing:.7px}
+.productNavPanel small{display:block;margin-top:4px;color:#c5d9ed;font-size:11px;line-height:1.5}
+.productNavPanel p{margin:7px 10px 5px;color:#a9c2d8;font-size:10px;line-height:1.5}
+.productNavDivider{height:1px;background:#35516e;margin:3px 8px}
+
+/* NVIDIA-inspired visual hierarchy: technical, bright, high-contrast, compact. */
+:root{--bg:#071525;--panel:#102944;--panel2:#153653;--line:#315b7d;--text:#f5faff;--muted:#c2d5e8;--cyan:#6be5ff;--blue:#8abaff}
+body{background:#08182a;color:#f4f9ff}
+section{padding:42px 0}
+.sectionHead{margin-bottom:18px}
+.sectionHead p,.panel p,.panel li,.card p{color:#c4d6e8}
+.card,.panel,.gatewayCard,.investorMetric,.compareBox,.metric{background:linear-gradient(145deg,#173652,#10283f);border-color:#3a6689}
+section.alt,section.dark{background:linear-gradient(115deg,#102942,#0b2035);border-color:#2d506e}
+.discoveryHub{padding:25px 0 27px!important;background:linear-gradient(105deg,#102d49,#123b5b 55%,#102b46)!important;border-color:#39769b}
+.discoveryHeading{margin-bottom:13px}
+.discoveryHeading h2{color:#fff}
+.discoveryHeading p{color:#d0e0ef}
+.buyerPathGrid{gap:9px}
+.buyerPathCard{min-height:138px!important;padding:15px 16px!important;background:linear-gradient(145deg,#1b4567,#14324f)!important;border:1px solid #4d80a5!important}
+.buyerPathCard strong{color:#fff}
+.buyerPathCard small{color:#d0e0ef}
+.buyerPathCard i{color:#75e7ff}
+.buyerPathCard:hover{border-color:#7aeaff!important;box-shadow:0 12px 30px #020a1580}
+.buyerSteps{margin-top:13px!important}
+.buyerActionRow{margin-top:12px!important}
+.cinematicHero{background:radial-gradient(ellipse at 78% 24%,#1479b455,transparent 42%),linear-gradient(115deg,#0a1d32,#123a5c 62%,#0a2139)!important}
+.cinematicGrid{opacity:.26}
+.cinematicBody,.cinematicLead,.sublead{color:#d1e2f1}
+.oneGlanceCapabilities a{background:linear-gradient(145deg,#17456a,#102e4b);border-color:#4c83aa}
+.oneGlanceCapabilities small{color:#d0e0ee}
+.productTrackPills span,.productTrackPills a{background:#143b5c;border-color:#4d8bb4;color:#d9f5ff}
+.workbenchHeader{margin-bottom:16px}
+.engineeringWorkbench{padding:36px 0!important;background:linear-gradient(120deg,#102d48,#0d2035)!important}
+#founder{display:block!important;visibility:visible!important;opacity:1!important;padding:28px 0!important}
+#founder .founderCard{background:linear-gradient(115deg,#17466a,#12304d);border-color:#5c9bc3;box-shadow:0 14px 34px #020b1680}
+#founder .founderCard p{color:#e0ebf5}
+#contact{padding:30px 0!important}
+footer{background:#071525!important;border-top-color:#315b7d}
+@media(max-width:850px){.productNavDropdown summary{font-size:10px;padding:8px}.navlinks{gap:8px}}
+@media(max-width:600px){section{padding:34px 0}.productNavPanel{right:-58px}.discoveryHub{padding:22px 0!important}.buyerPathCard{min-height:0!important}}
 </style>
 </head>
 <body>
@@ -687,7 +737,7 @@ footer{background:#091524!important;border-top-color:#344c66}
     <circle cx="1120" cy="365" r="3" fill="#10b981" opacity=".65"/>
   </svg>
 </div>
-<header><div class="wrap nav"><a class="brand" href="#home">DAEMON <span>Engineering Solutions</span><small>ENGINEERING INTELLIGENCE · SECURITY · DELIVERY</small></a><nav class="navlinks" aria-label="Primary navigation"><a href="#engines">Platform</a><a href="#romi">Robotics + RoMi</a><a href="#secure-ai">Secure AI</a><a href="#jetson-delivery">Edge Delivery</a><a href="infrastructure-services.html">Services</a><a href="#preflight">Try Preflight</a><a href="#contact" class="navcta">Start a Project ↗</a></nav></div></header>
+<header><div class="wrap nav"><a class="brand" href="#home">DAEMON <span>Engineering Solutions</span><small>ENGINEERING INTELLIGENCE · SECURITY · DELIVERY</small></a><nav class="navlinks" aria-label="Primary navigation"><a href="#engines">Platform</a><a href="#romi">Robotics + RoMi</a><a href="#secure-ai">Secure AI</a><a href="#jetson-delivery">Edge Delivery</a><a href="infrastructure-services.html">Services</a><a href="#preflight">Try Preflight</a><details class="productNavDropdown"><summary>Products <span>⌄</span></summary><div class="productNavPanel"><a href="#home"><b>DAEMON ACE</b><small>Autonomous AI engineering · build · validate · deploy</small></a><div class="productNavDivider"></div><a href="#daemon-os"><b>DAEMON OS</b><small>Infrastructure operations · GPU fleets · cloud · Kubernetes · SRE</small></a><p>Separate products. Shared engineering foundation. Available independently or together.</p></div></details><a href="#contact" class="navcta">Start a Project ↗</a></nav></div></header>
 <main><section class="governanceBanner cinematicHero" aria-labelledby="governance-title">
   <div class="cinematicGrid"></div>
   <div class="wrap cinematicLayout">
@@ -867,7 +917,6 @@ spec:
 <div class="productTrackPills" aria-label="DAEMON ACE product tracks">
   <span class="cloudTrack">⚡ DAEMON ACE · AI Build &amp; Delivery</span>
   <a class="roboticsTrack" href="#romi">🤖 DAEMON ACE · Robotics &amp; Edge Delivery ↓</a>
-  <a class="roboticsTrack" href="#daemon-os">◈ DAEMON OS · Infrastructure Operations ↓</a>
 </div>
 <p class="lead">DAEMON ACE builds the path from AI development to validated deployment—across secure AI pipelines, Kubernetes workloads, autonomous robotics, ROS 2 and Jetson edge systems. Engineering teams retain control of architecture, exceptions and production approval.</p><p class="sublead">Start with an engineering scenario. Inspect the execution trace, proposed configuration and sample evidence record. This interactive workbench is a simulated demonstration—not a live customer environment.</p><div class="actions"><a class="btn primary" href="#demo">See the ACE experience ↓</a><a class="btn secondary" href="/capability-statement.html" target="_blank" rel="noopener noreferrer">Open One-Page Capability Brief · Print / Save PDF ↗</a><a class="btn secondary" href="#contact">Discuss an early-access pilot ↗</a></div><div class="pills"><span>One AI teammate</span><span>Proof before production</span><span>Human approval</span><span>More leverage for lean teams</span></div><p class="sublead" style="margin-top:18px;font-weight:800;color:#e1ecfa">Do the work. Prove the work. Let humans approve the work.</p></div>
 <div class="workbenchRoute wrap" aria-label="Live workbench tools"><div><span class="kicker">LIVE ENGINEERING WORKBENCH</span><strong>Choose a review path</strong><small>Two focused tools. One engineering workflow.</small></div><nav><a href="#preflight">Cloud / Kubernetes X-Ray ↗</a><a href="#robotics-gatekeeper">ROS 2 / Jetson SHA-256 Gate ↗</a></nav></div>
@@ -898,8 +947,7 @@ spec:
    <a class="buyerPathCard" href="#engines"><span>01 / DAEMON ACE</span><strong>Build and ship AI workloads</strong><small>AI pipelines, secure workload packaging, Kubernetes delivery, validation evidence and controlled releases.</small><i>Explore DAEMON ACE ↗</i></a>
    <a class="buyerPathCard" href="#romi"><span>02 / DAEMON ACE · ROBOTICS</span><strong>Engineer autonomous and physical AI</strong><small>ROS 2, embedded AI, Jetson edge builds, RoMi robotic micro-manufacturing and simulation-to-real validation.</small><i>Explore robotics ↗</i></a>
    <a class="buyerPathCard" href="#secure-ai"><span>03 / DAEMON ACE · TRUST</span><strong>Secure the AI delivery lifecycle</strong><small>Identity, model and software provenance, isolation, policy gates, validation evidence and human-approved releases.</small><i>Explore secure AI ↗</i></a>
-   <a class="buyerPathCard daemonOsPath" href="#daemon-os"><span>04 / DAEMON OS</span><strong>Operate the infrastructure behind AI</strong><small>GPU fleets, training and inference platforms, cloud, Kubernetes, datacenter modernization, DevOps and SRE.</small><i>Explore DAEMON OS ↗</i></a>
-   <a class="buyerPathCard" href="infrastructure-services.html"><span>05 / ENGINEERING SERVICES</span><strong>Contract expert infrastructure engineering</strong><small>VCF, NSX-T, HCX, Nutanix, network and storage fabrics, multi-cluster Kubernetes, cloud automation and reliability engagements.</small><i>Explore contracting services ↗</i></a>
+   
   </div>
   <div class="buyerSteps" aria-label="How to engage with Daemon Engineering Solutions">
    <div><span>STEP 01</span><b>EXPLORE</b><p>Review the platform, run a free preflight check or discuss your engineering objective.</p></div>
@@ -1085,28 +1133,11 @@ spec:
 
 <section class="alt" id="investors"><div class="wrap"><div class="sectionHead reveal"><div class="kicker">INVESTORS &amp; STRATEGIC PARTNERS</div><h2>MAKE AUTONOMOUS AI DELIVERY REPEATABLE AND OPERABLE.</h2><p>As organizations move AI toward operational workflows, they need controls connecting engineering execution, evidence, cost and human authority. DAEMON ACE is being developed for that coordination layer.</p></div><div class="investorGrid reveal"><div class="investorMetric"><div class="kicker">CLOUD FINOPS</div><strong>$17.27B → $33.12B</strong><p>Projected global Cloud FinOps market growth from 2026 to 2031.</p><a href="https://www.prnewswire.com/news-releases/cloud-finops-market-worth-33-12-billion-by-2031--report-by-marketsandmarkets-302930556.html" target="_blank" rel="noopener noreferrer">MarketsandMarkets · Nov 5, 2026 ↗</a></div><div class="investorMetric"><div class="kicker">AI GOVERNANCE</div><strong>21%</strong><p>Of surveyed organizations reported mature governance for agentic AI in Deloitte research.</p><a href="https://www.deloitte.com/us/en/insights/topics/emerging-technologies/ai-agents-scaling-faster.html" target="_blank" rel="noopener noreferrer">Deloitte · Apr 24, 2026 ↗</a></div><div class="investorMetric"><div class="kicker">CYBERSECURITY CAPACITY</div><strong>59%</strong><p>Of 2025 ISC2 respondents reported critical or significant cybersecurity skills needs.</p><a href="https://www.isc2.org/Insights/2025/12/2025-ISC2-Cybersecurity-Workforce-Study" target="_blank" rel="noopener noreferrer">ISC2 · Dec 4, 2025 ↗</a></div></div><div class="preflightTwinInvestor reveal" style="background:rgba(6,32,22,0.75);border:1px solid rgba(16,185,129,0.4);border-radius:12px;padding:16px;margin-top:14px"><span style="font-size:11px;font-weight:700;color:#34D399;letter-spacing:.08em;text-transform:uppercase">AI LABS &amp; PHYSICAL AI EVALUATION LAYER</span><h3 style="margin:6px 0;font-size:17px;font-weight:700;color:#F8FAFC">Pre-Flight Twin™ · Domain-Expert Safety Rubrics &amp; Stress-Test Environments</h3><p style="margin:0;font-size:13.5px;color:#CBD5E1;line-height:1.55">DAEMON ACE is being developed to connect infrastructure preflight evidence with domain-specific evaluation for AI labs, cloud/GPU engineering teams and robotics groups. The roadmap includes isolated cloud fault-injection twins and ROS 2 physics-simulator integrations, with scored rubrics, traceable findings, proposed remediation and required human sign-off. Current checks are narrower; advanced physics simulation, GPU chaos orchestration and cryptographic receipt signing are not yet generally available.</p><p style="margin:9px 0 0;font-size:11px;color:#9FB6AA">Investor thesis: an evaluation and governance layer spanning AI infrastructure reliability and Physical AI readiness—not a claim of validated market share or deployed simulator capability.</p><a href="https://github.com/lebarionellison/daemon-engineering-solutions/blob/feat/unified-virtualization-simulation-gate/rubric-v1-robotics-cloud.json" target="_blank" rel="noopener noreferrer" style="display:inline-block;margin-top:10px;color:#6EE7B7;font-size:12px;font-weight:700">Inspect the sample Robotics + Cloud evaluation rubric ↗</a></div><div class="businessModel reveal"><div class="modelStep"><b class="modelEyebrow">LAND · EARLY DESIGN PARTNER</b><strong class="modelHeadline">14-day complimentary diagnostic</strong><p>Limited cohort of up to three organizations. Written scope, authorized read-only access, evidence-based findings and optional separately authorized testimonial rights.</p></div><div class="modelStep"><b class="modelEyebrow">EXPAND · RECURRING PLATFORM</b><strong class="modelHeadline">Annual SaaS contracts</strong><p>Proposed expansion model priced against managed cluster or environment scope, workload complexity and selected capabilities. Terms are subject to pilot validation.</p></div></div><div class="investorCta"><button class="btn primary" type="button" data-open-investor>Request Executive Deck &amp; Architecture Brief ↗</button><button class="btn secondary" type="button" data-open-intake>Discuss a design partnership ↗</button></div></div></section>
 
-<section class="alt" id="founder"><div class="wrap"><div class="founderCard reveal"><div class="founderAvatar" aria-label="Founder initials">LE</div><div><div class="kicker">FOUNDER &amp; ENGINEERING LEAD</div><h2>Lebarion J. Ellison</h2><p>Infrastructure and platform engineering practitioner focused on cloud architecture, Kubernetes, CI/CD, SRE, security controls and FinOps. DAEMON ACE grows from a hands-on view of the operational friction teams face when building, securing and running modern infrastructure.</p><a class="founderLink" href="https://www.linkedin.com/in/lebarionellison" target="_blank" rel="noopener noreferrer">View LinkedIn profile ↗</a></div></div></div></section>
+<section class="alt" id="founder"><div class="wrap"><div class="founderCard"><div class="founderAvatar" aria-label="Founder initials">LE</div><div><div class="kicker">FOUNDER &amp; ENGINEERING LEAD</div><h2>Lebarion J. Ellison</h2><p>Infrastructure and platform engineering practitioner focused on cloud architecture, Kubernetes, CI/CD, SRE, security controls and FinOps. DAEMON ACE grows from a hands-on view of the operational friction teams face when building, securing and running modern infrastructure.</p><a class="founderLink" href="https://www.linkedin.com/in/lebarionellison" target="_blank" rel="noopener noreferrer">View LinkedIn profile ↗</a></div></div></div></section>
 
 <section class="cta" id="contact"><div class="wrap"><div class="ctaBox reveal"><div><div class="kicker">DAEMON ENGINEERING SOLUTIONS</div><h2>YOUR MODEL. YOUR HARDWARE. ONE DELIVERY PATH.</h2><p>We are developing DAEMON ACE around a simple promise: make complex infrastructure work easier to direct, safer to validate and clearer to approve. Talk with us about your delivery workflow, Kubernetes environment, AI/HPC workloads, regulated SaaS controls or cloud-cost challenge. Enterprise assessments, managed implementations and recurring engineering engagements are available by scoped proposal.</p></div><div class="ctaButtons"><button class="btn primary" type="button" data-open-intake>Discuss an ACE Pilot ↗</button><button class="btn secondary" type="button" data-open-intake>Talk to Engineering ↗</button><a class="btn secondary" href="mailto:daemonengineeringsolutions@gmail.com">Email Daemon Engineering ↗</a><a class="founderLink" href="mailto:daemonengineeringsolutions@gmail.com">daemonengineeringsolutions@gmail.com</a></div></div></div></section>
 
-<section class="daemonOsSection" id="daemon-os" aria-labelledby="daemon-os-title">
- <div class="wrap">
-  <div class="daemonOsHeader">
-   <div><div class="kicker">A SEPARATE PRODUCT · SHARED ENGINEERING FOUNDATION</div><h2 id="daemon-os-title">DAEMON OS. OPERATE THE INFRASTRUCTURE THAT RUNS AI.</h2><p>DAEMON OS is the infrastructure operations and intelligence product. It is distinct from DAEMON ACE: OS focuses on operating the compute, cloud, datacenter and platform estate; ACE focuses on building, validating and shipping AI and robotics workloads on top of it.</p></div>
-   <div class="daemonOsMark"><span>DAEMON</span><strong>OS</strong><small>INFRASTRUCTURE OPERATIONS</small></div>
-  </div>
-  <div class="daemonOsGrid">
-   <article class="daemonOsCard"><small>01 · GPU FLEET OPERATIONS</small><h3>Own the AI compute layer</h3><p>GPU fleet health, utilization and capacity; NVIDIA GPU Operator, MIG and DCGM integration; GPU-aware scheduling; multi-tenant GPU delivery and capacity optimization.</p><b>GPU FLEETS · MIG · DCGM · GPU SCHEDULING</b></article>
-   <article class="daemonOsCard"><small>02 · TRAINING &amp; INFERENCE</small><h3>Operate AI platforms at scale</h3><p>Infrastructure for model training and inference on Kubernetes, including KServe, vLLM, NVIDIA Triton and workload-serving operations.</p><b>TRAINING · MODEL SERVING · INFERENCE</b></article>
-   <article class="daemonOsCard"><small>03 · CLOUD &amp; DEVOPS</small><h3>Automate cloud foundations</h3><p>AWS and Azure infrastructure, Terraform IaC, Ansible configuration management, Jenkins CI/CD, Docker, Kubernetes, identity, security and deployment automation.</p><b>AWS · AZURE · TERRAFORM · ANSIBLE · JENKINS</b></article>
-   <article class="daemonOsCard"><small>04 · KUBERNETES FLEET ENGINEERING</small><h3>Govern clusters and tenants</h3><p>Bare-metal Kubernetes with Talos and Cluster API; Calico and Cilium networking; CSI storage; RBAC and OPA policy; vCluster virtual Kubernetes clusters inside an underlying physical or cloud cluster.</p><b>MULTI-CLUSTER · CNI · CSI · RBAC · OPA · vCLUSTER</b></article>
-   <article class="daemonOsCard"><small>05 · DATACENTER MODERNIZATION</small><h3>Modernize enterprise infrastructure</h3><p>VMware Cloud Foundation, NSX-T and HCX; Nutanix AHV and NKP; workload migration, lifecycle management, load balancing, deep network troubleshooting and storage-fabric engineering.</p><b>VCF · NSX-T · HCX · NUTANIX · NKP</b></article>
-   <article class="daemonOsCard"><small>06 · SRE &amp; RELIABILITY</small><h3>Engineer measurable service health</h3><p>Define SLOs aligned to contractual SLAs, build observability across metrics, logs and traces, improve capacity and resilience, and coordinate major incident response through root-cause analysis and remediation.</p><b>SLOs · SLAs · OBSERVABILITY · INCIDENT RESPONSE</b></article>
-  </div>
-  <div class="daemonOsFooter"><div><b>THE PRODUCT BOUNDARY</b><p>DAEMON OS operates and optimizes infrastructure. DAEMON ACE engineers and delivers the AI and robotics workloads that run on that infrastructure. The products can be purchased independently or combined in a single scoped engagement.</p></div><div><b>ENGINEERING SERVICES AVAILABLE</b><p>Architecture, migration, implementation, troubleshooting, automation, validation and operational handoff are available as separately scoped customer contracts.</p><a href="infrastructure-services.html">Explore infrastructure engineering services ↗</a></div></div>
-  <div class="daemonOsMaturity">Product direction and contracting scope are published here; individual integrations and automation capabilities are delivered according to the agreed project scope and validated maturity. No claim of universal live fleet control or automated remediation is implied.</div>
- </div>
-</section>
+
 
 <section id="control-plane" style="max-width:1040px;margin:28px auto;padding:0 20px;font-family:Inter,system-ui,sans-serif;color:#F8FAFC">
   <div style="margin-bottom:16px"><span style="font-size:11px;font-weight:700;letter-spacing:.08em;color:#38BDF8;text-transform:uppercase">DAEMON ACE · TECHNICAL APPENDIX</span><h2 style="margin:4px 0 6px;font-size:26px;font-weight:800">INTEGRATION STATUS &amp; ENGINEERING ROADMAP.</h2><p style="margin:0;font-size:14px;color:#94A3B8">The browser X-Ray is available today. GitHub/GitLab checks, Kubernetes admission enforcement, CLI, cloud drift scans and collaboration alerts are staged roadmap work—not currently activated product surfaces. Review the <a href="#ace-gateways" style="color:#38BDF8">three-checkpoint architecture ↓</a>.</p></div>
@@ -1406,7 +1437,7 @@ spec:
  const main=document.querySelector("main");
  const hero=main?.querySelector(".cinematicHero");
  if(!main||!hero)return;
- const ids=["explore","home","engineering-workbench","release-journey","robotics-roadmap","secure-ai","romi","engines","team","proof","ace-gateways","daemon-os","design-partners","enterprise","investors","founder","contact"];
+ const ids=["explore","home","engineering-workbench","release-journey","robotics-roadmap","secure-ai","romi","engines","team","proof","ace-gateways","design-partners","enterprise","investors","founder","contact"];
  const nodes=ids.map(id=>document.getElementById(id)).filter(Boolean);
  if(nodes.length<12)return;
  // Keep the product boundary, the complete ACE journey and founder profile in the primary page flow.
