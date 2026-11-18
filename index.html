@@ -829,6 +829,42 @@ main>.terminalPanel{display:none!important}
  .engineeringTour>section{padding-block:18px!important}
 }
 
+
+/* Compact DAEMON ACE Build Twin: customer-visible order and release journey */
+.aceBuildTracker{margin:14px 0 4px;padding:16px;border:1px solid #4ca9d588;border-radius:11px;background:linear-gradient(120deg,#081b2e,#102b43 55%,#0a1b2c);box-shadow:0 14px 32px #020b1744}
+.trackerIntro{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;margin-bottom:14px}
+.trackerKicker{font-size:8px;font-weight:950;letter-spacing:1.25px;color:#70eaff}
+.trackerIntro h3{font-size:clamp(17px,2.1vw,24px);line-height:1.05;letter-spacing:-.5px;color:#fff;margin:5px 0 5px}
+.trackerIntro p{font-size:10px;line-height:1.5;color:#c2d5e7;max-width:680px;margin:0}
+.trackerOrder{flex:none;min-width:150px;padding:9px 11px;border:1px solid #6ce7ff55;border-radius:7px;background:#071626}
+.trackerOrder small,.trackerOrder b,.trackerOrder span{display:block}
+.trackerOrder small{font-size:7px;letter-spacing:1px;color:#70eaff;font-weight:900}
+.trackerOrder b{font-size:10px;color:#fff;margin:4px 0}
+.trackerOrder span{font-size:7px;color:#a7bed2;letter-spacing:.7px}
+.trackerStages{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:7px;position:relative}
+.trackerStage{position:relative;display:flex;flex-direction:column;gap:5px;padding:10px 9px;border:1px solid #38536d;border-radius:7px;background:#0b2034;min-width:0}
+.trackerStage:not(:last-child):after{content:"";position:absolute;right:-8px;top:18px;width:8px;height:1px;background:#4d8eae;z-index:1}
+.trackerStage i{display:grid;place-items:center;width:21px;height:21px;border-radius:50%;font-size:9px;font-style:normal;font-weight:950;color:#8faac0;border:1px solid #58718a}
+.trackerStage b{font-size:8px;color:#e8f4ff;letter-spacing:.4px}
+.trackerStage span{font-size:8px;line-height:1.35;color:#9fb5c9}
+.trackerStage.complete{border-color:#35c99a88;background:#0c2a31}
+.trackerStage.complete i{background:#0d8e6c;color:white;border-color:#3de0b1}
+.trackerStage.active{border-color:#52dfff;background:linear-gradient(145deg,#123e5d,#10263d);box-shadow:inset 0 0 0 1px #52dfff22}
+.trackerStage.active i{color:#071523;background:#65eaff;border-color:#65eaff}
+.trackerBottom{display:grid;grid-template-columns:1.1fr 1fr;gap:9px;margin-top:10px}
+.trackerHeal,.trackerAlerts{padding:11px 12px;border-radius:7px;background:#071827;border:1px solid #35536b}
+.trackerHeal{display:flex;gap:9px;align-items:flex-start}
+.trackerPulse{width:8px;height:8px;flex:none;border-radius:50%;margin-top:4px;background:#62eacb;box-shadow:0 0 0 4px #62eacb20}
+.trackerHeal b,.trackerAlerts>b{font-size:8px;letter-spacing:.7px;color:#78eaff}
+.trackerHeal p{font-size:9px;line-height:1.5;color:#c1d2e1;margin:4px 0 0}
+.trackerAlerts>div{display:flex;align-items:flex-start;gap:7px;margin-top:7px}
+.trackerAlerts>div>i{font-size:8px;font-style:normal;color:#62eacb}
+.trackerAlerts strong,.trackerAlerts small{display:block}
+.trackerAlerts strong{font-size:8px;color:#e7f4ff}
+.trackerAlerts small{font-size:8px;color:#9fb5c9;margin-top:2px}
+.trackerNote{font-size:7px;line-height:1.4;color:#8199ad;margin-top:9px;letter-spacing:.2px}
+@media(max-width:650px){.trackerIntro{flex-direction:column}.trackerOrder{min-width:0;width:100%}.trackerStages{grid-template-columns:1fr;gap:5px}.trackerStage{display:grid;grid-template-columns:25px 1fr;align-items:center;gap:3px 8px;padding:8px}.trackerStage i{grid-row:span 2}.trackerStage:not(:last-child):after{display:none}.trackerStage span{grid-column:2}.trackerBottom{grid-template-columns:1fr}.aceBuildTracker{padding:12px}}
+
 </style>
 </head>
 <body>
@@ -1084,6 +1120,24 @@ spec:
    <a class="shelfCard" href="#secure-ai"><span class="shelfNo">04 / AI GOVERNANCE</span><b>AI SECURITY &amp; POLICY CONTROLS</b><p>Identity, model provenance, workload isolation, policy boundaries, audit evidence and human approval.</p><small>GOVERN AN AI SYSTEM ↗</small></a>
    <a class="shelfCard" href="#preflight"><span class="shelfNo">05 / INFRASTRUCTURE</span><b>KUBERNETES, GPU &amp; CLOUD</b><p>Workload configuration, GPU-aware scheduling, Kubernetes validation, CI/CD hardening and cost review.</p><small>ENGINEER THE COMPUTE STACK ↗</small></a>
    <a class="shelfCard shelfCustom" href="#custom-build" id="custom-build"><span class="shelfNo">06 / CUSTOM ENGINEERING</span><b>COMBINE. CUSTOMIZE. SHIP.</b><p>Bring your model, robot, cluster or product requirement. Daemon scopes the build, assembles the toolchain and defines acceptance gates with your team.</p><small>CONFIGURE A CUSTOM BUILD ↗</small></a>
+  </div>
+  <div class="aceBuildTracker" aria-labelledby="ace-tracker-title">
+   <div class="trackerIntro">
+    <div><span class="trackerKicker">DAEMON ACE · CUSTOMER BUILD EXPERIENCE</span><h3 id="ace-tracker-title">YOUR BUILD. VISIBLE FROM START TO SHIPMENT.</h3><p>A customer-facing Build Twin gives your team one place to follow the engineered release—from intake and pipeline construction through validation and shipment.</p></div>
+    <div class="trackerOrder"><small>BUILD TWIN</small><b>ACE / BUILD-TRACKER</b><span>ILLUSTRATIVE CUSTOMER VIEW</span></div>
+   </div>
+   <div class="trackerStages" aria-label="Illustrative build stages">
+    <div class="trackerStage complete"><i>✓</i><b>01 · INTAKE</b><span>Requirements received</span></div>
+    <div class="trackerStage active"><i>02</i><b>02 · BUILDING</b><span>AI pipeline assembling</span></div>
+    <div class="trackerStage"><i>03</i><b>03 · VALIDATING</b><span>Tests and release gates</span></div>
+    <div class="trackerStage"><i>04</i><b>04 · READY</b><span>Customer approval</span></div>
+    <div class="trackerStage"><i>05</i><b>05 · SHIPPED</b><span>Release handoff</span></div>
+   </div>
+   <div class="trackerBottom">
+    <div class="trackerHeal"><span class="trackerPulse"></span><div><b>SELF-HEALING PIPELINE INTELLIGENCE</b><p>Detect a known build failure → attempt an approved recovery → rerun validation → notify the engineer if the issue persists. Recovery actions remain policy-controlled.</p></div></div>
+    <div class="trackerAlerts"><b>BUILD STATUS &amp; ALERTS</b><div><i>●</i><span><strong>Build started</strong><small>Notify when pipeline assembly begins</small></span></div><div><i>●</i><span><strong>Validation complete</strong><small>Share test results and release evidence</small></span></div><div><i>●</i><span><strong>Ready to ship / Shipped</strong><small>Send customer approval and delivery updates</small></span></div></div>
+   </div>
+   <div class="trackerNote">CONCEPT PREVIEW · Status stages, self-healing actions and customer notifications are part of the proposed DAEMON ACE delivery experience; live job synchronization and notification channels require implementation and customer integration.</div>
   </div>
   <div class="aisleFooter"><div><b>ONE DELIVERY OWNER. ONE CONNECTED ENGINEERING PATH.</b><span>Daemon selects, integrates and validates the toolchain for the agreed target—rather than sending customers to assemble disconnected products themselves.</span></div><button class="aisleConfigure" type="button" data-open-intake>CONFIGURE YOUR BUILD ↗</button></div>
  </div>
