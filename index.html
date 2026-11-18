@@ -898,6 +898,42 @@ main>.terminalPanel{display:none!important}
 @media(max-width:760px){.menuGrid{grid-template-columns:repeat(2,minmax(0,1fr))}.menuHeading{flex-direction:column}.menuExtras{grid-template-columns:1fr}.aceAfterOrder summary{align-items:flex-start;flex-direction:column}}
 @media(max-width:520px){.menuGrid{grid-template-columns:1fr}.aceBuildMenu{padding:12px}.menuField select{font-size:11px}}
 
+
+/* Distinctive Daemon Engineering visual identity: luminous blueprint + engineered product surfaces */
+:root{--daemon-cyan:#55e6ff;--daemon-blue:#238bff;--daemon-violet:#9274ff;--daemon-ink:#050a16}
+body{background:#040916!important;background-image:radial-gradient(ellipse at 8% 18%,rgba(31,120,220,.16),transparent 32%),radial-gradient(ellipse at 91% 36%,rgba(105,66,220,.13),transparent 31%),linear-gradient(180deg,#050a16 0%,#08172a 42%,#050a16 100%)!important}
+main{background:transparent!important}
+.engineeringTour>section{position:relative;isolation:isolate}
+.engineeringTour>section:nth-of-type(odd){background:linear-gradient(110deg,rgba(8,24,44,.98),rgba(11,31,56,.94) 52%,rgba(20,24,57,.92))!important}
+.engineeringTour>section:nth-of-type(even){background:linear-gradient(110deg,rgba(12,25,46,.97),rgba(7,19,37,.96) 55%,rgba(13,28,52,.96))!important}
+.engineeringTour>section:before{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;opacity:.18;background-image:linear-gradient(rgba(96,190,255,.15) 1px,transparent 1px),linear-gradient(90deg,rgba(96,190,255,.15) 1px,transparent 1px);background-size:42px 42px;mask-image:linear-gradient(90deg,transparent,#000 20%,#000 80%,transparent)}
+.productAisle{background:radial-gradient(ellipse at 15% 0%,rgba(32,148,255,.22),transparent 42%),radial-gradient(ellipse at 90% 100%,rgba(131,84,255,.18),transparent 40%),linear-gradient(115deg,#0b2542,#102e50 52%,#171d43)!important;border-block:1px solid #59dfff88!important;box-shadow:inset 0 1px #b7f4ff22,inset 0 -1px #b7f4ff22}
+.aisleStamp{background:linear-gradient(145deg,#1678b7,#254e9c 58%,#5b3ca2)!important;border-color:#85eaff!important;box-shadow:0 0 32px #218dff33}
+.shelfCard{background:linear-gradient(145deg,#12395b,#0b2038 62%,#171f43)!important;border-color:#4c8fba!important;box-shadow:inset 0 1px #b8eaff12,0 10px 22px #02091655}
+.shelfCard:nth-child(3n+2){background:linear-gradient(145deg,#173b58,#10283e 60%,#203052)!important}
+.shelfCard:nth-child(3n){background:linear-gradient(145deg,#26345f,#142644 65%,#0e2d48)!important}
+.shelfCard:hover{border-color:#73efff!important;box-shadow:0 0 0 1px #5ce5ff55,0 15px 32px #02091699,0 0 26px #168eff22!important}
+.aceBuildMenu{background:radial-gradient(ellipse at 100% 0%,#2356a055,transparent 42%),linear-gradient(125deg,#0b1d35,#142c4d 55%,#241d4b)!important;border-color:#69dcff!important;box-shadow:0 18px 45px #02091688,inset 0 1px #d2f7ff22}
+.menuField{background:linear-gradient(145deg,#0a1b30,#112b47)!important;border-color:#4e7599!important}
+.menuField select{background:#102d4c!important;border-color:#5d8ab2!important}
+.menuSummary{background:linear-gradient(135deg,#0c2844,#152e51)!important}
+.daemonDifference{display:grid;grid-template-columns:1.05fr 1fr;gap:16px;align-items:stretch;margin:14px 0;padding:16px;border:1px solid #65dfff88;border-radius:11px;background:radial-gradient(ellipse at 0% 0%,#1989d344,transparent 55%),linear-gradient(115deg,#08182b,#112d4a 58%,#251e4c);box-shadow:0 16px 38px #02091677,inset 0 1px #c5f4ff22}
+.differenceLead>span{font-size:8px;letter-spacing:1.4px;font-weight:950;color:#72edff}
+.differenceLead h3{font-size:clamp(17px,2.2vw,26px);line-height:1.04;letter-spacing:-.7px;color:#fff;margin:7px 0}
+.differenceLead p{font-size:10px;line-height:1.6;color:#d0e3f5;margin:0;max-width:620px}
+.differencePillars{display:grid;grid-template-columns:1fr;gap:7px}
+.differencePillars>div{padding:9px 11px;border:1px solid #5484a8;border-radius:7px;background:linear-gradient(100deg,#102b45,#101f39)}
+.differencePillars b,.differencePillars span{display:block}
+.differencePillars b{font-size:8px;letter-spacing:.8px;color:#79eaff;margin-bottom:3px}
+.differencePillars span{font-size:9px;line-height:1.45;color:#d5e5f2}
+.aisleSearch{background:linear-gradient(90deg,#06172a,#102b47)!important;border-color:#5adfff99!important;box-shadow:0 8px 24px #02091655}
+.aisleSearch span{color:#76ecff!important}
+.productSolutionBand{background:linear-gradient(100deg,#123b5e,#1b2c50 65%,#25214a)!important;border-color:#5bbfe588!important}
+#engineering-workbench{background:radial-gradient(ellipse at 80% 0%,#164b7755,transparent 48%),linear-gradient(110deg,#07182a,#0c203b)!important}
+#founder{background:radial-gradient(ellipse at 10% 50%,#1d65a755,transparent 55%),linear-gradient(110deg,#102d4b,#1c2850)!important}
+#contact{background:radial-gradient(ellipse at 85% 0%,#5438a744,transparent 45%),linear-gradient(110deg,#071a30,#101d3a)!important}
+@media(max-width:760px){.daemonDifference{grid-template-columns:1fr;gap:11px}}
+
 </style>
 </head>
 <body>
@@ -1145,6 +1181,14 @@ spec:
    <div><span class="discoveryEyebrow">DAEMON ACE PRODUCT CATALOG · CHOOSE A BUILD PATH</span><h2 id="discovery-title">FIND THE SYSTEM. CONFIGURE THE BUILD. SHIP WITH DAEMON.</h2><p>One engineering source for autonomous AI, robotics, governance and infrastructure delivery. Select a ready-to-scope build path or combine capabilities into one engineered release.</p></div>
    <div class="aisleStamp"><b>DAEMON ACE</b><span>BUILD → VALIDATE → SHIP</span></div>
   </div>
+  <div class="daemonDifference" aria-label="Why build with Daemon">
+   <div class="differenceLead"><span>NOT A SOFTWARE CATALOG. NOT A RESELLER.</span><h3>WE ENGINEER THE SYSTEM AROUND YOUR MISSION.</h3><p>Teams bring the problem, research objective or product idea. Daemon architects the custom AI and robotics stack, builds the pipeline, connects the compute and control layers, validates the agreed requirements and prepares the release.</p></div>
+   <div class="differencePillars">
+    <div><b>01 / YOUR IP</b><span>Your models, data, workflows and product requirements stay at the center of the design.</span></div>
+    <div><b>02 / OUR ENGINEERING</b><span>Custom architecture, self-healing pipeline design, AI governance and integration—not a bundle of off-the-shelf licenses.</span></div>
+    <div><b>03 / PROOF BEFORE SHIP</b><span>Simulation, tests, policy gates, release evidence and an agreed deployment handoff.</span></div>
+   </div>
+  </div>
   <div class="aisleSearch"><span>PRODUCT FINDER</span><div class="aisleSearchPrompt">What do you need to build or deploy?</div><a href="#custom-build">CUSTOMIZE A BUILD ↓</a></div>
   <div class="productShelf">
    <a class="shelfCard shelfFeatured" href="#engines"><span class="shelfNo">01 / AI ENGINEERING</span><b>AI PIPELINES &amp; MODEL DELIVERY</b><p>Model intake, pipeline assembly, evaluation, packaging, deployment gates and release evidence.</p><small>BUILD AN AI DELIVERY PIPELINE ↗</small></a>
@@ -1189,8 +1233,6 @@ spec:
   </div>
   </details>
   <div class="aisleFooter"><div><b>ONE DELIVERY OWNER. ONE CONNECTED ENGINEERING PATH.</b><span>Daemon selects, integrates and validates the toolchain for the agreed target—rather than sending customers to assemble disconnected products themselves.</span></div><a class="aisleConfigure" href="#build-menu">CUSTOMIZE YOUR BUILD ↑</a></div>
- </div>
-</section><div><b>ONE DELIVERY OWNER. ONE CONNECTED ENGINEERING PATH.</b><span>Daemon selects, integrates and validates the toolchain for the agreed target—rather than sending customers to assemble disconnected products themselves.</span></div><button class="aisleConfigure" type="button" data-open-intake>CONFIGURE YOUR BUILD ↗</button></div>
  </div>
 </section>
 
