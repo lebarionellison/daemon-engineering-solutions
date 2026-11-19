@@ -1504,43 +1504,7 @@ const roboticsSample = "# Sample ROS2 Autonomous Rover / Manipulator Deployment 
 document.getElementById("loadRoboticsSample").addEventListener("click",()=>{document.getElementById("yamlInput").value=roboticsSample;document.getElementById("aceGoal").value="Review ROS2 actuator velocity, DDS discovery exposure, image pinning and privileged edge runtime settings.";});
 
 document.getElementById("clearYaml").addEventListener("click",()=>{document.getElementById("yamlInput").value="";document.getElementById("preflightOutput").classList.remove("show");});
-document.getElementById("runPreflight").addEventListener("click",async()=>{
-  const raw=document.getElementById("yamlInput").value;
-  const goal=document.getElementById("aceGoal").value.trim();
-  if(!raw.trim()){alert("Paste a YAML snippet first.");return;}
-  if(!goal){alert("Describe the engineering goal first.");return;}
-  const button=document.getElementById("runPreflight");
-  button.disabled=true;button.textContent="Analyzing…";
-  const esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
-  try{
-    const response=await fetch("/api/preflight",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({manifest:raw,goal})});
-    const data=await response.json().catch(()=>({}));
-    if(!response.ok)throw new Error(data.error||"Preflight request failed.");
-    const receipt=data.receipt,analysis=receipt.analysis||{},findings=analysis.findings||[];
-    document.getElementById("preflightScore").textContent=(analysis.score??"—")+"/100";
-    document.getElementById("preflightVerdict").textContent=findings.some(x=>x.severity==="critical"||x.severity==="high")?"Critical / high-priority items found":findings.some(x=>x.severity==="medium")?"Review recommended":"No listed patterns detected";
-    document.getElementById("preflightSummary").textContent=findings.length+" server-side heuristic finding(s). "+(receipt.ai?.status==="proposal_generated"?"AI configuration proposal prepared; full file requires checkout.":"AI proposal unavailable; operator configuration or provider availability needs attention.");
-    document.getElementById("preflightFindings").innerHTML=findings.map(x=>'<div class="finding '+esc(x.severity)+'"><b>'+esc(String(x.severity).toUpperCase()+" · "+x.title)+'</b><br>'+esc(x.recommendation)+'</div>').join("");
-    document.getElementById("preflightReceipt").textContent=JSON.stringify({receipt_id:data.receipt_id,goal:receipt.goal,analysis:receipt.analysis,ai:receipt.ai,limitations:receipt.limitations},null,2);
-    document.getElementById("preflightOutput").classList.add("show");
-    let pay=document.getElementById("aceCheckoutButton");
-    if(!pay){pay=document.createElement("button");pay.id="aceCheckoutButton";pay.type="button";pay.className="approveBtn";document.getElementById("preflightOutput").appendChild(pay);}
-    pay.textContent=data.checkout_available?"Unlock complete proposed configuration · $9":"AI configuration unavailable — no checkout";
-    pay.disabled=!data.checkout_available;
-    pay.onclick=async()=>{
-      pay.disabled=true;pay.textContent="Creating secure checkout…";
-      try{
-        const checkout=await fetch("/api/checkout",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({receipt_id:data.receipt_id})});
-        const result=await checkout.json().catch(()=>({}));
-        if(!checkout.ok||!result.checkout_url)throw new Error(result.error||"Checkout could not be created.");
-        window.location.assign(result.checkout_url);
-      }catch(error){pay.disabled=false;pay.textContent="Retry $9 checkout";document.getElementById("preflightSummary").textContent=error.message;}
-    };
-  }catch(error){
-    document.getElementById("preflightOutput").classList.add("show");
-    document.getElementById("preflightSummary").textContent=error.message;
-  }finally{button.disabled=false;button.textContent="Run free YAML X-Ray";}
-});
+
 const acePurchase=new URLSearchParams(location.search).get("ace_purchase");
 if(acePurchase){
   (async()=>{
@@ -1566,24 +1530,7 @@ if(acePurchase){
 }
 
 
-document.getElementById("bottomExecutiveBriefForm").addEventListener("submit",async e=>{
-  e.preventDefault();
-  const form=e.currentTarget,button=document.getElementById("bottomBriefSubmit"),status=document.getElementById("bottomBriefStatus");
-  const data=new FormData(form);
-  const payload={name:String(data.get("name")||"").trim(),email:String(data.get("email")||"").trim(),requestType:"Executive Brief + Capability Statement",company:"Executive brief request",pain:"Please send the DAEMON ACE Executive Brief and Capability Statement."};
-  button.disabled=true;button.textContent="Sending…";status.textContent="";
-  try{
-    const response=await fetch("/api/leads",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(payload)});
-    const result=await response.json().catch(()=>({}));
-    if(!response.ok)throw new Error(result.error||"Unable to save your request.");
-    if(result.stored){
-      const emailed=await sendLeadToWeb3Forms(payload,"DAEMON ACE Executive Brief + Capability Statement Request");
-      status.textContent=emailed?"Request received. We will follow up with the requested materials.":"Your request was saved, but the email notification did not complete. Please email daemonengineeringsolutions@gmail.com.";
-    }else{status.textContent="Request received. Thank you."}
-    form.reset();
-  }catch(error){status.textContent=error.message+" Please try again."}
-  finally{button.disabled=false;button.textContent="Continue →"}
-});
+
 
 // DAEMON ACE Robotics & Edge Gatekeeper — public heuristic pre-flight + exact-byte SHA-256 receipt.
 (()=>{
