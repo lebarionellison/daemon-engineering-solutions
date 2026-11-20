@@ -235,19 +235,29 @@ def main() -> int:
     parser.add_argument("--destination", "--outbound-telemetry-ip", dest="destination", action="append", default=[], help="Outbound host, IP or HTTP(S) webhook/tool URL.")
     parser.add_argument("--allow", "--approved-destination", dest="allow", action="append", default=[], help="Approved exact hostname or CIDR; repeat as needed.")
     parser.add_argument("--event", choices=["none", "unauthorized-egress", "config-drift", "compromised-container", "prompt-injection", "shadow-agent", "sensitive-telemetry"], default="none")
-    parser.add_argument("--approved-cidr", action="append", default=[], help="Approved destination IP/CIDR for policy generation; repeat as needed.")
+    parser.add_argument("--approved-cidr", action="append", default=[], help="Approved destination IP/CIDR from the reviewed Receipt of Safety; repeat as needed.")
+    parser.add_argument("--policy-receipt-sha256", help="Approved-destinations SHA-256 copied from the authenticated Receipt of Safety.")
+    parser.add_argument("--policy-receipt-count", type=int, help="Approved destination count recorded in the Receipt of Safety.")
     parser.add_argument("--namespace", default="default", help="Kubernetes namespace for generated NetworkPolicies.")
     parser.add_argument("--pod-label", action="append", default=[], help="Pod label selector key=value; repeat as needed.")
     parser.add_argument("--emit-k8s-policy", help="Write review-only Kubernetes default-deny plus allow-list NetworkPolicies.")
     parser.add_argument("--emit-edge-nftables", help="Write review-only ROS 2 edge nftables egress policy.")
     parser.add_argument("--emit-quarantine-policy", help="Write a review-only workload ingress+egress deny NetworkPolicy.")
-    parser.add_argument("--management-cidr", action="append", default=[], help="Management CIDR to preserve in generated edge policy; repeat as needed.")
     parser.add_argument("--baseline-artifact", help="Path to last-known-clean artifact (hash only; never deployed).")
     parser.add_argument("--observed-artifact", help="Path to currently observed artifact (hash only).")
     args = parser.parse_args()
 
     if args.emit_k8s_policy or args.emit_edge_nftables or args.emit_quarantine_policy:
         try:
+            if args.emit_k8s_policy or args.emit_edge_nftables:
+                approved = sorted(set(args.approved_cidr))
+                if not approved or not args.policy_receipt_sha256 or not re.fullmatch(r"[a-fA-F0-9]{64}", args.policy_receipt_sha256):
+                    raise ValueError("Egress policy generation requires --approved-cidr entries and the approved-destinations SHA-256 from the Receipt of Safety.")
+                if args.policy_receipt_count != len(approved):
+                    raise ValueError("Approved destination count does not match the Receipt of Safety.")
+                actual_digest = hashlib.sha256("\\n".join(approved).encode("utf-8")).hexdigest()
+                if actual_digest.lower() != args.policy_receipt_sha256.lower():
+                    raise ValueError("Approved destination list digest does not match the Receipt of Safety; refusing to generate policy.")
             selector = {}
             for pair in args.pod_label:
                 if "=" not in pair:
@@ -266,7 +276,7 @@ def main() -> int:
                 )
             if args.emit_edge_nftables:
                 Path(args.emit_edge_nftables).write_text(
-                    render_edge_nftables(args.approved_cidr, args.management_cidr),
+                    render_edge_nftables(args.approved_cidr),
                     encoding="utf-8"
                 )
         except (OSError, ValueError) as exc:
