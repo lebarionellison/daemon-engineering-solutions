@@ -95,7 +95,7 @@ python3 daemon_reflex_guard.py \
   --emit-edge-nftables daemon-ace-ros2-edge.nft
 ```
 
-The Kubernetes output contains a workload-scoped egress deny policy plus an additive approved-destination policy. DNS is explicitly limited to kube-dns pods in kube-system; validate labels and CNI behavior for the target cluster. The edge nftables output defaults the host output chain to drop and allows only listed IPv4/IPv6 destinations plus established/related and loopback traffic. Add every required management, DNS, NTP, OTA and ROS 2 destination before use. These commands generate files only; they do not apply them.
+The Kubernetes output contains a workload-scoped egress deny policy plus an additive approved-destination policy. DNS is explicitly limited to kube-dns pods in kube-system; validate labels and CNI behavior for the target cluster. The edge nftables output defaults the host output chain to drop and allows only listed IPv4/IPv6 destinations plus established/related and loopback traffic. Add every required management, DNS, NTP, OTA and ROS 2 destination before use. The egress policy generator refuses to emit Kubernetes or edge allow rules unless the canonical sorted CIDR list and count match the approved-destinations digest in the authenticated Receipt of Safety. These commands generate files only; they do not apply them.
 
 ## Checkpoint 3 — baseline artifact and recovery candidate
 
