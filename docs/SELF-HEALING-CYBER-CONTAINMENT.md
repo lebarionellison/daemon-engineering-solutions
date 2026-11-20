@@ -42,6 +42,23 @@ A detected secret must be removed from the artifact and rotated/revoked at its i
 
 **Receipt storage note:** the current Worker stores pre-flight receipts in the configured D1 `receipts` table. This workflow does not currently retrieve clean artifacts or receipts from Cloudflare KV.
 
+
+### 4. Agent tool egress and outbound webhook exfiltration
+
+Pre-flight now looks for tool/webhook endpoint declarations without an evident allowlist. Reflex Guard accepts a hostname, IP or HTTP(S) URL and evaluates its destination against exact host/CIDR entries using default-deny logic. URL user-info and ambiguous URL forms are rejected. This is a reference decision evaluator; it does not intercept an agent's HTTP request. Production protection requires an egress proxy, service-mesh policy or tool gateway that all agent traffic is forced through.
+
+### 5. Prompt injection in logs, tickets and retrieved issues
+
+The scanner and Worker flag a small set of suspicious instruction phrases, such as attempts to override prior instructions or disclose secrets. These are keyword heuristics and can miss paraphrases or produce false positives. They do not understand intent and do not prove an agent is resistant to prompt injection. The intended control is to treat logs, GitHub issues and retrieved documents as untrusted data, keep them outside privileged instruction channels, and validate every tool action against a separate policy.
+
+### 6. Shadow agents, lateral movement and ROS 2 boundaries
+
+Pre-flight screens for obvious cluster-admin and wildcard RBAC declarations, ServiceAccount token auto-mount, and ROS 2 security-disabled indicators. These checks do not enumerate effective Kubernetes permissions, discover unknown workloads, inspect adjacent namespaces, validate Redis authentication/TLS, or authorize DDS topics. Production controls require workload inventory, least-privilege RBAC, short-lived identities, namespace isolation, datastore TLS/authentication, and SROS2/DDS-Security policy enforcement.
+
+### 7. Observability and prompt-log data exposure
+
+Pre-flight flags explicit settings that appear to enable prompt, request-body, header or debug-payload capture. It does not connect to an observability vendor or inspect stored traces. A production telemetry adapter must redact secrets and personal data before export, restrict trace access, set retention limits, and verify the redaction path with synthetic test values. Receipts must not include the sensitive values themselves.
+
 ## Current implementation boundary
 
 Implemented in this repository:
