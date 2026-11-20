@@ -112,6 +112,25 @@ def render_kubernetes_policies(namespace: str, selector: dict[str, str],
     return "\n".join(lines) + "\n"
 
 
+def render_quarantine_policy(namespace: str, selector: dict[str, str]) -> str:
+    """Render an ingress+egress deny policy for one workload selector; never applies it."""
+    if not re.fullmatch(r"[a-z0-9]([-a-z0-9]*[a-z0-9])?", namespace):
+        raise ValueError("Namespace must be a valid lowercase Kubernetes DNS label.")
+    if not selector or any(not re.fullmatch(r"[A-Za-z0-9./_-]+", k) or
+                           not re.fullmatch(r"[A-Za-z0-9._-]+", v)
+                           for k, v in selector.items()):
+        raise ValueError("Provide at least one simple pod label selector (key=value).")
+    labels = "\\n".join(f"      {key}: {value}" for key, value in sorted(selector.items()))
+    return "\\n".join([
+        "apiVersion: networking.k8s.io/v1", "kind: NetworkPolicy",
+        "metadata:", "  name: daemon-ace-quarantine-deny-all",
+        f"  namespace: {namespace}", "spec:", "  podSelector:",
+        "    matchLabels:", labels, "  policyTypes:", "    - Ingress",
+        "    - Egress", "  ingress: []", "  egress: []",
+        "# Review selector and CNI behavior before applying. This file is not auto-applied."
+    ]) + "\\n"
+
+
 def render_edge_nftables(approved_cidrs: list[str], management_cidrs: list[str] | None = None) -> str:
     """Render a review-only nftables output-chain policy for ROS 2 edge hosts."""
     networks = _validated_networks(approved_cidrs)
@@ -221,6 +240,7 @@ def main() -> int:
     parser.add_argument("--pod-label", action="append", default=[], help="Pod label selector key=value; repeat as needed.")
     parser.add_argument("--emit-k8s-policy", help="Write review-only Kubernetes default-deny plus allow-list NetworkPolicies.")
     parser.add_argument("--emit-edge-nftables", help="Write review-only ROS 2 edge nftables egress policy.")
+    parser.add_argument("--emit-quarantine-policy", help="Write a review-only workload ingress+egress deny NetworkPolicy.")
     parser.add_argument("--management-cidr", action="append", default=[], help="Management CIDR to preserve in generated edge policy; repeat as needed.")
     parser.add_argument("--baseline-artifact", help="Path to last-known-clean artifact (hash only; never deployed).")
     parser.add_argument("--observed-artifact", help="Path to currently observed artifact (hash only).")
