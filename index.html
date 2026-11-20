@@ -1328,6 +1328,37 @@ body>header .navlinks a{font-weight:850!important;color:#e0edf9!important}
 body>header .navlinks a[href="#founder"]{color:#78efb7!important}
 @media(max-width:680px){#ace-cylinder-experience .ace-stage-head{align-items:flex-start}#ace-cylinder-experience .ace-stage-head h1{font-size:32px;line-height:1.02}#ace-cylinder-experience .ace-stage-head h1 span{font-size:14px;letter-spacing:1.2px}#ace-cylinder-experience .ace-stage-sub{font-size:11px;color:#e0edf9}#ace-cylinder-experience .ace-live-indicator{max-width:118px;white-space:normal;line-height:1.4}}
 </style>
+
+<style id="ace-final-dark-dropdown-refinement">
+/* Darker, higher-contrast product stage */
+html,body{background:#010309!important;background-image:radial-gradient(ellipse at 50% 42%,#071321 0%,#030812 42%,#010309 78%)!important}
+body:before{opacity:.11!important;background-image:linear-gradient(#39a9e90b 1px,transparent 1px),linear-gradient(90deg,#39a9e90b 1px,transparent 1px)!important}
+#daemon-command-bg{opacity:.07!important}
+#ace-cylinder-experience{background:linear-gradient(180deg,#02050b 0%,#030812 55%,#010309 100%)!important}
+.ace-stage-head h1{color:#fff!important;font-weight:1000!important;text-shadow:0 2px 24px #000!important}
+.ace-stage-head h1 span{color:#55efff!important;font-weight:1000!important}
+.ace-stage-sub{color:#c1d2e3!important}
+.ace-live-indicator{color:#bffaff!important;border-color:#42e8f477!important;background:#42e8f40c!important}
+.ace-live-indicator:before{background:#42e8f4!important;box-shadow:0 0 12px #42e8f4!important}
+.ace-inspector-wrap{align-items:center}
+.ace-inspector[hidden]{display:none!important}
+#ace-layer-placeholder{opacity:1!important;border-style:dashed!important;border-color:#28708d!important;background:linear-gradient(145deg,#07111df5,#02060df5)!important}
+#ace-layer-placeholder .ace-empty{padding:38px 28px}
+#ace-layer-placeholder .ace-empty b{font-size:12px;color:#63efff}
+#ace-layer-placeholder .ace-empty p{color:#d0deeb;line-height:1.7}
+#ace-layer-reopen{margin-top:14px;padding:10px 15px;border:1px solid #42e8f4aa;border-radius:7px;background:#0a2638;color:#e8fbff;font-weight:900;cursor:pointer}
+.ace-inspector{background:linear-gradient(145deg,#071321f8,#02060dfc)!important;border-color:#39cce899!important}
+.ace-inspector-content>p{color:#d2dfec!important}
+.ace-buyer-outcome{background:#071b17!important;border-color:#398c6a!important}
+.ace-buyer-outcome span{color:#e0f5ec!important}
+.ace-ring{background:linear-gradient(90deg,#030912 0%,#0b263b 20%,#071725 50%,#0b263b 80%,#030912 100%)!important;border-color:#3285a8!important}
+.ace-ring:hover,.ace-ring[aria-pressed="true"]{background:linear-gradient(90deg,#04101a,#10405b 25%,#0a263a 50%,#10405b 75%,#04101a)!important}
+.ace-ring:focus-visible,#ace-layer-close:focus-visible,#ace-layer-reopen:focus-visible{outline:2px solid #66f2ff;outline-offset:4px}
+.ace-inspector.ace-dropdown-open{animation:aceDropdownReveal .28s ease-out both}
+@keyframes aceDropdownReveal{from{opacity:0;transform:translateY(-12px) scale(.985)}to{opacity:1;transform:translateY(0) scale(1)}}
+@media(max-width:850px){#ace-cylinder-experience{background:#010309!important}.ace-inspector-wrap{min-height:220px}.ace-stage-sub{color:#d1deeb!important}}
+@media(prefers-reduced-motion:reduce){.ace-inspector.ace-dropdown-open{animation:none!important}}
+</style>
 </head>
 <body>
 <!-- DAEMON ACE command-center telemetry backdrop -->
@@ -1373,7 +1404,7 @@ body>header .navlinks a[href="#founder"]{color:#78efb7!important}
 <main id="ace-cylinder-experience" aria-label="DAEMON ACE interactive cylindrical architecture">
  <div class="ace-stage-head">
   <div><div class="ace-stage-kicker">DAEMON ENGINEERING SOLUTIONS / FLAGSHIP PRODUCT</div><h1>DAEMON ACE <span>INTELLIGENT ENGINEERING SYSTEM</span></h1><p class="ace-stage-sub">ENGINEER. VALIDATE. DEPLOY. Governed infrastructure for autonomous AI, advanced workloads and robotics—from design through controlled release.</p></div>
-  <div class="ace-live-indicator">FLAGSHIP SYSTEM · SIX INTEGRATED ENGINES</div>
+  <div class="ace-live-indicator">SELECT AN ENGINE TO EXPLORE · 06 MODULES</div>
  </div>
  <div class="ace-stage-main">
   <div class="ace-cylinder-zone">
@@ -1381,21 +1412,21 @@ body>header .navlinks a[href="#founder"]{color:#78efb7!important}
    <div class="ace-cylinder" role="group" aria-label="Six clickable DAEMON ACE architecture layers">
     <div class="ace-cylinder-core"></div><div class="ace-cylinder-cap top"></div><div class="ace-cylinder-cap bottom"></div>
     <div class="ace-cylinder-logo">DAEMON ACE<small>AUTONOMOUS ENGINEERING CORE</small></div>
-    <button class="ace-ring" data-layer="0" aria-pressed="true"><span class="ring-no">01</span><span class="ring-name">ARCHITECT</span><span class="ring-mark">›</span></button>
-    <button class="ace-ring" data-layer="1" aria-pressed="false"><span class="ring-no">02</span><span class="ring-name">BUILDER</span><span class="ring-mark">›</span></button>
-    <button class="ace-ring" data-layer="2" aria-pressed="false"><span class="ring-no">03</span><span class="ring-name">FLUX</span><span class="ring-mark">›</span></button>
-    <button class="ace-ring" data-layer="3" aria-pressed="false"><span class="ring-no">04</span><span class="ring-name">PRE-FLIGHT TWIN™</span><span class="ring-mark">›</span></button>
-    <button class="ace-ring" data-layer="4" aria-pressed="false"><span class="ring-no">05</span><span class="ring-name">GUARDIAN</span><span class="ring-mark">›</span></button>
-    <button class="ace-ring" data-layer="5" aria-pressed="false"><span class="ring-no">06</span><span class="ring-name">AEGIS</span><span class="ring-mark">›</span></button>
+    <button class="ace-ring" data-layer="0" aria-pressed="false" aria-expanded="false"><span class="ring-no">01</span><span class="ring-name">ARCHITECT</span><span class="ring-mark">›</span></button>
+    <button class="ace-ring" data-layer="1" aria-pressed="false" aria-expanded="false"><span class="ring-no">02</span><span class="ring-name">BUILDER</span><span class="ring-mark">›</span></button>
+    <button class="ace-ring" data-layer="2" aria-pressed="false" aria-expanded="false"><span class="ring-no">03</span><span class="ring-name">FLUX</span><span class="ring-mark">›</span></button>
+    <button class="ace-ring" data-layer="3" aria-pressed="false" aria-expanded="false"><span class="ring-no">04</span><span class="ring-name">PRE-FLIGHT TWIN™</span><span class="ring-mark">›</span></button>
+    <button class="ace-ring" data-layer="4" aria-pressed="false" aria-expanded="false"><span class="ring-no">05</span><span class="ring-name">GUARDIAN</span><span class="ring-mark">›</span></button>
+    <button class="ace-ring" data-layer="5" aria-pressed="false" aria-expanded="false"><span class="ring-no">06</span><span class="ring-name">AEGIS</span><span class="ring-mark">›</span></button>
    </div>
    <div class="ace-cylinder-label">INTEGRATED ENGINEERING · GOVERNED EXECUTION · CONTROLLED RELEASE</div>
   </div>
   <div class="ace-inspector-wrap">
-   <aside class="ace-inspector" id="ace-layer-inspector" aria-live="polite">
+   <aside class="ace-inspector" id="ace-layer-inspector" aria-live="polite" hidden>
     <div class="ace-inspector-top"><span class="ace-inspector-code" id="ace-layer-code">ENGINE 01 / ARCHITECT</span><button class="ace-inspector-close" id="ace-layer-close" type="button">Collapse ×</button></div>
     <div class="ace-inspector-content"><div class="ace-stage-kicker" id="ace-layer-kicker">PLAN BEFORE BUILD</div><h2 id="ace-layer-title">AI &amp; Workload Architecture</h2><p id="ace-layer-description">Map the workload, its owners, dependencies, target environment and operating constraints before engineering begins.</p><div class="ace-buyer-outcome"><b>SYSTEM OUTPUT</b><span id="ace-layer-outcome">Teams get a clear build plan, fewer assumptions and a shared definition of what is being delivered.</span></div><div class="ace-inspector-foot" id="ace-layer-tags"><span>WORKLOAD DISCOVERY</span><span>DEPLOYMENT BLUEPRINT</span></div></div>
    </aside>
-   <div class="ace-inspector closed" id="ace-layer-placeholder" hidden><div class="ace-empty"><b>ENGINE INSPECTION COLLAPSED</b><p>Select an illuminated engine band to inspect its function and system output.</p><button type="button" id="ace-layer-reopen">Inspect selected engine</button></div></div>
+   <div class="ace-inspector closed" id="ace-layer-placeholder"><div class="ace-empty"><b>ENGINE INSPECTION COLLAPSED</b><p>Select an illuminated engine band to inspect its function and system output.</p><button type="button" id="ace-layer-reopen">Open engine details ↓</button></div></div>
   </div>
  </div>
  <div class="ace-audience-bar"><span>ENGINEERED FOR</span><button data-audience="leaders">AUTONOMOUS AI</button><button data-audience="research">AI / HPC WORKLOADS</button><button data-audience="platform">KUBERNETES & CLOUD</button><button data-audience="security">SECURE EXECUTION</button><button data-audience="robotics">ROBOTICS & ROS 2</button><button data-audience="audit">EDGE DEPLOYMENT</button></div>
@@ -2405,11 +2436,11 @@ footer b{color:#172235!important}footer a{color:#1768a8!important}
  const modal=document.getElementById("ace-info-modal"),infoTitle=document.getElementById("ace-info-title"),infoKicker=document.getElementById("ace-info-kicker"),infoBody=document.getElementById("ace-info-body");
  const inspector=document.getElementById("ace-layer-inspector"),placeholder=document.getElementById("ace-layer-placeholder");
  let selected=0;
- function selectLayer(n){selected=n;const d=layers[n];document.querySelectorAll(".ace-ring").forEach(b=>b.setAttribute("aria-pressed",String(Number(b.dataset.layer)===n)));document.getElementById("ace-layer-code").textContent="ENGINE 0"+(n+1)+" / "+d.owner;document.getElementById("ace-layer-kicker").textContent=d.kicker;document.getElementById("ace-layer-title").textContent=d.name;document.getElementById("ace-layer-description").textContent=d.desc;document.getElementById("ace-layer-outcome").textContent=d.outcome;document.getElementById("ace-layer-tags").innerHTML=d.tags.map(t=>"<span>"+t+"</span>").join("");inspector.classList.remove("closed");inspector.hidden=false;placeholder.hidden=true;}
+ function selectLayer(n){selected=n;const d=layers[n];document.querySelectorAll(".ace-ring").forEach(b=>{const active=Number(b.dataset.layer)===n;b.setAttribute("aria-pressed",String(active));b.setAttribute("aria-expanded",String(active));});document.getElementById("ace-layer-code").textContent="ENGINE 0"+(n+1)+" / "+d.owner;document.getElementById("ace-layer-kicker").textContent=d.kicker;document.getElementById("ace-layer-title").textContent=d.name;document.getElementById("ace-layer-description").textContent=d.desc;document.getElementById("ace-layer-outcome").textContent=d.outcome;document.getElementById("ace-layer-tags").innerHTML=d.tags.map(t=>"<span>"+t+"</span>").join("");inspector.classList.remove("closed");inspector.hidden=false;placeholder.hidden=true;inspector.classList.add("ace-dropdown-open");}
  function openModal(title,kicker,body){infoTitle.textContent=title;infoKicker.textContent=kicker;infoBody.innerHTML=body;modal.classList.add("open");document.body.style.overflow="hidden";}
  function closeModal(){modal.classList.remove("open");document.body.style.overflow="";}
  document.querySelectorAll(".ace-ring").forEach(b=>b.addEventListener("click",()=>selectLayer(Number(b.dataset.layer))));
- document.getElementById("ace-layer-close").addEventListener("click",()=>{inspector.hidden=true;placeholder.hidden=false;});
+ document.getElementById("ace-layer-close").addEventListener("click",()=>{inspector.hidden=true;placeholder.hidden=false;document.querySelectorAll(".ace-ring").forEach(b=>{b.setAttribute("aria-pressed","false");b.setAttribute("aria-expanded","false");});});
  document.getElementById("ace-layer-reopen").addEventListener("click",()=>selectLayer(selected));
  document.querySelectorAll("[data-audience]").forEach(b=>b.addEventListener("click",()=>{const d=audiences[b.dataset.audience];openModal(d[0],"DAEMON ACE / PRODUCT DOMAIN","<p>"+d[1]+"</p><div class='ace-info-list'>"+d[2].map(x=>"<div><b>"+x[0]+"</b><span>"+x[1]+"</span></div>").join("")+"</div>");}));
  document.querySelectorAll("[data-modal-close]").forEach(b=>b.addEventListener("click",closeModal));
