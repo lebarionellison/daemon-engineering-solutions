@@ -151,7 +151,7 @@ async function generateProposal(request, env) {
   const currentConfig = String(body.currentConfig || "");
   const environment = clean(body.environment || "staging", 80);
   const fileName = clean(body.fileName || "configuration.yaml", 120);
-  const baseline = body.costBaseline && typeof body.costBaseline === "object" ? body.costBaseline : null;
+  const baseline = body.costBaseline && typeof body.costBaseline === "object" ? body.costBaseline : null;\n  const complianceProfile = clean(body.complianceProfile || "none", 40);
   if (!goal || !currentConfig.trim() || currentConfig.length > 18000) {
     return json({ error: "Provide a goal and a configuration between 1 and 18,000 characters." }, 400);
   }
@@ -260,46 +260,90 @@ async function generateProposal(request, env) {
 
 // DAEMON AEGIS: shared governance and compliance evidence layer.
 // Framework references are high-level evidence pointers, not compliance determinations.
-function evaluateAegisCompliance(manifest, findings, manifestSha256) {
-  const modelMatch = manifest.match(/(?:^|\n)\s*(?:model|image|base_model)\s*:\s*['"]?([^\s'"]+)['"]?/i);
-  const rosMatch = manifest.match(/ros_distro\s*:\s*['"]?([^\s'"]+)['"]?/i);
+function evaluateAegisCompliance(manifest, findings, manifestSha256, profile = "none") {
+  const modelMatch = manifest.match(/(?:^|\\n)\\s*(?:model|image|base_model)\\s*:\\s*['"]?([^\\s'"]+)['"]?/i);
+  const rosMatch = manifest.match(/ros_distro\\s*:\\s*['"]?([^\\s'"]+)['"]?/i);
+  const secretPatterns = [
+    {code:"INLINE_CREDENTIAL",label:"Possible inline credential or API token",re:/(?:api[_-]?key|access[_-]?token|client[_-]?secret|password|private[_-]?key)\\s*[:=]\\s*['"]?[^\\s'"]{8,}/ig},
+    {code:"PRIVATE_KEY_MATERIAL",label:"Private-key material detected",re:/-----BEGIN (?:RSA |EC |OPENSSH )?PRIVATE KEY-----/g},
+    {code:"EMAIL_OR_PERSONAL_DATA",label:"Email address or personal identifier detected in submitted configuration",re:/\\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,}\\b/ig}
+  ];
+  const dataFindings = [];
+  for (const p of secretPatterns) {
+    p.re.lastIndex = 0;
+    let match;
+    while ((match = p.re.exec(manifest)) && dataFindings.length < 30) {
+      const line = manifest.slice(0, match.index).split("\\n").length;
+      dataFindings.push({code:p.code,label:p.label,line,action:"Review source data; replace exposed secrets, rotate credentials where appropriate, and apply approved redaction before ingestion or logging."});
+      if (match[0].length === 0) p.re.lastIndex++;
+    }
+  }
+  const promptOrPolicyDeclared = /system_prompt|guardrail|safety_policy|policy|prompt_template/i.test(manifest);
+  const mutableArtifact = /(?:image|model|base_model)\\s*:\\s*[^\\n]*:latest\\b/i.test(manifest);
+  const profileDefinitions = {
+    "none": {label:"No profile selected",controls:[]},
+    "nist-ai-rmf": {label:"NIST AI RMF",controls:["system_purpose_and_risk_context","measured_model_evaluation","human_oversight_and_escalation","monitoring_and_incident_process","documented_ownership_and_governance"]},
+    "iso-42001": {label:"ISO/IEC 42001",controls:["ai_management_system_scope","risk_and_impact_assessment","lifecycle_change_control","documented_roles_and_competence","monitoring_and_corrective_action"]},
+    "soc-2": {label:"SOC 2 readiness",controls:["identity_and_access_evidence","change_management_evidence","logging_and_monitoring_evidence","vendor_and_asset_inventory","operating_effectiveness_evidence"]},
+    "robotics-irb": {label:"University IRB / Robotics Lab",controls:["approved_protocol_and_scope","human_subjects_review_if_applicable","robotics_hazard_analysis","independent_estop_and_interlocks","dds_network_isolation_and_human_override"]}
+  };
+  const selected = profileDefinitions[profile] || profileDefinitions.none;
+  const configChecks = [
+    {id:"prompt_boundary_declared",status:promptOrPolicyDeclared?"DECLARED_NOT_TESTED":"MISSING_DECLARATION",detail:promptOrPolicyDeclared?"A prompt or policy reference appears in the submitted text; no adversarial test was executed.":"No obvious prompt or policy declaration was detected."},
+    {id:"artifact_immutability",status:mutableArtifact?"FAIL_MUTABLE_TAG":"NO_LATEST_TAG_DETECTED",detail:mutableArtifact?"A mutable :latest artifact reference was detected.":"No :latest tag was detected by this limited text check."},
+    {id:"sensitive_data_scan",status:dataFindings.length?"FINDINGS_DETECTED":"NO_MATCHING_PATTERNS",detail:dataFindings.length+" possible sensitive-data pattern(s) detected. This is not a complete DLP scan."}
+  ];
+  const controlEvidence = selected.controls.map(control => ({control,status:"UNVERIFIED",evidence:"No connected system evidence or human attestation was supplied."}));
+  const mandatoryUnverified = controlEvidence.filter(x=>x.status!=="VERIFIED");
   const mappedFindings = findings.filter(item => item.severity !== "info").map(item => ({
-    finding_code: item.code, severity: item.severity,
-    related_topics: [
-      ...(item.code.includes("PRIVILEGE") || item.code === "ROOT_CONTAINER" ? ["least_privilege","secure_configuration"] : []),
-      ...(item.code.startsWith("ROB-") ? ["human_oversight","robotics_safety_boundary"] : []),
-      ...(item.code === "PUBLIC_SERVICE" ? ["network_exposure","access_control"] : []),
-      ...(item.code === "MUTABLE_IMAGE_TAG" ? ["artifact_provenance","change_traceability"] : []),
-      ...(item.code === "HOST_PATH" ? ["isolation","filesystem_access"] : [])
+    finding_code:item.code,severity:item.severity,
+    related_topics:[
+      ...(item.code.includes("PRIVILEGE")||item.code==="ROOT_CONTAINER"?["least_privilege","secure_configuration"]:[]),
+      ...(item.code.startsWith("ROB-")?["human_oversight","robotics_safety_boundary"]:[]),
+      ...(item.code==="PUBLIC_SERVICE"?["network_exposure","access_control"]:[]),
+      ...(item.code==="MUTABLE_IMAGE_TAG"?["artifact_provenance","change_traceability"]:[]),
+      ...(item.code==="HOST_PATH"?["isolation","filesystem_access"]:[])
     ]
   }));
   return {
-    layer: "DAEMON AEGIS", role: "integrated_responsible_ai_and_compliance_evidence_layer",
-    evaluation_mode: "limited_manifest_pattern_screen", overall_status: "TECHNICAL_EVIDENCE_ONLY",
-    frameworks: [
-      {framework:"NIST AI RMF 1.0",references:["GOVERN","MAP","MEASURE","MANAGE"],status:"EVIDENCE_REFERENCED_NOT_ASSESSED",evidence_note:"Pre-flight findings and artifact fingerprint are attached. Organizational governance, impact assessment, measurement validity and ongoing risk controls require review."},
-      {framework:"ISO/IEC 42001",references:["AI management system; lifecycle risk and control evidence"],status:"EVIDENCE_REFERENCED_NOT_ASSESSED",evidence_note:"This receipt can support an AI management-system evidence pack; it does not assess the organization's management system or establish conformity."},
-      {framework:"SOC 2",references:["Trust Services Criteria; CC6 logical access and protection context"],status:"NOT_ASSESSED",evidence_note:"A configuration scan alone cannot establish operating effectiveness, access governance, change management or a SOC 2 examination result."},
-      {framework:"EU AI Act",references:["Article 14 human oversight (where applicable)"],status:"SCOPE_DEPENDENT_NOT_ASSESSED",evidence_note:"Applicability and high-risk classification must be determined for the specific system and deployment. This receipt does not establish legal compliance."}
+    layer:"DAEMON AEGIS",role:"preproduction_ai_security_and_compliance_evidence_layer",
+    evaluation_mode:"limited_manifest_pattern_screen",selected_profile:selected.label,
+    profile_id:profile,overall_status:selected.controls.length?"BLOCKED_UNVERIFIED_CONTROLS":"TECHNICAL_EVIDENCE_ONLY",
+    release_gate:{status:selected.controls.length?"LOCKED":"NOT_EVALUATED",fail_closed:Boolean(selected.controls.length),mandatory_controls:controlEvidence,unverified_count:mandatoryUnverified.length,sign_and_unlock_enabled:false,reason:selected.controls.length?"Selected profile controls require verified evidence and authorized review; this manifest-only endpoint cannot attest them.":"Select a profile and connect required evidence before a compliance gate can be evaluated."},
+    red_team_gate:{status:"NOT_EXECUTED",execution_mode:"NO_AGENT_OR_MODEL_ENDPOINT_CONNECTED",probes:["prompt injection","system-prompt extraction","secret exfiltration","tool-boundary bypass","policy override","robotics command-boundary abuse"],declared_guardrails:promptOrPolicyDeclared?"DECLARED_NOT_TESTED":"NOT_DETECTED",passed:0,failed:0,disclosure:"No adversarial prompts were sent to a model or agent. Configuration keywords are not evidence of resistance."},
+    data_sanitization:{status:dataFindings.length?"REVIEW_REQUIRED":"NO_MATCHING_PATTERNS",mode:"limited submitted-text pattern scan",findings:dataFindings,automatic_redaction:false,disclosure:"No training corpus, environment, telemetry stream or external data store was accessed or modified. Absence of matches is not proof that data is clean."},
+    configuration_checks:configChecks,
+    frameworks:[
+      {framework:"NIST AI RMF 1.0",status:"EVIDENCE_REFERENCED_NOT_ASSESSED",note:"The selected profile maps evidence needs; this scan does not assess organizational risk management or establish conformity."},
+      {framework:"ISO/IEC 42001",status:"EVIDENCE_REFERENCED_NOT_ASSESSED",note:"This receipt may organize evidence for review; it is not an ISO certification or conformity assessment."},
+      {framework:"SOC 2",status:"NOT_ASSESSED",note:"A configuration scan cannot establish control design or operating effectiveness and is not a SOC 2 examination."},
+      {framework:"University IRB / Robotics Lab",status:"SCOPE_DEPENDENT_NOT_ASSESSED",note:"IRB applicability, lab approvals, hazard analysis and machine-safety controls require institution-specific review."}
     ],
-    mapped_findings: mappedFindings,
-    ai_bill_of_materials: {
-      schema:"daemon-ace.ai-bom.summary.v1", manifest_sha256:manifestSha256,
+    mapped_findings:mappedFindings,
+    ai_bill_of_materials:{
+      schema:"daemon-ace.ai-bom.summary.v2",algorithm:"SHA-256",
+      submitted_manifest:{sha256:manifestSha256,status:"HASHED"},
+      model_weights:{sha256:null,status:"NOT_PROVIDED"},
+      fine_tuning_dataset:{sha256:null,status:"NOT_PROVIDED"},
+      system_prompt:{sha256:null,status:"NOT_PROVIDED"},
+      container_image:{sha256:null,status:"NOT_SEPARATELY_VERIFIED"},
+      safety_rubric:{sha256:null,status:"NOT_PROVIDED"},
+      dependency_lockfile:{sha256:null,status:"NOT_PROVIDED"},
+      source_commit:{value:null,status:"NOT_PROVIDED"},
       detected_model_or_image:modelMatch?modelMatch[1].slice(0,240):null,
       robotics_middleware:rosMatch?"ROS 2 "+rosMatch[1].slice(0,80):(/ros2|ros 2/i.test(manifest)?"ROS 2 indicated; distribution not parsed":null),
-      dataset_inventory:"NOT_PROVIDED", dependency_inventory:"NOT_PROVIDED", source_commit:"NOT_PROVIDED",
-      scope_note:"Fingerprint covers the submitted manifest only; it is not a complete model, dataset, dependency or software-supply-chain inventory."
+      signature:{status:"NOT_SIGNED",algorithm:null,key_id:null},
+      scope_note:"Only the exact submitted manifest was hashed. Component hashes and a cryptographic signature require the actual artifacts and a configured signing key."
     },
     review_gaps:[
-      "Confirm system purpose, jurisdiction, risk classification and framework applicability.",
-      "Attach verified model, dataset, dependency and source provenance where available.",
-      "Collect identity, access, change-management and runtime evidence from connected systems.",
-      "Record qualified human review and applicable safety validation before release."
+      "Run adversarial probes against the actual model, agent, tools and isolated test environment.",
+      "Supply model, dataset, prompt, container, dependency and safety-rubric artifacts for independent hashing and provenance verification.",
+      "Run DLP and privacy checks against training data, environment sources and telemetry schemas with approved scanners.",
+      "Connect evidence sources and obtain qualified human review for each selected profile control."
     ],
-    disclosure:"DAEMON AEGIS records technical evidence and framework reference points for internal review. It does not provide legal advice, certify compliance, or replace independent audit, safety engineering or organizational controls."
+    disclosure:"DAEMON AEGIS records technical evidence and review gaps. It does not certify compliance, establish legal conformity, guarantee data protection or replace independent audit, safety engineering, institutional review or organizational controls."
   };
 }
-
 async function createPreflight(request, env) {
   if (!sameOrigin(request)) return json({ error: "Origin not allowed." }, 403);
   if (!env.DB) return json({ error: "Receipt storage is not configured." }, 503);
@@ -360,7 +404,7 @@ async function createPreflight(request, env) {
     schema:"daemon-ace.receipt-of-safety.v1",id,record_type:"customer_preflight",created_at:new Date().toISOString(),
     status:"PREVIEW_READY",goal,file_name:fileName,
     analysis:{mode:"text_pattern_heuristics",score,findings,manifest_bytes:new TextEncoder().encode(manifest).length},
-    aegis_compliance:evaluateAegisCompliance(manifest,findings,manifestSha256),
+    aegis_compliance:evaluateAegisCompliance(manifest,findings,manifestSha256,complianceProfile),
     config_integrity:{algorithm:"SHA-256",digest:manifestSha256,encoding:"UTF-8",scope:"exact submitted preflight manifest bytes; no newline or whitespace normalization",status:"fingerprinted_not_simulated"},
     sim2real_gate:{status:"BLOCKED",execution_authorized:false,reason:"A matching digest is necessary but not sufficient. A verified simulator attestation and explicit human sign-off are also required."},
     ai:{status:aiStatus,summary:plan?clean(plan.summary,3000):null,risks_mitigated:Array.isArray(plan?.risks_mitigated)?plan.risks_mitigated.slice(0,20).map(x=>clean(x,300)):[],assumptions:Array.isArray(plan?.assumptions)?plan.assumptions.slice(0,20).map(x=>clean(x,300)):[],estimated_monthly_savings_usd:Number.isFinite(plan?.estimated_monthly_savings_usd)?plan.estimated_monthly_savings_usd:null,savings_basis:clean(plan?.savings_basis||"No defensible savings estimate without a verified cost and utilization baseline.",1200)},
