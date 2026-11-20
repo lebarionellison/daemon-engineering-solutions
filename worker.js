@@ -261,25 +261,25 @@ async function generateProposal(request, env) {
 // DAEMON AEGIS: shared governance and compliance evidence layer.
 // Framework references are high-level evidence pointers, not compliance determinations.
 function evaluateAegisCompliance(manifest, findings, manifestSha256, profile = "none") {
-  const modelMatch = manifest.match(/(?:^|\\n)\\s*(?:model|image|base_model)\\s*:\\s*['"]?([^\\s'"]+)['"]?/i);
-  const rosMatch = manifest.match(/ros_distro\\s*:\\s*['"]?([^\\s'"]+)['"]?/i);
+  const modelMatch = manifest.match(/(?:^|\n)\s*(?:model|image|base_model)\s*:\s*['"]?([^\s'"]+)['"]?/i);
+  const rosMatch = manifest.match(/ros_distro\s*:\s*['"]?([^\s'"]+)['"]?/i);
   const secretPatterns = [
-    {code:"INLINE_CREDENTIAL",label:"Possible inline credential or API token",re:/(?:api[_-]?key|access[_-]?token|client[_-]?secret|password|private[_-]?key)\\s*[:=]\\s*['"]?[^\\s'"]{8,}/ig},
+    {code:"INLINE_CREDENTIAL",label:"Possible inline credential or API token",re:/(?:api[_-]?key|access[_-]?token|client[_-]?secret|password|private[_-]?key)\s*[:=]\s*['"]?[^\s'"]{8,}/ig},
     {code:"PRIVATE_KEY_MATERIAL",label:"Private-key material detected",re:/-----BEGIN (?:RSA |EC |OPENSSH )?PRIVATE KEY-----/g},
-    {code:"EMAIL_OR_PERSONAL_DATA",label:"Email address or personal identifier detected in submitted configuration",re:/\\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,}\\b/ig}
+    {code:"EMAIL_OR_PERSONAL_DATA",label:"Email address or personal identifier detected in submitted configuration",re:/\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}\b/ig}
   ];
   const dataFindings = [];
   for (const p of secretPatterns) {
     p.re.lastIndex = 0;
     let match;
     while ((match = p.re.exec(manifest)) && dataFindings.length < 30) {
-      const line = manifest.slice(0, match.index).split("\\n").length;
+      const line = manifest.slice(0, match.index).split("\n").length;
       dataFindings.push({code:p.code,label:p.label,line,action:"Review source data; replace exposed secrets, rotate credentials where appropriate, and apply approved redaction before ingestion or logging."});
       if (match[0].length === 0) p.re.lastIndex++;
     }
   }
   const promptOrPolicyDeclared = /system_prompt|guardrail|safety_policy|policy|prompt_template/i.test(manifest);
-  const mutableArtifact = /(?:image|model|base_model)\\s*:\\s*[^\\n]*:latest\\b/i.test(manifest);
+  const mutableArtifact = /(?:image|model|base_model)\s*:\s*[^\n]*:latest\b/i.test(manifest);
   const profileDefinitions = {
     "none": {label:"No profile selected",controls:[]},
     "nist-ai-rmf": {label:"NIST AI RMF",controls:["system_purpose_and_risk_context","measured_model_evaluation","human_oversight_and_escalation","monitoring_and_incident_process","documented_ownership_and_governance"]},
