@@ -1307,36 +1307,38 @@ body>header .navlinks a:hover{color:var(--ace-cyan)!important}
 @media(prefers-reduced-motion:reduce){.ace-ring,.ace-inspector{transition:none!important}}
 </style>
 <style id="ace-top-header-fit">
-/* Compact company identity and expose the complete primary navigation */
-body>header .nav{height:62px!important;min-height:62px!important;gap:12px!important;align-items:center!important}
-body>header .brand{flex:0 0 auto!important;font-size:10px!important;line-height:1.1!important;letter-spacing:.55px!important;white-space:nowrap!important}
-body>header .brand span{display:inline!important;font-size:9px!important;font-weight:800!important;letter-spacing:.25px!important}
-body>header .brand small{font-size:6px!important;letter-spacing:1.15px!important;line-height:1.2!important;margin-top:4px!important}
-body>header .navlinks{flex:1 1 auto!important;min-width:0!important;width:auto!important;justify-content:flex-end!important;gap:clamp(4px,.62vw,9px)!important;overflow:visible!important;flex-wrap:nowrap!important;padding:0!important}
-body>header .navlinks a{flex:0 0 auto!important;font-size:8px!important;letter-spacing:.05px!important;line-height:1.1!important}
-body>header .navlinks .navcta{padding:8px 9px!important;font-size:8px!important}
-@media(max-width:1250px){
- body>header .nav{gap:8px!important}
- body>header .brand{font-size:9px!important}
- body>header .brand span{font-size:8px!important}
- body>header .brand small{font-size:5.5px!important;letter-spacing:.9px!important}
- body>header .navlinks{gap:5px!important}
- body>header .navlinks a{font-size:7px!important}
- body>header .navlinks .navcta{padding:7px!important;font-size:7px!important}
+/* Slim header: preserve every destination and keep the primary CTA obvious */
+body>header .nav{height:58px!important;min-height:58px!important;gap:8px!important;align-items:center!important}
+body>header .brand{flex:0 0 auto!important;font-size:8px!important;line-height:1.05!important;letter-spacing:.35px!important;white-space:nowrap!important}
+body>header .brand span{display:inline!important;font-size:7px!important;font-weight:800!important;letter-spacing:0!important}
+body>header .brand small{font-size:5px!important;letter-spacing:.85px!important;line-height:1.15!important;margin-top:3px!important}
+body>header .navlinks{flex:1 1 auto!important;min-width:0!important;width:auto!important;justify-content:flex-end!important;gap:clamp(3px,.42vw,6px)!important;overflow:visible!important;flex-wrap:nowrap!important;padding:0!important}
+body>header .navlinks a{flex:0 0 auto!important;font-size:6.8px!important;letter-spacing:0!important;line-height:1.1!important}
+body>header .navlinks .navcta{padding:7px 8px!important;font-size:7px!important;font-weight:950!important;color:#03111c!important;background:linear-gradient(110deg,#75f5f4,#8cbaff)!important;border:1px solid #a5ffff!important;box-shadow:0 0 14px #42e8f455!important;white-space:nowrap!important}
+body>header .navlinks .navcta:hover{filter:brightness(1.12)!important;color:#020914!important}
+@media(max-width:1250px) and (min-width:1051px){
+ body>header .nav{gap:6px!important}
+ body>header .brand{font-size:7.5px!important}
+ body>header .brand span{font-size:6.5px!important}
+ body>header .brand small{font-size:4.7px!important;letter-spacing:.65px!important}
+ body>header .navlinks{gap:3px!important}
+ body>header .navlinks a{font-size:6.2px!important}
+ body>header .navlinks .navcta{padding:6px!important;font-size:6.4px!important}
 }
 @media(max-width:1050px){
- body>header .nav{height:auto!important;min-height:62px!important;flex-direction:column!important;align-items:flex-start!important;justify-content:center!important;gap:5px!important;padding:8px 0!important}
- body>header .navlinks{width:100%!important;justify-content:flex-start!important;flex-wrap:wrap!important;overflow:visible!important;row-gap:8px!important}
+ body>header .nav{height:auto!important;min-height:58px!important;flex-direction:column!important;align-items:flex-start!important;justify-content:center!important;gap:5px!important;padding:8px 0!important}
+ body>header .navlinks{width:100%!important;justify-content:flex-start!important;flex-wrap:wrap!important;overflow:visible!important;row-gap:7px!important}
  body>header .navlinks a{font-size:8px!important}
+ body>header .navlinks .navcta{font-size:8px!important;padding:7px 9px!important}
 }
 @media(max-width:680px){
  body>header .nav{min-height:0!important;padding:8px 0!important}
- body>header .brand{font-size:10px!important}
- body>header .brand span{font-size:9px!important}
- body>header .brand small{font-size:6px!important}
+ body>header .brand{font-size:9px!important}
+ body>header .brand span{font-size:8px!important}
+ body>header .brand small{font-size:5.5px!important}
  body>header .navlinks{max-width:none!important;gap:8px 12px!important;padding:4px 0 2px!important}
  body>header .navlinks a{font-size:8px!important}
- body>header .navlinks .navcta{padding:6px 8px!important}
+ body>header .navlinks .navcta{padding:7px 9px!important}
 }
 </style>
 <style id="ace-product-page-polish">
