@@ -85,8 +85,8 @@ def incident_plan(event: str, baseline_sha256: str | None, observed_sha256: str 
 
 def main() -> int:
     parser = argparse.ArgumentParser(description="Evaluate DAEMON ACE default-deny egress and containment decisions.")
-    parser.add_argument("--destination", action="append", default=[], help="Outbound destination IP or hostname to evaluate.")
-    parser.add_argument("--allow", action="append", default=[], help="Approved exact hostname or CIDR; repeat as needed.")
+    parser.add_argument("--destination", "--outbound-telemetry-ip", dest="destination", action="append", default=[], help="Outbound destination IP or hostname to evaluate.")
+    parser.add_argument("--allow", "--approved-destination", dest="allow", action="append", default=[], help="Approved exact hostname or CIDR; repeat as needed.")
     parser.add_argument("--event", choices=["none", "unauthorized-egress", "config-drift", "compromised-container"], default="none")
     parser.add_argument("--baseline-artifact", help="Path to last-known-clean artifact (hash only; never deployed).")
     parser.add_argument("--observed-artifact", help="Path to currently observed artifact (hash only).")
