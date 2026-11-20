@@ -383,8 +383,9 @@ async function createPreflight(request, env) {
   if (!findings.length) add("info","NO_MATCHING_PATTERNS","No listed patterns detected","This does not establish that the manifest is secure.");
   const score = Math.max(0,100-findings.reduce((n,f)=>n+(f.severity==="critical"?35:f.severity==="high"?25:f.severity==="medium"?12:0),0));
 
-  let plan = null, proposed = null, aiStatus = "not_configured";
-  if (env.OPENAI_API_KEY) {
+  const secretExposure = findings.some(item => item.code === "PLAINTEXT_SECRET_EXPOSURE");
+  let plan = null, proposed = null, aiStatus = secretExposure ? "blocked_sensitive_input" : "not_configured";
+  if (env.OPENAI_API_KEY && !secretExposure) {
     try {
       const ai = await fetch("https://api.openai.com/v1/chat/completions", {
         method:"POST",
@@ -463,6 +464,10 @@ async function verifySim2Real(request, env) {
       integrity_match: false,
       execution_authorized: false
     }, 409);
+  }
+  const blockingFindings = Array.isArray(receipt.analysis?.findings) ? receipt.analysis.findings.filter(item => ["critical","high"].includes(String(item.severity || "").toLowerCase())) : [];
+  if (blockingFindings.length) {
+    return json({ ok: false, gate: "BLOCKED", reason: "UNRESOLVED_CRITICAL_OR_HIGH_PREFLIGHT_FINDINGS", blocking_findings: blockingFindings.map(item => ({ code: item.code, severity: item.severity, title: item.title })), integrity_match: true, execution_authorized: false }, 409);
   }
   const simulationPassed = receipt.sim2real_attestation?.simulation_status === "passed";
   const humanSignedOff = receipt.sim2real_attestation?.human_signoff === true;
