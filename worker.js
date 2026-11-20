@@ -361,10 +361,19 @@ function evaluateAegisCompliance(manifest, findings, manifestSha256, profile = "
     disclosure:"DAEMON AEGIS records technical evidence and review gaps. It does not certify compliance, establish legal conformity, guarantee data protection or replace independent audit, safety engineering, institutional review or organizational controls."
   };
 }
+async function hasBaselineStorage(env) {
+  try {
+    const row = await env.DB.prepare("SELECT name FROM sqlite_master WHERE type = 'table' AND name = 'baseline_artifacts'").first();
+    return Boolean(row);
+  } catch { return false; }
+}
+
 async function createBaseline(request, env) {
   if (!sameOrigin(request)) return json({ error: "Origin not allowed." }, 403);
   if (!await hasAdminSession(request, env)) return json({ error: "An authenticated dashboard session is required." }, 401);
   if (!env.DB) return json({ error: "Baseline storage is not configured." }, 503);
+  if (!await hasBaselineStorage(env)) return json({ error: "Baseline schema migration is pending.", storage_ready: false }, 503);
+  if (!await hasBaselineStorage(env)) return json({ error: "Baseline schema migration is pending. Apply migrations/0005_create_baseline_artifacts.sql before using Checkpoint 3 storage.", storage_ready: false }, 503);
   const body = await readJson(request);
   const artifact = typeof body?.artifact === "string" ? body.artifact : "";
   const receiptId = String(body?.source_receipt_id || "");
@@ -405,6 +414,7 @@ async function prepareRecovery(request, env) {
   if (!sameOrigin(request)) return json({ error: "Origin not allowed." }, 403);
   if (!await hasAdminSession(request, env)) return json({ error: "An authenticated dashboard session is required." }, 401);
   if (!env.DB) return json({ error: "Recovery preparation is not configured." }, 503);
+  if (!await hasBaselineStorage(env)) return json({ error: "Baseline schema migration is pending. Recovery is unavailable until the D1 migration is applied.", storage_ready: false }, 503);
   const body = await readJson(request);
   const digest = String(body?.baseline_sha256 || "").toLowerCase();
   const observedManifest = typeof body?.observed_manifest === "string" ? body.observed_manifest : "";
