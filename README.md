@@ -56,7 +56,9 @@ The endpoint verifies the Stripe-Signature HMAC against the raw request body, re
 
 ### D1 migration and deployment
 
-The GitHub Actions workflow deploys the Worker, but the current Cloudflare API token lacks D1 database access (Cloudflare API error 7403). Apply the migration manually in Cloudflare Dashboard → **Workers & Pages → D1 → daemon-ace-leads → Console** before creating the Stripe webhook endpoint. Run this SQL once:
+The GitHub Actions workflow attempts all pending migrations before deploying the Worker. If Cloudflare API error **7403** appears, the GitHub Actions secret `CLOUDFLARE_API_TOKEN` is missing D1 access. Create/replace that token with **D1: Edit** permission scoped to the account containing database `daemon-ace-leads`, update the GitHub repository secret `CLOUDFLARE_API_TOKEN`, and rerun the deployment workflow. The existing token must retain the permissions needed to deploy Workers. Wrangler then applies migrations `0001` through `0005` in order; do not manually replay migrations that are already recorded as applied.
+
+As an alternative, apply only the pending migration SQL in Cloudflare Dashboard → **Workers & Pages → D1 → daemon-ace-leads → Console**. The baseline/recovery schema added in migration `0005` is:
 
 The live-mode Stripe webhook endpoint has now been created:
 - Endpoint ID: `we_1UcGQmH0QiF8TJHD0Qrzyv5h`
