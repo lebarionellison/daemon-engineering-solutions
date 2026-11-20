@@ -67,6 +67,31 @@ RULES = [
         "pattern": r"(ROS_DOMAIN_ID:\s*0\b|dds_discovery_interface:\s*['\"]?0\.0\.0\.0['\"]?)",
         "title": "Unisolated ROS2 DDS discovery domain or public interface exposure",
         "remediation": "Assign an isolated ROS_DOMAIN_ID and bind CycloneDDS/FastDDS discovery to local loopback or VPN.",
+    },,
+
+    {
+        "id": "SEC-008",
+        "category": "IDENTITY",
+        "severity": "HIGH",
+        "pattern": r"automountServiceAccountToken:\\s*true",
+        "title": "Kubernetes ServiceAccount token auto-mounted",
+        "remediation": "Set automountServiceAccountToken: false and mount a narrowly scoped token only when the workload requires Kubernetes API access.",
+    },
+    {
+        "id": "SEC-009",
+        "category": "SECRETS",
+        "severity": "CRITICAL",
+        "pattern": r"(?:AWS_SECRET_ACCESS_KEY|OPENAI_API_KEY|GITHUB_TOKEN|PRIVATE_KEY)\\s*[:=]\\s*['\\"]?[A-Za-z0-9_./+=-]{16,}|-----BEGIN (?:RSA |EC |OPENSSH )?PRIVATE KEY-----",
+        "title": "Possible plaintext credential or private key in configuration",
+        "remediation": "Remove the credential from the artifact, rotate/revoke it at its issuer, and load a replacement from an approved secret manager. Do not reuse the exposed value.",
+    },
+    {
+        "id": "NET-008",
+        "category": "EGRESS_CONTROL",
+        "severity": "HIGH",
+        "pattern": r"(?is)(?=.*kind:\\s*(?:Deployment|Pod|StatefulSet|DaemonSet))(?!(?s:.*kind:\\s*NetworkPolicy.*policyTypes:[^\\n]*(?:\\n\\s*-\\s*Egress|\\[.*Egress).*egress:)).*",
+        "title": "Workload has no explicit egress NetworkPolicy / default-deny boundary",
+        "remediation": "Add a namespace-scoped default-deny egress NetworkPolicy, then explicitly allow only required DNS and approved service destinations. Validate CNI enforcement before relying on it.",
     },
 ]
 
