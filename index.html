@@ -1786,6 +1786,64 @@ spec:
    <p style="font-size:9px;color:#8295ae;margin:12px 0 0">The blueprint is a planning artifact, not a deployed topology. Gatekeeper findings are screening results; no network policy, cloud resource, Kubernetes workload or robot is changed by this action.</p>
   </div>
  </div>
+
+  <div id="ace-cost-intelligence" class="aceBlueprintShell" style="margin-top:18px;border:1px solid #4aa7ff66;border-radius:16px;padding:24px;background:linear-gradient(145deg,#0b1b30,#07111e);box-shadow:0 22px 65px #0004">
+   <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:14px;flex-wrap:wrap">
+    <div><span class="kicker">DAEMON ACE · COST INTELLIGENCE</span><h3 style="font-size:23px;margin:6px 0">SEARCH THE STACK. MODEL THE SPEND.</h3><p style="font-size:12px;color:#b6c8db;max-width:760px;margin:0">Build a cost model from the services you plan to use. Search platform fees, cloud infrastructure, security, storage, networking, AI compute, software and custom line items. Combine the pieces and see the monthly and annual footprint.</p></div>
+    <div style="border:1px solid #4aa7ff66;border-radius:10px;padding:12px 15px;background:#06101d;min-width:175px"><small style="display:block;color:#9fb2c8;font-size:9px;letter-spacing:1px;font-weight:900">PROJECTED ANNUAL RUN RATE</small><strong id="ace-annual-cost" style="display:block;color:#78bfff;font-size:23px;line-height:1.35">$12,840.00</strong><small style="color:#9fb2c8;font-size:9px">Based on selected monthly assumptions</small></div>
+   </div>
+   <div class="aceCostSearchGrid" style="display:grid;grid-template-columns:minmax(0,2fr) minmax(180px,1fr);gap:10px;margin-top:20px">
+    <label style="display:block;color:#dbeafe;font-size:10px;font-weight:800">SEARCH ANY SERVICE, FEE OR RESOURCE
+     <input id="ace-cost-search" type="search" placeholder="Try: Cloudflare firewall fees, AWS S3, GPU, egress, backup, platform fee…" autocomplete="off" style="display:block;width:100%;margin-top:7px;padding:13px;border:1px solid #34516f;border-radius:9px;background:#06101d;color:#fff;font:inherit">
+    </label>
+    <label style="display:block;color:#dbeafe;font-size:10px;font-weight:800">PROVIDER / PRICING CONTEXT
+     <select id="ace-cost-provider" style="display:block;width:100%;margin-top:7px;padding:13px;border:1px solid #34516f;border-radius:9px;background:#06101d;color:#fff;font:inherit"><option value="Unspecified">Choose provider</option><option>Cloudflare</option><option>AWS</option><option>Microsoft Azure</option><option>Google Cloud</option><option>Oracle Cloud</option><option>DigitalOcean</option><option>Other / custom</option></select>
+    </label>
+   </div>
+   <label style="display:block;color:#b8c9dc;font-size:10px;font-weight:800;margin-top:10px">REGION / DEPLOYMENT LOCATION (OPTIONAL)
+    <input id="ace-cost-region" placeholder="e.g. us-east-1, US East, on-premises, hybrid" style="display:block;width:100%;margin-top:6px;padding:11px;border:1px solid #34516f;border-radius:8px;background:#06101d;color:#fff;font:inherit">
+   </label>
+   <div id="ace-cost-results" aria-live="polite" style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;margin-top:13px">
+    <div style="padding:13px;border:1px solid #29415b;border-radius:9px;background:#ffffff05;color:#9fb2c8;font-size:11px">Search the catalog to add cost components. If a service is not listed, add it as a custom line item with your own rate.</div>
+   </div>
+   <div style="margin-top:20px;border:1px solid #29415b;border-radius:11px;padding:15px;background:#ffffff05">
+    <div style="display:flex;justify-content:space-between;gap:10px;align-items:center;flex-wrap:wrap"><div><b style="font-size:13px">YOUR MODELED COST STACK</b><p style="margin:4px 0 0;color:#9fb2c8;font-size:10px">Edit quantity and monthly unit rate. All selected items feed the DAEMON ACE blueprint receipt.</p></div><span id="ace-cost-stack-count" style="font-size:10px;color:#8edfff">0 added services</span></div>
+    <div id="ace-cost-stack" style="margin-top:12px"><p style="color:#91a4ba;font-size:11px">No additional services added yet. Your original blueprint selections are included in the total above.</p></div>
+   </div>
+   <div style="margin-top:18px;border:1px solid #d9a44155;border-radius:11px;padding:16px;background:linear-gradient(120deg,#5a3b111c,#ffffff03)">
+    <div style="display:flex;justify-content:space-between;gap:12px;align-items:flex-start;flex-wrap:wrap"><div><span style="font-size:9px;font-weight:900;letter-spacing:1px;color:#ffd27a">COST LEAKAGE TRACKER</span><h4 style="margin:5px 0;font-size:17px">FIND SPEND THAT ISN'T DELIVERING VALUE.</h4><p style="margin:0;color:#b9c9d9;font-size:11px;max-width:650px">Model idle compute, orphaned storage, oversized resources, excess egress, duplicate logs, unused IPs, security add-ons and other waste. Enter observed or estimated monthly waste and a realistic recoverable share.</p></div><div style="padding:10px 13px;border:1px solid #d9a44155;border-radius:9px;background:#120f0a"><small style="display:block;color:#d8bb84;font-size:9px;font-weight:800">POTENTIAL MONTHLY RECOVERY</small><strong id="ace-leak-savings" style="font-size:22px;color:#ffd27a">$0.00</strong></div></div>
+    <div class="aceLeakInputGrid" style="display:grid;grid-template-columns:1.5fr .8fr .8fr .8fr auto;gap:8px;align-items:end;margin-top:15px">
+     <label style="color:#dbeafe;font-size:9px;font-weight:800">LEAK / WASTE CATEGORY<select id="ace-leak-category" style="display:block;width:100%;margin-top:5px;padding:10px;border:1px solid #584a31;border-radius:8px;background:#100f0c;color:#fff"><option>Idle compute / GPU</option><option>Orphaned volumes / snapshots</option><option>Overprovisioned Kubernetes</option><option>Network egress / NAT</option><option>Duplicate logs / observability</option><option>Unused firewall / security services</option><option>Unused IPs / load balancers</option><option>Licenses / platform fees</option><option>Other customer-identified waste</option></select></label>
+     <label style="color:#dbeafe;font-size:9px;font-weight:800">WASTE / MONTH ($)<input id="ace-leak-monthly" type="number" min="0" step="0.01" value="100" style="display:block;width:100%;margin-top:5px;padding:10px;border:1px solid #584a31;border-radius:8px;background:#100f0c;color:#fff"></label>
+     <label style="color:#dbeafe;font-size:9px;font-weight:800">RECOVERABLE (%)<input id="ace-leak-recoverable" type="number" min="0" max="100" step="1" value="60" style="display:block;width:100%;margin-top:5px;padding:10px;border:1px solid #584a31;border-radius:8px;background:#100f0c;color:#fff"></label>
+     <label style="color:#dbeafe;font-size:9px;font-weight:800">CONFIDENCE<select id="ace-leak-confidence" style="display:block;width:100%;margin-top:5px;padding:10px;border:1px solid #584a31;border-radius:8px;background:#100f0c;color:#fff"><option>Estimate</option><option>Observed</option><option>Telemetry verified</option></select></label>
+     <button id="ace-add-leak" type="button" style="padding:11px 13px;border:0;border-radius:8px;background:#ffd27a;color:#1c160b;font-weight:900;cursor:pointer">Add leak</button>
+    </div>
+    <div id="ace-leak-list" style="margin-top:12px"><p style="font-size:10px;color:#aebed0">No leakage entries yet. Add observed waste or use estimates to explore possible optimization opportunities.</p></div>
+    <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px;margin-top:12px">
+     <div style="padding:11px;border:1px solid #584a31;border-radius:8px"><small style="color:#d8bb84;font-size:9px">IDENTIFIED WASTE / MONTH</small><b id="ace-leak-total" style="display:block;font-size:17px;color:#fff">$0.00</b></div>
+     <div style="padding:11px;border:1px solid #584a31;border-radius:8px"><small style="color:#d8bb84;font-size:9px">POTENTIAL RECOVERY / YEAR</small><b id="ace-leak-annual" style="display:block;font-size:17px;color:#ffd27a">$0.00</b></div>
+     <div style="padding:11px;border:1px solid #584a31;border-radius:8px"><small style="color:#d8bb84;font-size:9px">TRACKED LEAK SIGNALS</small><b id="ace-leak-count" style="display:block;font-size:17px;color:#fff">0</b></div>
+    </div>
+   </div>
+   <div style="display:flex;justify-content:space-between;gap:12px;align-items:center;flex-wrap:wrap;margin-top:16px"><p id="ace-cost-disclosure" style="font-size:9px;color:#8fa5bd;max-width:790px;margin:0">Estimates are editable planning assumptions, not live vendor quotes or measured savings. Actual fees vary by provider, region, usage, discounts, commitments, taxes and contract. No account telemetry is connected by this planner; a leak becomes telemetry-verified only after a supported data connection and validation.</p><button type="button" id="ace-export-cost-model" style="padding:12px 16px;border:1px solid #63e8e8;background:#63e8e8;color:#04111c;border-radius:8px;font-weight:900;cursor:pointer">Add Cost Model to Blueprint Receipt ↓</button></div>
+   <p id="ace-cost-status" role="status" style="font-size:10px;color:#9edfff;min-height:15px;margin:10px 0 0">Search, add services, and model potential waste. Your selections stay in this browser session.</p>
+  </div>
+ </div>
+</section>
+<style>
+#ace-cost-intelligence input:focus,#ace-cost-intelligence select:focus{outline:2px solid #63e8e8;outline-offset:1px}
+.aceCostResult{display:flex;flex-direction:column;justify-content:space-between;gap:8px;padding:12px;border:1px solid #29415b;border-radius:9px;background:#ffffff05}
+.aceCostResult b{font-size:11px;color:#eff8ff}.aceCostResult small{font-size:9px;color:#9fb2c8;line-height:1.5}
+.aceCostResult button{align-self:flex-start;border:1px solid #4aa7ff88;border-radius:7px;padding:7px 10px;background:#102b45;color:#bfeaff;font-size:10px;font-weight:800;cursor:pointer}
+.aceCostRow{display:grid;grid-template-columns:minmax(0,1.5fr) 80px 110px 90px 30px;gap:8px;align-items:center;padding:10px 0;border-bottom:1px solid #29415b}
+.aceCostRow label{font-size:8px;color:#9fb2c8}.aceCostRow input{display:block;width:100%;min-width:0;padding:7px;border:1px solid #34516f;border-radius:6px;background:#06101d;color:#fff}
+.aceCostRow .bpChoice{margin:0}.aceCostRow .bpChoice b{font-size:10px}
+.aceLeakRow{display:flex;justify-content:space-between;gap:10px;align-items:center;padding:9px 0;border-bottom:1px solid #584a31;font-size:10px;color:#e7edf5}
+.aceLeakRow button{border:1px solid #9b7644;background:#20180c;color:#ffd27a;border-radius:6px;padding:5px 8px;cursor:pointer}
+@media(max-width:760px){.aceCostSearchGrid,.aceLeakInputGrid{grid-template-columns:1fr!important}.aceCostRow{grid-template-columns:minmax(0,1fr) 70px 90px 75px 26px;gap:5px}.aceCostRow label{font-size:7px}.aceCostRow input{font-size:10px;padding:6px}.aceCostRow .bpChoice{grid-column:1/-1}.aceCostRow .bpChoice input{width:16px}.aceLeakRow{align-items:flex-start;flex-direction:column}}
+</style>
+</div>
 </section>
 <style>
 .bpChoice{display:flex;gap:10px;align-items:flex-start;margin-top:15px;cursor:pointer;color:#e5effa}
@@ -2635,19 +2693,21 @@ footer b{color:#172235!important}footer a{color:#1768a8!important}
 <script>
 // DAEMON ACE: connect the customer blueprint modeler to the existing cryptographic Gatekeeper.
 (()=>{
- const items=Array.from(document.querySelectorAll("#ace-blueprint-modeler .bp-item"));
+ const modeler=document.getElementById("ace-blueprint-modeler");
  const total=document.getElementById("bp-total-cost");
  const count=document.getElementById("bp-selection-count");
  const status=document.getElementById("bp-modeler-status");
  const money=n=>"$"+n.toLocaleString("en-US",{minimumFractionDigits:2,maximumFractionDigits:2})+"/mo";
- const selectedItems=()=>items.filter(item=>item.checked);
+ const getItems=()=>Array.from(document.querySelectorAll("#ace-blueprint-modeler .bp-item"));
+ const selectedItems=()=>getItems().filter(item=>item.checked);
  const refresh=()=>{
   const selected=selectedItems();
   const amount=selected.reduce((sum,item)=>sum+Math.max(0,Number(item.dataset.cost)||0),0);
   if(total)total.textContent=money(amount);
   if(count)count.textContent=selected.length+" component"+(selected.length===1?"":"s")+" selected";
  };
- items.forEach(item=>item.addEventListener("change",refresh));
+ modeler?.addEventListener("change",event=>{if(event.target.matches(".bp-item"))refresh();});
+ modeler?.addEventListener("input",event=>{if(event.target.matches(".ace-cost-qty,.ace-cost-rate")){const row=event.target.closest(".aceCostRow");const qty=Math.max(0,Number(row?.querySelector(".ace-cost-qty")?.value)||0);const rate=Math.max(0,Number(row?.querySelector(".ace-cost-rate")?.value)||0);const item=row?.querySelector(".bp-item");if(item)item.dataset.cost=(qty*rate).toFixed(2);refresh();}});
  refresh();
  window.mintBlueprintReceipt=()=>{
   const selected=selectedItems();
@@ -2656,6 +2716,11 @@ footer b{color:#172235!important}footer a{color:#1768a8!important}
    return;
   }
   const amount=selected.reduce((sum,item)=>sum+Math.max(0,Number(item.dataset.cost)||0),0);
+  const leakRows=Array.from(document.querySelectorAll("#ace-leak-list [data-leak-monthly]"));
+  const leakWaste=leakRows.reduce((sum,row)=>sum+Number(row.dataset.leakMonthly||0),0);
+  const leakRecovery=leakRows.reduce((sum,row)=>sum+Number(row.dataset.leakRecovery||0),0);
+  const provider=document.getElementById("ace-cost-provider")?.value||"Unspecified";
+  const region=document.getElementById("ace-cost-region")?.value||"Unspecified";
   const quote=value=>'"'+String(value??"").replace(/\\/g,"\\\\").replace(/"/g,'\\"').replace(/[\r\n]/g," ")+'"';
   const components=selected.map(item=>"    - name: "+quote(item.dataset.name)+"\n      category: "+quote(item.dataset.id)+"\n      modeled_monthly_usd: "+(Math.max(0,Number(item.dataset.cost)||0)).toFixed(2)).join("\n");
   const hasNetwork=selected.some(item=>item.dataset.id==="network");
@@ -2686,7 +2751,16 @@ footer b{color:#172235!important}footer a{color:#1768a8!important}
    "  finops:",
    "    currency: USD",
    "    modeled_monthly_total: "+amount.toFixed(2),
-   "    quote_or_invoice: false"
+   "    quote_or_invoice: false",
+   "    pricing_context:",
+   "      provider: "+quote(provider),
+   "      region: "+quote(region),
+   "      source_status: customer_editable_planning_assumptions",
+   "    cost_leakage:",
+   "      identified_waste_monthly_usd: "+leakWaste.toFixed(2),
+   "      potential_recovery_monthly_usd: "+leakRecovery.toFixed(2),
+   "      telemetry_connected: false",
+   "      verified_savings: false"
   ].join("\n");
   const editor=document.getElementById("sim2realManifest");
   const goal=document.getElementById("sim2realGoal");
@@ -2704,6 +2778,106 @@ footer b{color:#172235!important}footer a{color:#1768a8!important}
   evaluate.click();
   if(status)status.textContent="Blueprint submitted to Gatekeeper. Review the screening result and SHA-256 Receipt of Safety below.";
  };
+
+ // DAEMON ACE Cost Intelligence: searchable service catalog, editable estimates and modeled leakage.
+ (()=>{
+  const root=document.getElementById("ace-cost-intelligence");if(!root)return;
+  const catalog=[
+   ["Cloudflare Workers platform fees","Cloudflare","Platform / serverless","Workers compute, requests and plan allowance","cloudflare workers fees platform compute requests",5],
+   ["Cloudflare Firewall / WAF","Cloudflare","Security / firewall","WAF and managed security allowance; confirm plan and rule pricing","cloudflare firewall fees waf firewall security",25],
+   ["Cloudflare R2 object storage","Cloudflare","Object storage","Storage, operations and retrieval allowance; egress depends on usage","cloudflare r2 object storage bucket",18],
+   ["Cloudflare D1 database","Cloudflare","Database","Database storage and query allowance","cloudflare d1 database sql",8],
+   ["Cloudflare CDN / cache","Cloudflare","Network / CDN","Cache and delivery allowance","cloudflare cdn cache bandwidth",12],
+   ["AWS EC2 compute","AWS","Compute","General-purpose instance monthly allowance","aws ec2 virtual machine compute instance",95],
+   ["AWS GPU instance","AWS","AI / GPU compute","GPU instance planning allowance; instance family and hours change cost materially","aws gpu p gpu g instance nvidia",950],
+   ["AWS S3 storage","AWS","Object storage","Object storage planning allowance before requests and transfer","aws s3 storage bucket object",25],
+   ["AWS EBS block storage","AWS","Block storage","Provisioned block storage planning allowance","aws ebs volume disk block storage",35],
+   ["AWS RDS database","AWS","Database","Managed database instance and storage allowance","aws rds aurora database",120],
+   ["AWS NAT Gateway and data processing","AWS","Network / egress","Gateway hours and processed bytes can both affect cost","aws nat gateway egress data transfer",45],
+   ["AWS Network Firewall","AWS","Security / firewall","Firewall endpoint and traffic processing allowance","aws network firewall security inspection",180],
+   ["AWS CloudWatch logs and metrics","AWS","Observability","Log ingestion, retention and metrics allowance","aws cloudwatch logs metrics monitoring",40],
+   ["AWS backup and snapshots","AWS","Backup / recovery","Backup storage and retention allowance","aws backup snapshots recovery",30],
+   ["Azure Virtual Machines","Microsoft Azure","Compute","VM compute planning allowance","azure virtual machines vm compute",110],
+   ["Azure Blob Storage","Microsoft Azure","Object storage","Blob capacity and operation allowance","azure blob storage object",25],
+   ["Azure Firewall","Microsoft Azure","Security / firewall","Firewall deployment and data processing allowance","azure firewall security",220],
+   ["Azure bandwidth / egress","Microsoft Azure","Network / egress","Outbound data transfer planning allowance","azure bandwidth egress network",55],
+   ["Azure Monitor / Log Analytics","Microsoft Azure","Observability","Ingestion and retention allowance","azure monitor log analytics observability",45],
+   ["Google Compute Engine","Google Cloud","Compute","VM compute planning allowance","gcp google compute engine vm",100],
+   ["Google Cloud Storage","Google Cloud","Object storage","Storage capacity and operation allowance","gcp google cloud storage bucket",22],
+   ["Google Cloud Armor","Google Cloud","Security / firewall","Edge security policy planning allowance","google cloud armor firewall waf security",35],
+   ["Google Cloud NAT / egress","Google Cloud","Network / egress","NAT gateway and outbound transfer allowance","google cloud nat egress network",50],
+   ["Google Kubernetes Engine","Google Cloud","Kubernetes","Cluster management and worker capacity allowance","gke kubernetes cluster",140],
+   ["Kubernetes worker nodes","Any provider","Kubernetes","Worker compute and reserved capacity allowance","kubernetes nodes worker pods cluster",250],
+   ["Managed Kubernetes control plane","Any provider","Kubernetes","Managed control plane allowance; provider terms vary","kubernetes control plane eks aks gke",75],
+   ["GPU / AI inference capacity","Any provider","AI / GPU compute","Accelerator runtime allowance; model, GPU and utilization dependent","gpu ai inference training accelerator",600],
+   ["Vector database / search","Any provider","Database","Managed vector index and query allowance","vector database search embeddings",80],
+   ["Database storage and IOPS","Any provider","Database","Database storage, provisioned IOPS and backup allowance","database sql nosql iops storage",65],
+   ["Data transfer and internet egress","Any provider","Network / egress","Outbound transfer, inter-zone traffic and peering allowance","egress data transfer bandwidth outbound",70],
+   ["Load balancer","Any provider","Network / edge","Load balancer hours and processed traffic allowance","load balancer ingress network",28],
+   ["DNS and domain services","Any provider","Network / edge","DNS and domain service allowance","dns domain zone",5],
+   ["Secrets manager / KMS","Any provider","Security","Secrets, key operations and key storage allowance","secrets manager kms key vault encryption",15],
+   ["Identity and access management","Any provider","Security","Identity, SSO and access service allowance","iam identity sso access",20],
+   ["Container registry and image storage","Any provider","Build / registry","Registry storage, image pulls and retention allowance","container registry docker image storage",18],
+   ["CI/CD build minutes","Any provider","Build / CI/CD","Runner minutes and build capacity allowance","cicd pipeline build runner github actions",35],
+   ["Logging, metrics and tracing","Any provider","Observability","Telemetry ingestion, indexing and retention allowance","logging metrics tracing observability",60],
+   ["Backup, archive and disaster recovery","Any provider","Backup / recovery","Backup capacity, replication and recovery allowance","backup archive disaster recovery replication",85],
+   ["Software licenses and SaaS platform fees","Any provider","Licensing / platform fees","Per-seat, per-workspace or usage-based allowance","license saas platform subscription fees seat",50],
+   ["ROS 2 / robotics edge runtime","Any provider","Robotics / edge","Edge runtime and fleet management allowance; hardware excluded","ros2 robotics edge jetson fleet",180],
+   ["Custom infrastructure or vendor fee","Custom","Custom line item","Enter your own monthly price or vendor quote","custom other unknown fee service",0]
+  ];
+  const $=id=>document.getElementById(id),search=$("ace-cost-search"),results=$("ace-cost-results"),stack=$("ace-cost-stack"),leaks=$("ace-leak-list");
+  const fmt=n=>"$"+Number(n||0).toLocaleString("en-US",{minimumFractionDigits:2,maximumFractionDigits:2});
+  let leakId=0;
+  const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+  function renderResults(){
+   const q=search.value.trim().toLowerCase();if(!q){results.innerHTML='<div style="grid-column:1/-1;padding:12px;border:1px solid #29415b;border-radius:9px;color:#9fb2c8;font-size:10px">Start typing a vendor, service, fee, resource or cost category. Matching catalog items appear here; unmatched terms can be added as custom line items.</div>';return;}
+   const tokens=q.split(/\s+/).filter(Boolean);
+   const matches=catalog.map(item=>({item,score:tokens.reduce((s,t)=>s+(item.join(" ").toLowerCase().includes(t)?1:0),0)})).filter(x=>x.score>0).sort((a,b)=>b.score-a.score).slice(0,8);
+   results.innerHTML=matches.map(({item})=>'<article class="aceCostResult"><div><b>'+esc(item[0])+'</b><small style="display:block">'+esc(item[2])+' · '+esc(item[4])+'</small><small>'+esc(item[3])+'</small></div><div style="display:flex;justify-content:space-between;align-items:center;gap:8px"><small>Starting assumption: <b style="color:#d8eaff">'+fmt(item[5])+'/mo</b></small><button type="button" data-add-catalog="'+esc(item[0])+'">+ Add to model</button></div></article>').join("");
+   if(!matches.length){results.innerHTML='<div style="grid-column:1/-1;padding:12px;border:1px solid #29415b;border-radius:9px;color:#b6c8db;font-size:10px">No exact catalog match for “'+esc(search.value)+'”. You can still model it as a custom service or fee.</div>';}
+   results.innerHTML+='<div style="grid-column:1/-1;display:flex;justify-content:flex-end"><button type="button" id="ace-add-custom" style="padding:8px 11px;border:1px solid #63e8e8;border-radius:7px;background:#0a2637;color:#a8f4ff;font-size:10px;font-weight:800;cursor:pointer">+ Add “'+esc(search.value)+'” as custom line item</button></div>';
+   $("ace-add-custom")?.addEventListener("click",()=>addItem([search.value.trim(),"Custom","Custom line item","Customer-entered price; replace zero with a quote or monthly assumption","custom",0]));
+   results.querySelectorAll("[data-add-catalog]").forEach(btn=>btn.addEventListener("click",()=>{const item=catalog.find(x=>x[0]===btn.dataset.addCatalog);if(item)addItem(item);}));
+  }
+  function addItem(item){
+   const id="cost-"+Math.random().toString(36).slice(2,10),provider=$("ace-cost-provider").value;
+   const row=document.createElement("div");row.className="aceCostRow";row.dataset.costId=id;
+   row.innerHTML='<label class="bpChoice"><input class="bp-item" type="checkbox" checked data-id="'+esc(id)+'" data-name="'+esc(item[0])+'" data-cost="'+Number(item[5]).toFixed(2)+'"><span><b>'+esc(item[0])+'</b><small>'+esc(item[2])+' · '+esc(item[1])+' · '+esc(item[3])+'</small></span></label><label>QTY<input class="ace-cost-qty" type="number" min="0" step="0.01" value="1"></label><label>RATE / MONTH<input class="ace-cost-rate" type="number" min="0" step="0.01" value="'+Number(item[5]).toFixed(2)+'"></label><label>LINE TOTAL<b class="ace-cost-line" style="display:block;color:#8eeeff;padding-top:7px">'+fmt(item[5])+'</b></label><button type="button" data-remove-cost="'+id+'" aria-label="Remove '+esc(item[0])+'" style="border:1px solid #45617d;border-radius:6px;background:#142235;color:#c6d8eb;cursor:pointer">×</button>';
+   stack.querySelector("p")?.remove();stack.appendChild(row);
+   row.querySelectorAll(".ace-cost-qty,.ace-cost-rate").forEach(input=>input.addEventListener("input",()=>{const qn=Math.max(0,Number(row.querySelector(".ace-cost-qty").value)||0),rate=Math.max(0,Number(row.querySelector(".ace-cost-rate").value)||0),line=qn*rate,check=row.querySelector(".bp-item");check.dataset.cost=line.toFixed(2);row.querySelector(".ace-cost-line").textContent=fmt(line);check.dispatchEvent(new Event("change",{bubbles:true}));updateAnnual();}));
+   row.querySelector("[data-remove-cost]").addEventListener("click",()=>{row.remove();updateStackCount();refreshBase();updateAnnual();});
+   updateStackCount();refreshBase();updateAnnual();
+   $("ace-cost-status").textContent=item[0]+" added to your modeled cost stack. Adjust quantity and monthly rate to match your assumptions.";
+  }
+  function refreshBase(){modeler?.dispatchEvent(new Event("change",{bubbles:true}));}
+  function updateStackCount(){$("ace-cost-stack-count").textContent=stack.querySelectorAll(".aceCostRow").length+" added services";}
+  function updateAnnual(){
+   const month=Array.from(document.querySelectorAll("#ace-blueprint-modeler .bp-item:checked")).reduce((s,x)=>s+Math.max(0,Number(x.dataset.cost)||0),0);
+   $("ace-annual-cost").textContent=fmt(month*12);
+  }
+  function addLeak(){
+   const category=$("ace-leak-category").value,waste=Math.max(0,Number($("ace-leak-monthly").value)||0),share=Math.min(100,Math.max(0,Number($("ace-leak-recoverable").value)||0)),confidence=$("ace-leak-confidence").value;
+   if(waste<=0){$("ace-cost-status").textContent="Enter a monthly waste amount greater than zero.";return;}
+   const row=document.createElement("div");row.className="aceLeakRow";row.dataset.leakMonthly=waste.toFixed(2);row.dataset.leakRecovery=(waste*share/100).toFixed(2);row.dataset.leakId=String(++leakId);
+   row.innerHTML='<div><b>'+esc(category)+'</b><div style="color:#9fb2c8;margin-top:3px">'+esc(confidence)+' · '+share+'% modeled recoverability</div></div><div style="display:flex;gap:12px;align-items:center"><span>Waste: <b>'+fmt(waste)+'/mo</b> · Recovery: <b style="color:#ffd27a">'+fmt(waste*share/100)+'/mo</b></span><button type="button" data-remove-leak="'+leakId+'">Remove</button></div>';
+   leaks.querySelector("p")?.remove();leaks.appendChild(row);
+   row.querySelector("button").addEventListener("click",()=>{row.remove();updateLeaks();});
+   updateLeaks();$("ace-cost-status").textContent="Leakage assumption added. It is a modeled signal, not a live detection.";
+  }
+  function updateLeaks(){
+   const rows=Array.from(leaks.querySelectorAll("[data-leak-monthly]")),waste=rows.reduce((s,r)=>s+Number(r.dataset.leakMonthly||0),0),recover=rows.reduce((s,r)=>s+Number(r.dataset.leakRecovery||0),0);
+   $("ace-leak-total").textContent=fmt(waste);$("ace-leak-savings").textContent=fmt(recover);$("ace-leak-annual").textContent=fmt(recover*12);$("ace-leak-count").textContent=String(rows.length);
+  }
+  search.addEventListener("input",renderResults);$("ace-add-leak").addEventListener("click",addLeak);
+  $("ace-export-cost-model").addEventListener("click",()=>{
+   const chosen=Array.from(document.querySelectorAll("#ace-blueprint-modeler .bp-item:checked"));
+   if(!chosen.length){$("ace-cost-status").textContent="Select at least one blueprint component before sending the cost model to Gatekeeper.";return;}
+   const customNames=Array.from(stack.querySelectorAll(".aceCostRow")).map(row=>row.querySelector(".bp-item")?.dataset.name).filter(Boolean);
+   $("ace-cost-status").textContent="Cost model includes "+chosen.length+" selected blueprint components and "+customNames.length+" added service(s). Minting the governed blueprint and submitting it to Gatekeeper.";
+   window.mintBlueprintReceipt();
+  });
+  renderResults();updateStackCount();updateAnnual();updateLeaks();
+ })();
 })();
 </script>
 
