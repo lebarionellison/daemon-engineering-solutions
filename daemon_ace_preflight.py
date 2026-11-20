@@ -73,7 +73,7 @@ RULES = [
         "id": "SEC-008",
         "category": "IDENTITY",
         "severity": "HIGH",
-        "pattern": r"automountServiceAccountToken:\\s*true",
+        "pattern": r"automountServiceAccountToken:\s*true",
         "title": "Kubernetes ServiceAccount token auto-mounted",
         "remediation": "Set automountServiceAccountToken: false and mount a narrowly scoped token only when the workload requires Kubernetes API access.",
     },
@@ -81,7 +81,7 @@ RULES = [
         "id": "SEC-009",
         "category": "SECRETS",
         "severity": "CRITICAL",
-        "pattern": r"(?:AWS_SECRET_ACCESS_KEY|OPENAI_API_KEY|GITHUB_TOKEN|PRIVATE_KEY)\\s*[:=]\\s*['\\"]?[A-Za-z0-9_./+=-]{16,}|-----BEGIN (?:RSA |EC |OPENSSH )?PRIVATE KEY-----",
+        "pattern": r"(?:AWS_SECRET_ACCESS_KEY|OPENAI_API_KEY|GITHUB_TOKEN|PRIVATE_KEY)\s*[:=]\s*['\"]?[A-Za-z0-9_./+=-]{16,}|-----BEGIN (?:RSA |EC |OPENSSH )?PRIVATE KEY-----",
         "title": "Possible plaintext credential or private key in configuration",
         "remediation": "Remove the credential from the artifact, rotate/revoke it at its issuer, and load a replacement from an approved secret manager. Do not reuse the exposed value.",
     },
@@ -89,7 +89,7 @@ RULES = [
         "id": "NET-008",
         "category": "EGRESS_CONTROL",
         "severity": "HIGH",
-        "pattern": r"(?is)(?=.*kind:\\s*(?:Deployment|Pod|StatefulSet|DaemonSet))(?!(?s:.*kind:\\s*NetworkPolicy.*policyTypes:[^\\n]*(?:\\n\\s*-\\s*Egress|\\[.*Egress).*egress:)).*",
+        "pattern": r"(?!)",
         "title": "Workload has no explicit egress NetworkPolicy / default-deny boundary",
         "remediation": "Add a namespace-scoped default-deny egress NetworkPolicy, then explicitly allow only required DNS and approved service destinations. Validate CNI enforcement before relying on it.",
     },
@@ -99,8 +99,19 @@ RULES = [
 def scan_text(text: str) -> list[dict[str, str]]:
     findings: list[dict[str, str]] = []
     for rule in RULES:
+        if rule["id"] == "NET-008":
+            continue
         if re.search(rule["pattern"], text, flags=re.IGNORECASE):
             findings.append(rule)
+
+    # Require an explicit NetworkPolicy egress boundary for Kubernetes workloads.
+    has_workload = re.search(r"(?im)^kind:\\s*(?:Deployment|Pod|StatefulSet|DaemonSet)\\b", text)
+    has_egress_policy = re.search(
+        r"(?is)kind:\\s*NetworkPolicy.*?policyTypes:\\s*(?:\\[[^]]*Egress[^]]*\\]|(?:\\n\\s*-\\s*Ingress)?\\n\\s*-\\s*Egress).*?egress:",
+        text,
+    )
+    if has_workload and not has_egress_policy:
+        findings.append(next(rule for rule in RULES if rule["id"] == "NET-008"))
     return findings
 
 
