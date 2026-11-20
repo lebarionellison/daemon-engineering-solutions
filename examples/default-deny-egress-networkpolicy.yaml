@@ -1,0 +1,17 @@
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: daemon-ace-default-deny-egress
+  namespace: replace-with-workload-namespace
+  labels:
+    app.kubernetes.io/part-of: daemon-ace
+    app.kubernetes.io/component: egress-containment
+spec:
+  # This policy applies to every pod in the namespace.
+  # Use a dedicated namespace or replace podSelector with the workload labels.
+  podSelector: {}
+  policyTypes:
+    - Egress
+  # Intentionally empty: deny all egress by default.
+  # Add separate, narrowly scoped NetworkPolicies for approved DNS and service destinations.
+  egress: []
