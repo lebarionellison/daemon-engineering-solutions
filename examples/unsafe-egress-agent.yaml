@@ -1,0 +1,14 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: unsafe-research-agent
+spec:
+  template:
+    spec:
+      automountServiceAccountToken: true
+      containers:
+      - name: agent
+        image: registry.example.edu/research/agent:latest
+        env:
+        - name: OPENAI_API_KEY
+          value: sk-demo-abcdefghijklmnopqrstuv
