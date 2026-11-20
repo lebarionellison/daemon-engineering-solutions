@@ -216,7 +216,7 @@ jobs:
           policy_digest=$(python3 - <<'PY'
           import hashlib
           entries = sorted(["10.20.0.0/16", "192.0.2.40/32"])
-          print(hashlib.sha256("\\n".join(entries).encode("utf-8")).hexdigest())
+          print(hashlib.sha256("\n".join(entries).encode("utf-8")).hexdigest())
           PY
           )
           python3 daemon_reflex_guard.py \
