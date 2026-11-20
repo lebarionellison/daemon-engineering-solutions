@@ -151,7 +151,8 @@ async function generateProposal(request, env) {
   const currentConfig = String(body.currentConfig || "");
   const environment = clean(body.environment || "staging", 80);
   const fileName = clean(body.fileName || "configuration.yaml", 120);
-  const baseline = body.costBaseline && typeof body.costBaseline === "object" ? body.costBaseline : null;\n  const complianceProfile = clean(body.complianceProfile || "none", 40);
+  const baseline = body.costBaseline && typeof body.costBaseline === "object" ? body.costBaseline : null;
+  const complianceProfile = clean(body.complianceProfile || "none", 40);
   if (!goal || !currentConfig.trim() || currentConfig.length > 18000) {
     return json({ error: "Provide a goal and a configuration between 1 and 18,000 characters." }, 400);
   }
