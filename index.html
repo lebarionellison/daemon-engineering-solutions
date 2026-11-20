@@ -1304,6 +1304,28 @@ footer a{color:#63e6ed!important}
   
 </section>
 
+<!-- DAEMON ACE DIRECTORY INTRO + TABLE OF CONTENTS -->
+<section id="daemon-directory-intro" class="directoryIntro" aria-label="DAEMON ACE introduction">
+ <div class="wrap">
+  <p class="directorySummary">DAEMON ACE is an autonomous AI engineering and delivery system from Daemon Engineering Solutions. It helps teams scope, build, secure, validate and prepare AI workloads, cloud infrastructure and robotics software for controlled release.</p>
+  <div class="directoryCategories" aria-label="Explore DAEMON ACE by audience">
+   <a href="#executive-brief">BUSINESS &amp; TECHNOLOGY LEADERS</a><a href="#engines">AI / ML RESEARCHERS</a><a href="#engineering-workbench">PLATFORM &amp; DEVOPS TEAMS</a><a href="#secure-ai">SECURITY &amp; RISK TEAMS</a><a href="#romi">ROBOTICS &amp; EDGE TEAMS</a><a href="#proof">OPERATIONS &amp; AUDIT</a>
+  </div>
+ </div>
+</section>
+<section id="daemon-directory-contents" class="directoryContents" aria-labelledby="directory-contents-title">
+ <div class="wrap">
+  <div class="directoryContentsHead"><span>EXPLORE THE PLATFORM</span><h2 id="directory-contents-title">Contents</h2><p>Start with the architecture, explore the engineering capabilities, or go directly to the area your team needs.</p></div>
+  <div class="directoryContentsGrid">
+   <div><b>01 · ARCHITECTURE</b><a href="#daemon-6-layer-stack">Six-layer DAEMON ACE architecture</a><a href="#buyer-layer-guide">What each layer means for buyers and users</a><a href="#hardware-matrix">Hardware, cloud and deployment targets</a></div>
+   <div><b>02 · BUILD &amp; VALIDATE</b><a href="#engineering-workbench">Engineering workbench and pre-flight demo</a><a href="#proof">Validation, receipts and release evidence</a><a href="#release-journey">Governed release journey</a></div>
+   <div><b>03 · SECURITY &amp; AUTONOMY</b><a href="#secure-ai">AI security and execution governance</a><a href="#daemon-aegis-layer">AEGIS evidence and accountability</a><a href="#ace-gateways">Policy enforcement gateways</a></div>
+   <div><b>04 · SPECIALIZED SYSTEMS</b><a href="#romi">RoMi robotic micro-manufacturing</a><a href="#jetson-delivery">Jetson and edge AI delivery</a><a href="#explore">Explore missions and product areas</a></div>
+   <div><b>05 · WORK WITH DAEMON</b><a href="#design-partners">Design partner program</a><a href="#investors">Company and product overview</a><a href="#contact">Discuss a customer build</a></div>
+   <div><b>06 · COMPANY</b><a href="#founder">Founder and engineering lead</a><a href="infrastructure-services.html">Engineering services ↗</a><a href="https://www.linkedin.com/in/lebarionellison" target="_blank" rel="noopener noreferrer">Founder on LinkedIn ↗</a></div>
+  </div>
+ </div>
+</section>
 
 <!-- DAEMON ACE · SIX-LAYER AUTONOMOUS AI GOVERNANCE ARCHITECTURE -->
 <style>
@@ -2130,5 +2152,101 @@ spec:
 (()=>{const run=document.getElementById("runPreflight"),input=document.getElementById("yamlInput"),goal=document.getElementById("aceGoal"),output=document.getElementById("preflightOutput"),panel=document.getElementById("selfHealPanel");if(!run||!input||!goal||!output||!panel)return;const $=id=>document.getElementById(id),esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));function repair(source){let repaired=source,changes=[],unresolved=[];const rules=[{re:/^(\s*)privileged:\s*true\s*$/gm,to:(m,i)=>i+"privileged: false",why:"Disable privileged container mode."},{re:/^(\s*)allowPrivilegeEscalation:\s*true\s*$/gm,to:(m,i)=>i+"allowPrivilegeEscalation: false",why:"Disable privilege escalation."},{re:/^(\s*)runAsNonRoot:\s*false\s*$/gm,to:(m,i)=>i+"runAsNonRoot: true",why:"Require a non-root runtime identity."}];for(const r of rules)repaired=repaired.replace(r.re,(...a)=>{changes.push(r.why);return r.to(...a)});if(/image:\s*[^\s]+:latest\b/.test(repaired))unresolved.push("Mutable :latest image tag: select and verify an approved immutable digest; ACE will not invent one.");if(/dds_discovery_interface:\s*["']?0\.0\.0\.0["']?/.test(repaired))unresolved.push("Wildcard DDS discovery interface: choose the approved network interface for this deployment.");if(/max_(linear|angular)_velocity:\s*[0-9]+(?:\.[0-9]+)?/.test(repaired))unresolved.push("Motion limits require the robot's validated operating envelope and independent safety review.");if(/gpu|cuda|nvidia/i.test(goal.value+" "+source)&&/memory|oom|pressure/i.test(goal.value+" "+source))unresolved.push("GPU memory-pressure recovery requires live device telemetry and workload-specific profiling; no capacity value was guessed in this browser demo.");return{repaired,changes,unresolved}}function diff(a,b){const x=a.split("\n"),y=b.split("\n"),out=[];for(let i=0;i<Math.max(x.length,y.length);i++){if(x[i]===y[i])continue;if(x[i]!==undefined)out.push("- "+x[i]);if(y[i]!==undefined)out.push("+ "+y[i])}return out.join("\n")||"No automatic patch was safe to propose."}async function hash(v){if(!crypto?.subtle)return"Web Crypto unavailable";const h=await crypto.subtle.digest("SHA-256",new TextEncoder().encode(v));return[...new Uint8Array(h)].map(x=>x.toString(16).padStart(2,"0")).join("")}
 run.addEventListener("click",async()=>{const before=input.value,engineeringGoal=goal.value.trim();if(!before.trim()||!engineeringGoal)return;run.disabled=true;run.textContent="Analyzing + preparing repair…";try{let serverId=null,serverData=null,serverNote="Local demo receipt only; server receipt service was not reached.";try{const response=await fetch("/api/preflight",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({manifest:before,goal:engineeringGoal,complianceProfile:document.getElementById("aegisComplianceProfile")?.value||document.getElementById("aceComplianceProfile")?.value||"none"})}),data=await response.json().catch(()=>({}));serverData=data;if(response.ok){serverId=data.receipt_id||null;serverNote="Server-side heuristic receipt recorded."}else serverNote="Server receipt unavailable: "+(data.error||"request rejected")+"."}catch(e){serverNote="Server receipt unavailable: "+e.message+"."}const p=repair(before),after=p.repaired,policyPass=!/privileged:\s*true/i.test(after)&&!/allowPrivilegeEscalation:\s*true/i.test(after)&&!/runAsNonRoot:\s*false/i.test(after),id="ACE-DEMO-"+Date.now().toString(36).toUpperCase(),inputHash=await hash(before),afterHash=await hash(after);$("preflightScore").textContent=policyPass?"REVIEW":"HOLD";$("preflightVerdict").textContent=p.changes.length?"Repair proposal prepared — human review required":"No safe automatic repair identified";const aegis=serverData?.receipt?.aegis_compliance;const aegisPanel=$("aegisEvidencePanel"),aegisGrid=$("aegisEvidenceGrid");if(aegisPanel&&aegisGrid&&aegis){aegisPanel.hidden=false;$("aegisGateStatus").textContent=aegis.release_gate?.status||"NOT EVALUATED";const cards=[{name:"RED-TEAM / JAILBREAK",status:aegis.red_team_gate?.status||"NOT EXECUTED",detail:"Adversarial probes: "+(aegis.red_team_gate?.probes||[]).join(", ")},{name:"AI-BOM PROVENANCE",status:aegis.ai_bill_of_materials?.signature?.status||"NOT SIGNED",detail:"Manifest SHA-256: "+(aegis.ai_bill_of_materials?.submitted_manifest?.sha256||"not returned")},{name:"DATA SANITIZATION",status:aegis.data_sanitization?.status||"NOT SCANNED",detail:(aegis.data_sanitization?.findings||[]).length+" possible sensitive-data pattern(s); no source data modified."},{name:"COMPLIANCE PROFILE",status:aegis.release_gate?.status||"NOT EVALUATED",detail:(aegis.selected_profile||"No profile")+" · "+(aegis.release_gate?.unverified_count||0)+" mandatory control(s) unverified"}];aegisGrid.innerHTML=cards.map(c=>'<article><b>'+esc(c.name)+'</b><strong>'+esc(c.status)+'</strong><p>'+esc(c.detail)+'</p></article>').join("");}$("preflightSummary").textContent=p.changes.length+" deterministic repair(s) proposed; "+p.unresolved.length+" item(s) remain unresolved. "+serverNote;$("preflightFindings").innerHTML=p.unresolved.map(x=>'<div class="finding medium"><b>HUMAN REVIEW REQUIRED</b><br>'+esc(x)+'</div>').join("")+p.changes.map(x=>'<div class="finding"><b>PROPOSED REPAIR</b><br>'+esc(x)+'</div>').join("");$("preflightReceipt").textContent=JSON.stringify({receipt_id:serverId,local_demo_receipt:id,goal:engineeringGoal,proposed_changes:p.changes,unresolved:p.unresolved,policy_twin:"local deterministic pattern check only",limitations:["Not a YAML parser","Not a live Kubernetes dry-run","Not a physics simulator","No GPU telemetry read","No production deployment"],after_sha256:afterHash},null,2);$("selfHealBefore").textContent=before;$("selfHealAfter").textContent=after;$("selfHealDiffText").textContent=diff(before,after);$("selfHealTwin").innerHTML="<strong>POLICY TWIN · "+(policyPass?"PASS ON CHECKED PATTERNS":"HOLD")+"</strong><br>"+(policyPass?"No remaining checked privileged-mode pattern was detected by this limited rule check.":"A checked unsafe pattern remains; do not approve.")+"<br>Unresolved engineering decisions: "+p.unresolved.length+". This is not an actual cluster or physics simulation.";$("selfHealReceiptText").textContent=JSON.stringify({receipt_id:id,server_receipt_id:serverId,created_at:new Date().toISOString(),input_sha256:inputHash,repaired_artifact_sha256:afterHash,proposed_changes:p.changes,unresolved:p.unresolved,policy_twin_result:policyPass?"PASS_LIMITED_CHECK":"HOLD",human_approval:"PENDING",deployment:"NOT EXECUTED",disclaimer:"Demonstration receipt; not a cryptographic signature or safety certification."},null,2);$("selfHealState").textContent=p.changes.length?"PATCH READY FOR REVIEW":"NO SAFE PATCH";$("approveSelfHeal").disabled=!p.changes.length||!policyPass;$("approveSelfHeal").textContent=p.changes.length&&policyPass?"Approve proposed patch · demo only":"Approval unavailable · review required";panel.hidden=false;output.classList.add("show");$("approveSelfHeal").onclick=()=>{$("selfHealState").textContent="HUMAN REVIEW RECORDED";$("selfHealReceiptText").textContent=$("selfHealReceiptText").textContent.replace('"human_approval": "PENDING"','"human_approval": "APPROVED_DEMO_ONLY"')+"\n\nDEMO APPROVAL RECORDED: "+new Date().toISOString();$("approveSelfHeal").disabled=true;$("approveSelfHeal").textContent="✓ Demo approval recorded"}}catch(e){output.classList.add("show");$("preflightSummary").textContent="Self-heal preview failed: "+e.message}finally{run.disabled=false;run.textContent="Run X-Ray + Self-Heal Preview"}})})();
 </script>
+
+<!-- REFERENCE-INSPIRED DAEMON ACE DIRECTORY DESIGN -->
+<style id="daemon-ace-directory-design">
+:root{--dir-ink:#172235;--dir-muted:#526174;--dir-line:#dce3eb;--dir-blue:#1768a8;--dir-cyan:#22d3dc;--dir-navy:#07152a;--dir-green:#14845d;color-scheme:light}
+html{background:#fff!important;scroll-padding-top:92px}
+body{background:#fff!important;color:var(--dir-ink)!important;font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif!important}
+#daemon-command-bg,body:before{display:none!important}
+a{color:var(--dir-blue)}a:hover{color:#0b9ca8}
+header{position:sticky;top:0;background:#fff!important;border-bottom:1px solid #dce3eb!important;box-shadow:0 2px 12px #1722350a!important;backdrop-filter:blur(12px)}
+.nav{height:auto;min-height:66px;padding:9px 0;gap:14px}
+.brand{color:#142238!important;font-size:14px}.brand span{color:#087f9a!important}.brand small{color:#718096!important}
+.navlinks{color:#334155!important;gap:clamp(8px,1.1vw,16px);font-size:10px;flex-wrap:wrap;justify-content:flex-end}
+.navlinks a{color:#334155!important}.navlinks a:hover{color:#07899b!important}
+.navcta{border:1px solid #087f9a!important;color:#087f9a!important;background:#e9fbfc!important}
+main{background:#fff!important}
+main>section:not(.governanceBanner){background:#fff!important;color:var(--dir-ink)!important;border-top:1px solid #e5eaf0!important;border-bottom:0!important}
+main>section:not(.governanceBanner) h2,main>section:not(.governanceBanner) h3,main>section:not(.governanceBanner) h4{color:#172235!important}
+main>section:not(.governanceBanner) p,main>section:not(.governanceBanner) li,main>section:not(.governanceBanner) small{color:#526174}
+.sectionHead h2{color:#172235!important}.sectionHead p{color:#526174!important}.kicker,.eyebrow{color:#087f9a!important}
+.governanceBanner.cinematicHero{background:radial-gradient(ellipse at 50% 0%,#174c79 0%,transparent 65%),linear-gradient(118deg,#061326 0%,#0b2544 54%,#07172d 100%)!important;color:#f8fbff!important;border:0!important;overflow:hidden;position:relative}
+.governanceBanner:before{content:"";position:absolute;inset:0;pointer-events:none;opacity:.2;background-image:linear-gradient(#70d9f222 1px,transparent 1px),linear-gradient(90deg,#70d9f222 1px,transparent 1px);background-size:34px 34px}
+.cinematicLayout{display:block!important;max-width:1040px!important;padding:42px 0 40px!important;text-align:center;position:relative;z-index:1}
+.cinematicCopy{max-width:920px;margin:0 auto!important;text-align:center!important}
+.cinematicEyebrow{justify-content:center;color:#7beaf0!important}.cinematicOverline{color:#9ebbd4!important;letter-spacing:2px}
+.governanceBanner h1{font-size:clamp(36px,6vw,66px)!important;letter-spacing:-2.3px!important;line-height:1.02!important;color:#f8fbff!important;margin:10px 0 14px!important}
+.governanceBanner h1 em{background:linear-gradient(90deg,#22d3dc,#58b6ff 55%,#a9b8ff)!important;background-clip:text!important;color:transparent!important}
+.cinematicLead{font-size:clamp(13px,2vw,17px)!important;font-weight:900;letter-spacing:1.3px;color:#d9faff!important}
+.cinematicBody{max-width:790px;margin:12px auto!important;color:#c1d2e3!important;font-size:13px!important}
+.oneGlanceCapabilities{max-width:790px;margin:22px auto 0!important;grid-template-columns:repeat(3,1fr)!important;text-align:left}
+.oneGlanceCapabilities a{border:1px solid #7bd9e555!important;background:#07172a99!important;border-radius:7px!important}
+.oneGlanceCapabilities b{color:#eafcff!important}.oneGlanceCapabilities small{color:#aac1d5!important}
+.cinematicActions{justify-content:center}.cinematicPrimary{background:#39d9df!important;color:#07182b!important;border-radius:5px}
+.cinematicSecondary{border:1px solid #85b9dc!important;color:#eaf5ff!important;border-radius:5px}
+.cinematicAudience{justify-content:center;color:#a8bfd4!important}.cinematicAudience b{color:#d8eaf8!important}.aceUniverse{display:none!important}
+.directoryIntro{padding:26px 0 22px!important;background:#fff!important;border:0!important}
+.directorySummary{max-width:880px;margin:0 auto 18px!important;text-align:center;color:#3d4d61!important;font-size:14px!important;line-height:1.7}
+.directoryCategories{display:flex;justify-content:center;flex-wrap:wrap;gap:8px}
+.directoryCategories a{display:inline-flex;padding:6px 10px;border:1px solid #d5e0eb;border-radius:5px;background:#f7fafc;color:#275b80;font-size:9px;font-weight:850;letter-spacing:.4px}
+.directoryCategories a:hover{border-color:#19a9b5;background:#e9fbfc;color:#075f73}
+.directoryContents{padding:24px 0 35px!important;background:#fff!important;border-top:1px solid #e1e7ed!important;border-bottom:1px solid #e1e7ed!important}
+.directoryContentsHead{margin-bottom:17px}.directoryContentsHead>span{font-size:9px;font-weight:900;letter-spacing:1.6px;color:#16808e}
+.directoryContentsHead h2{font-size:23px!important;letter-spacing:-.5px;margin:4px 0!important;color:#172235!important}
+.directoryContentsHead p{font-size:12px;margin:0;color:#64748b!important}
+.directoryContentsGrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px 28px}
+.directoryContentsGrid>div{display:grid;align-content:start;gap:7px;padding:12px 0;border-top:1px solid #dce3eb}
+.directoryContentsGrid b{font-size:9px;letter-spacing:1px;color:#172235}
+.directoryContentsGrid a{font-size:11px;line-height:1.45;color:#245f8b;text-decoration:underline;text-underline-offset:2px}
+.directoryContentsGrid a:hover{color:#0b929e}
+#daemon-6-layer-stack{padding:45px 0!important;background:#fff!important;border-top:1px solid #e5eaf0!important}
+#daemon-6-layer-stack:before{display:none!important}
+#daemon-6-layer-stack .ace6-shell{background:#fff!important;border:1px solid #dce3eb!important;border-radius:8px!important;box-shadow:0 5px 20px #1722350a!important;padding:24px!important}
+#daemon-6-layer-stack .ace6-head{text-align:left!important;margin:0 0 20px!important}
+#daemon-6-layer-stack .ace6-kicker{color:#087f9a!important}
+#daemon-6-layer-stack h2{color:#172235!important;font-size:clamp(25px,3vw,36px)!important}
+#daemon-6-layer-stack .ace6-head p{color:#526174!important;margin:0!important}
+#daemon-6-layer-stack .ace6-layer{background:#f8fafc!important;border:1px solid #dce3eb!important;border-bottom:2px solid #a9c5d9!important;border-radius:6px!important;color:#172235!important;box-shadow:none!important}
+#daemon-6-layer-stack .ace6-layer:hover,#daemon-6-layer-stack .ace6-layer[aria-pressed=true]{background:#eef9fb!important;border-color:#2baab6!important;box-shadow:0 2px 12px #0b899b12!important}
+#daemon-6-layer-stack .ace6-num{background:#e5f8fa!important;color:#087f9a!important;border-color:#8bd7dc!important}
+#daemon-6-layer-stack .ace6-copy b{color:#172235!important}#daemon-6-layer-stack .ace6-copy small{color:#526174!important}
+#daemon-6-layer-stack .ace6-owner,#daemon-6-layer-stack .ace6-status{color:#087f9a!important}
+#daemon-6-layer-stack .ace6-inspector{background:#f4f9fc!important;border:1px solid #c7dce8!important;box-shadow:none!important;border-radius:6px!important}
+#daemon-6-layer-stack .ace6-inspector h3{color:#172235!important}#daemon-6-layer-stack .ace6-inspector p{color:#526174!important}
+#daemon-6-layer-stack .ace6-inspector .ace6-hook{background:#eaf7f8!important;color:#31556b!important;border-left-color:#1599a6!important}
+#daemon-6-layer-stack .ace6-actions a{background:#087f9a!important;color:#fff!important;border-radius:4px!important}
+#daemon-6-layer-stack .ace6-caveat{color:#64748b!important}
+.buyerGuideSection{background:#fff!important}.buyerGuideSection .sectionHead h2{color:#172235!important}.buyerGuideSection .sectionHead p{color:#526174!important}
+.buyerAudienceRail a{background:#f5f9fc!important;border:1px solid #dce3eb!important;color:#245f8b!important}
+.buyerLayerGrid article{background:#fff!important;border:1px solid #dce3eb!important;border-radius:7px!important;box-shadow:0 3px 12px #17223508!important}
+.buyerLayerGrid article span{color:#087f9a!important}.buyerLayerGrid article h3{color:#172235!important}.buyerLayerGrid article p{color:#526174!important}
+.buyerOutcome{background:#eff9fa!important;color:#126c77!important;border-left:2px solid #1599a6!important}
+.buyerJourney{background:#f3f8fb!important;border:1px solid #cbdde9!important;border-radius:7px!important}
+.buyerJourney h3{color:#172235!important}.buyerJourney p{color:#526174!important}.buyerDisclosure{color:#64748b!important}
+.card,.panel,.compareBox,.metric,.investorMetric,.modelStep,.gatewayCard,.partnerPanel,.maturityPanel,.hardwareMatrix article,.proofDiagram,.twin,.preflight,.designPartner,.founderCard,.ctaBox{background:#fff!important;border:1px solid #dce3eb!important;box-shadow:0 4px 16px #17223508!important;color:#172235!important;border-radius:7px!important}
+.card h3,.panel h3,.compareBox h3,.gatewayCard h3,.hardwareMatrix h3,.founderCard h2,.ctaBox h2{color:#172235!important}
+.card p,.panel p,.panel li,.compareBox p,.gatewayCard p,.gatewayCard li,.hardwareMatrix p,.founderCard p,.ctaBox p{color:#526174!important}
+.integrationStrip span,.hardwareStandards span{background:#f5f9fc!important;border-color:#dce3eb!important;color:#334b63!important}
+.hardwareMatrix article small,.hardwareMatrix article span,.twinGrid b,.metric strong,.investorMetric strong,.modelStep b{color:#087f9a!important}
+.twinGrid div,.flowItem,.list div,.gatewayFlow div{background:#f5f9fc!important;border:1px solid #dce3eb!important;color:#334155!important}
+.prompt,.preflight textarea,.intakeModal input,.intakeModal textarea,.aegisProfileBar select{background:#f8fafc!important;border:1px solid #cbd5e1!important;color:#172235!important}
+.receipt,.aegisEvidencePanel,.selfHealPanel{background:#effaf6!important;border:1px solid #b8dfd0!important}
+.receipt strong,.selfHealReceipt b{color:#14845d!important}
+#founder .founderCard{background:#f8fbfd!important;border-color:#cbdde9!important}
+#founder .founderAvatar{background:linear-gradient(145deg,#0b526c,#263c68)!important;border-color:#4ebbc5!important;color:#fff!important}
+#founder .founderLink{color:#1768a8!important}
+#contact .ctaBox{background:#f5f9fc!important;border-color:#bcd4e4!important}
+footer{background:#f8fafc!important;border-top:1px solid #dce3eb!important;color:#64748b!important}
+footer b{color:#172235!important}footer a{color:#1768a8!important}
+#executive-brief{color:#172235!important;background:#fff!important}#executive-brief *{color:inherit}#executive-brief a{color:#1768a8!important}
+.modalBackdrop{background:#17223588!important}.intakeModal{background:#fff!important;border:1px solid #cbd5e1!important}
+.intakeModal h2,.intakeModal label{color:#172235!important}.intakeModal p{color:#526174!important}
+@media(max-width:900px){.nav{align-items:flex-start;flex-direction:column;padding:9px 0}.navlinks{width:100%;justify-content:flex-start;flex-wrap:nowrap;overflow-x:auto;white-space:nowrap;padding:4px 0 8px}.navlinks a{display:inline-flex!important;flex:none!important}}
+@media(max-width:700px){.directoryContentsGrid{grid-template-columns:repeat(2,minmax(0,1fr))}.oneGlanceCapabilities{grid-template-columns:1fr!important}.cinematicLayout{padding:34px 0!important}.cinematicAudience{display:none!important}.directorySummary{font-size:12px!important}}
+@media(max-width:480px){.directoryContentsGrid{grid-template-columns:1fr}.navlinks{gap:13px}.governanceBanner h1{font-size:36px!important}}
+</style>
+<!-- END REFERENCE-INSPIRED DIRECTORY DESIGN -->
+
 </body>
 </html>
