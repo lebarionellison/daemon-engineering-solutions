@@ -96,7 +96,7 @@ RULES = [
         "id": "NET-011",
         "category": "TOOL_EGRESS",
         "severity": "HIGH",
-        "pattern": r"(?:webhook_url|callback_url|tool_endpoint|http_tool_url)\s*:\s*https?://",
+        "pattern": r"(?:webhook_url|callback_url|tool_endpoint|http_tool_url)\s*:\s*https?://|name:\s*(?:WEBHOOK_URL|CALLBACK_URL|TOOL_ENDPOINT|HTTP_TOOL_URL)\s*\n\s*value:\s*https?://",
         "title": "Outbound webhook or agent tool URL requires allowlist review",
         "remediation": "Route agent tool traffic through an enforced egress proxy or tool gateway and allow only reviewed destinations. This declaration scan does not intercept requests.",
     },
