@@ -1306,6 +1306,39 @@ body>header .navlinks a:hover{color:var(--ace-cyan)!important}
 @media(max-height:760px) and (min-width:681px){#ace-cylinder-experience{padding-top:13px}.ace-cylinder{height:min(67vh,500px);min-height:380px}.ace-stage-head h1{font-size:34px}.ace-stage-main{gap:20px}.ace-inspector-content{padding:18px}.ace-inspector-content h2{font-size:24px}}
 @media(prefers-reduced-motion:reduce){.ace-ring,.ace-inspector{transition:none!important}}
 </style>
+<style id="ace-top-header-fit">
+/* Compact company identity and expose the complete primary navigation */
+body>header .nav{height:62px!important;min-height:62px!important;gap:12px!important;align-items:center!important}
+body>header .brand{flex:0 0 auto!important;font-size:10px!important;line-height:1.1!important;letter-spacing:.55px!important;white-space:nowrap!important}
+body>header .brand span{display:inline!important;font-size:9px!important;font-weight:800!important;letter-spacing:.25px!important}
+body>header .brand small{font-size:6px!important;letter-spacing:1.15px!important;line-height:1.2!important;margin-top:4px!important}
+body>header .navlinks{flex:1 1 auto!important;min-width:0!important;width:auto!important;justify-content:flex-end!important;gap:clamp(4px,.62vw,9px)!important;overflow:visible!important;flex-wrap:nowrap!important;padding:0!important}
+body>header .navlinks a{flex:0 0 auto!important;font-size:8px!important;letter-spacing:.05px!important;line-height:1.1!important}
+body>header .navlinks .navcta{padding:8px 9px!important;font-size:8px!important}
+@media(max-width:1250px){
+ body>header .nav{gap:8px!important}
+ body>header .brand{font-size:9px!important}
+ body>header .brand span{font-size:8px!important}
+ body>header .brand small{font-size:5.5px!important;letter-spacing:.9px!important}
+ body>header .navlinks{gap:5px!important}
+ body>header .navlinks a{font-size:7px!important}
+ body>header .navlinks .navcta{padding:7px!important;font-size:7px!important}
+}
+@media(max-width:1050px){
+ body>header .nav{height:auto!important;min-height:62px!important;flex-direction:column!important;align-items:flex-start!important;justify-content:center!important;gap:5px!important;padding:8px 0!important}
+ body>header .navlinks{width:100%!important;justify-content:flex-start!important;flex-wrap:wrap!important;overflow:visible!important;row-gap:8px!important}
+ body>header .navlinks a{font-size:8px!important}
+}
+@media(max-width:680px){
+ body>header .nav{min-height:0!important;padding:8px 0!important}
+ body>header .brand{font-size:10px!important}
+ body>header .brand span{font-size:9px!important}
+ body>header .brand small{font-size:6px!important}
+ body>header .navlinks{max-width:none!important;gap:8px 12px!important;padding:4px 0 2px!important}
+ body>header .navlinks a{font-size:8px!important}
+ body>header .navlinks .navcta{padding:6px 8px!important}
+}
+</style>
 <style id="ace-product-page-polish">
 #ace-cylinder-experience .ace-stage-head{align-items:center;padding:10px 0 14px}
 #ace-cylinder-experience .ace-stage-kicker{font-size:11px;font-weight:950;letter-spacing:2.4px;color:#76f4ff;text-shadow:0 0 16px #27d9f455}
