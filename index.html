@@ -989,6 +989,81 @@ main{background:transparent!important}
 @media(max-width:760px){.smartProductFinder{grid-template-columns:1fr;padding:16px}.finderResults{grid-template-columns:1fr 1fr}.investorNavLink{display:none}}
 @media(max-width:480px){.finderResults{grid-template-columns:1fr}}
 
+
+/* DAEMON GLOBAL COMMAND-CENTER GLASS OVERRIDE
+   Uses the existing #daemon-command-bg artwork; does not add a duplicate backdrop. */
+:root{
+  color-scheme:dark;
+  --hud-cyan:#38bdf8;
+  --hud-green:#10b981;
+  --hud-panel:rgba(6,12,24,.78);
+  --hud-border:rgba(56,189,248,.28);
+}
+html,body{
+  background-color:#02050b!important;
+  color:#f8fafc;
+}
+body{isolation:isolate}
+#daemon-command-bg{
+  background:
+    radial-gradient(circle at 50% 12%,rgba(56,189,248,.18),transparent 56%),
+    radial-gradient(circle at 86% 66%,rgba(16,185,129,.10),transparent 48%),
+    #02050b;
+}
+header,main,footer{position:relative;z-index:1}
+main>section:not(.governanceBanner){
+  background-color:rgba(4,10,20,.42)!important;
+}
+.card,.panel,.compareBox,.twin,.metric,.investorMetric,.modelStep,
+.partnerPanel,.maturityPanel,.gatewayCard,.preflight,.demo,
+.telemetryNode,.proofDiagram,.tierCard,article{
+  background-color:var(--hud-panel);
+  -webkit-backdrop-filter:blur(14px);
+  backdrop-filter:blur(14px);
+  border-color:var(--hud-border);
+  box-shadow:0 12px 36px rgba(0,0,0,.48),inset 0 1px 0 rgba(56,189,248,.13);
+  transition:border-color .25s ease,box-shadow .25s ease,transform .2s ease;
+}
+.card:hover,.panel:hover,.compareBox:hover,.twin:hover,.metric:hover,
+.investorMetric:hover,.modelStep:hover,.partnerPanel:hover,
+.maturityPanel:hover,.gatewayCard:hover,.preflight:hover,.demo:hover,
+.telemetryNode:hover,.proofDiagram:hover,.tierCard:hover,article:hover{
+  border-color:rgba(56,189,248,.68);
+  box-shadow:0 16px 42px rgba(14,165,233,.16),inset 0 1px 0 rgba(56,189,248,.25);
+}
+textarea,input,select{
+  background:rgba(2,6,15,.92)!important;
+  color:#e0f2fe!important;
+  border-color:rgba(56,189,248,.4)!important;
+}
+pre{
+  background:rgba(2,6,15,.92)!important;
+  border-color:rgba(56,189,248,.3)!important;
+}
+h1,h2{
+  text-shadow:0 0 24px rgba(56,189,248,.18);
+}
+button,a.btn,a[class*="btn"],a[class*="button"]{
+  transition:box-shadow .2s ease,transform .2s ease,border-color .2s ease;
+}
+button:hover,a.btn:hover,a[class*="btn"]:hover,a[class*="button"]:hover{
+  box-shadow:0 0 24px rgba(56,189,248,.32);
+  transform:translateY(-1px);
+}
+:focus-visible{
+  outline:2px solid #7dd3fc!important;
+  outline-offset:3px;
+}
+@media(prefers-reduced-motion:reduce){
+  .card,.panel,.compareBox,.twin,.metric,.investorMetric,.modelStep,
+  .partnerPanel,.maturityPanel,.gatewayCard,.preflight,.demo,
+  .telemetryNode,.proofDiagram,.tierCard,article,button,a.btn,
+  a[class*="btn"],a[class*="button"]{
+    transition:none!important;
+    transform:none!important;
+  }
+}
+
 </style>
 </head>
 <body>
