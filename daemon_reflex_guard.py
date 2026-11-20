@@ -57,6 +57,84 @@ def destination_allowed(destination: str, allowlist: list[str]) -> tuple[bool, s
     return False, "DENY_DESTINATION_NOT_EXPLICITLY_ALLOWLISTED"
 
 
+def _validated_networks(values: list[str]) -> list[ipaddress._BaseNetwork]:
+    networks: list[ipaddress._BaseNetwork] = []
+    for value in values:
+        try:
+            networks.append(ipaddress.ip_network(value.strip(), strict=False))
+        except ValueError as exc:
+            raise ValueError(f"Invalid approved CIDR/IP '{value}': {exc}") from exc
+    if not networks:
+        raise ValueError("At least one approved CIDR/IP is required to emit an allow-list policy.")
+    return networks
+
+
+def render_kubernetes_policies(namespace: str, selector: dict[str, str],
+                               approved_cidrs: list[str]) -> str:
+    """Render additive deny-by-default and approved-destination policies for selected pods."""
+    if not re.fullmatch(r"[a-z0-9]([-a-z0-9]*[a-z0-9])?", namespace):
+        raise ValueError("Namespace must be a valid lowercase Kubernetes DNS label.")
+    if not selector or any(not re.fullmatch(r"[A-Za-z0-9./_-]+", k) or
+                           not re.fullmatch(r"[A-Za-z0-9._-]+", v)
+                           for k, v in selector.items()):
+        raise ValueError("Provide at least one simple pod label selector (key=value).")
+    networks = _validated_networks(approved_cidrs)
+    labels = "\n".join(f"      {key}: {value}" for key, value in sorted(selector.items()))
+    lines = [
+        "apiVersion: networking.k8s.io/v1", "kind: NetworkPolicy",
+        "metadata:", "  name: daemon-ace-default-deny-egress",
+        f"  namespace: {namespace}", "spec:", "  podSelector:",
+        "    matchLabels:", labels, "  policyTypes:", "    - Egress",
+        "  egress: []", "---", "apiVersion: networking.k8s.io/v1",
+        "kind: NetworkPolicy", "metadata:",
+        "  name: daemon-ace-approved-egress", f"  namespace: {namespace}",
+        "spec:", "  podSelector:", "    matchLabels:", labels,
+        "  policyTypes:", "    - Egress", "  egress:"
+    ]
+    # DNS is explicitly limited to kube-dns pods in kube-system. CNI support must be verified.
+    lines += [
+        "    - to:", "        - namespaceSelector:",
+        "            matchLabels:", "              kubernetes.io/metadata.name: kube-system",
+        "          podSelector:", "            matchLabels:", "              k8s-app: kube-dns",
+        "      ports:", "        - protocol: UDP", "          port: 53",
+        "        - protocol: TCP", "          port: 53"
+    ]
+    for network in networks:
+        field = "ipBlock" if network.version == 4 else "ipBlock"
+        lines += [
+            "    - to:", f"        - {field}:",
+            f"            cidr: {network.with_prefixlen}"
+        ]
+    lines += [
+        "# Review before applying. NetworkPolicy is additive and requires a supporting CNI.",
+        "# This policy does not govern hostNetwork pods, node traffic, or ROS 2 edge hosts."
+    ]
+    return "\n".join(lines) + "\n"
+
+
+def render_edge_nftables(approved_cidrs: list[str], management_cidrs: list[str] | None = None) -> str:
+    """Render a review-only nftables output-chain policy for ROS 2 edge hosts."""
+    networks = _validated_networks(approved_cidrs)
+    management = _validated_networks(management_cidrs or []) if management_cidrs else []
+    v4 = sorted({n.with_prefixlen for n in networks + management if n.version == 4})
+    v6 = sorted({n.with_prefixlen for n in networks + management if n.version == 6})
+    lines = [
+        "# DAEMON ACE ROS 2 EDGE EGRESS POLICY — REVIEW BEFORE APPLYING",
+        "# This file is an example policy artifact, not installed by Reflex Guard.",
+        "# Confirm management, DNS, NTP, OTA, ROS 2 discovery and emergency access first.",
+        "table inet daemon_ace {", "  chain output {",
+        "    type filter hook output priority filter; policy drop;",
+        "    ct state established,related accept",
+        "    oifname \"lo\" accept"
+    ]
+    if v4:
+        lines.append("    ip daddr { " + ", ".join(v4) + " } accept")
+    if v6:
+        lines.append("    ip6 daddr { " + ", ".join(v6) + " } accept")
+    lines += ["  }", "}"]
+    return "\n".join(lines) + "\n"
+
+
 def sha256_file(path: str | None) -> str | None:
     if not path:
         return None
@@ -138,9 +216,36 @@ def main() -> int:
     parser.add_argument("--destination", "--outbound-telemetry-ip", dest="destination", action="append", default=[], help="Outbound host, IP or HTTP(S) webhook/tool URL.")
     parser.add_argument("--allow", "--approved-destination", dest="allow", action="append", default=[], help="Approved exact hostname or CIDR; repeat as needed.")
     parser.add_argument("--event", choices=["none", "unauthorized-egress", "config-drift", "compromised-container", "prompt-injection", "shadow-agent", "sensitive-telemetry"], default="none")
+    parser.add_argument("--approved-cidr", action="append", default=[], help="Approved destination IP/CIDR for policy generation; repeat as needed.")
+    parser.add_argument("--namespace", default="default", help="Kubernetes namespace for generated NetworkPolicies.")
+    parser.add_argument("--pod-label", action="append", default=[], help="Pod label selector key=value; repeat as needed.")
+    parser.add_argument("--emit-k8s-policy", help="Write review-only Kubernetes default-deny plus allow-list NetworkPolicies.")
+    parser.add_argument("--emit-edge-nftables", help="Write review-only ROS 2 edge nftables egress policy.")
+    parser.add_argument("--management-cidr", action="append", default=[], help="Management CIDR to preserve in generated edge policy; repeat as needed.")
     parser.add_argument("--baseline-artifact", help="Path to last-known-clean artifact (hash only; never deployed).")
     parser.add_argument("--observed-artifact", help="Path to currently observed artifact (hash only).")
     args = parser.parse_args()
+
+    if args.emit_k8s_policy or args.emit_edge_nftables:
+        try:
+            if args.emit_k8s_policy:
+                selector = {}
+                for pair in args.pod_label:
+                    if "=" not in pair:
+                        raise ValueError("--pod-label must use key=value.")
+                    key, value = pair.split("=", 1)
+                    selector[key] = value
+                Path(args.emit_k8s_policy).write_text(
+                    render_kubernetes_policies(args.namespace, selector, args.approved_cidr),
+                    encoding="utf-8"
+                )
+            if args.emit_edge_nftables:
+                Path(args.emit_edge_nftables).write_text(
+                    render_edge_nftables(args.approved_cidr, args.management_cidr),
+                    encoding="utf-8"
+                )
+        except (OSError, ValueError) as exc:
+            parser.error(str(exc))
 
     egress = []
     for item in args.destination:
