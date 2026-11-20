@@ -30,10 +30,19 @@ jobs:
           cp *.html dist/
 
       - name: Apply pending D1 schema migrations
+        id: d1_migrations
+        continue-on-error: true
         run: npx --yes wrangler@4 d1 migrations apply daemon-ace-leads --remote
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+
+      - name: Report D1 migration status
+        if: steps.d1_migrations.outcome == 'failure'
+        run: |
+          echo "::warning::D1 migration was not applied. The Worker will deploy, but baseline and recovery APIs will return 503 until the migration is applied in Cloudflare D1."
+          echo "### DAEMON ACE baseline storage" >> "$GITHUB_STEP_SUMMARY"
+          echo "D1 migration was not applied by CI. Apply migrations/0005_create_baseline_artifacts.sql to database daemon-ace-leads before using Checkpoint 3 baseline storage." >> "$GITHUB_STEP_SUMMARY"
 
       - name: Deploy Daemon Engineering Solutions
         run: npx --yes wrangler@4 deploy
