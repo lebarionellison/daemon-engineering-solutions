@@ -418,7 +418,7 @@ async function prepareRecovery(request, env) {
   const twinRequest = new Request(new URL("/api/preflight", request.url), {
     method: "POST",
     headers: { "Content-Type": "application/json", "Origin": new URL(request.url).origin },
-    body: JSON.stringify({ manifest: row.artifact_text, goal: "Pre-Flight Twin recovery validation of a SHA-256-verified last-known-clean baseline", fileName: "verified-baseline-recovery.yaml" })
+    body: JSON.stringify({ manifest: row.artifact_text, goal: "Pre-Flight Twin recovery validation of a SHA-256-verified last-known-clean baseline", fileName: "verified-baseline-recovery.yaml", allow_ai_proposal: false })
   });
   const twinResponse = await createPreflight(twinRequest, env);
   const twinPayload = await twinResponse.json();
@@ -494,7 +494,7 @@ async function createPreflight(request, env) {
 
   const secretExposure = findings.some(item => item.code === "PLAINTEXT_SECRET_EXPOSURE");
   let plan = null, proposed = null, aiStatus = secretExposure ? "blocked_sensitive_input" : "not_configured";
-  if (env.OPENAI_API_KEY && !secretExposure) {
+  if (env.OPENAI_API_KEY && !secretExposure && body.allow_ai_proposal !== false) {
     try {
       const ai = await fetch("https://api.openai.com/v1/chat/completions", {
         method:"POST",
