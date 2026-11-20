@@ -40,7 +40,7 @@ A detected secret must be removed from the artifact and rotated/revoked at its i
 - Require a named, authorized human approval before restoration or release.
 - Record the observed digest, baseline digest, findings, approvals and adapter outcomes in the Receipt of Safety.
 
-**Receipt storage note:** the current Worker stores pre-flight receipts in the configured D1 `receipts` table. This workflow does not currently retrieve clean artifacts or receipts from Cloudflare KV.
+**Receipt and baseline storage note:** Receipts of Safety are stored in the configured D1 `receipts` table. Checkpoint 3 now has an immutable `baseline_artifacts` D1 table keyed by SHA-256. Authenticated baseline capture requires an existing source receipt whose manifest digest matches the submitted artifact and has no unresolved HIGH/CRITICAL findings. Retrieval re-hashes the stored artifact before returning it to an authenticated dashboard session. This is D1 storage, not Cloudflare KV or R2.
 
 
 ### 4. Agent tool egress and outbound webhook exfiltration
@@ -65,14 +65,43 @@ Implemented in this repository:
 - Python text-pattern checks in `daemon_ace_preflight.py`
 - Server-side manifest checks in Worker `createPreflight`
 - A fail-closed Sim-to-Real verification gate that rejects receipts with unresolved CRITICAL/HIGH findings
-- `daemon_reflex_guard.py` destination evaluation and containment-plan output
+- `daemon_reflex_guard.py` destination evaluation, Kubernetes policy generation, ROS 2 edge nftables policy generation and containment-plan output
+- Authenticated D1 baseline capture/retrieval by SHA-256 and Checkpoint 3 recovery-candidate receipt preparation
 - Browser-based Pre-Flight Twin cyber-containment scenario with simulated quarantine and baseline hashing
 
 Not yet connected:
 - Live Kubernetes NetworkPolicy application or admission enforcement
 - Live ROS 2 edge firewall/route enforcement
 - Automated node cordon or workload quarantine
-- Retrieval and restoration of a signed last-known-clean artifact
+- Signed artifact provenance/attestation (the D1 digest check detects content drift but is not a digital signature)
+- Automatic application of Kubernetes quarantine or ROS 2 edge firewall rules
+- Actual restoration/deployment of a clean artifact after approval
 - Production simulator attestation, human identity/authorization integration or rollback execution
 
 The browser workbench is a demonstration. A generated Receipt of Safety is evidence of checks performed, not proof that live traffic was blocked, a workload was isolated, or a rollback completed. The system must fail closed when enforcement or evidence adapters are unavailable.
+
+## Checkpoint 2 — generated egress policy artifacts
+
+Example generation (review outputs before applying):
+
+```bash
+python3 daemon_reflex_guard.py \
+  --approved-cidr 10.20.0.0/16 \
+  --approved-cidr 192.0.2.40/32 \
+  --namespace research-agents \
+  --pod-label app=research-agent \
+  --emit-k8s-policy daemon-ace-egress.yaml \
+  --emit-quarantine-policy daemon-ace-quarantine.yaml \
+  --emit-edge-nftables daemon-ace-ros2-edge.nft
+```
+
+The Kubernetes output contains a workload-scoped egress deny policy plus an additive approved-destination policy. DNS is explicitly limited to kube-dns pods in kube-system; validate labels and CNI behavior for the target cluster. The edge nftables output defaults the host output chain to drop and allows only listed IPv4/IPv6 destinations plus established/related and loopback traffic. Add every required management, DNS, NTP, OTA and ROS 2 destination before use. These commands generate files only; they do not apply them.
+
+## Checkpoint 3 — baseline artifact and recovery candidate
+
+- Authenticated POST /api/baselines stores an artifact only when its exact UTF-8 SHA-256 matches an existing source Receipt of Safety and the source receipt has no HIGH/CRITICAL findings.
+- Authenticated GET /api/baselines/{sha256} re-hashes the D1 artifact and fails closed if the stored bytes do not match the requested digest.
+- Authenticated POST /api/recovery/prepare retrieves and verifies the baseline, then sends the exact baseline bytes through the existing Pre-Flight Twin heuristic checks and creates a linked recovery Receipt of Safety.
+- The recovery receipt records baseline digest, observed digest (when supplied), source receipt, validation receipt, and human-approval requirement.
+- Existing approval records approved_for_manual_review only. It does not run kubectl, deploy, restore files, alter edge devices or execute a rollback. A production recovery runner and signed artifact attestation remain separate integration work.
+- The system makes no 0.5 ms enforcement claim. Measure end-to-end policy decision and packet-drop latency on each supported CNI/edge hardware target before publishing a performance figure.
