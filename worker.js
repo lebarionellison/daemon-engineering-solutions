@@ -302,6 +302,8 @@ function evaluateAegisCompliance(manifest, findings, manifestSha256, profile = "
       ...(item.code.includes("PRIVILEGE")||item.code==="ROOT_CONTAINER"?["least_privilege","secure_configuration"]:[]),
       ...(item.code.startsWith("ROB-")?["human_oversight","robotics_safety_boundary"]:[]),
       ...(item.code==="PUBLIC_SERVICE"?["network_exposure","access_control"]:[]),
+      ...(item.code==="SERVICEACCOUNT_TOKEN_AUTOMOUNT"||item.code==="PLAINTEXT_SECRET_EXPOSURE"?["secret_hygiene","least_privilege"]:[]),
+      ...(item.code.startsWith("EGRESS_")?["egress_control","data_exfiltration_prevention"]:[]),
       ...(item.code==="MUTABLE_IMAGE_TAG"?["artifact_provenance","change_traceability"]:[]),
       ...(item.code==="HOST_PATH"?["isolation","filesystem_access"]:[])
     ]
