@@ -169,6 +169,20 @@ jobs:
           print("PASS: Reflex Guard denies an unlisted destination and does not mutate infrastructure.")
           PY
           test "$status" -eq 1
+          set +e
+          python3 daemon_reflex_guard.py --destination https://api.example.com/v1/hook --allow api.example.com --event prompt-injection > /tmp/reflex-url.json
+          url_status=$?
+          set -e
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          result = json.loads(Path("/tmp/reflex-url.json").read_text())
+          assert result["egress_decisions"][0]["decision"] == "ALLOW"
+          assert result["incident_response"]["containment"]["executed"] is False
+          assert result["incident_response"]["incident"] == "prompt-injection"
+          print("PASS: Reflex Guard extracts and allowlists an HTTPS tool destination; containment remains a plan only.")
+          PY
+          test "$url_status" -eq 1
 
       - name: Upload pre-flight receipts
         if: always()
