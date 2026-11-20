@@ -55,6 +55,30 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
+      - name: Check Worker and CLI JavaScript syntax
+        run: |
+          node --check worker.js
+          node --check bin/daemon-ace.mjs
+
+      - name: Verify CLI gatekeeper catches credentials and egress gaps
+        shell: bash
+        run: |
+          set -euo pipefail
+          set +e
+          node ./bin/daemon-ace.mjs preflight examples/unsafe-agent-trust.yaml --json > /tmp/daemon-ace-cli-receipt.json
+          status=$?
+          set -e
+          test "$status" -eq 1
+          node --input-type=module - <<'JS'
+          import fs from "node:fs";
+          const receipt = JSON.parse(fs.readFileSync("/tmp/daemon-ace-cli-receipt.json", "utf8"));
+          const codes = new Set(receipt.analysis.findings.map(item => item.code));
+          for (const code of ["SERVICEACCOUNT_TOKEN_AUTOMOUNT", "DATASTORE_TLS_UNVERIFIED", "SHADOW_AGENT_EXCESSIVE_RBAC", "EGRESS_DEFAULT_DENY_MISSING"]) {
+            if (!codes.has(code)) throw new Error("Missing expected CLI finding: " + code);
+          }
+          console.log("PASS: CLI gatekeeper reports identity, datastore, RBAC and egress findings.");
+          JS
+
       - name: Run DAEMON ACE pre-flight checks
         shell: bash
         run: |
