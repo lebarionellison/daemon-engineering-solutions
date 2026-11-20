@@ -248,15 +248,20 @@ def main() -> int:
 
     if args.emit_k8s_policy or args.emit_edge_nftables or args.emit_quarantine_policy:
         try:
+            selector = {}
+            for pair in args.pod_label:
+                if "=" not in pair:
+                    raise ValueError("--pod-label must use key=value.")
+                key, value = pair.split("=", 1)
+                selector[key] = value
             if args.emit_k8s_policy:
-                selector = {}
-                for pair in args.pod_label:
-                    if "=" not in pair:
-                        raise ValueError("--pod-label must use key=value.")
-                    key, value = pair.split("=", 1)
-                    selector[key] = value
                 Path(args.emit_k8s_policy).write_text(
                     render_kubernetes_policies(args.namespace, selector, args.approved_cidr),
+                    encoding="utf-8"
+                )
+            if args.emit_quarantine_policy:
+                Path(args.emit_quarantine_policy).write_text(
+                    render_quarantine_policy(args.namespace, selector),
                     encoding="utf-8"
                 )
             if args.emit_edge_nftables:
