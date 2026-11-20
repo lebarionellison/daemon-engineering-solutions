@@ -1749,6 +1749,52 @@ spec:
   <p class="jetsonDisclosure">Reference baseline: JetPack 7.2.1 / Jetson Linux 39.2.1 on the Jetson Orin family. ROS 2 Jazzy is the initial middleware target for Ubuntu 24.04 ARM64. Jetson developer kits are pre-production validation hardware; production shipments must be qualified on the selected production module and carrier system. <a href="https://developer.nvidia.com/embedded/jetpack/downloads" target="_blank" rel="noopener noreferrer">NVIDIA JetPack release notes ↗</a> · <a href="https://docs.ros.org/en/jazzy/" target="_blank" rel="noopener noreferrer">ROS 2 Jazzy documentation ↗</a></p>
  </div>
 </section>
+
+<section id="ace-blueprint-modeler" class="alt" aria-labelledby="ace-blueprint-title">
+ <div class="wrap">
+  <div class="sectionHead">
+   <div class="kicker">DAEMON ACE · CUSTOMER ARCHITECTURE MODELer</div>
+   <h2 id="ace-blueprint-title">MODEL THE SYSTEM. VERIFY THE BLUEPRINT.</h2>
+   <p>Select the infrastructure building blocks for your AI or robotics workload. ACE turns the selections and modeled monthly cost into a reviewable architecture artifact, then submits that exact artifact to the Cryptographic Gatekeeper for screening and a SHA-256 Receipt of Safety.</p>
+  </div>
+  <div class="aceBlueprintShell" style="border:1px solid #63e8e866;border-radius:16px;padding:24px;background:linear-gradient(145deg,#10243a,#091321);box-shadow:0 22px 65px #0005">
+   <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:18px">
+    <div><span class="kicker">CUSTOM BLUEPRINT BUILDER</span><h3 style="font-size:22px;margin:5px 0">Configure your delivery footprint</h3><p style="font-size:11px;color:var(--muted);margin:0">Illustrative planning estimates · USD/month · not a vendor quote</p></div>
+    <div style="border:1px solid #63e8e855;border-radius:10px;padding:11px 15px;background:#071321;min-width:170px"><small style="display:block;color:#9fb2c8;font-size:9px;letter-spacing:1px;font-weight:900">MODELED MONTHLY TOTAL</small><strong id="bp-total-cost" style="display:block;color:var(--cyan);font-size:25px;line-height:1.3">$1,070.00/mo</strong><small id="bp-selection-count" style="color:#9fb2c8;font-size:9px">2 components selected</small></div>
+   </div>
+   <div class="aceBlueprintGrid" style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px">
+    <div style="border:1px solid #29415b;border-radius:11px;padding:16px;background:#ffffff06">
+     <span style="color:var(--cyan);font-size:9px;font-weight:900;letter-spacing:1px">01 / COMPUTE & DATA</span>
+     <label class="bpChoice"><input class="bp-item" type="checkbox" checked data-id="compute" data-name="AI compute workload" data-cost="950"><span><b>AI compute workload</b><small>GPU-enabled compute capacity · $950/mo modeled</small></span></label>
+     <label class="bpChoice"><input class="bp-item" type="checkbox" checked data-id="storage" data-name="Model and dataset storage" data-cost="120"><span><b>Model &amp; dataset storage</b><small>Persistent data tier · $120/mo modeled</small></span></label>
+    </div>
+    <div style="border:1px solid #29415b;border-radius:11px;padding:16px;background:#ffffff06">
+     <span style="color:var(--cyan);font-size:9px;font-weight:900;letter-spacing:1px">02 / CONNECTIVITY</span>
+     <label class="bpChoice"><input class="bp-item" type="checkbox" data-id="network" data-name="Private network and egress controls" data-cost="65"><span><b>Private network &amp; egress</b><small>Network design allowance · $65/mo modeled</small></span></label>
+     <label class="bpChoice"><input class="bp-item" type="checkbox" data-id="observability" data-name="Runtime observability" data-cost="90"><span><b>Runtime observability</b><small>Metrics and log pipeline allowance · $90/mo modeled</small></span></label>
+    </div>
+    <div style="border:1px solid #29415b;border-radius:11px;padding:16px;background:#ffffff06">
+     <span style="color:var(--cyan);font-size:9px;font-weight:900;letter-spacing:1px">03 / AUTONOMOUS SYSTEMS</span>
+     <label class="bpChoice"><input class="bp-item" type="checkbox" data-id="robotics" data-name="ROS 2 robotics edge runtime" data-cost="180"><span><b>ROS 2 robotics edge runtime</b><small>Edge runtime planning allowance · $180/mo modeled</small></span></label>
+     <div style="margin-top:12px;padding:10px;border-left:2px solid var(--cyan);background:#63e8e80b;color:#b9c9d9;font-size:10px">Hardware, GPU, carrier-board, licensing and data-transfer costs require target-specific qualification.</div>
+    </div>
+   </div>
+   <div style="display:flex;justify-content:space-between;gap:12px;align-items:center;flex-wrap:wrap;margin-top:18px">
+    <p id="bp-modeler-status" role="status" style="font-size:10px;color:#a9bed4;margin:0">Select components to model your architecture.</p>
+    <button type="button" onclick="mintBlueprintReceipt()" style="display:block;width:100%;text-align:center;margin-top:4px;background:#00E5FF;color:#020617;border:none;font-size:12.5px;font-weight:800;padding:13px 14px;border-radius:8px;cursor:pointer;box-shadow:0 0 20px rgba(0,229,255,0.28)">Mint Receipt for This Blueprint ↓</button>
+   </div>
+   <p style="font-size:9px;color:#8295ae;margin:12px 0 0">The blueprint is a planning artifact, not a deployed topology. Gatekeeper findings are screening results; no network policy, cloud resource, Kubernetes workload or robot is changed by this action.</p>
+  </div>
+ </div>
+</section>
+<style>
+.bpChoice{display:flex;gap:10px;align-items:flex-start;margin-top:15px;cursor:pointer;color:#e5effa}
+.bpChoice input{accent-color:#63e8e8;width:16px;height:16px;flex:none;margin-top:3px}
+.bpChoice b{display:block;font-size:11px;line-height:1.4}
+.bpChoice small{display:block;color:#9fb2c8;font-size:9px;line-height:1.5;margin-top:4px}
+@media(max-width:760px){.aceBlueprintGrid{grid-template-columns:1fr!important}}
+</style>
+
    <section id="robotics-gatekeeper" class="roboticsSpotlight">
   <div class="wrap">
     <div class="roboticsSpotlightCard">
@@ -2585,5 +2631,81 @@ footer b{color:#172235!important}footer a{color:#1768a8!important}
  $("approveCyberRollback").addEventListener("click",()=>{if(!rollbackReady)return;$("cyberRollbackStatus").textContent="HUMAN APPROVAL RECORDED · CLEAN BASELINE RESTORE SIMULATED · NO LIVE CLUSTER ACTION";$("approveCyberRollback").disabled=true;$("approveCyberRollback").textContent="DEMO APPROVAL RECORDED";});
 })();
 </script>
+
+<script>
+// DAEMON ACE: connect the customer blueprint modeler to the existing cryptographic Gatekeeper.
+(()=>{
+ const items=Array.from(document.querySelectorAll("#ace-blueprint-modeler .bp-item"));
+ const total=document.getElementById("bp-total-cost");
+ const count=document.getElementById("bp-selection-count");
+ const status=document.getElementById("bp-modeler-status");
+ const money=n=>"$"+n.toLocaleString("en-US",{minimumFractionDigits:2,maximumFractionDigits:2})+"/mo";
+ const selectedItems=()=>items.filter(item=>item.checked);
+ const refresh=()=>{
+  const selected=selectedItems();
+  const amount=selected.reduce((sum,item)=>sum+Math.max(0,Number(item.dataset.cost)||0),0);
+  if(total)total.textContent=money(amount);
+  if(count)count.textContent=selected.length+" component"+(selected.length===1?"":"s")+" selected";
+ };
+ items.forEach(item=>item.addEventListener("change",refresh));
+ refresh();
+ window.mintBlueprintReceipt=()=>{
+  const selected=selectedItems();
+  if(!selected.length){
+   if(status)status.textContent="Select at least one component before creating a blueprint.";
+   return;
+  }
+  const amount=selected.reduce((sum,item)=>sum+Math.max(0,Number(item.dataset.cost)||0),0);
+  const quote=value=>'"'+String(value??"").replace(/\\/g,"\\\\").replace(/"/g,'\\"').replace(/[\r\n]/g," ")+'"';
+  const components=selected.map(item=>"    - name: "+quote(item.dataset.name)+"\n      category: "+quote(item.dataset.id)+"\n      modeled_monthly_usd: "+(Math.max(0,Number(item.dataset.cost)||0)).toFixed(2)).join("\n");
+  const hasNetwork=selected.some(item=>item.dataset.id==="network");
+  const hasRobotics=selected.some(item=>item.dataset.id==="robotics");
+  const yaml=[
+   "apiVersion: daemon-ace.io/v1alpha1",
+   "kind: GovernedSystemBlueprint",
+   "metadata:",
+   "  name: ace-customer-architecture",
+   '  modeled_monthly_usd: "'+amount.toFixed(2)+'"',
+   "  estimate_basis: illustrative_planning_only",
+   "spec:",
+   "  lifecycle:",
+   "    status: proposed_for_review",
+   "    deployment_authorized: false",
+   "  architecture:",
+   "    components:",
+   components,
+   "  security_review:",
+   "    aegis: review_required",
+   "    flux_egress_review: "+(hasNetwork?"required":"not_selected"),
+   "    egress_enforcement: not_applied",
+   "    gatekeeper_screening: pending",
+   "  workload_profile:",
+   "    autonomous_robotics: "+(hasRobotics?"selected":"not_selected"),
+   "    ros2_hardware_profile: "+(hasRobotics?"customer_validation_required":"not_applicable"),
+   "    simulation_attestation: not_provided",
+   "  finops:",
+   "    currency: USD",
+   "    modeled_monthly_total: "+amount.toFixed(2),
+   "    quote_or_invoice: false"
+  ].join("\n");
+  const editor=document.getElementById("sim2realManifest");
+  const goal=document.getElementById("sim2realGoal");
+  const evaluate=document.getElementById("sim2realEvaluate");
+  const gate=document.getElementById("live-sim2real-gate");
+  if(!editor||!evaluate||!gate){
+   if(status)status.textContent="Gatekeeper connection unavailable. Blueprint was not submitted.";
+   return;
+  }
+  editor.value=yaml;
+  editor.dispatchEvent(new Event("input",{bubbles:true}));
+  if(goal)goal.value="Screen this customer-selected DAEMON ACE architecture blueprint for configuration risks and mint an integrity receipt. Planning artifact only; no deployment or enforcement is authorized.";
+  if(status)status.textContent="Blueprint generated. Submitting the exact artifact to the Cryptographic Gatekeeper…";
+  gate.scrollIntoView({behavior:"smooth",block:"start"});
+  evaluate.click();
+  if(status)status.textContent="Blueprint submitted to Gatekeeper. Review the screening result and SHA-256 Receipt of Safety below.";
+ };
+})();
+</script>
+
 </body>
 </html>
