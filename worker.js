@@ -459,6 +459,12 @@ async function createPreflight(request, env) {
   if (!manifest.trim() || manifest.length > 18000 || !goal) return json({ error: "Provide an engineering goal and configuration between 1 and 18,000 characters." }, 400);
 
   const manifestSha256 = await sha256Hex(manifest);
+  const requestedEgress = Array.isArray(body.approved_egress_cidrs) ? body.approved_egress_cidrs : [];
+  if (requestedEgress.length > 100 || requestedEgress.some(value => typeof value !== "string" || !isValidIpCidr(value))) {
+    return json({ error: "approved_egress_cidrs must contain at most 100 valid IPv4/IPv6 addresses or CIDRs." }, 400);
+  }
+  const approvedEgressCidrs = [...new Set(requestedEgress.map(value => value.trim()))].sort();
+  const egressPolicyDigest = await sha256Hex(approvedEgressCidrs.join("\n"));
   const lower = manifest.toLowerCase(), findings = [];
   const add = (severity, code, title, recommendation) => findings.push({ severity, code, title, recommendation });
   if (/privileged:\s*true/.test(lower)) add("high","PRIVILEGED_CONTAINER","Privileged container enabled","Review whether host-level privileges are required.");
@@ -525,6 +531,7 @@ async function createPreflight(request, env) {
     analysis:{mode:"text_pattern_heuristics",score,findings,manifest_bytes:new TextEncoder().encode(manifest).length},
     aegis_compliance:evaluateAegisCompliance(manifest,findings,manifestSha256,complianceProfile),
     config_integrity:{algorithm:"SHA-256",digest:manifestSha256,encoding:"UTF-8",scope:"exact submitted preflight manifest bytes; no newline or whitespace normalization",status:"fingerprinted_not_simulated"},
+    egress_policy:{mode:"DEFAULT_DENY",approved_destination_count:approvedEgressCidrs.length,approved_destinations_sha256:egressPolicyDigest,policy_artifacts_generated:false,enforcement_status:"NOT_CONNECTED",scope:"CIDR/IP entries supplied for this receipt; destination values are not exposed in the public receipt"},
     sim2real_gate:{status:"BLOCKED",execution_authorized:false,reason:"A matching digest is necessary but not sufficient. A verified simulator attestation and explicit human sign-off are also required."},
     ai:{status:aiStatus,summary:plan?clean(plan.summary,3000):null,risks_mitigated:Array.isArray(plan?.risks_mitigated)?plan.risks_mitigated.slice(0,20).map(x=>clean(x,300)):[],assumptions:Array.isArray(plan?.assumptions)?plan.assumptions.slice(0,20).map(x=>clean(x,300)):[],estimated_monthly_savings_usd:Number.isFinite(plan?.estimated_monthly_savings_usd)?plan.estimated_monthly_savings_usd:null,savings_basis:clean(plan?.savings_basis||"No defensible savings estimate without a verified cost and utilization baseline.",1200)},
     scope:{live_cluster_connected:false,tests_executed:false,production_change_authorized:false},
@@ -600,6 +607,20 @@ async function verifySim2Real(request, env) {
     execution_authorized: false,
     note: "The Worker verifies receipt integrity and required attestations. A separately installed Kubernetes admission controller or edge agent must enforce the response before execution."
   });
+}
+
+function isValidIpCidr(value) {
+  const raw = String(value || "").trim();
+  const parts = raw.split("/");
+  if (parts.length > 2 || !parts[0]) return false;
+  const address = parts[0], prefix = parts.length === 2 ? Number(parts[1]) : null;
+  if (address.includes(":")) {
+    if (parts.length === 2 && (!Number.isInteger(prefix) || prefix < 0 || prefix > 128)) return false;
+    try { new URL("http://[" + address + "]/"); return true; } catch { return false; }
+  }
+  const octets = address.split(".");
+  if (octets.length !== 4 || octets.some(part => !/^\d{1,3}$/.test(part) || Number(part) > 255)) return false;
+  return parts.length === 1 || (Number.isInteger(prefix) && prefix >= 0 && prefix <= 32);
 }
 
 async function sha256Hex(value) {
