@@ -255,7 +255,7 @@ def main() -> int:
                     raise ValueError("Egress policy generation requires --approved-cidr entries and the approved-destinations SHA-256 from the Receipt of Safety.")
                 if args.policy_receipt_count != len(approved):
                     raise ValueError("Approved destination count does not match the Receipt of Safety.")
-                actual_digest = hashlib.sha256("\\n".join(approved).encode("utf-8")).hexdigest()
+                actual_digest = hashlib.sha256("\n".join(approved).encode("utf-8")).hexdigest()
                 if actual_digest.lower() != args.policy_receipt_sha256.lower():
                     raise ValueError("Approved destination list digest does not match the Receipt of Safety; refusing to generate policy.")
             selector = {}
