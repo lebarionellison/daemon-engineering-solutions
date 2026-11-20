@@ -12,7 +12,17 @@ export default {
     }
     if (path === "/api/stripe/webhook" && request.method === "POST") return stripeWebhook(request, env);
     if (path === "/api/health" && request.method === "GET") {
-      return json({ ok: true, lead_storage_configured: Boolean(env.DB), stripe_webhook_configured: Boolean(env.STRIPE_WEBHOOK_SECRET), email_notifications: "disabled" });
+      const d1 = await inspectD1Schema(env);
+      return json({
+        ok: true,
+        lead_storage_configured: Boolean(env.DB) && d1.ready,
+        d1_configured: Boolean(env.DB),
+        d1_schema_ready: d1.ready,
+        d1_missing_tables: d1.missing,
+        baseline_recovery_ready: d1.ready && d1.missing.length === 0,
+        stripe_webhook_configured: Boolean(env.STRIPE_WEBHOOK_SECRET),
+        email_notifications: "disabled"
+      });
     }
     if (path === "/api/preflight" && request.method === "POST") return createPreflight(request, env);
     if (path === "/api/baselines" && request.method === "POST") return createBaseline(request, env);
@@ -361,18 +371,31 @@ function evaluateAegisCompliance(manifest, findings, manifestSha256, profile = "
     disclosure:"DAEMON AEGIS records technical evidence and review gaps. It does not certify compliance, establish legal conformity, guarantee data protection or replace independent audit, safety engineering, institutional review or organizational controls."
   };
 }
-async function hasBaselineStorage(env) {
+const REQUIRED_D1_TABLES = ["leads", "receipts", "approvals", "purchases", "baseline_artifacts"];
+
+async function inspectD1Schema(env) {
+  if (!env.DB) return { ready: false, missing: [...REQUIRED_D1_TABLES] };
   try {
-    const row = await env.DB.prepare("SELECT name FROM sqlite_master WHERE type = 'table' AND name = 'baseline_artifacts'").first();
-    return Boolean(row);
-  } catch { return false; }
+    const result = await env.DB.prepare(
+      "SELECT name FROM sqlite_master WHERE type = 'table' AND name IN ('leads','receipts','approvals','purchases','baseline_artifacts')"
+    ).all();
+    const present = new Set((result.results || []).map(row => row.name));
+    const missing = REQUIRED_D1_TABLES.filter(name => !present.has(name));
+    return { ready: missing.length === 0, missing };
+  } catch {
+    return { ready: false, missing: [...REQUIRED_D1_TABLES] };
+  }
+}
+
+async function hasBaselineStorage(env) {
+  const schema = await inspectD1Schema(env);
+  return !schema.missing.includes("baseline_artifacts");
 }
 
 async function createBaseline(request, env) {
   if (!sameOrigin(request)) return json({ error: "Origin not allowed." }, 403);
   if (!await hasAdminSession(request, env)) return json({ error: "An authenticated dashboard session is required." }, 401);
   if (!env.DB) return json({ error: "Baseline storage is not configured." }, 503);
-  if (!await hasBaselineStorage(env)) return json({ error: "Baseline schema migration is pending.", storage_ready: false }, 503);
   if (!await hasBaselineStorage(env)) return json({ error: "Baseline schema migration is pending. Apply migrations/0005_create_baseline_artifacts.sql before using Checkpoint 3 storage.", storage_ready: false }, 503);
   const body = await readJson(request);
   const artifact = typeof body?.artifact === "string" ? body.artifact : "";
@@ -401,6 +424,7 @@ async function createBaseline(request, env) {
 async function getBaseline(request, env, path) {
   if (!await hasAdminSession(request, env)) return json({ error: "An authenticated dashboard session is required." }, 401);
   if (!env.DB) return json({ error: "Baseline storage is not configured." }, 503);
+  if (!await hasBaselineStorage(env)) return json({ error: "Baseline schema migration is pending. Recovery is unavailable until migrations/0005_create_baseline_artifacts.sql is applied.", storage_ready: false }, 503);
   const digest = path.slice("/api/baselines/".length).toLowerCase();
   if (!/^[a-f0-9]{64}$/.test(digest)) return json({ error: "Baseline not found." }, 404);
   const row = await env.DB.prepare("SELECT artifact_sha256, artifact_text, source_receipt_id, created_at FROM baseline_artifacts WHERE artifact_sha256 = ?").bind(digest).first();
