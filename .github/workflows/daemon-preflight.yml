@@ -13,6 +13,7 @@ on:
       - 'examples/default-deny-egress-networkpolicy.yaml'
       - 'examples/unsafe-egress-agent.yaml'
       - 'examples/unsafe-ros2-robot.yaml'
+      - 'examples/unsafe-agent-trust.yaml'
       - 'worker.js'
       - 'index.html'
       - 'manifests/**'
@@ -131,6 +132,21 @@ jobs:
           test "$status" -eq 1
           for rule in SEC-008 SEC-009 NET-008; do
             grep -q "$rule" <<< "$output" || { echo "::error::Expected leak-prevention rule $rule was not detected."; exit 1; }
+          done
+
+
+      - name: Verify agent trust, tool egress and observability checks
+        shell: bash
+        run: |
+          set -euo pipefail
+          set +e
+          output=$(python3 daemon_ace_preflight.py examples/unsafe-agent-trust.yaml 2>&1)
+          status=$?
+          set -e
+          printf '%s\\n' "$output"
+          test "$status" -eq 1
+          for rule in AGT-010 NET-011 SEC-012 OBS-013 IAM-014 ROB-015 NET-008; do
+            grep -q "$rule" <<< "$output" || { echo "::error::Expected agent-trust rule $rule was not detected."; exit 1; }
           done
 
       - name: Verify Reflex Guard default-deny decisions
