@@ -372,8 +372,9 @@ async function createBaseline(request, env) {
     return json({ error: "Provide an artifact (maximum 18,000 characters) and its source Receipt of Safety ID." }, 400);
   }
   const digest = await sha256Hex(artifact);
-  const sourceRow = await env.DB.prepare("SELECT receipt_json FROM receipts WHERE id = ?").bind(receiptId).first();
+  const sourceRow = await env.DB.prepare("SELECT status, receipt_json FROM receipts WHERE id = ?").bind(receiptId).first();
   if (!sourceRow) return json({ error: "Source Receipt of Safety was not found." }, 404);
+  if (sourceRow.status !== "approved_for_manual_review") return json({ error: "Baseline capture requires an authenticated human approval on the source Receipt of Safety first." }, 409);
   let source;
   try { source = JSON.parse(sourceRow.receipt_json); } catch {
     return json({ error: "Source receipt is invalid. Baseline capture failed closed." }, 409);
