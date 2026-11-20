@@ -1064,6 +1064,38 @@ button:hover,a.btn:hover,a[class*="btn"]:hover,a[class*="button"]:hover{
   }
 }
 
+
+/* DAEMON AEGIS integrated governance layer */
+.aegisLayerSection{padding-top:34px;padding-bottom:42px}
+.aegisLayerPanel{padding:clamp(20px,3vw,32px);border:1px solid rgba(56,189,248,.42);border-radius:18px;background:linear-gradient(145deg,rgba(6,14,28,.9),rgba(10,24,42,.82));box-shadow:0 22px 58px rgba(0,0,0,.48),inset 0 1px 0 rgba(56,189,248,.18);backdrop-filter:blur(14px)}
+.aegisLayerHeader{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.aegisLayerHeader h2{font-size:clamp(25px,3.3vw,38px);line-height:1.08;letter-spacing:-1.2px;margin:9px 0 0}
+.aegisLayerBadge{display:inline-flex;padding:7px 11px;border:1px solid rgba(16,185,129,.48);border-radius:999px;color:#6ee7b7;background:rgba(16,185,129,.1);font-size:9px;font-weight:950;letter-spacing:1px}
+.aegisLayerLead{max-width:940px;color:#c7d5e5;font-size:14px;margin:18px 0 22px}
+.aegisFlow{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:11px}
+.aegisFlow article{padding:16px;border:1px solid rgba(56,189,248,.24);border-radius:11px;background:rgba(2,8,18,.72)}
+.aegisFlow article span{display:block;color:#7dd3fc;font-size:9px;font-weight:950;letter-spacing:1px}
+.aegisFlow article b{display:block;margin:7px 0 5px;color:#f8fafc;font-size:14px}
+.aegisFlow article p{margin:0;color:#9fb1c6;font-size:11px;line-height:1.55}
+.aegisFrameworks{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:9px;margin-top:14px}
+.aegisFrameworks div{padding:12px;border:1px solid rgba(148,163,184,.2);border-radius:9px;background:rgba(255,255,255,.025)}
+.aegisFrameworks b,.aegisFrameworks span{display:block}
+.aegisFrameworks b{font-size:11px;color:#e7f2ff}
+.aegisFrameworks span{margin-top:4px;color:#8ea4bd;font-size:8px;font-weight:850;letter-spacing:.6px}
+.aegisLayerFoot{display:grid;grid-template-columns:auto 1fr;gap:14px;align-items:start;margin-top:17px;padding-top:14px;border-top:1px solid rgba(56,189,248,.2)}
+.aegisLayerFoot strong{font-size:9px;letter-spacing:1px;color:#6ee7b7}
+.aegisLayerFoot span{font-size:10px;line-height:1.55;color:#91a4bb}
+.aegisReceiptBlock{margin-top:16px;padding:15px;border:1px solid rgba(56,189,248,.35);border-radius:11px;background:rgba(5,14,27,.76)}
+.aegisReceiptBlock>strong{display:block;color:#7dd3fc;font-size:11px;letter-spacing:1px}
+.aegisReceiptGrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-top:10px}
+.aegisReceiptFramework{padding:10px;border:1px solid rgba(148,163,184,.2);border-radius:8px;background:rgba(255,255,255,.025)}
+.aegisReceiptFramework b,.aegisReceiptFramework span{display:block}
+.aegisReceiptFramework b{font-size:10px;color:#eaf4ff}
+.aegisReceiptFramework span{margin-top:4px;font-size:8px;color:#7dd3fc;letter-spacing:.6px}
+.aegisReceiptBlock p{font-size:10px;color:#9fb1c6;margin:9px 0 0}
+@media(max-width:760px){.aegisFlow,.aegisFrameworks{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:480px){.aegisFlow,.aegisFrameworks,.aegisReceiptGrid{grid-template-columns:1fr}.aegisLayerFoot{grid-template-columns:1fr;gap:5px}}
+
 </style>
 </head>
 <body>
@@ -1464,6 +1496,24 @@ spec:
 
 <!-- robotics-gatekeeper moved into unified workbench -->
 
+<!-- DAEMON AEGIS: persistent governance layer across all four ACE engines -->
+<section class="alt aegisLayerSection" id="daemon-aegis-layer" aria-labelledby="aegis-layer-title">
+ <div class="wrap"><div class="aegisLayerPanel">
+  <div class="aegisLayerHeader"><div><div class="kicker">DAEMON ACE · INTEGRATED TRUST ENVELOPE</div><h2 id="aegis-layer-title">DAEMON AEGIS. GOVERNANCE BY CONSTRUCTION.</h2></div><span class="aegisLayerBadge">BUILT-IN · ALL FOUR ENGINES</span></div>
+  <p class="aegisLayerLead">AEGIS is the persistent Responsible AI, security and compliance-evidence layer across Architect, Builder, Guardian and Intelligence. It carries policy context, provenance requirements, review obligations and audit evidence through the full engineering lifecycle—not as a fifth engine and not as an afterthought.</p>
+  <div class="aegisFlow" aria-label="AEGIS governance across the four engines">
+   <article><span>01 / ARCHITECT</span><b>Classify &amp; scope</b><p>Capture intended use, data sensitivity, system boundaries, risk questions and framework applicability for human review.</p></article>
+   <article><span>02 / BUILDER</span><b>Fingerprint &amp; trace</b><p>Record available artifact hashes, model and image references, dependency evidence and build provenance.</p></article>
+   <article><span>03 / GUARDIAN</span><b>Enforce &amp; authorize</b><p>Apply configured policy checks, least-privilege boundaries, approval requirements and release holds.</p></article>
+   <article><span>04 / INTELLIGENCE</span><b>Observe &amp; evidence</b><p>Correlate available findings, runtime signals, exceptions, decisions and validation results into reviewable records.</p></article>
+  </div>
+  <div class="aegisFrameworks">
+   <div><b>NIST AI RMF 1.0</b><span>GOVERN · MAP · MEASURE · MANAGE</span></div><div><b>ISO/IEC 42001</b><span>AI MANAGEMENT SYSTEM EVIDENCE</span></div><div><b>SOC 2</b><span>TRUST SERVICES CONTROL EVIDENCE</span></div><div><b>EU AI ACT</b><span>RISK SCOPE · HUMAN OVERSIGHT</span></div>
+  </div>
+  <div class="aegisLayerFoot"><strong>ONE RECEIPT. SHARED EVIDENCE.</strong><span>AEGIS adds framework references, AI-BOM metadata, evidence status and review gaps to the Receipt of Safety. A mapping is not a certification: applicability, control operation and conformity require qualified assessment.</span></div>
+ </div></div>
+</section>
+
 <section class="alt" id="engines"><div class="wrap"><div class="sectionHead reveal"><div class="kicker">ONE CONTROL PLANE · FOUR COORDINATED ENGINES</div><h2>GOVERN THE INTENT. CONTROL THE ACTION. PROVE THE OUTCOME.</h2><p>Every DAEMON ACE mission uses the same four-engine architecture. Each engine has a defined responsibility, and all four share policy context, runtime state, recovery decisions and release evidence.</p></div><div class="aceEngineOverview"><article><span>01 · ARCHITECT</span><h3>Understand &amp; design</h3><p>Maps AI assets, agents, tools, data, identities, risks, dependencies and operating boundaries into a governed system design.</p></article><article><span>02 · BUILDER</span><h3>Build &amp; validate</h3><p>Creates the workload, integrations, deployment artifacts, tests, provenance records and reproducible release package.</p></article><article><span>03 · GUARDIAN</span><h3>Enforce &amp; protect</h3><p>Applies identity, least privilege, policy decisions, approval gates, isolation and execution restrictions at defined control points.</p></article><article><span>04 · INTELLIGENCE</span><h3>Observe &amp; adapt</h3><p>Correlates runtime telemetry, policy events, drift, validation results and recovery outcomes into operator-facing intelligence.</p></article></div><div class="selfHealCore"><div><span>SHARED PLATFORM CAPABILITY · ALL FOUR ENGINES</span><h3>SELF-HEALING WITH HUMAN-GOVERNED RECOVERY.</h3><p>Detect → diagnose → propose a bounded recovery → check policy and approval requirements → execute only an authorized action → revalidate → record the receipt. If confidence, permission or safety conditions are missing, DAEMON ACE stops automated recovery and escalates to an operator.</p></div><div class="healLoop"><b>DETECT</b><i>→</i><b>DIAGNOSE</b><i>→</i><b>AUTHORIZE</b><i>→</i><b>RECOVER</b><i>→</i><b>REVALIDATE</b><i>→</i><b>RECEIPT</b></div></div></div></section>
 
 <section class="alt" id="proof"><div class="wrap"><div class="sectionHead reveal"><div class="kicker">THE SIGNATURE DIFFERENTIATOR</div><h2>VALIDATE THE ARTIFACT BEFORE RELEASE PROMOTION.</h2><p>Proof before production. ACE should not ask you to trust an AI-generated change blindly. It should show what it proposed, what was tested, what passed, what remains uncertain and what it expects to change.</p></div>
@@ -1675,11 +1725,13 @@ spec:
    const data=await response.json().catch(()=>({}));
    if(!response.ok)throw new Error(data.error||"Pre-flight request failed.");
    const receipt=data.receipt||{},analysis=receipt.analysis||{},findings=analysis.findings||[],integrity=receipt.config_integrity||{};
+   const aegis=receipt.aegis_compliance||{},frameworks=Array.isArray(aegis.frameworks)?aegis.frameworks:[],bom=aegis.ai_bill_of_materials||{};
    const verdict=findings.some(x=>x.severity==="critical"||x.severity==="high")?"BLOCKED · HIGH-PRIORITY FINDINGS":findings.some(x=>x.severity==="medium")?"REVIEW REQUIRED":"NO LISTED PATTERNS DETECTED";
    output.innerHTML="<b>RECEIPT OF SAFETY · "+esc(verdict)+"</b><p>Heuristic score: <strong>"+esc(analysis.score)+"/100</strong> · Receipt: <code>"+esc(data.receipt_id)+"</code></p>"+
     findings.map(x=>'<div class="sim2realFinding"><strong>'+esc(String(x.severity).toUpperCase()+" · "+x.code+" · "+x.title)+'</strong><br>'+esc(x.recommendation)+'</div>').join("")+
     '<p><strong>SHA-256:</strong></p><pre>'+esc(integrity.digest||"Digest unavailable")+'</pre>'+
     '<p><strong>Integrity status:</strong> '+esc(integrity.status||"not recorded")+'<br><strong>Simulation attestation:</strong> NOT PRESENT<br><strong>Execution authorization:</strong> FALSE</p>'+
+    '<div class="aegisReceiptBlock"><strong>DAEMON AEGIS · GOVERNANCE &amp; COMPLIANCE EVIDENCE</strong><p>Evidence status: '+esc(aegis.overall_status||"NOT RETURNED")+' · Technical evidence for review, not a compliance determination.</p><div class="aegisReceiptGrid">'+frameworks.map(f=>'<div class="aegisReceiptFramework"><b>'+esc(f.framework)+'</b><span>'+esc(f.status)+'</span><p>'+esc(f.evidence_note)+'</p></div>').join("")+'</div><p><strong>AI-BOM manifest SHA-256:</strong> '+esc(bom.manifest_sha256||integrity.digest||"not available")+'<br><strong>Model / image:</strong> '+esc(bom.detected_model_or_image||"not identified")+'<br><strong>Robotics middleware:</strong> '+esc(bom.robotics_middleware||"not identified")+'<br><strong>Dataset / dependency inventory:</strong> '+esc(bom.dataset_inventory||"not provided")+' / '+esc(bom.dependency_inventory||"not provided")+'</p><p>'+esc(aegis.disclosure||"Framework applicability and control effectiveness require qualified review.")+'</p></div>'+
     '<p>This receipt fingerprints the exact submitted UTF-8 configuration. It is not a digital signature, physical simulation result, safety certification, or deployment approval.</p>';
   }catch(error){output.innerHTML="<b>RECEIPT OF SAFETY · REQUEST FAILED</b><p>"+esc(error.message)+"</p>";}
   finally{run.disabled=false;run.textContent="🛡️ Evaluate Rubric & Mint SHA-256 Receipt";}
@@ -1709,7 +1761,7 @@ spec:
  const main=document.querySelector("main");
  const hero=main?.querySelector(".cinematicHero");
  if(!main||!hero)return;
- const ids=["hardware-matrix","engineering-workbench","explore","engines","romi","secure-ai","proof","ace-gateways","enterprise","design-partners","investors","founder","contact","executive-brief"];
+ const ids=["hardware-matrix","engineering-workbench","explore","daemon-aegis-layer","engines","romi","secure-ai","proof","ace-gateways","enterprise","design-partners","investors","founder","contact","executive-brief"];
  const nodes=ids.map(id=>document.getElementById(id)).filter(Boolean);
  let tour=document.getElementById("engineering-tour");
  if(!tour){tour=document.createElement("div");tour.className="engineeringTour";tour.id="engineering-tour";hero.insertAdjacentElement("afterend",tour);}
