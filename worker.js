@@ -309,6 +309,12 @@ function evaluateAegisCompliance(manifest, findings, manifestSha256, profile = "
       ...(item.code==="PUBLIC_SERVICE"?["network_exposure","access_control"]:[]),
       ...(item.code==="SERVICEACCOUNT_TOKEN_AUTOMOUNT"||item.code==="PLAINTEXT_SECRET_EXPOSURE"?["secret_hygiene","least_privilege"]:[]),
       ...(item.code.startsWith("EGRESS_")?["egress_control","data_exfiltration_prevention"]:[]),
+      ...(item.code==="UNTRUSTED_PROMPT_INSTRUCTION_MARKER"?["untrusted_input_boundary","prompt_injection_review"]:[]),
+      ...(item.code==="TOOL_EGRESS_ALLOWLIST_MISSING"?["tool_egress_control","webhook_allowlisting"]:[]),
+      ...(item.code==="DATASTORE_TLS_UNVERIFIED"?["datastore_transport_security","credential_protection"]:[]),
+      ...(item.code==="SENSITIVE_OBSERVABILITY_CAPTURE"?["telemetry_minimization","prompt_log_redaction"]:[]),
+      ...(item.code==="SHADOW_AGENT_EXCESSIVE_RBAC"?["agent_identity_inventory","least_privilege","lateral_movement_reduction"]:[]),
+      ...(item.code==="ROS2_SECURITY_DISABLED"?["ros2_identity","dds_topic_authorization"]:[]),
       ...(item.code==="MUTABLE_IMAGE_TAG"?["artifact_provenance","change_traceability"]:[]),
       ...(item.code==="HOST_PATH"?["isolation","filesystem_access"]:[])
     ]
