@@ -6,6 +6,8 @@ on:
       - 'bin/**'
       - 'examples/preflight/**'
       - 'daemon_ace_preflight.py'
+      - 'daemon_reflex_guard.py'
+      - 'examples/default-deny-egress-networkpolicy.yaml'
       - 'examples/unsafe-ros2-robot.yaml'
       - 'worker.js'
       - 'index.html'
@@ -110,6 +112,27 @@ jobs:
               exit 1
             fi
           done
+      - name: Verify Reflex Guard default-deny decisions
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 -m py_compile daemon_reflex_guard.py
+          set +e
+          python3 daemon_reflex_guard.py --destination 203.0.113.77 --event unauthorized-egress > /tmp/reflex-guard.json
+          status=$?
+          set -e
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          result = json.loads(Path("/tmp/reflex-guard.json").read_text())
+          assert result["policy"] == "DEFAULT_DENY_EGRESS"
+          assert result["egress_decisions"][0]["decision"] == "DENY"
+          assert result["incident_response"]["containment"]["executed"] is False
+          assert result["execution"]["cluster_mutated"] is False
+          print("PASS: Reflex Guard denies an unlisted destination and does not mutate infrastructure.")
+          PY
+          test "$status" -eq 1
+
       - name: Upload pre-flight receipts
         if: always()
         uses: actions/upload-artifact@v4
