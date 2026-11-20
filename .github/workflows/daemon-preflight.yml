@@ -184,6 +184,33 @@ jobs:
           PY
           test "$url_status" -eq 1
 
+      - name: Verify Kubernetes and ROS 2 edge policy artifacts
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 -m py_compile daemon_reflex_guard.py
+          python3 daemon_reflex_guard.py \
+            --approved-cidr 10.20.0.0/16 \
+            --approved-cidr 192.0.2.40/32 \
+            --namespace research-agents \
+            --pod-label app=research-agent \
+            --emit-k8s-policy /tmp/daemon-ace-egress.yaml \
+            --emit-quarantine-policy /tmp/daemon-ace-quarantine.yaml \
+            --emit-edge-nftables /tmp/daemon-ace-edge.nft
+          python3 - <<'PY'
+          from pathlib import Path
+          k8s = Path("/tmp/daemon-ace-egress.yaml").read_text()
+          quarantine = Path("/tmp/daemon-ace-quarantine.yaml").read_text()
+          edge = Path("/tmp/daemon-ace-edge.nft").read_text()
+          assert "daemon-ace-default-deny-egress" in k8s and "egress: []" in k8s
+          assert "10.20.0.0/16" in k8s and "192.0.2.40/32" in k8s
+          assert "daemon-ace-quarantine-deny-all" in quarantine
+          assert "    - Ingress" in quarantine and "    - Egress" in quarantine
+          assert "policy drop;" in edge and "ip daddr" in edge
+          print("PASS: generated Kubernetes egress, workload quarantine and ROS 2 edge nftables policy artifacts.")
+          print("NOTE: CI generated files only; it did not apply policies or mutate infrastructure.")
+          PY
+
       - name: Upload pre-flight receipts
         if: always()
         uses: actions/upload-artifact@v4
