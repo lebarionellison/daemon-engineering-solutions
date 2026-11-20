@@ -1408,6 +1408,39 @@ body>header .navlinks a.romi-nav-link span{display:inline!important;color:#62eff
 body>header .navlinks a.navcta{color:#04101b!important;background:#55e8f6!important;font-weight:1000!important}
 @media(max-width:850px){body>header .navlinks a{font-size:10px!important;font-weight:950!important}}
 </style>
+<style id="ace-final-nav-visibility">
+/* Final cascade override: compact links, unmistakable project CTA */
+body>header .nav{gap:7px!important}
+body>header .brand{font-size:8px!important;letter-spacing:.2px!important}
+body>header .brand span{font-size:7px!important}
+body>header .brand small{font-size:5px!important;letter-spacing:.7px!important}
+body>header .navlinks{gap:clamp(3px,.38vw,5px)!important;flex-wrap:nowrap!important;overflow:visible!important}
+body>header .navlinks a{font-size:7px!important;font-weight:900!important;letter-spacing:0!important;padding-left:1px!important;padding-right:1px!important}
+body>header .navlinks a.navcta{
+ display:inline-flex!important;align-items:center!important;justify-content:center!important;
+ min-height:34px!important;padding:9px 13px!important;margin-left:3px!important;
+ font-size:9px!important;font-weight:1000!important;letter-spacing:.35px!important;
+ text-transform:uppercase!important;white-space:nowrap!important;
+ color:#03111b!important;background:linear-gradient(110deg,#8ffff0 0%,#55dff5 48%,#83aaff 100%)!important;
+ border:2px solid #c5ffff!important;border-radius:7px!important;
+ box-shadow:0 0 0 2px #42e8f422,0 0 18px #42e8f4aa,0 5px 18px #000b!important;
+ text-shadow:none!important;opacity:1!important;
+}
+body>header .navlinks a.navcta:hover{transform:translateY(-1px)!important;filter:brightness(1.12)!important}
+@media(max-width:1250px) and (min-width:1051px){
+ body>header .brand{font-size:7px!important}
+ body>header .brand span{font-size:6px!important}
+ body>header .brand small{font-size:4.5px!important}
+ body>header .navlinks{gap:2px!important}
+ body>header .navlinks a{font-size:6px!important}
+ body>header .navlinks a.navcta{font-size:8px!important;padding:8px 10px!important}
+}
+@media(max-width:1050px){
+ body>header .navlinks{flex-wrap:wrap!important;justify-content:flex-start!important;gap:7px 12px!important}
+ body>header .navlinks a{font-size:8px!important}
+ body>header .navlinks a.navcta{font-size:9px!important;padding:9px 13px!important}
+}
+</style>
 </head>
 <body>
 <!-- DAEMON ACE command-center telemetry backdrop -->
