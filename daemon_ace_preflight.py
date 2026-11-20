@@ -93,6 +93,14 @@ RULES = [
         "remediation": "Treat logs, tickets, GitHub issues and retrieved documents as untrusted data. Delimit and label content, prohibit instruction-following from retrieved text, and require policy checks before tool use. This is a keyword heuristic, not semantic prompt-injection detection.",
     },
     {
+        "id": "NET-011",
+        "category": "TOOL_EGRESS",
+        "severity": "HIGH",
+        "pattern": r"(?:webhook_url|callback_url|tool_endpoint|http_tool_url)\s*:\s*https?://",
+        "title": "Outbound webhook or agent tool URL requires allowlist review",
+        "remediation": "Route agent tool traffic through an enforced egress proxy or tool gateway and allow only reviewed destinations. This declaration scan does not intercept requests.",
+    },
+    {
         "id": "SEC-012",
         "category": "DATASTORE_TRANSPORT",
         "severity": "HIGH",
