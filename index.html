@@ -1513,6 +1513,20 @@ body>header .navlinks a.navcta:hover{transform:translateY(-1px)!important;filter
  </div>
  <div class="ace-audience-bar"><span>ENGINEERED FOR</span><button data-audience="leaders">AUTONOMOUS AI</button><button data-audience="research">AI / HPC WORKLOADS</button><button data-audience="platform">KUBERNETES & CLOUD</button><button data-audience="security">SECURE EXECUTION</button><button data-audience="robotics">ROBOTICS & ROS 2</button><button data-audience="audit">EDGE DEPLOYMENT</button></div>
  <div class="ace-bottomline"><strong>ONE CONTROLLED DELIVERY PATH</strong> · BUILD → VALIDATE → AUTHORIZE → RELEASE → PROVE</div>
+
+<!-- DAEMON ACE · AGENT EXFILTRATION AND TRUST BOUNDARIES -->
+<section id="agent-trust-boundaries" class="gatewayGridSection" aria-labelledby="agent-trust-title">
+ <div class="wrap">
+  <div class="directoryContentsHead"><span>DAEMON ACE · SECURITY CONTROL PLANE</span><h2 id="agent-trust-title">Control the paths autonomous agents can reach.</h2><p>DAEMON ACE brings agent egress, untrusted input, workload identity and telemetry privacy into the same governed build-and-release workflow. These checks extend the existing Pre-Flight Twin™ and Receipt of Safety.</p></div>
+  <div class="gatewayGrid">
+   <article class="gatewayCard"><div class="gatewayNo">01 / TOOL EGRESS</div><h3>Webhook &amp; Tool Exfiltration</h3><p>Screen tool and webhook declarations for explicit destinations. Reflex Guard evaluates host and IP destinations against a default-deny allowlist.</p><span class="gatewayStatus">POLICY EVALUATION · ADAPTER NOT CONNECTED</span></article>
+   <article class="gatewayCard"><div class="gatewayNo">02 / UNTRUSTED INPUT</div><h3>Prompt Injection in Logs &amp; Issues</h3><p>Flag common instruction-like markers in submitted configuration and keep retrieved logs, tickets and issues outside privileged instruction channels.</p><span class="gatewayStatus">HEURISTIC SCREEN · RED TEAM NOT EXECUTED</span></article>
+   <article class="gatewayCard"><div class="gatewayNo">03 / IDENTITY &amp; MOVEMENT</div><h3>Shadow Agents &amp; Lateral Movement</h3><p>Screen ServiceAccount auto-mount, wildcard RBAC and ROS 2 security indicators. Production inventory and identity enforcement require connected adapters.</p><span class="gatewayStatus">CONFIGURATION SCREEN · LIVE INVENTORY NOT CONNECTED</span></article>
+   <article class="gatewayCard"><div class="gatewayNo">04 / DATA PRIVACY</div><h3>Observability &amp; Prompt-Log Leaks</h3><p>Flag explicit raw prompt, request and debug-payload capture settings. Live trace redaction, retention and access controls must be verified in the connected telemetry stack.</p><span class="gatewayStatus">CONFIGURATION SCREEN · TELEMETRY ADAPTER NOT CONNECTED</span></article>
+  </div>
+  <div class="gatewayCaveat"><strong>Receipt of Safety boundary:</strong> a receipt records the configuration patterns checked, findings and review state. It does not prove that outbound traffic was blocked, an agent was isolated, prompt logs were redacted, or a production rollback occurred. Live enforcement is reported only after its adapter returns verifiable evidence.</div>
+ </div>
+</section>
 </main>
 <div class="ace-info-modal" id="ace-info-modal" role="dialog" aria-modal="true" aria-labelledby="ace-info-title"><div class="ace-info-card"><button class="ace-info-close" type="button" data-modal-close>Close ×</button><div class="ace-stage-kicker" id="ace-info-kicker">DAEMON ACE / PRODUCT CAPABILITY</div><h2 id="ace-info-title">Explore DAEMON ACE</h2><div id="ace-info-body"></div></div></div>
 
