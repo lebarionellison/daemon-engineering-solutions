@@ -120,15 +120,15 @@ def render_quarantine_policy(namespace: str, selector: dict[str, str]) -> str:
                            not re.fullmatch(r"[A-Za-z0-9._-]+", v)
                            for k, v in selector.items()):
         raise ValueError("Provide at least one simple pod label selector (key=value).")
-    labels = "\\n".join(f"      {key}: {value}" for key, value in sorted(selector.items()))
-    return "\\n".join([
+    labels = "\n".join(f"      {key}: {value}" for key, value in sorted(selector.items()))
+    return "\n".join([
         "apiVersion: networking.k8s.io/v1", "kind: NetworkPolicy",
         "metadata:", "  name: daemon-ace-quarantine-deny-all",
         f"  namespace: {namespace}", "spec:", "  podSelector:",
         "    matchLabels:", labels, "  policyTypes:", "    - Ingress",
         "    - Egress", "  ingress: []", "  egress: []",
         "# Review selector and CNI behavior before applying. This file is not auto-applied."
-    ]) + "\\n"
+    ]) + "\n"
 
 
 def render_edge_nftables(approved_cidrs: list[str], management_cidrs: list[str] | None = None) -> str:
@@ -246,7 +246,7 @@ def main() -> int:
     parser.add_argument("--observed-artifact", help="Path to currently observed artifact (hash only).")
     args = parser.parse_args()
 
-    if args.emit_k8s_policy or args.emit_edge_nftables:
+    if args.emit_k8s_policy or args.emit_edge_nftables or args.emit_quarantine_policy:
         try:
             if args.emit_k8s_policy:
                 selector = {}
