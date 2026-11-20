@@ -258,6 +258,48 @@ async function generateProposal(request, env) {
   return json({ ok: true, receipt_id: id, receipt });
 }
 
+// DAEMON AEGIS: shared governance and compliance evidence layer.
+// Framework references are high-level evidence pointers, not compliance determinations.
+function evaluateAegisCompliance(manifest, findings, manifestSha256) {
+  const modelMatch = manifest.match(/(?:^|\n)\s*(?:model|image|base_model)\s*:\s*['"]?([^\s'"]+)['"]?/i);
+  const rosMatch = manifest.match(/ros_distro\s*:\s*['"]?([^\s'"]+)['"]?/i);
+  const mappedFindings = findings.filter(item => item.severity !== "info").map(item => ({
+    finding_code: item.code, severity: item.severity,
+    related_topics: [
+      ...(item.code.includes("PRIVILEGE") || item.code === "ROOT_CONTAINER" ? ["least_privilege","secure_configuration"] : []),
+      ...(item.code.startsWith("ROB-") ? ["human_oversight","robotics_safety_boundary"] : []),
+      ...(item.code === "PUBLIC_SERVICE" ? ["network_exposure","access_control"] : []),
+      ...(item.code === "MUTABLE_IMAGE_TAG" ? ["artifact_provenance","change_traceability"] : []),
+      ...(item.code === "HOST_PATH" ? ["isolation","filesystem_access"] : [])
+    ]
+  }));
+  return {
+    layer: "DAEMON AEGIS", role: "integrated_responsible_ai_and_compliance_evidence_layer",
+    evaluation_mode: "limited_manifest_pattern_screen", overall_status: "TECHNICAL_EVIDENCE_ONLY",
+    frameworks: [
+      {framework:"NIST AI RMF 1.0",references:["GOVERN","MAP","MEASURE","MANAGE"],status:"EVIDENCE_REFERENCED_NOT_ASSESSED",evidence_note:"Pre-flight findings and artifact fingerprint are attached. Organizational governance, impact assessment, measurement validity and ongoing risk controls require review."},
+      {framework:"ISO/IEC 42001",references:["AI management system; lifecycle risk and control evidence"],status:"EVIDENCE_REFERENCED_NOT_ASSESSED",evidence_note:"This receipt can support an AI management-system evidence pack; it does not assess the organization's management system or establish conformity."},
+      {framework:"SOC 2",references:["Trust Services Criteria; CC6 logical access and protection context"],status:"NOT_ASSESSED",evidence_note:"A configuration scan alone cannot establish operating effectiveness, access governance, change management or a SOC 2 examination result."},
+      {framework:"EU AI Act",references:["Article 14 human oversight (where applicable)"],status:"SCOPE_DEPENDENT_NOT_ASSESSED",evidence_note:"Applicability and high-risk classification must be determined for the specific system and deployment. This receipt does not establish legal compliance."}
+    ],
+    mapped_findings: mappedFindings,
+    ai_bill_of_materials: {
+      schema:"daemon-ace.ai-bom.summary.v1", manifest_sha256:manifestSha256,
+      detected_model_or_image:modelMatch?modelMatch[1].slice(0,240):null,
+      robotics_middleware:rosMatch?"ROS 2 "+rosMatch[1].slice(0,80):(/ros2|ros 2/i.test(manifest)?"ROS 2 indicated; distribution not parsed":null),
+      dataset_inventory:"NOT_PROVIDED", dependency_inventory:"NOT_PROVIDED", source_commit:"NOT_PROVIDED",
+      scope_note:"Fingerprint covers the submitted manifest only; it is not a complete model, dataset, dependency or software-supply-chain inventory."
+    },
+    review_gaps:[
+      "Confirm system purpose, jurisdiction, risk classification and framework applicability.",
+      "Attach verified model, dataset, dependency and source provenance where available.",
+      "Collect identity, access, change-management and runtime evidence from connected systems.",
+      "Record qualified human review and applicable safety validation before release."
+    ],
+    disclosure:"DAEMON AEGIS records technical evidence and framework reference points for internal review. It does not provide legal advice, certify compliance, or replace independent audit, safety engineering or organizational controls."
+  };
+}
+
 async function createPreflight(request, env) {
   if (!sameOrigin(request)) return json({ error: "Origin not allowed." }, 403);
   if (!env.DB) return json({ error: "Receipt storage is not configured." }, 503);
@@ -318,6 +360,7 @@ async function createPreflight(request, env) {
     schema:"daemon-ace.receipt-of-safety.v1",id,record_type:"customer_preflight",created_at:new Date().toISOString(),
     status:"PREVIEW_READY",goal,file_name:fileName,
     analysis:{mode:"text_pattern_heuristics",score,findings,manifest_bytes:new TextEncoder().encode(manifest).length},
+    aegis_compliance:evaluateAegisCompliance(manifest,findings,manifestSha256),
     config_integrity:{algorithm:"SHA-256",digest:manifestSha256,encoding:"UTF-8",scope:"exact submitted preflight manifest bytes; no newline or whitespace normalization",status:"fingerprinted_not_simulated"},
     sim2real_gate:{status:"BLOCKED",execution_authorized:false,reason:"A matching digest is necessary but not sufficient. A verified simulator attestation and explicit human sign-off are also required."},
     ai:{status:aiStatus,summary:plan?clean(plan.summary,3000):null,risks_mitigated:Array.isArray(plan?.risks_mitigated)?plan.risks_mitigated.slice(0,20).map(x=>clean(x,300)):[],assumptions:Array.isArray(plan?.assumptions)?plan.assumptions.slice(0,20).map(x=>clean(x,300)):[],estimated_monthly_savings_usd:Number.isFinite(plan?.estimated_monthly_savings_usd)?plan.estimated_monthly_savings_usd:null,savings_basis:clean(plan?.savings_basis||"No defensible savings estimate without a verified cost and utilization baseline.",1200)},
