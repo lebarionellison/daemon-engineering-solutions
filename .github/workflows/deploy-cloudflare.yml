@@ -40,9 +40,14 @@ jobs:
       - name: Report D1 migration status
         if: steps.d1_migrations.outcome == 'failure'
         run: |
-          echo "::warning::D1 migration was not applied. The Worker will deploy, but baseline and recovery APIs will return 503 until the migration is applied in Cloudflare D1."
-          echo "### DAEMON ACE baseline storage" >> "$GITHUB_STEP_SUMMARY"
-          echo "D1 migration was not applied by CI. Apply migrations/0005_create_baseline_artifacts.sql to database daemon-ace-leads before using Checkpoint 3 baseline storage." >> "$GITHUB_STEP_SUMMARY"
+          echo "::warning::D1 migration was not applied. The Worker will deploy, but D1-backed APIs remain unavailable until the database migrations succeed."
+          echo "### DAEMON ACE D1 migration: ACTION REQUIRED" >> "$GITHUB_STEP_SUMMARY"
+          echo "" >> "$GITHUB_STEP_SUMMARY"
+          echo "Wrangler could not apply D1 migrations. The Cloudflare API token must include **D1: Edit** for the account containing database **daemon-ace-leads** (database ID `f7168786-e696-4694-896c-614626a2bbb3`). Keep the existing Worker deployment permissions." >> "$GITHUB_STEP_SUMMARY"
+          echo "" >> "$GITHUB_STEP_SUMMARY"
+          echo "Update the GitHub Actions secret `CLOUDFLARE_API_TOKEN` with a token that has D1: Edit, then rerun this workflow. Wrangler will apply all pending migrations in order from `migrations/`." >> "$GITHUB_STEP_SUMMARY"
+          echo "" >> "$GITHUB_STEP_SUMMARY"
+          echo "Until then, `/api/health` reports the missing D1 tables and baseline/recovery endpoints fail closed with HTTP 503." >> "$GITHUB_STEP_SUMMARY"
 
       - name: Deploy Daemon Engineering Solutions
         run: npx --yes wrangler@4 deploy
