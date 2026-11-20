@@ -116,6 +116,20 @@ jobs:
               exit 1
             fi
           done
+      - name: Verify secret, identity and egress leak checks
+        shell: bash
+        run: |
+          set -euo pipefail
+          set +e
+          output=$(python3 daemon_ace_preflight.py examples/unsafe-egress-agent.yaml 2>&1)
+          status=$?
+          set -e
+          printf '%s\\n' "$output"
+          test "$status" -eq 1
+          for rule in SEC-008 SEC-009 NET-008; do
+            grep -q "$rule" <<< "$output" || { echo "::error::Expected leak-prevention rule $rule was not detected."; exit 1; }
+          done
+
       - name: Verify Reflex Guard default-deny decisions
         shell: bash
         run: |
