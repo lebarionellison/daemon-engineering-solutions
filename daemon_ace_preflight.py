@@ -105,9 +105,9 @@ def scan_text(text: str) -> list[dict[str, str]]:
             findings.append(rule)
 
     # Require an explicit NetworkPolicy egress boundary for Kubernetes workloads.
-    has_workload = re.search(r"(?im)^kind:\\s*(?:Deployment|Pod|StatefulSet|DaemonSet)\\b", text)
+    has_workload = re.search(r"(?im)^kind:\s*(?:Deployment|Pod|StatefulSet|DaemonSet)\b", text)
     has_egress_policy = re.search(
-        r"(?is)kind:\\s*NetworkPolicy.*?policyTypes:\\s*(?:\\[[^]]*Egress[^]]*\\]|(?:\\n\\s*-\\s*Ingress)?\\n\\s*-\\s*Egress).*?egress:",
+        r"(?is)kind:\s*NetworkPolicy.*?policyTypes:\s*(?:\[[^]]*Egress[^]]*\]|(?:\n\s*-\s*Ingress)?\n\s*-\s*Egress).*?egress:",
         text,
     )
     if has_workload and not has_egress_policy:
