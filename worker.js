@@ -15,6 +15,9 @@ export default {
       return json({ ok: true, lead_storage_configured: Boolean(env.DB), stripe_webhook_configured: Boolean(env.STRIPE_WEBHOOK_SECRET), email_notifications: "disabled" });
     }
     if (path === "/api/preflight" && request.method === "POST") return createPreflight(request, env);
+    if (path === "/api/baselines" && request.method === "POST") return createBaseline(request, env);
+    if (path.startsWith("/api/baselines/") && request.method === "GET") return getBaseline(request, env, path);
+    if (path === "/api/recovery/prepare" && request.method === "POST") return prepareRecovery(request, env);
     if (path === "/api/sim2real/verify" && request.method === "POST") return verifySim2Real(request, env);
     if (path === "/api/checkout" && request.method === "POST") return createCheckout(request, env);
     if (path.startsWith("/api/purchases/") && request.method === "GET") return getPaidArtifact(request, env, path);
@@ -358,6 +361,91 @@ function evaluateAegisCompliance(manifest, findings, manifestSha256, profile = "
     disclosure:"DAEMON AEGIS records technical evidence and review gaps. It does not certify compliance, establish legal conformity, guarantee data protection or replace independent audit, safety engineering, institutional review or organizational controls."
   };
 }
+async function createBaseline(request, env) {
+  if (!sameOrigin(request)) return json({ error: "Origin not allowed." }, 403);
+  if (!await hasAdminSession(request, env)) return json({ error: "An authenticated dashboard session is required." }, 401);
+  if (!env.DB) return json({ error: "Baseline storage is not configured." }, 503);
+  const body = await readJson(request);
+  const artifact = typeof body?.artifact === "string" ? body.artifact : "";
+  const receiptId = String(body?.source_receipt_id || "");
+  if (!artifact.trim() || artifact.length > 18000 || !/^[0-9a-f-]{36}$/i.test(receiptId)) {
+    return json({ error: "Provide an artifact (maximum 18,000 characters) and its source Receipt of Safety ID." }, 400);
+  }
+  const digest = await sha256Hex(artifact);
+  const sourceRow = await env.DB.prepare("SELECT receipt_json FROM receipts WHERE id = ?").bind(receiptId).first();
+  if (!sourceRow) return json({ error: "Source Receipt of Safety was not found." }, 404);
+  let source;
+  try { source = JSON.parse(sourceRow.receipt_json); } catch {
+    return json({ error: "Source receipt is invalid. Baseline capture failed closed." }, 409);
+  }
+  if (source.config_integrity?.digest !== digest) {
+    return json({ error: "Artifact SHA-256 does not match the source Receipt of Safety.", expected_sha256: source.config_integrity?.digest || null, observed_sha256: digest }, 409);
+  }
+  const blocking = (source.analysis?.findings || []).filter(item => ["high", "critical"].includes(String(item.severity).toLowerCase()));
+  if (blocking.length) return json({ error: "Baseline capture blocked: source receipt contains unresolved high-severity findings.", finding_codes: blocking.map(item => item.code) }, 409);
+  await env.DB.prepare("INSERT OR IGNORE INTO baseline_artifacts (artifact_sha256, artifact_text, source_receipt_id, created_at) VALUES (?, ?, ?, datetime('now'))")
+    .bind(digest, artifact, receiptId).run();
+  return json({ ok: true, immutable: true, storage: "D1", artifact_sha256: digest, source_receipt_id: receiptId, artifact_bytes: new TextEncoder().encode(artifact).length });
+}
+
+async function getBaseline(request, env, path) {
+  if (!await hasAdminSession(request, env)) return json({ error: "An authenticated dashboard session is required." }, 401);
+  if (!env.DB) return json({ error: "Baseline storage is not configured." }, 503);
+  const digest = path.slice("/api/baselines/".length).toLowerCase();
+  if (!/^[a-f0-9]{64}$/.test(digest)) return json({ error: "Baseline not found." }, 404);
+  const row = await env.DB.prepare("SELECT artifact_sha256, artifact_text, source_receipt_id, created_at FROM baseline_artifacts WHERE artifact_sha256 = ?").bind(digest).first();
+  if (!row) return json({ error: "Baseline not found." }, 404);
+  const observed = await sha256Hex(row.artifact_text);
+  if (observed !== row.artifact_sha256) return json({ error: "Stored baseline integrity check failed. Recovery is blocked.", integrity_verified: false }, 409);
+  return json({ ok: true, storage: "D1", integrity_verified: true, artifact_sha256: observed, source_receipt_id: row.source_receipt_id, created_at: row.created_at, artifact: row.artifact_text });
+}
+
+async function prepareRecovery(request, env) {
+  if (!sameOrigin(request)) return json({ error: "Origin not allowed." }, 403);
+  if (!await hasAdminSession(request, env)) return json({ error: "An authenticated dashboard session is required." }, 401);
+  if (!env.DB) return json({ error: "Recovery preparation is not configured." }, 503);
+  const body = await readJson(request);
+  const digest = String(body?.baseline_sha256 || "").toLowerCase();
+  const observedManifest = typeof body?.observed_manifest === "string" ? body.observed_manifest : "";
+  if (!/^[a-f0-9]{64}$/.test(digest) || observedManifest.length > 18000) {
+    return json({ error: "Provide a valid baseline SHA-256 and optional observed manifest (maximum 18,000 characters)." }, 400);
+  }
+  const row = await env.DB.prepare("SELECT artifact_sha256, artifact_text, source_receipt_id FROM baseline_artifacts WHERE artifact_sha256 = ?").bind(digest).first();
+  if (!row) return json({ error: "Trusted baseline not found. Recovery remains blocked." }, 404);
+  const verified = await sha256Hex(row.artifact_text);
+  if (verified !== digest || verified !== row.artifact_sha256) return json({ error: "Baseline digest mismatch. Recovery remains blocked.", integrity_verified: false }, 409);
+  const observedDigest = observedManifest ? await sha256Hex(observedManifest) : null;
+  const twinRequest = new Request(new URL("/api/preflight", request.url), {
+    method: "POST",
+    headers: { "Content-Type": "application/json", "Origin": new URL(request.url).origin },
+    body: JSON.stringify({ manifest: row.artifact_text, goal: "Pre-Flight Twin recovery validation of a SHA-256-verified last-known-clean baseline", fileName: "verified-baseline-recovery.yaml" })
+  });
+  const twinResponse = await createPreflight(twinRequest, env);
+  const twinPayload = await twinResponse.json();
+  if (!twinResponse.ok || !twinPayload.receipt_id) return json({ error: "Pre-Flight Twin could not create a recovery review receipt.", detail: twinPayload.error || "Unknown validation error." }, twinResponse.status || 500);
+  const recovery = {
+    mode: "baseline_recovery_candidate",
+    baseline_storage: "D1",
+    baseline_sha256: digest,
+    baseline_integrity_verified: true,
+    source_receipt_id: row.source_receipt_id,
+    observed_artifact_sha256: observedDigest,
+    preflight_twin_receipt_id: twinPayload.receipt_id,
+    human_approval_required: true,
+    approval_action: "approved_for_manual_review",
+    restore_executed: false,
+    infrastructure_mutated: false,
+    note: "Candidate baseline was re-screened by Pre-Flight Twin heuristics. No simulator, cluster, edge device or deployment adapter executed."
+  };
+  const receiptRow = await env.DB.prepare("SELECT receipt_json FROM receipts WHERE id = ?").bind(twinPayload.receipt_id).first();
+  const receipt = JSON.parse(receiptRow.receipt_json);
+  receipt.recovery = recovery;
+  receipt.status = "RECOVERY_CANDIDATE_PENDING_HUMAN_APPROVAL";
+  await env.DB.prepare("UPDATE receipts SET receipt_json = ?, status = ?, updated_at = datetime('now') WHERE id = ?")
+    .bind(JSON.stringify(receipt), "pending", twinPayload.receipt_id).run();
+  return json({ ok: true, recovery, receipt_id: twinPayload.receipt_id, receipt: { ...twinPayload.receipt, recovery, status: receipt.status }, next_step: "Review the Receipt of Safety and approve for manual review. Approval does not execute restoration." });
+}
+
 async function createPreflight(request, env) {
   if (!sameOrigin(request)) return json({ error: "Origin not allowed." }, 403);
   if (!env.DB) return json({ error: "Receipt storage is not configured." }, 503);
