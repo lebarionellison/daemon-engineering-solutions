@@ -72,7 +72,7 @@ Implemented in this repository:
 Not yet connected:
 - Live Kubernetes NetworkPolicy application or admission enforcement
 - Live ROS 2 edge firewall/route enforcement
-- Automated node cordon or workload quarantine
+- Automatic node cordon or workload quarantine
 - Signed artifact provenance/attestation (the D1 digest check detects content drift but is not a digital signature)
 - Automatic application of Kubernetes quarantine or ROS 2 edge firewall rules
 - Actual restoration/deployment of a clean artifact after approval
@@ -99,7 +99,7 @@ The Kubernetes output contains a workload-scoped egress deny policy plus an addi
 
 ## Checkpoint 3 — baseline artifact and recovery candidate
 
-- Authenticated POST /api/baselines stores an artifact only when its exact UTF-8 SHA-256 matches an existing source Receipt of Safety and the source receipt has no HIGH/CRITICAL findings.
+- Authenticated POST /api/baselines stores an artifact only after an authenticated reviewer has approved its source Receipt of Safety for manual review, its exact UTF-8 SHA-256 matches that receipt, and it has no HIGH/CRITICAL findings.
 - Authenticated GET /api/baselines/{sha256} re-hashes the D1 artifact and fails closed if the stored bytes do not match the requested digest.
 - Authenticated POST /api/recovery/prepare retrieves and verifies the baseline, then sends the exact baseline bytes through the existing Pre-Flight Twin heuristic checks and creates a linked recovery Receipt of Safety.
 - The recovery receipt records baseline digest, observed digest (when supplied), source receipt, validation receipt, and human-approval requirement.
