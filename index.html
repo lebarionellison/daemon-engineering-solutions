@@ -2211,6 +2211,23 @@ spec:
 </section>
 
 
+<section id="ace-php-shell-response" class="alt" aria-labelledby="ace-php-shell-title"><div class="wrap">
+<div class="sectionHead reveal"><div class="kicker">DAEMON ACE · WEB APPLICATION INCIDENT RESPONSE</div><h2 id="ace-php-shell-title">PHP WEB-SHELL DETECTION &amp; REMEDIATION.</h2><p>Identify suspicious PHP backdoors, preserve evidence and guide controlled cleanup for customer-authorized websites, CMS platforms and PHP applications—without executing suspect code or silently changing production.</p></div>
+<div class="buyerLayerGrid">
+<article><span>01 / DETECT</span><h3>Static PHP triage</h3><p>Review suspicious execution primitives, obfuscation, dynamic function calls, request-to-file writes and unexpected remote payload behavior. Findings include indicators and line references.</p><div class="buyerOutcome">OUTPUT · Heuristic indicators for analyst review—not a malware verdict.</div></article>
+<article><span>02 / PRESERVE</span><h3>Evidence before cleanup</h3><p>Record file paths, timestamps, hashes, ownership, permissions, web-server logs and access events. Preserve a protected copy and document chain-of-custody before modification.</p><div class="buyerOutcome">OUTPUT · Evidence inventory and incident timeline.</div></article>
+<article><span>03 / CONTAIN</span><h3>Customer-approved isolation</h3><p>Recommend temporary access restriction, affected-site isolation or WAF controls. Confirm business impact and obtain explicit authorization before production action.</p><div class="buyerOutcome">OUTPUT · Containment plan with approval checkpoint.</div></article>
+<article><span>04 / REMEDIATE</span><h3>Remove the foothold—not just the file</h3><p>Trace initial entry, patch vulnerable components, remove verified malicious artifacts, rotate exposed credentials and keys, inspect persistence locations, and restore trusted code where needed.</p><div class="buyerOutcome">OUTPUT · Reviewed remediation checklist and change record.</div></article>
+<article><span>05 / VERIFY</span><h3>Prove the site is clean</h3><p>Rescan affected paths, compare against known-good releases, review scheduled tasks and startup hooks, validate file integrity, inspect logs and monitor reinfection indicators.</p><div class="buyerOutcome">OUTPUT · Verification evidence and residual-risk report.</div></article>
+<article><span>06 / PREVENT</span><h3>Harden the PHP environment</h3><p>Recommend least-privilege file permissions, restricted upload execution, patched CMS/plugins, protected secrets, controlled admin access, PHP hardening and monitored outbound traffic.</p><div class="buyerOutcome">OUTPUT · Prioritized hardening backlog.</div></article>
+</div>
+<div class="preflight" style="margin-top:22px"><div class="kicker">LOCAL SOURCE TRIAGE · PROTOTYPE</div><h3 style="margin:8px 0">PHP Suspicious-Pattern Review</h3><p style="color:#aebfd4;font-size:12px">Paste a sanitized PHP excerpt to check common web-shell indicators. Analysis runs in this browser session; this tool does not upload source. It is a heuristic review, not a complete malware scanner.</p>
+<textarea id="ace-php-shell-input" spellcheck="false" placeholder="Paste sanitized PHP source here"></textarea>
+<div class="preflightActions"><button type="button" id="ace-php-shell-scan">Analyze PHP excerpt</button><button type="button" id="ace-php-shell-clear" class="btn secondary">Clear</button></div>
+<div id="ace-php-shell-output" class="preflightOutput" aria-live="polite"><div class="kicker">TRIAGE FINDINGS</div><div id="ace-php-shell-results"></div></div><p id="ace-php-shell-status" class="formStatus" role="status">No source analyzed.</p>
+<p class="fine">This prototype does not execute PHP, access a server, scan a filesystem, quarantine or delete files, rotate credentials, or certify a system as clean. No matches does not establish absence of a web shell. Production remediation requires authorized access, backups, evidence preservation and an approved change plan.</p></div>
+</div></section>
+
 <section id="secure-ai" class="aceSecure" aria-labelledby="secure-ai-title">
  <div class="wrap">
   <div class="sectionHead reveal">
@@ -3225,5 +3242,29 @@ btn.addEventListener("click",()=>{
 })();
 </script>
 
+<script>
+(function(){
+ const input=document.getElementById("ace-php-shell-input"),scan=document.getElementById("ace-php-shell-scan"),clear=document.getElementById("ace-php-shell-clear"),output=document.getElementById("ace-php-shell-output"),results=document.getElementById("ace-php-shell-results"),status=document.getElementById("ace-php-shell-status");
+ if(!input||!scan||!clear||!output||!results||!status)return;
+ const rules=[
+ {name:"Encoded payload execution",severity:"High",re:/\b(?:eval|assert)\s*\(\s*(?:base64_decode|gzinflate|gzuncompress|str_rot13)\s*\(/i,why:"Decoded or transformed content reaches an execution primitive."},
+ {name:"Command execution primitive",severity:"High",re:/\b(?:shell_exec|passthru|proc_open|popen|system|exec)\s*\(/i,why:"PHP can invoke operating-system commands; verify intended use."},
+ {name:"Dynamic code evaluation",severity:"High",re:/\b(?:eval|assert)\s*\(/i,why:"Dynamic evaluation can execute attacker-controlled PHP."},
+ {name:"Obfuscation/decompression helper",severity:"Medium",re:/\b(?:base64_decode|gzinflate|gzuncompress|str_rot13)\s*\(/i,why:"These functions can conceal payloads but also have legitimate uses."},
+ {name:"Request data used in file write",severity:"High",re:/(?:file_put_contents|fwrite|fopen)\s*\([\s\S]{0,240}\$_(?:GET|POST|REQUEST|COOKIE)/i,why:"Request-controlled data may be written to a file; inspect data flow and destination."},
+ {name:"Variable function invocation",severity:"Medium",re:/\$[a-z_][a-z0-9_]*\s*\(\s*\$_(?:GET|POST|REQUEST|COOKIE)/i,why:"A request parameter may influence a dynamically invoked function."},
+ {name:"Remote payload retrieval",severity:"Medium",re:/\b(?:curl_exec|file_get_contents)\s*\([^)]*(?:https?:|\$_(?:GET|POST|REQUEST))/i,why:"Remote or request-derived content is retrieved; verify endpoint and subsequent handling."}
+ ];
+ scan.addEventListener("click",function(){
+ const source=input.value||"";if(!source.trim()){status.textContent="Paste a PHP excerpt before analysis.";output.classList.remove("show");return;}
+ const findings=[];rules.forEach(rule=>{rule.re.lastIndex=0;let m;while((m=rule.re.exec(source))!==null){findings.push({name:rule.name,severity:rule.severity,line:source.slice(0,m.index).split("\n").length,sample:m[0].slice(0,100),why:rule.why});if(!rule.re.global)break;}});
+ results.replaceChildren();
+ if(!findings.length){const p=document.createElement("p");p.textContent="No configured indicators matched. This does not mean the file is safe or clean.";results.appendChild(p);}
+ else{findings.sort((a,b)=>a.line-b.line);findings.forEach(f=>{const card=document.createElement("div");card.className="finding "+(f.severity==="High"?"high":"medium");const b=document.createElement("b"),p=document.createElement("p");b.textContent=f.severity+" · "+f.name+" · line "+f.line;p.textContent=f.why+" Match: "+f.sample;card.append(b,p);results.appendChild(card);});}
+ output.classList.add("show");status.textContent=findings.length+" heuristic indicator(s) found. Analyst review required; no remediation action was taken.";
+ });
+ clear.addEventListener("click",function(){input.value="";results.replaceChildren();output.classList.remove("show");status.textContent="Source cleared from this browser session.";});
+})();
+</script>
 </body>
 </html>
