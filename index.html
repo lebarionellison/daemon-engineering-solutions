@@ -1869,6 +1869,46 @@ spec:
    <p id="ace-cost-status" role="status" style="font-size:10px;color:#9edfff;min-height:15px;margin:10px 0 0">Search, add services, and model potential waste. Your selections stay in this browser session.</p>
   </div>
 
+  <section id="ace-ai-investment" aria-labelledby="ace-ai-investment-title" style="margin-top:22px;border:1px solid #45c8e877;border-radius:16px;padding:24px;background:radial-gradient(ellipse at 90% 0%,#174d7b55,transparent 44%),linear-gradient(145deg,#102b45,#071321);box-shadow:0 22px 65px #0004">
+   <div style="display:flex;justify-content:space-between;gap:14px;align-items:flex-start;flex-wrap:wrap">
+    <div style="max-width:820px"><span class="kicker">DAEMON ACE · AI USAGE &amp; INVESTMENT INTELLIGENCE</span><h3 id="ace-ai-investment-title" style="font-size:clamp(25px,3.2vw,34px);line-height:1.08;margin:8px 0">MAKE EVERY AI DOLLAR ACCOUNTABLE.</h3><p style="font-size:12px;color:#c2d5e8;margin:0">See estimated model consumption, GPU spend and cost per completed task. Then compare the operating cost with the business value you expect AI to create—before you commit more budget.</p></div>
+    <span style="border:1px solid #ffd27a66;border-radius:30px;padding:6px 10px;color:#ffd27a;font-size:9px;font-weight:950;letter-spacing:1px">EDITABLE PLANNING MODEL</span>
+   </div>
+   <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:10px;margin-top:19px">
+    <label style="font-size:10px;font-weight:850;color:#dcecff">AI TASKS / MONTH<input id="ace-ai-tasks" type="number" min="1" step="100" value="10000" style="display:block;width:100%;margin-top:6px;padding:11px;border:1px solid #34516f;border-radius:8px;background:#06101d;color:#fff;font:inherit"></label>
+    <label style="font-size:10px;font-weight:850;color:#dcecff">INPUT TOKENS / TASK<input id="ace-ai-input-tokens" type="number" min="0" step="100" value="2500" style="display:block;width:100%;margin-top:6px;padding:11px;border:1px solid #34516f;border-radius:8px;background:#06101d;color:#fff;font:inherit"></label>
+    <label style="font-size:10px;font-weight:850;color:#dcecff">OUTPUT TOKENS / TASK<input id="ace-ai-output-tokens" type="number" min="0" step="100" value="800" style="display:block;width:100%;margin-top:6px;padding:11px;border:1px solid #34516f;border-radius:8px;background:#06101d;color:#fff;font:inherit"></label>
+    <label style="font-size:10px;font-weight:850;color:#dcecff">INPUT RATE / 1M TOKENS ($)<input id="ace-ai-input-rate" type="number" min="0" step="0.01" value="1.00" style="display:block;width:100%;margin-top:6px;padding:11px;border:1px solid #34516f;border-radius:8px;background:#06101d;color:#fff;font:inherit"></label>
+    <label style="font-size:10px;font-weight:850;color:#dcecff">OUTPUT RATE / 1M TOKENS ($)<input id="ace-ai-output-rate" type="number" min="0" step="0.01" value="4.00" style="display:block;width:100%;margin-top:6px;padding:11px;border:1px solid #34516f;border-radius:8px;background:#06101d;color:#fff;font:inherit"></label>
+    <label style="font-size:10px;font-weight:850;color:#dcecff">GPU HOURS / MONTH<input id="ace-ai-gpu-hours" type="number" min="0" step="1" value="120" style="display:block;width:100%;margin-top:6px;padding:11px;border:1px solid #34516f;border-radius:8px;background:#06101d;color:#fff;font:inherit"></label>
+    <label style="font-size:10px;font-weight:850;color:#dcecff">GPU COST / HOUR ($)<input id="ace-ai-gpu-rate" type="number" min="0" step="0.01" value="2.50" style="display:block;width:100%;margin-top:6px;padding:11px;border:1px solid #34516f;border-radius:8px;background:#06101d;color:#fff;font:inherit"></label>
+    <label style="font-size:10px;font-weight:850;color:#dcecff">PLATFORM / OTHER AI COST / MONTH ($)<input id="ace-ai-fixed" type="number" min="0" step="1" value="150" style="display:block;width:100%;margin-top:6px;padding:11px;border:1px solid #34516f;border-radius:8px;background:#06101d;color:#fff;font:inherit"></label>
+    <label style="font-size:10px;font-weight:850;color:#dcecff">BUSINESS VALUE PER TASK ($)<input id="ace-ai-benefit" type="number" min="0" step="0.01" value="0.35" style="display:block;width:100%;margin-top:6px;padding:11px;border:1px solid #34516f;border-radius:8px;background:#06101d;color:#fff;font:inherit"></label>
+    <label style="font-size:10px;font-weight:850;color:#dcecff">ONE-TIME AI INVESTMENT ($)<input id="ace-ai-investment" type="number" min="0" step="100" value="5000" style="display:block;width:100%;margin-top:6px;padding:11px;border:1px solid #34516f;border-radius:8px;background:#06101d;color:#fff;font:inherit"></label>
+   </div>
+   <div style="display:flex;gap:9px;flex-wrap:wrap;margin-top:13px">
+    <button type="button" id="ace-ai-calculate" style="padding:11px 16px;border:0;border-radius:8px;background:#6be5ff;color:#04111c;font-weight:950;cursor:pointer">Recalculate AI economics</button>
+    <button type="button" id="ace-ai-reset" style="padding:11px 16px;border:1px solid #54718c;border-radius:8px;background:#ffffff08;color:#dcecff;font-weight:850;cursor:pointer">Reset assumptions</button>
+    <button type="button" id="ace-ai-export" style="padding:11px 16px;border:1px solid #63e8e8;border-radius:8px;background:#63e8e812;color:#8deeff;font-weight:850;cursor:pointer">Export AI investment model ↓</button>
+   </div>
+   <div id="ace-ai-results" aria-live="polite" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(155px,1fr));gap:9px;margin-top:17px">
+    <div style="padding:13px;border:1px solid #34516f;border-radius:9px;background:#06101d"><small style="color:#9fb2c8;font-size:9px">ESTIMATED MONTHLY AI COST</small><b id="ace-ai-monthly-cost" style="display:block;color:#6be5ff;font-size:23px;margin-top:5px">$1,250.00</b></div>
+    <div style="padding:13px;border:1px solid #34516f;border-radius:9px;background:#06101d"><small style="color:#9fb2c8;font-size:9px">COST PER TASK</small><b id="ace-ai-cost-task" style="display:block;color:#6be5ff;font-size:23px;margin-top:5px">$0.1250</b></div>
+    <div style="padding:13px;border:1px solid #34516f;border-radius:9px;background:#06101d"><small style="color:#9fb2c8;font-size:9px">MONTHLY NET VALUE</small><b id="ace-ai-net-value" style="display:block;color:#7be0b0;font-size:23px;margin-top:5px">$2,250.00</b></div>
+    <div style="padding:13px;border:1px solid #34516f;border-radius:9px;background:#06101d"><small style="color:#9fb2c8;font-size:9px">12-MONTH ROI</small><b id="ace-ai-roi" style="display:block;color:#7be0b0;font-size:23px;margin-top:5px">440.0%</b></div>
+    <div style="padding:13px;border:1px solid #34516f;border-radius:9px;background:#06101d"><small style="color:#9fb2c8;font-size:9px">ESTIMATED PAYBACK</small><b id="ace-ai-payback" style="display:block;color:#ffd27a;font-size:23px;margin-top:5px">2.2 months</b></div>
+    <div style="padding:13px;border:1px solid #34516f;border-radius:9px;background:#06101d"><small style="color:#9fb2c8;font-size:9px">BREAK-EVEN TASKS / MONTH</small><b id="ace-ai-breakeven" style="display:block;color:#ffd27a;font-size:23px;margin-top:5px">—</b></div>
+   </div>
+   <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:9px;margin-top:12px">
+    <div style="padding:12px;border:1px solid #34516f;border-radius:9px;background:#ffffff05"><small style="font-size:9px;color:#9fb2c8">MONTHLY TOKEN CONSUMPTION</small><b id="ace-ai-token-total" style="display:block;color:#e5f4ff;font-size:16px;margin-top:4px">33.0M tokens</b></div>
+    <div style="padding:12px;border:1px solid #34516f;border-radius:9px;background:#ffffff05"><small style="font-size:9px;color:#9fb2c8">TOKEN SPEND / MONTH</small><b id="ace-ai-token-cost" style="display:block;color:#e5f4ff;font-size:16px;margin-top:4px">$57.00</b></div>
+    <div style="padding:12px;border:1px solid #34516f;border-radius:9px;background:#ffffff05"><small style="font-size:9px;color:#9fb2c8">GPU SPEND / MONTH</small><b id="ace-ai-gpu-cost" style="display:block;color:#e5f4ff;font-size:16px;margin-top:4px">$300.00</b></div>
+    <div style="padding:12px;border:1px solid #34516f;border-radius:9px;background:#ffffff05"><small style="font-size:9px;color:#9fb2c8">ANNUAL NET VALUE AFTER AI COST</small><b id="ace-ai-annual-net" style="display:block;color:#7be0b0;font-size:16px;margin-top:4px">$27,000.00</b></div>
+   </div>
+   <div id="ace-ai-investment-status" role="status" style="margin-top:13px;padding:12px;border-left:3px solid #6be5ff;background:#6be5ff0b;color:#c8d8e9;font-size:10px">Illustrative starting assumptions loaded. Adjust rates and business value to match your workload, provider quote and measured outcomes.</div>
+   <p style="font-size:9px;color:#9fb2c8;margin:12px 0 0">Planning model only. Token rates, GPU costs and business value are user-entered assumptions—not live provider prices, connected AI usage, accounting results or guaranteed savings. ROI compares modeled net operating value with the one-time investment; validate against actual invoices, workload quality, human review, integration, support and change-management costs before making a funding decision.</p>
+  </section>
+
   <section id="ace-predictive-policy" aria-labelledby="ace-predictive-policy-title" style="margin-top:22px;border:1px solid #3b82f688;border-radius:16px;padding:24px;background:radial-gradient(ellipse at 90% 0%,#174d7b44,transparent 42%),linear-gradient(145deg,#0c1b30,#07111e);box-shadow:0 22px 65px #0004">
    <div class="kicker">DAEMON ACE · ENGINEERING INTELLIGENCE</div>
    <h3 id="ace-predictive-policy-title" style="font-size:clamp(23px,3vw,30px);margin:7px 0">ANTICIPATE RISK. EVOLVE THE GUARDRAILS.</h3>
@@ -3307,5 +3347,39 @@ btn.addEventListener("click",()=>{
  clear.addEventListener("click",function(){input.value="";results.replaceChildren();output.classList.remove("show");status.textContent="Source cleared from this browser session.";});
 })();
 </script>
+
+<script>
+(()=> {
+ const ids=["tasks","input-tokens","output-tokens","input-rate","output-rate","gpu-hours","gpu-rate","fixed","benefit","investment"];
+ const defaults={"tasks":10000,"input-tokens":2500,"output-tokens":800,"input-rate":1,"output-rate":4,"gpu-hours":120,"gpu-rate":2.5,"fixed":150,"benefit":0.35,"investment":5000};
+ const $=id=>document.getElementById("ace-ai-"+id);
+ const money=n=>"$"+Number(n||0).toLocaleString("en-US",{minimumFractionDigits:2,maximumFractionDigits:2});
+ const number=id=>Math.max(0,Number($(id)?.value)||0);
+ let latest=null;
+ function calculate(){
+  const tasks=Math.max(1,number("tasks")),it=number("input-tokens"),ot=number("output-tokens"),ir=number("input-rate"),orate=number("output-rate"),hours=number("gpu-hours"),gr=number("gpu-rate"),fixed=number("fixed"),benefit=number("benefit"),investment=number("investment");
+  const inputTokens=tasks*it,outputTokens=tasks*ot,totalTokens=inputTokens+outputTokens;
+  const inputCost=inputTokens/1e6*ir,outputCost=outputTokens/1e6*orate,tokenCost=inputCost+outputCost,gpuCost=hours*gr,monthlyCost=tokenCost+gpuCost+fixed;
+  const benefitTotal=tasks*benefit,net=benefitTotal-monthlyCost,annualNet=net*12;
+  const roi=investment>0?((annualNet-investment)/investment)*100:null;
+  const payback=net>0&&investment>0?investment/net:null;
+  const tokenPerTask=(it/1e6*ir)+(ot/1e6*orate),gpuPerTask=tasks?gpuCost/tasks:0,variablePerTask=tokenPerTask+gpuPerTask,contribution=benefit-variablePerTask;
+  const breakEven=contribution>0?Math.ceil(fixed/contribution):null;
+  const fmtTokens=n=>n>=1e9?(n/1e9).toFixed(2)+"B":n>=1e6?(n/1e6).toFixed(2)+"M":Math.round(n).toLocaleString("en-US");
+  const set=(id,value)=>{const el=$(id);if(el)el.textContent=value;};
+  set("monthly-cost",money(monthlyCost));set("cost-task",money(monthlyCost/tasks));set("net-value",money(net));set("roi",roi===null?"N/A":roi.toFixed(1)+"%");set("payback",investment===0?"No setup investment":payback===null?"Not reached":payback.toFixed(1)+" months");set("breakeven",breakEven===null?"Not reached":breakEven.toLocaleString("en-US"));set("token-total",fmtTokens(totalTokens)+" tokens");set("token-cost",money(tokenCost));set("gpu-cost",money(gpuCost));set("annual-net",money(annualNet));
+  const status=$("investment-status");
+  if(status){status.style.borderLeftColor=net>0?"#7be0b0":"#ffd27a";status.textContent=net>0?"Modeled positive operating contribution: "+money(net)+"/month before the one-time investment. Compare this estimate with verified business outcomes and actual invoices.": "The current assumptions do not produce positive monthly operating value after modeled AI costs. Review task volume, model choice, token size, GPU allocation, pricing and business value before increasing spend.";}
+  latest={schema:"daemon-ace.ai-investment-model.v1",generated_at:new Date().toISOString(),source:"user_entered_planning_assumptions",connected_usage_telemetry:false,live_provider_pricing:false,assumptions:{tasks_per_month:tasks,input_tokens_per_task:it,output_tokens_per_task:ot,input_price_per_million:ir,output_price_per_million:orate,gpu_hours_per_month:hours,gpu_price_per_hour:gr,platform_and_other_monthly_cost:fixed,business_value_per_task:benefit,one_time_investment:investment},monthly:{input_tokens:inputTokens,output_tokens:outputTokens,total_tokens:totalTokens,input_token_cost:inputCost,output_token_cost:outputCost,total_token_cost:tokenCost,gpu_cost:gpuCost,total_ai_cost:monthlyCost,business_value:benefitTotal,net_operating_value:net,cost_per_task:monthlyCost/tasks},annual_net_operating_value:annualNet,roi_12_month_percent:roi,payback_months:payback,break_even_tasks_per_month:breakEven,disclaimer:"Illustrative model only; not connected telemetry, live provider pricing, accounting results or guaranteed savings."};
+  return latest;
+ }
+ ids.forEach(id=>$(id)?.addEventListener("input",calculate));
+ $("calculate")?.addEventListener("click",calculate);
+ $("reset")?.addEventListener("click",()=>{ids.forEach(id=>{if($(id))$(id).value=defaults[id];});calculate();});
+ $("export")?.addEventListener("click",()=>{const data=calculate();const blob=new Blob([JSON.stringify(data,null,2)],{type:"application/json"});const url=URL.createObjectURL(blob);const a=document.createElement("a");a.href=url;a.download="daemon-ace-ai-investment-model.json";a.click();URL.revokeObjectURL(url);});
+ calculate();
+})();
+</script>
+
 </body>
 </html>
