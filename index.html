@@ -1118,6 +1118,23 @@ button:hover,a.btn:hover,a[class*="btn"]:hover,a[class*="button"]:hover{
 @media(max-width:850px){.acePricingGridThree,.aceFunnelGrid{grid-template-columns:repeat(2,minmax(0,1fr))}.aceGrantBox{grid-template-columns:1fr}.aceGrantOutput{min-height:300px}}
 @media(max-width:580px){.acePricingGrid,.acePricingGridThree,.aceFunnelGrid{grid-template-columns:1fr}.acePricingTab{flex:1 1 100%}.acePriceCard ul{min-height:0}}
 
+
+.aceResilienceGrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px;margin-top:19px}
+.aceResCard{min-width:0;border:1px solid #34516f;border-radius:12px;padding:17px;background:#071321}
+.aceResCard h4{font-size:16px;margin:10px 0 7px}.aceResCard p,.aceResCard li{font-size:10px;color:#aebed0;line-height:1.65}
+.aceResCard ul{padding-left:17px}.aceResCard li{margin:5px 0}
+.aceResStatus{display:inline-block;border-radius:20px;padding:4px 8px;font-size:8px;font-weight:900;letter-spacing:.7px}
+.aceResStatus.prototype{color:#7be0b0;border:1px solid #7be0b066}.aceResStatus.roadmap{color:#ffd27a;border:1px solid #ffd27a66}
+.aceResCard label{display:block;color:#cbd9e9;font-size:9px;font-weight:850;margin-top:12px}
+.aceResCard select,.aceResCard textarea{display:block;width:100%;margin-top:6px;border:1px solid #344b65;border-radius:7px;padding:9px;background:#050c16;color:#e4f1ff;font:11px/1.5 inherit}
+.aceResCard textarea{margin-top:9px;font:10px/1.55 ui-monospace,monospace}
+.aceResButton{margin-top:9px;border:1px solid #63e8e8;border-radius:7px;padding:9px 12px;background:#63e8e8;color:#07111d;font-size:10px;font-weight:900;cursor:pointer}
+.aceResCard small{display:block;color:#8fa3bc;font-size:9px;margin-top:7px}
+.aceResCallout{border-left:2px solid #63e8e8;padding:8px 10px;background:#63e8e808}
+.aceResilienceFooter{display:grid;gap:5px;margin-top:14px;padding:13px;border:1px solid #63e8e833;border-radius:9px;background:#63e8e808}
+.aceResilienceFooter b{font-size:10px;color:#63e8e8}.aceResilienceFooter span{font-size:10px;color:#d4e3f4}
+@media(max-width:700px){.aceResilienceGrid{grid-template-columns:1fr}}
+
 </style>
 
 <style id="ace-reference-design-system">
@@ -1959,7 +1976,21 @@ spec:
 @media(max-width:760px){.aceBlueprintGrid{grid-template-columns:1fr!important}}
 </style>
 
-   <section id="robotics-gatekeeper" class="roboticsSpotlight">
+   
+<section id="ace-resilience-fleet-roadmap" aria-labelledby="ace-resilience-title" style="margin-top:22px;border:1px solid #3b82f688;border-radius:16px;padding:24px;background:radial-gradient(ellipse at 10% 0%,#164e6333,transparent 40%),linear-gradient(145deg,#0c1b30,#07111e);box-shadow:0 22px 65px #0004">
+ <div class="kicker">DAEMON ACE · RESILIENCE & FLEET GOVERNANCE</div>
+ <h3 id="ace-resilience-title" style="font-size:clamp(23px,3vw,30px);margin:7px 0">FROM PREDICTION TO CONTROLLED RECOVERY.</h3>
+ <p style="font-size:12px;color:#b6c8db;max-width:850px;margin:0">Extend the predictive and policy workbenches into a governed resilience lifecycle for AI infrastructure and autonomous robotics. The capabilities below distinguish available local prototypes from integrations that still require engineering.</p>
+ <div class="aceResilienceGrid">
+  <article class="aceResCard"><span class="aceResStatus prototype">WORKBENCH PROTOTYPE</span><h4>01 · Pre-Flight Twin™ Chaos Lab</h4><p>Build staging-only fault campaigns for network partitions, service degradation, ROS 2 sensor dropouts, DDS jitter and adversarial prompt inputs. Record expected safeguards, recovery objectives and pass/fail evidence.</p><ul><li>Scenario planning and test matrix</li><li>Staging isolation and explicit authorization gates</li><li>Policy hardening recommendations</li></ul><label>Choose a fault scenario<select id="ace-chaos-scenario"><option value="Network partition between agent services">Network partition</option><option value="ROS 2 sensor dropout and stale sensor data">ROS 2 sensor dropout</option><option value="DDS packet jitter and message loss">DDS jitter / message loss</option><option value="Prompt injection through untrusted tool output">Prompt injection via tool output</option><option value="GPU thermal throttling and memory pressure">GPU thermal / memory pressure</option></select></label><button class="aceResButton" id="ace-chaos-plan">Generate staging test plan</button><textarea id="ace-chaos-output" rows="7" readonly placeholder="Generated test plan appears here."></textarea><small id="ace-chaos-status" aria-live="polite">Planning artifact only. No fault injection is executed.</small></article>
+  <article class="aceResCard"><span class="aceResStatus roadmap">INTEGRATION ROADMAP</span><h4>02 · Multi-Agent Fleet Consensus</h4><p>Coordinate agent identity, shared-memory boundaries, ROS 2 topics, API credentials and fleet-wide incident response.</p><ul><li>Blast-radius mapping across agents and robots</li><li>Quarantine recommendations with scoped approvals</li><li>Signed patch bundles and canary rings for similar Jetson / edge nodes</li><li>Fleet health gates before staged promotion</li></ul><p class="aceResCallout">Required before operational use: fleet inventory, workload identity, policy enforcement adapters, signing infrastructure, rollout controller and measured containment latency.</p></article>
+  <article class="aceResCard"><span class="aceResStatus roadmap">INTEGRATION ROADMAP</span><h4>03 · Autonomous FinOps &amp; Carbon Tuning</h4><p>Connect Cost Intelligence to runtime placement and optimization policies—not just static estimates.</p><ul><li>Right-size inference models against latency and budget SLOs</li><li>Compare cloud, spot GPU, on-prem and edge placement</li><li>Adaptive log sampling and anomaly-triggered trace detail</li><li>Measure energy and carbon only where trustworthy telemetry exists</li></ul><p class="aceResCallout">Requires cloud billing feeds, Kubernetes metrics, model benchmarks, workload schedulers and policy-bounded execution adapters. Current cost models remain customer-entered estimates.</p></article>
+  <article class="aceResCard"><span class="aceResStatus roadmap">INTEGRATION ROADMAP</span><h4>04 · Cryptographic Trust &amp; Attestation</h4><p>Bind Receipts of Safety to verifiable workload identity and approved runtime measurements.</p><ul><li>TPM / hardware-rooted identity and measured boot evidence</li><li>NVIDIA Confidential Computing evidence where supported</li><li>Signed artifact, model and policy provenance</li><li>Attestation drift creates a revocation recommendation and approval event</li></ul><p class="aceResCallout">Sensor anomalies alone do not prove cryptographic compromise. Revocation requires a defined trust policy, verified attestation evidence and an authorized enforcement integration.</p></article>
+ </div>
+ <div class="aceResilienceFooter"><b>Shared control loop</b><span>Observe → Correlate → Predict → Simulate → Recommend → Human approval → Controlled execution → Receipt of Safety</span></div>
+</section>
+
+<section id="robotics-gatekeeper" class="roboticsSpotlight">
   <div class="wrap">
     <div class="roboticsSpotlightCard">
       <div class="liveGatekeeper" id="live-sim2real-gate">
@@ -3179,6 +3210,18 @@ footer b{color:#172235!important}footer a{color:#1768a8!important}
  $("ace-grant-generate")?.addEventListener("click",buildGrant);
  $("ace-grant-download")?.addEventListener("click",()=>{if(!grantText)return;const blob=new Blob([grantText],{type:"text/plain;charset=utf-8"}),url=URL.createObjectURL(blob),a=document.createElement("a");a.href=url;a.download="daemon-ace-lab-grant-justification.txt";a.click();URL.revokeObjectURL(url);});
  $("ace-grant-copy")?.addEventListener("click",async()=>{if(!grantText)return;try{await navigator.clipboard.writeText(grantText);$("ace-grant-status").textContent="Justification copied."; }catch{$("ace-grant-status").textContent="Clipboard unavailable. Use Download .txt."; }});
+})();
+</script>
+
+
+<script>
+(()=>{const btn=document.getElementById("ace-chaos-plan");if(!btn)return;
+btn.addEventListener("click",()=>{
+ const scenario=document.getElementById("ace-chaos-scenario").value;
+ const plan={product:"DAEMON ACE Pre-Flight Twin",mode:"staging_only_test_plan",scenario,authorization_required:true,production_execution:false,steps:["Confirm isolated staging environment and named test owner","Capture baseline health, safety constraints and current Receipt of Safety","Inject the selected fault using an approved staging harness only","Observe service, GPU, memory, ROS 2 and agent behavior as applicable","Verify detection, containment recommendation and recovery objectives","Record evidence, deviations and proposed policy changes for human review"],success_criteria:["No production systems or live robots are targeted","Safety boundaries remain intact","Expected alert and recovery behavior is observed","Results are attached to a reviewed test record"],limitations:"This browser tool creates a test plan only. It does not execute fault injection, connect to a cluster, alter policies or attest hardware."};
+ document.getElementById("ace-chaos-output").value=JSON.stringify(plan,null,2);
+ document.getElementById("ace-chaos-status").textContent="Staging test plan generated locally. No tests were run and no environment was changed.";
+});
 })();
 </script>
 
