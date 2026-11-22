@@ -1829,8 +1829,91 @@ spec:
    <div style="display:flex;justify-content:space-between;gap:12px;align-items:center;flex-wrap:wrap;margin-top:16px"><p id="ace-cost-disclosure" style="font-size:9px;color:#8fa5bd;max-width:790px;margin:0">Estimates are editable planning assumptions, not live vendor quotes or measured savings. Actual fees vary by provider, region, usage, discounts, commitments, taxes and contract. No account telemetry is connected by this planner; a leak becomes telemetry-verified only after a supported data connection and validation.</p><button type="button" id="ace-export-cost-model" style="padding:12px 16px;border:1px solid #63e8e8;background:#63e8e8;color:#04111c;border-radius:8px;font-weight:900;cursor:pointer">Add Cost Model to Blueprint Receipt ↓</button></div>
    <p id="ace-cost-status" role="status" style="font-size:10px;color:#9edfff;min-height:15px;margin:10px 0 0">Search, add services, and model potential waste. Your selections stay in this browser session.</p>
   </div>
+
+  <section id="ace-predictive-policy" aria-labelledby="ace-predictive-policy-title" style="margin-top:22px;border:1px solid #3b82f688;border-radius:16px;padding:24px;background:radial-gradient(ellipse at 90% 0%,#174d7b44,transparent 42%),linear-gradient(145deg,#0c1b30,#07111e);box-shadow:0 22px 65px #0004">
+   <div class="kicker">DAEMON ACE · ENGINEERING INTELLIGENCE</div>
+   <h3 id="ace-predictive-policy-title" style="font-size:clamp(23px,3vw,30px);margin:7px 0">ANTICIPATE RISK. EVOLVE THE GUARDRAILS.</h3>
+   <p style="font-size:12px;color:#b6c8db;max-width:850px;margin:0">Two operator-governed engineering workbenches: correlate infrastructure signals before a failure, then turn a rejected deployment or incident lesson into a testable policy draft. Both produce reviewable artifacts; neither changes a production environment.</p>
+   <div class="acePredictGrid" style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:20px">
+    <article id="ace-predictive-engine" style="min-width:0;border:1px solid #34516f;border-radius:12px;padding:18px;background:#071321">
+     <div style="display:flex;justify-content:space-between;gap:8px;align-items:center;flex-wrap:wrap"><span class="kicker">01 / PREDICTIVE TELEMETRY CORRELATION</span><span style="font-size:8px;color:#ffd27a;border:1px solid #ffd27a66;border-radius:30px;padding:4px 7px">MANUAL / DEMO INPUT</span></div>
+     <h4 style="font-size:19px;margin:9px 0 6px">Spot compounding failure signals.</h4>
+     <p style="font-size:10px;color:#9fb2c8;margin:0 0 13px">Enter observed values or load a sample scenario. ACE calculates a transparent heuristic risk index and explains which signals are combining. This is not a trained failure probability or connected telemetry feed.</p>
+     <div class="aceSignalGrid" style="display:grid;grid-template-columns:1fr 1fr;gap:9px">
+      <label>GPU temperature (°C)<input id="ace-sig-temp" type="number" min="0" max="120" step="1" value="0"></label>
+      <label>GPU throttling (%)<input id="ace-sig-throttle" type="number" min="0" max="100" step="1" value="0"></label>
+      <label>Memory fragmentation (%)<input id="ace-sig-fragment" type="number" min="0" max="100" step="1" value="0"></label>
+      <label>ROS 2 DDS jitter (ms)<input id="ace-sig-jitter" type="number" min="0" max="1000" step="0.1" value="0"></label>
+      <label>Packet loss (%)<input id="ace-sig-loss" type="number" min="0" max="100" step="0.1" value="0"></label>
+      <label>Node memory pressure (%)<input id="ace-sig-pressure" type="number" min="0" max="100" step="1" value="0"></label>
+     </div>
+     <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:12px">
+      <button type="button" id="ace-predict-sample" class="aceToolBtn secondary">Load sample signals</button>
+      <button type="button" id="ace-predict-run" class="aceToolBtn primary">Correlate signals</button>
+     </div>
+     <div id="ace-predict-result" aria-live="polite" style="margin-top:14px;border:1px solid #29415b;border-radius:9px;padding:13px;background:#050d18">
+      <div style="font-size:9px;color:#91a7c1;letter-spacing:1px;font-weight:900">PREDICTIVE ASSESSMENT</div>
+      <p style="font-size:11px;color:#aebed0;margin:8px 0 0">Enter telemetry values and run correlation to generate a risk assessment.</p>
+     </div>
+     <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:10px">
+      <button type="button" id="ace-predict-download" class="aceToolBtn secondary" disabled>Download risk record</button>
+      <button type="button" id="ace-predict-copy" class="aceToolBtn secondary" disabled>Copy risk record</button>
+     </div>
+     <p id="ace-predict-status" role="status" style="font-size:9px;color:#9edfff;min-height:14px;margin:9px 0 0">No external telemetry source is connected to this workbench.</p>
+    </article>
+    <article id="ace-policy-evolution" style="min-width:0;border:1px solid #34516f;border-radius:12px;padding:18px;background:#071321">
+     <div style="display:flex;justify-content:space-between;gap:8px;align-items:center;flex-wrap:wrap"><span class="kicker">02 / POLICY EVOLUTION ENGINE</span><span style="font-size:8px;color:#ffd27a;border:1px solid #ffd27a66;border-radius:30px;padding:4px 7px">DRAFT · HUMAN REVIEW</span></div>
+     <h4 style="font-size:19px;margin:9px 0 6px">Turn lessons into guardrails.</h4>
+     <p style="font-size:10px;color:#9fb2c8;margin:0 0 13px">Choose a control and describe the rejected deployment or incident lesson. ACE drafts an OPA/Rego rule and runs local expected-outcome fixtures. It does not execute OPA, inspect historical account receipts, or install policy.</p>
+     <label class="acePolicyLabel">POLICY CONTROL
+      <select id="ace-policy-control">
+       <option value="privileged">Prohibit privileged containers</option>
+       <option value="hostnetwork">Prohibit host networking</option>
+       <option value="digest">Require immutable image digests</option>
+       <option value="nonroot">Require non-root execution</option>
+       <option value="dds">Restrict ROS 2 DDS peers</option>
+       <option value="resources">Require CPU and memory limits</option>
+      </select>
+     </label>
+     <label class="acePolicyLabel" style="margin-top:10px">INCIDENT / REJECTED DEPLOYMENT LESSON
+      <textarea id="ace-policy-lesson" rows="3" maxlength="1200" placeholder="Describe what was rejected, what happened, and the risk the new guardrail should prevent. Do not include secrets."></textarea>
+     </label>
+     <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:12px">
+      <button type="button" id="ace-policy-generate" class="aceToolBtn primary">Generate policy draft</button>
+      <button type="button" id="ace-policy-reset" class="aceToolBtn secondary">Reset</button>
+     </div>
+     <div id="ace-policy-tests" aria-live="polite" style="margin-top:13px;border:1px solid #29415b;border-radius:9px;padding:12px;background:#050d18">
+      <div style="font-size:9px;color:#91a7c1;letter-spacing:1px;font-weight:900">LOCAL REGRESSION FIXTURES</div>
+      <p style="font-size:10px;color:#aebed0;margin:8px 0 0">Generate a draft to run the built-in expected-outcome checks.</p>
+     </div>
+     <label class="acePolicyLabel" style="margin-top:12px">GENERATED OPA / REGO PROPOSAL
+      <textarea id="ace-policy-output" rows="12" readonly spellcheck="false" placeholder="Your generated policy will appear here." style="font:10px/1.55 ui-monospace,SFMono-Regular,Consolas,monospace;white-space:pre;overflow:auto"></textarea>
+     </label>
+     <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:10px">
+      <button type="button" id="ace-policy-copy" class="aceToolBtn secondary" disabled>Copy Rego draft</button>
+      <button type="button" id="ace-policy-download" class="aceToolBtn secondary" disabled>Download policy bundle</button>
+      <button type="button" id="ace-policy-review" class="aceToolBtn secondary" disabled>Mark ready for review</button>
+     </div>
+     <p id="ace-policy-status" role="status" style="font-size:9px;color:#9edfff;min-height:14px;margin:9px 0 0">No policy has been generated or approved.</p>
+    </article>
+   </div>
+   <div style="margin-top:14px;padding:12px 14px;border-left:3px solid #63e8e8;background:#63e8e80b;color:#b9cadb;font-size:10px;line-height:1.6"><b style="color:#8eeeff">Engineering boundary:</b> these are interactive, client-side engineering previews. Predictive scoring uses explicit heuristic thresholds, not machine learning. Policy fixtures are synthetic and do not replay historical receipts. No live Cloud/GPU/Kubernetes/ROS telemetry, OPA runtime, production cluster, fleet identity service, automatic migration, quarantine, signing key or deployment adapter is connected by this release. Validate generated Rego with the OPA CLI and customer-specific tests before approval or use.</div>
+  </section>
  </div>
 </section>
+<style>
+#ace-predictive-policy .aceSignalGrid label,#ace-predictive-policy .acePolicyLabel{display:block;color:#dbeafe;font-size:9px;font-weight:850;letter-spacing:.35px}
+#ace-predictive-policy .aceSignalGrid input,#ace-predictive-policy select,#ace-predictive-policy textarea{display:block;width:100%;margin-top:6px;padding:10px;border:1px solid #34516f;border-radius:7px;background:#050d18;color:#f4f8ff;font:12px/1.45 ui-sans-serif,system-ui,sans-serif;min-width:0}
+#ace-predictive-policy textarea{resize:vertical}
+#ace-predictive-policy textarea[readonly]{color:#c9e7f5}
+#ace-predictive-policy .aceToolBtn{border-radius:7px;padding:9px 12px;font-size:9px;font-weight:900;cursor:pointer}
+#ace-predictive-policy .aceToolBtn.primary{background:#63e8e8;color:#06111d;border:1px solid #63e8e8}
+#ace-predictive-policy .aceToolBtn.secondary{background:#ffffff08;color:#c9d8e8;border:1px solid #49627e}
+#ace-predictive-policy .aceToolBtn:disabled{opacity:.38;cursor:not-allowed}
+#ace-predictive-policy input:focus,#ace-predictive-policy select:focus,#ace-predictive-policy textarea:focus{outline:2px solid #63e8e8;outline-offset:1px}
+@media(max-width:850px){#ace-predictive-policy .acePredictGrid{grid-template-columns:1fr!important}}
+@media(max-width:480px){#ace-predictive-policy{padding:15px!important}#ace-predictive-policy .aceSignalGrid{grid-template-columns:1fr!important}}
+</style>
 <style>
 #ace-cost-intelligence input:focus,#ace-cost-intelligence select:focus{outline:2px solid #63e8e8;outline-offset:1px}
 .aceCostResult{display:flex;flex-direction:column;justify-content:space-between;gap:8px;padding:12px;border:1px solid #29415b;border-radius:9px;background:#ffffff05}
@@ -2879,6 +2962,110 @@ footer b{color:#172235!important}footer a{color:#1768a8!important}
   });
   renderResults();updateStackCount();updateAnnual();updateLeaks();
  })();
+})();
+</script>
+
+
+<script>
+(()=> {
+ const $=id=>document.getElementById(id);
+ const clamp=(n,min,max)=>Math.min(max,Math.max(min,Number.isFinite(n)?n:min));
+ const fmt=n=>Number(n).toFixed(1);
+ const download=(name,content,type="application/json")=>{
+  const blob=new Blob([content],{type});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement("a");a.href=url;a.download=name;document.body.appendChild(a);a.click();a.remove();URL.revokeObjectURL(url);
+ };
+ let latestRisk=null,latestPolicy=null;
+ const signalIds=["temp","throttle","fragment","jitter","loss","pressure"];
+ const signalLabels={temp:"GPU temperature",throttle:"GPU throttling",fragment:"Memory fragmentation",jitter:"ROS 2 DDS jitter",loss:"Packet loss",pressure:"Node memory pressure"};
+ function readSignals(){
+  const ranges={temp:[0,120],throttle:[0,100],fragment:[0,100],jitter:[0,1000],loss:[0,100],pressure:[0,100]};
+  const values={};
+  for(const key of signalIds){const el=$("ace-sig-"+key);if(!el||el.value==="")throw new Error("Enter a value for "+signalLabels[key]+".");values[key]=clamp(Number(el.value),...ranges[key]);}
+  return values;
+ }
+ function assessSignals(v){
+  const components={
+   thermal:clamp((v.temp-70)*0.55,0,20),
+   throttling:clamp(v.throttle*0.20,0,20),
+   fragmentation:clamp(v.fragment*0.15,0,15),
+   ddsJitter:clamp((v.jitter-5)*1.2,0,18),
+   packetLoss:clamp(v.loss*4,0,20),
+   memoryPressure:clamp((v.pressure-70)*0.6,0,18)
+  };
+  const correlations=[];
+  if(v.temp>=80&&v.throttle>=5)correlations.push("Elevated GPU temperature and active throttling are occurring together; inspect cooling, power and sustained accelerator load.");
+  if(v.jitter>=10&&v.loss>=1)correlations.push("DDS jitter and packet loss are elevated together; inspect network congestion, QoS settings and peer-path stability.");
+  if(v.fragment>=25&&v.pressure>=80)correlations.push("Memory fragmentation and node memory pressure are elevated together; inspect allocation churn, memory limits and workload placement.");
+  const score=Math.round(clamp(Object.values(components).reduce((a,b)=>a+b,0)+correlations.length*7,0,100));
+  const band=score>=75?"CRITICAL":score>=55?"HIGH":score>=30?"ELEVATED":"LOW";
+  const actions=[];
+  if(v.temp>=80||v.throttle>=5)actions.push("Review GPU thermal headroom, power limits and workload duty cycle; validate any placement change in staging.");
+  if(v.fragment>=25||v.pressure>=80)actions.push("Profile allocator behavior and memory pressure; test workload limits or node rebalancing in a staging environment.");
+  if(v.jitter>=10||v.loss>=1)actions.push("Inspect DDS QoS, network path, packet drops and peer load; run controlled ROS 2 communication tests.");
+  if(!actions.length)actions.push("Continue baseline observation and compare against workload-specific service and safety thresholds.");
+  return {schema:"daemon-ace.predictive-risk.v1",generated_at:new Date().toISOString(),source:{type:"manual_or_demo_input",connected_telemetry:false},risk_index:score,risk_band:band,interpretation:"Heuristic correlation index; not a failure probability, diagnosis or automated control decision.",signals:v,component_scores:Object.fromEntries(Object.entries(components).map(([k,n])=>[k,Number(fmt(n))])),correlated_patterns:correlations,recommended_operator_actions:actions,production_action_executed:false,limitations:["No connected telemetry source was queried.","No workload was migrated, restarted, throttled or rebalanced.","Thresholds are illustrative and require calibration against customer baselines."]};
+ }
+ function renderRisk(){
+  const result=$("ace-predict-result");
+  try{
+   const v=readSignals(),r=assessSignals(v);latestRisk=r;
+   const color=r.risk_band==="CRITICAL"?"#ff8b8b":r.risk_band==="HIGH"?"#ffd27a":r.risk_band==="ELEVATED"?"#8eeeff":"#7be0b0";
+   result.innerHTML='<div style="display:flex;justify-content:space-between;align-items:flex-end;gap:10px;flex-wrap:wrap"><div><div style="font-size:9px;color:#91a7c1;letter-spacing:1px;font-weight:900">HEURISTIC RISK INDEX</div><strong style="display:block;font-size:36px;line-height:1.1;color:'+color+'">'+r.risk_index+' / 100</strong></div><span style="font-size:10px;font-weight:950;letter-spacing:1px;color:'+color+';border:1px solid '+color+'66;border-radius:30px;padding:6px 9px">'+r.risk_band+'</span></div><div style="display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-top:12px">'+Object.entries(r.component_scores).map(([k,n])=>'<div style="padding:7px;border:1px solid #ffffff18;border-radius:7px"><small style="display:block;color:#91a7c1;font-size:8px">'+k.replace(/([A-Z])/g," $1").toUpperCase()+'</small><b style="font-size:12px;color:#e6f4ff">'+n+'</b></div>').join("")+'</div><div style="margin-top:12px"><b style="font-size:10px;color:#dcecff">Correlated patterns</b>'+(r.correlated_patterns.length?r.correlated_patterns.map(x=>'<p style="font-size:10px;color:#b9cadb;margin:6px 0">• '+x+'</p>').join(""):'<p style="font-size:10px;color:#9fb2c8;margin:6px 0">No compound pattern crossed the current illustrative thresholds.</p>')+'<b style="display:block;font-size:10px;color:#dcecff;margin-top:10px">Recommended operator actions</b>'+r.recommended_operator_actions.map(x=>'<p style="font-size:10px;color:#b9cadb;margin:6px 0">• '+x+'</p>').join("")+'</div><p style="font-size:8px;color:#8093ac;margin:10px 0 0">Generated from entered values only · no production action executed</p>';
+   $("ace-predict-download").disabled=false;$("ace-predict-copy").disabled=false;
+   $("ace-predict-status").textContent="Assessment generated. Review the signals and validate thresholds against actual environment baselines.";
+  }catch(e){$("ace-predict-status").textContent=e.message;}
+ }
+ $("ace-predict-sample")?.addEventListener("click",()=>{
+  const sample={temp:87,throttle:14,fragment:32,jitter:19,loss:1.8,pressure:86};
+  for(const [k,v] of Object.entries(sample))$("ace-sig-"+k).value=String(v);
+  renderRisk();
+ });
+ $("ace-predict-run")?.addEventListener("click",renderRisk);
+ $("ace-predict-download")?.addEventListener("click",()=>{if(latestRisk)download("daemon-ace-predictive-risk-record.json",JSON.stringify(latestRisk,null,2));});
+ $("ace-predict-copy")?.addEventListener("click",async()=>{if(!latestRisk)return;try{await navigator.clipboard.writeText(JSON.stringify(latestRisk,null,2));$("ace-predict-status").textContent="Risk record copied."; }catch{$("ace-predict-status").textContent="Clipboard unavailable. Use Download risk record."; }});
+ const policies={
+  privileged:{title:"Prohibit privileged containers",rego:'deny contains "Privileged containers are prohibited." if {\n    input.workload.privileged == true\n}',bad:{workload:{privileged:true}},good:{workload:{privileged:false}},field:"workload.privileged"},
+  hostnetwork:{title:"Prohibit host networking",rego:'deny contains "Host networking is prohibited." if {\n    input.workload.host_network == true\n}',bad:{workload:{host_network:true}},good:{workload:{host_network:false}},field:"workload.host_network"},
+  digest:{title:"Require immutable image digests",rego:'deny contains "Container image must use an immutable sha256 digest." if {\n    not regex.match("^[^@]+@sha256:[a-f0-9]{64}$", object.get(input.workload, "image", ""))\n}',bad:{workload:{image:"registry.example/app:latest"}},good:{workload:{image:"registry.example/app@sha256:"+"a".repeat(64)}},field:"workload.image"},
+  nonroot:{title:"Require non-root execution",rego:'deny contains "Container must run as a non-root user." if {\n    object.get(input.workload, "run_as_user", 0) == 0\n}',bad:{workload:{run_as_user:0}},good:{workload:{run_as_user:10001}},field:"workload.run_as_user"},
+  dds:{title:"Restrict ROS 2 DDS peers",rego:'deny contains "ROS 2 DDS peer is not in the approved peer set." if {\n    object.get(input.robotics, "dds_peer_approved", false) == false\n}',bad:{robotics:{dds_peer_approved:false}},good:{robotics:{dds_peer_approved:true}},field:"robotics.dds_peer_approved"},
+  resources:{title:"Require CPU and memory limits",rego:'deny contains "CPU and memory limits are required." if {\n    object.get(input.workload, "cpu_limit", "") == ""\n}\ndeny contains "CPU and memory limits are required." if {\n    object.get(input.workload, "memory_limit", "") == ""\n}',bad:{workload:{cpu_limit:"",memory_limit:""}},good:{workload:{cpu_limit:"2",memory_limit:"4Gi"}},field:"workload.cpu_limit / workload.memory_limit"}
+ };
+ function violates(key,input){
+  const w=input.workload||{},r=input.robotics||{};
+  if(key==="privileged")return w.privileged===true;
+  if(key==="hostnetwork")return w.host_network===true;
+  if(key==="digest")return !/^[^@]+@sha256:[a-f0-9]{64}$/.test(w.image||"");
+  if(key==="nonroot")return !Number.isFinite(Number(w.run_as_user))||Number(w.run_as_user)===0;
+  if(key==="dds")return r.dds_peer_approved!==true;
+  if(key==="resources")return !w.cpu_limit||!w.memory_limit;
+  return false;
+ }
+ function safeComment(s){return String(s||"").replace(/[\r\n]+/g," ").replace(/[^\w .,:;()\/-]/g,"").slice(0,240);}
+ function makePolicy(){
+  const key=$("ace-policy-control").value,def=policies[key],lesson=safeComment($("ace-policy-lesson").value);
+  const rego='package daemon_ace.generated\n\nimport rego.v1\n\n# Draft generated by DAEMON ACE Policy Evolution Engine.\n# Control: '+def.title+'\n# Incident lesson: '+(lesson||"Not supplied")+'\n# Review and adapt the normalized input schema before use.\n\ndefault allow := true\n\n'+def.rego+'\n\nallow := false if {\n    count(deny) > 0\n}\n';
+  const cases=[{name:"Known violating input",input:def.bad,expected:"deny"},{name:"Known compliant input",input:def.good,expected:"allow"}];
+  const tests=cases.map(c=>{const denied=violates(key,c.input),pass=(c.expected==="deny")===denied;return {name:c.name,expected:c.expected,actual:denied?"deny":"allow",pass};});
+  latestPolicy={schema:"daemon-ace.policy-proposal.v1",generated_at:new Date().toISOString(),status:"draft_for_human_review",control:key,title:def.title,incident_lesson:lesson,rego,normalized_input_contract:{[def.field]:"See generated rule and fixture input; adapt to the customer's admission schema."},synthetic_regression_fixtures:cases.map(c=>({name:c.name,input:c.input,expected:c.expected})),client_side_fixture_results:tests,opa_runtime_executed:false,historical_receipts_replayed:false,policy_installed:false,production_action_executed:false};
+  $("ace-policy-output").value=rego;
+  $("ace-policy-tests").innerHTML='<div style="font-size:9px;color:#91a7c1;letter-spacing:1px;font-weight:900">SYNTHETIC REGRESSION FIXTURES · CLIENT-SIDE EXPECTED-OUTCOME CHECK</div>'+tests.map(t=>'<div style="display:flex;justify-content:space-between;gap:8px;padding:8px 0;border-bottom:1px solid #ffffff12;font-size:10px;color:#c8d8e9"><span>'+t.name+' · expected '+t.expected+'</span><b style="color:'+(t.pass?"#7be0b0":"#ff8b8b")+'">'+(t.pass?"PASS":"FAIL")+'</b></div>').join("")+'<p style="font-size:9px;color:#9fb2c8;margin:9px 0 0">These checks exercise the browser-side rule model, not the OPA runtime. They do not replay historical Receipt of Safety records.</p>';
+  $("ace-policy-copy").disabled=false;$("ace-policy-download").disabled=false;$("ace-policy-review").disabled=false;
+  $("ace-policy-status").textContent="Draft generated. Fixture checks: "+tests.filter(t=>t.pass).length+"/"+tests.length+" passed. OPA validation and human approval are still required.";
+ }
+ $("ace-policy-generate")?.addEventListener("click",makePolicy);
+ $("ace-policy-reset")?.addEventListener("click",()=>{
+  $("ace-policy-lesson").value="";$("ace-policy-output").value="";$("ace-policy-tests").innerHTML='<div style="font-size:9px;color:#91a7c1;letter-spacing:1px;font-weight:900">LOCAL REGRESSION FIXTURES</div><p style="font-size:10px;color:#aebed0;margin:8px 0 0">Generate a draft to run the built-in expected-outcome checks.</p>';
+  latestPolicy=null;["ace-policy-copy","ace-policy-download","ace-policy-review"].forEach(id=>$(id).disabled=true);$("ace-policy-status").textContent="Draft cleared. No policy has been approved or installed.";
+ });
+ $("ace-policy-copy")?.addEventListener("click",async()=>{if(!latestPolicy)return;try{await navigator.clipboard.writeText(latestPolicy.rego);$("ace-policy-status").textContent="Rego draft copied. Validate it with the OPA CLI before use."; }catch{$("ace-policy-status").textContent="Clipboard unavailable. Download the policy bundle instead."; }});
+ $("ace-policy-download")?.addEventListener("click",()=>{if(latestPolicy)download("daemon-ace-policy-proposal.json",JSON.stringify(latestPolicy,null,2));});
+ $("ace-policy-review")?.addEventListener("click",()=>{
+  if(!latestPolicy)return;latestPolicy.status="marked_ready_for_operator_review_local_only";latestPolicy.operator_review_required=true;
+  $("ace-policy-status").textContent="Marked ready for operator review in this browser session only. No server-side queue, approval or policy installation occurred.";
+ });
 })();
 </script>
 
