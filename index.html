@@ -1096,6 +1096,28 @@ button:hover,a.btn:hover,a[class*="btn"]:hover,a[class*="button"]:hover{
 @media(max-width:760px){.aegisFlow,.aegisFrameworks{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:480px){.aegisFlow,.aegisFrameworks,.aegisReceiptGrid{grid-template-columns:1fr}.aegisLayerFoot{grid-template-columns:1fr;gap:5px}}
 
+
+/* DAEMON ACE pricing, research justification and PLG */
+.acePricingTabs{display:flex;justify-content:center;gap:8px;flex-wrap:wrap;margin:22px 0}
+.acePricingTab{border:1px solid #26374d;border-radius:8px;padding:11px 16px;background:#0d1929;color:#a6b5c9;font-size:11px;font-weight:850;cursor:pointer}
+.acePricingTab.active{border-color:#63e8e8;color:#f4f7fc;background:#173149;box-shadow:0 0 0 1px #63e8e822}
+.acePricingPanel[hidden]{display:none}.acePricingGrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.acePricingGridThree{grid-template-columns:repeat(3,minmax(0,1fr))}
+.acePriceCard{border:1px solid #26374d;border-radius:13px;padding:22px;background:linear-gradient(145deg,#122139,#0b1422);min-width:0}
+.acePriceCard.featured{border-color:#63e8e888;background:linear-gradient(145deg,#142b43,#0b1727)}
+.acePriceTag{font:900 9px/1.4 ui-monospace,monospace;letter-spacing:1px;color:#63e8e8}
+.acePriceCard h3{font-size:19px;margin:10px 0}.acePrice{font-size:32px;font-weight:950;letter-spacing:-1px}.acePrice small{font-size:10px;font-weight:500;letter-spacing:0;color:#9fb2c8}
+.acePriceCard p,.acePriceCard li{font-size:11px;color:#a6b5c9}.acePriceCard ul{padding-left:17px;min-height:112px}.acePriceCard li{margin:7px 0}
+.acePriceLink{display:flex;justify-content:center;border:1px solid #45617d;border-radius:7px;padding:10px;color:#eaf5ff;font-size:11px;font-weight:850}.acePriceLink.primary{background:#63e8e8;color:#07111d;border-color:#63e8e8}
+.acePricingNote{margin:16px 0 0;color:#8fa3bc;font-size:10px;line-height:1.7}
+.aceGrantBox{display:grid;grid-template-columns:.9fr 1.1fr;gap:18px;border:1px solid #34516f;border-radius:14px;padding:20px;background:linear-gradient(145deg,#10243a,#091321)}
+.aceGrantFields label{display:block;margin:0 0 12px;color:#cbd9e9;font-size:10px;font-weight:850}.aceGrantFields input,.aceGrantFields select,.aceGrantFields textarea,.aceGrantOutput{display:block;width:100%;margin-top:5px;border:1px solid #344b65;border-radius:7px;padding:10px;background:#050c16;color:#e4f1ff;font:12px/1.55 inherit}
+.aceGrantFields textarea{min-height:78px;resize:vertical}.aceGrantOutput{height:100%;min-height:390px;resize:vertical;font:11px/1.65 ui-monospace,monospace}
+.aceGrantActions{display:flex;gap:8px;flex-wrap:wrap}.aceGrantActions .btn{cursor:pointer;border:1px solid #45617d}.aceGrantActions button:disabled{opacity:.4;cursor:not-allowed}.aceGrantStatus{font-size:10px;color:#63e8e8;min-height:18px}
+.aceFunnelGrid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.aceFunnelStep{border:1px solid #26374d;border-radius:10px;padding:16px;background:#0d1929}.aceFunnelStep b{font:900 9px ui-monospace,monospace;color:#63e8e8;letter-spacing:1px}.aceFunnelStep h3{font-size:15px;margin:9px 0}.aceFunnelStep p{font-size:10px;color:#a6b5c9;margin:0}
+.aceTriggerList{display:grid;gap:7px;margin-top:14px;padding:15px;border:1px solid #63e8e833;border-radius:10px;background:#63e8e808}.aceTriggerList b{font-size:10px;color:#63e8e8}.aceTriggerList span{font-size:10px;color:#b6c8db}
+@media(max-width:850px){.acePricingGridThree,.aceFunnelGrid{grid-template-columns:repeat(2,minmax(0,1fr))}.aceGrantBox{grid-template-columns:1fr}.aceGrantOutput{min-height:300px}}
+@media(max-width:580px){.acePricingGrid,.acePricingGridThree,.aceFunnelGrid{grid-template-columns:1fr}.acePricingTab{flex:1 1 100%}.acePriceCard ul{min-height:0}}
+
 </style>
 
 <style id="ace-reference-design-system">
@@ -2242,6 +2264,70 @@ spec:
 
 <section class="alt" id="founder"><div class="wrap"><div class="founderCard"><div class="founderAvatar" aria-label="Founder initials">LE</div><div><div class="kicker">FOUNDER &amp; ENGINEERING LEAD</div><h2>Lebarion J. Ellison</h2><p>Infrastructure and platform engineering practitioner focused on cloud architecture, Kubernetes, CI/CD, SRE, security controls and FinOps. DAEMON ACE grows from a hands-on view of the operational friction teams face when building, securing and running modern infrastructure.</p><a class="founderLink" href="https://www.linkedin.com/in/lebarionellison" target="_blank" rel="noopener noreferrer">View LinkedIn profile ↗</a></div></div></div></section>
 
+
+<section id="daemon-pricing" class="alt" aria-labelledby="daemon-pricing-title">
+ <div class="wrap">
+  <div class="sectionHead">
+   <div class="kicker">DAEMON ACE · PACKAGED FOR EVERY BUILDER</div>
+   <h2 id="daemon-pricing-title">CHOOSE YOUR GOVERNANCE PATH.</h2>
+   <p>One engineering foundation, scoped for individual builders, research labs and commercial teams. Published figures are proposed starting prices; final scope, availability and service terms are confirmed in a written quote.</p>
+  </div>
+  <div class="acePricingTabs" role="tablist" aria-label="Choose customer track">
+   <button class="acePricingTab active" type="button" role="tab" aria-selected="true" aria-controls="ace-track-individuals" data-ace-track="individuals">01 · Individuals</button>
+   <button class="acePricingTab" type="button" role="tab" aria-selected="false" aria-controls="ace-track-researchers" data-ace-track="researchers">02 · Researchers &amp; Labs</button>
+   <button class="acePricingTab" type="button" role="tab" aria-selected="false" aria-controls="ace-track-companies" data-ace-track="companies">03 · Companies</button>
+  </div>
+  <div id="ace-track-individuals" class="acePricingPanel" role="tabpanel">
+   <div class="acePricingGrid">
+    <article class="acePriceCard"><span class="acePriceTag">LEVEL 0 · COMMUNITY</span><h3>ACE Community Sandbox</h3><div class="acePrice">$0 <small>/ month</small></div><p>Entry-level screening for solo builders and open-source contributors.</p><ul><li>Browser YAML screening and ROS 2 checks</li><li>Local CLI workflow guidance</li><li>Single-run SHA-256 receipt previews</li><li>25 stateless scans per month target</li></ul><a class="acePriceLink" href="#preflight">Launch Sandbox</a></article>
+    <article class="acePriceCard featured"><span class="acePriceTag">LEVEL 1 · EARLY ACCESS</span><h3>ACE Developer Pro</h3><div class="acePrice">$29 <small>/ month · proposed</small></div><p>For developers who need repeatable repository checks and retained evidence.</p><ul><li>Community capabilities plus expanded scan allowance</li><li>Private repository integration planned</li><li>Receipt archive subject to account and D1 readiness</li><li>Repair suggestions remain review-first</li></ul><a class="acePriceLink primary" href="#contact">Join Pro Waitlist</a></article>
+   </div>
+  </div>
+  <div id="ace-track-researchers" class="acePricingPanel" role="tabpanel" hidden>
+   <div class="acePricingGrid">
+    <article class="acePriceCard"><span class="acePriceTag">OPEN RESEARCH · ELIGIBILITY REVIEW</span><h3>Open Research Grant</h3><div class="acePrice">$0 <small>/ year · application</small></div><p>For eligible public-university repositories and open-source robotics benchmarks.</p><ul><li>Public repository screening</li><li>ROS 2 QoS and safety-threshold checks</li><li>Verifiable artifact receipt previews</li><li>Institutional eligibility review required</li></ul><a class="acePriceLink" href="#contact">Apply for Research Access</a></article>
+    <article class="acePriceCard featured"><span class="acePriceTag">GRANT-FRIENDLY · PROPOSED</span><h3>Academic &amp; Robotics Lab</h3><div class="acePrice">$1,500 <small>/ year · proposed</small></div><p>Scoped annual license concept for university teams working with edge AI and robotics.</p><ul><li>Up to 15 named researchers</li><li>Up to 20 Jetson / ROS 2 edge devices</li><li>Simulation-to-real review templates</li><li>Exportable evidence subject to deployed archive capability</li></ul><a class="acePriceLink primary" href="#ace-grant-justification">Build Grant Justification</a></article>
+   </div>
+  </div>
+  <div id="ace-track-companies" class="acePricingPanel" role="tabpanel" hidden>
+   <div class="acePricingGrid acePricingGridThree">
+    <article class="acePriceCard"><span class="acePriceTag">LEVEL 1 · PILOT</span><h3>Startup</h3><div class="acePrice">$499 <small>/ month · proposed</small></div><p>Scoped CI/CD governance and evidence for early-stage AI teams.</p><ul><li>Up to 5 repositories and 2 clusters in proposed scope</li><li>Pre-Flight screening and review artifacts</li><li>NIST AI RMF mapping support</li><li>Human-reviewed remediation proposals</li></ul><a class="acePriceLink" href="#contact">Discuss Startup Pilot</a></article>
+    <article class="acePriceCard featured"><span class="acePriceTag">LEVEL 2 · EXPANSION</span><h3>Growth</h3><div class="acePrice">$2,499 <small>/ month · proposed</small></div><p>For teams expanding Kubernetes, cloud, AI and operational governance.</p><ul><li>Expanded repository and cluster scope by agreement</li><li>Predictive and policy workbenches in current prototype scope</li><li>FinOps planning and cost-leakage modeling</li><li>Live telemetry integrations require separate implementation</li></ul><a class="acePriceLink primary" href="#contact">Request 14-Day Diagnostic Scope</a></article>
+    <article class="acePriceCard"><span class="acePriceTag">LEVEL 3 · CUSTOM FLEET</span><h3>Enterprise</h3><div class="acePrice">$6,500+ <small>/ month · proposed</small></div><p>Custom governance engineering for distributed AI and robotics fleets.</p><ul><li>Dedicated tenant and custom SLA by agreement</li><li>Fleet architecture and signed-release design</li><li>Predictive GPU / ROS 2 and federated rollout roadmap</li><li>Production enforcement requires integration and acceptance testing</li></ul><a class="acePriceLink" href="#contact">Scope Custom Build</a></article>
+   </div>
+  </div>
+  <p class="acePricingNote">Pricing and limits are planning proposals, not an active checkout or binding service offer. Features marked planned or requiring integration are not represented as currently connected or production-operational. Hardware, cloud-provider charges and implementation services may be separately scoped.</p>
+ </div>
+</section>
+<section id="ace-grant-justification" aria-labelledby="ace-grant-title">
+ <div class="wrap">
+  <div class="sectionHead"><div class="kicker">RESEARCH ENABLEMENT</div><h2 id="ace-grant-title">BUILD A LAB LICENSE JUSTIFICATION.</h2><p>Generate an editable narrative for a proposal or internal purchasing review. Review institutional requirements and adapt all claims to the actual project scope before submission.</p></div>
+  <div class="aceGrantBox">
+   <div class="aceGrantFields">
+    <label>Institution / university<input id="ace-grant-institution" placeholder="Example: Example University"></label>
+    <label>Principal investigator<input id="ace-grant-pi" placeholder="PI or project lead"></label>
+    <label>Project / grant title<input id="ace-grant-project" placeholder="Autonomous Robotics Research"></label>
+    <label>License term<select id="ace-grant-term"><option value="1 year at $1,500">1 year · $1,500 proposed</option><option value="3 years at $4,500">3 years · $4,500 proposed</option></select></label>
+    <label>Research environment<textarea id="ace-grant-environment" placeholder="Describe ROS 2, Jetson, AI models, lab clusters or other project context."></textarea></label>
+    <div class="aceGrantActions"><button type="button" class="btn primary" id="ace-grant-generate">Generate justification</button><button type="button" class="btn secondary" id="ace-grant-download" disabled>Download .txt</button><button type="button" class="btn secondary" id="ace-grant-copy" disabled>Copy text</button></div>
+    <p id="ace-grant-status" class="aceGrantStatus" aria-live="polite">Enter project details to create a draft.</p>
+   </div>
+   <div><div class="kicker">EDITABLE NARRATIVE PREVIEW</div><textarea id="ace-grant-output" class="aceGrantOutput" aria-label="Grant justification preview" placeholder="Your generated grant justification will appear here." readonly></textarea></div>
+  </div>
+ </div>
+</section>
+<section id="ace-growth-funnel" class="alt" aria-labelledby="ace-funnel-title">
+ <div class="wrap"><div class="sectionHead"><div class="kicker">PRODUCT-LED GROWTH</div><h2 id="ace-funnel-title">A CLEAR PATH FROM FIRST SCAN TO FLEET GOVERNANCE.</h2><p>Product conversion moments are designed around genuine usage signals. Automated prompts that require GitHub organization data, connected hardware detection or verified cost telemetry remain planned until those integrations are implemented.</p></div>
+  <div class="aceFunnelGrid">
+   <article class="aceFunnelStep"><b>01 · ENTRY</b><h3>Individual builder</h3><p>Start with free screening; introduce Pro when private-repository workflows become available.</p></article>
+   <article class="aceFunnelStep"><b>02 · TEAM SIGNAL</b><h3>Workplace visibility</h3><p>Share reviewable receipts and demonstrate why a team may need shared policies and evidence.</p></article>
+   <article class="aceFunnelStep"><b>03 · LAB / COMPANY</b><h3>Institutional adoption</h3><p>Scope lab licensing or a startup pilot around actual users, repositories, clusters and edge devices.</p></article>
+   <article class="aceFunnelStep"><b>04 · FLEET EXPANSION</b><h3>Verified operational value</h3><p>Use a read-only diagnostic to validate cost, telemetry and governance opportunities before expansion.</p></article>
+  </div>
+  <div class="aceTriggerList"><b>Future in-product conversion triggers</b><span>Organization-owned repository detected → team governance prompt.</span><span>ROS 2 / Jetson workflow detected → research grant justification prompt.</span><span>Verified recoverable waste exceeds plan cost → diagnostic invitation.</span></div>
+ </div>
+</section>
+
 <section class="cta" id="contact"><div class="wrap"><div class="ctaBox reveal"><div><div class="kicker">DAEMON ENGINEERING SOLUTIONS</div><h2>YOUR MODEL. YOUR HARDWARE. ONE DELIVERY PATH.</h2><p>We are developing DAEMON ACE around a simple promise: make complex infrastructure work easier to direct, safer to validate and clearer to approve. Talk with us about your delivery workflow, Kubernetes environment, AI/HPC workloads, regulated SaaS controls or cloud-cost challenge. Enterprise assessments, managed implementations and recurring engineering engagements are available by scoped proposal.</p></div><div class="ctaButtons"><button class="btn primary" type="button" data-open-intake>Discuss an ACE Pilot ↗</button><a class="btn secondary" href="mailto:daemonengineeringsolutions@gmail.com?subject=15-minute%20DAEMON%20ACE%20Architecture%20Walkthrough&amp;body=Please%20send%20available%20times%20for%20a%2015-minute%20architecture%20walkthrough.">Request a 15-Min Architecture Walkthrough ↗</a><button class="btn secondary" type="button" data-open-intake>Talk to Engineering ↗</button><a class="btn secondary" href="mailto:daemonengineeringsolutions@gmail.com?subject=15-minute%20DAEMON%20ACE%20Architecture%20Walkthrough&amp;body=Please%20send%20available%20times%20for%20a%2015-minute%20architecture%20walkthrough.">Request a 15-Min Architecture Walkthrough ↗</a><a class="btn secondary" href="mailto:daemonengineeringsolutions@gmail.com">Email Daemon Engineering ↗</a><a class="founderLink" href="mailto:daemonengineeringsolutions@gmail.com">daemonengineeringsolutions@gmail.com</a></div></div></div></section>
 
 
@@ -3066,6 +3152,33 @@ footer b{color:#172235!important}footer a{color:#1768a8!important}
   if(!latestPolicy)return;latestPolicy.status="marked_ready_for_operator_review_local_only";latestPolicy.operator_review_required=true;
   $("ace-policy-status").textContent="Marked ready for operator review in this browser session only. No server-side queue, approval or policy installation occurred.";
  });
+})();
+</script>
+
+
+<script>
+(()=> {
+ const $=id=>document.getElementById(id);
+ document.querySelectorAll("[data-ace-track]").forEach(btn=>btn.addEventListener("click",()=>{
+  const track=btn.dataset.aceTrack;
+  document.querySelectorAll("[data-ace-track]").forEach(tab=>{const active=tab===btn;tab.classList.toggle("active",active);tab.setAttribute("aria-selected",String(active));});
+  document.querySelectorAll(".acePricingPanel").forEach(panel=>{panel.hidden=panel.id!=="ace-track-"+track;});
+ }));
+ let grantText="";
+ function buildGrant(){
+  const institution=$("ace-grant-institution").value.trim()||"[Institution]";
+  const pi=$("ace-grant-pi").value.trim()||"[Principal Investigator]";
+  const project=$("ace-grant-project").value.trim()||"[Project title]";
+  const term=$("ace-grant-term").value;
+  const env=$("ace-grant-environment").value.trim()||"[Describe the laboratory's actual compute, robotics and AI environment.]";
+  grantText="SOFTWARE & SAFETY INFRASTRUCTURE JUSTIFICATION\nDAEMON ACE Academic & Robotics Lab License — "+term+"\n\nInstitution: "+institution+"\nPrincipal Investigator: "+pi+"\nProject: "+project+"\n\nPURPOSE & OPERATIONAL NEED\nThe project proposes use of DAEMON ACE, from Daemon Engineering Solutions, as an engineering workflow to screen and review autonomous AI, Kubernetes and ROS 2 robotics artifacts before deployment. Project environment: "+env+"\n\nRISK MITIGATION & HARDWARE PROTECTION\nThe proposed workflow can help teams identify selected configuration risks, document review decisions and establish human approval checkpoints before changes reach lab or edge hardware. The institution should validate the exact checks, supported platforms and deployment boundaries during procurement and pilot acceptance. DAEMON ACE must not be treated as a substitute for physical safety systems, institutional safety review or qualified operator supervision.\n\nREPRODUCIBILITY & EVIDENCE\nWhere enabled and verified in the purchased deployment, DAEMON ACE can produce artifact and validation records, including SHA-256 hashes, to support reproducibility and internal review. Confirm receipt persistence, immutability controls, retention and export formats in the final statement of work before relying on them for IRB, grant or publication requirements.\n\nCOST BASIS\nProposed planning price: "+term+". The proposed academic scope is up to 15 named users and 20 edge/compute devices, subject to written confirmation. Hardware, cloud usage, integrations, onboarding and custom engineering may be separately scoped.\n\nPROCUREMENT NOTE\nThis is a customizable justification draft, not a vendor quote, award guarantee, compliance certification or assertion that every described integration is currently deployed. The PI and institutional procurement office should confirm eligibility, allowability, pricing and project-specific claims before submission.";
+  $("ace-grant-output").value=grantText;
+  $("ace-grant-download").disabled=false;$("ace-grant-copy").disabled=false;
+  $("ace-grant-status").textContent="Draft generated. Verify pricing, institutional allowability and deployed capabilities before submission.";
+ }
+ $("ace-grant-generate")?.addEventListener("click",buildGrant);
+ $("ace-grant-download")?.addEventListener("click",()=>{if(!grantText)return;const blob=new Blob([grantText],{type:"text/plain;charset=utf-8"}),url=URL.createObjectURL(blob),a=document.createElement("a");a.href=url;a.download="daemon-ace-lab-grant-justification.txt";a.click();URL.revokeObjectURL(url);});
+ $("ace-grant-copy")?.addEventListener("click",async()=>{if(!grantText)return;try{await navigator.clipboard.writeText(grantText);$("ace-grant-status").textContent="Justification copied."; }catch{$("ace-grant-status").textContent="Clipboard unavailable. Use Download .txt."; }});
 })();
 </script>
 
