@@ -7,6 +7,9 @@ export default {
     const url = new URL(request.url);
     const path = url.pathname;
 
+    if ((path === "/daemon-ace" || path === "/daemon-ace/") && request.method === "GET") {
+      return env.ASSETS.fetch(new Request(new URL("/daemon-ace.html", request.url), request));
+    }
     if ((path === "/field-tech" || path === "/field-tech/") && request.method === "GET") {
       return env.ASSETS.fetch(new Request(new URL("/field-tech.html", request.url), request));
     }
