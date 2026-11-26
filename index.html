@@ -1152,6 +1152,23 @@ button:hover,a.btn:hover,a[class*="btn"]:hover,a[class*="button"]:hover{
 @media(max-width:760px){.fieldTechSpotlightInner{grid-template-columns:1fr}.fieldTechSpotlightPrices{grid-template-columns:repeat(3,1fr)}}
 @media(max-width:480px){.fieldTechSpotlightPrices{grid-template-columns:1fr 1fr}.fieldTechSpotlightPrices>div:last-of-type{grid-column:1/-1}}
 
+
+/* DAEMON ACE security-buyer section */
+.gatewayAudienceBadge{display:inline-flex;align-items:center;border:1px solid #38bdf877;border-radius:30px;padding:7px 11px;color:#78e7f1;font:900 9px ui-monospace,monospace;letter-spacing:1px;background:#38bdf810}
+#devsecops-evidence-layer .directoryContentsHead h2{max-width:950px;font-size:clamp(30px,4vw,48px);line-height:1.04;letter-spacing:-1.5px}
+#devsecops-evidence-layer .directoryContentsHead p{max-width:940px;color:#b8c8d9;font-size:13px;line-height:1.75}
+.gatewaySecurityGrid .gatewayCard{display:flex;flex-direction:column;align-items:flex-start;min-width:0}
+.gatewaySecurityGrid .gatewayCard p{font-size:11px;line-height:1.7;margin:8px 0;color:#b6c6d8}
+.gatewaySecurityGrid .gatewayCard p strong{color:#e6f1fb}
+.gatewaySecurityGrid .gatewayCard code{color:#9ee7f4;background:#07111e;padding:1px 4px;border-radius:4px}
+.gatewaySecurityGrid .gatewayStatus{margin-top:auto;padding-top:7px}
+.gatewayTransparency{margin-top:20px;padding:17px 18px;border-left:3px solid #38bdf8;background:linear-gradient(100deg,#0d2638,#0b1726);font-size:11px;line-height:1.75}
+.gatewayTransparency>strong{display:block;color:#78e7f1;font-size:10px;letter-spacing:1.2px;margin-bottom:7px}
+.gatewayTransparency p{margin:7px 0;color:#c4d2e1}
+.gatewayCta{display:flex;flex-wrap:wrap;gap:11px;margin-top:22px;align-items:center}
+.gatewayCta .btn{min-height:46px;text-align:center}
+@media(max-width:800px){.gatewayCta{display:grid;grid-template-columns:1fr}.gatewayCta .btn{width:100%;white-space:normal;line-height:1.4}}
+
 </style>
 
 <style id="ace-reference-design-system">
@@ -1608,55 +1625,53 @@ body>header .navlinks a.navcta:hover{transform:translateY(-1px)!important;filter
  </div>
 </section>
 
-<!-- DAEMON ACE · DEVSECOPS POLICY GATES & AUDIT EVIDENCE -->
+<!-- DAEMON ACE · CYBERSECURITY, AI SECURITY & DEVSECOPS -->
 <section id="devsecops-evidence-layer" class="gatewayGridSection" aria-labelledby="devsecops-evidence-title">
  <div class="wrap">
   <div class="directoryContentsHead">
-   <span>DAEMON ACE · DEVSECOPS &amp; AI SECURITY</span>
-   <h2 id="devsecops-evidence-title">The pre-flight policy and audit evidence layer between AI workflows and production infrastructure.</h2>
-   <p>DAEMON ACE is designed to help DevSecOps, platform and security teams review AI-generated code and infrastructure changes before release. It brings configuration screening, proposed hardening, agent trust boundaries and human-reviewed evidence into one pre-flight workflow.</p>
+   <span class="gatewayAudienceBadge">FOR CYBERSECURITY, AI SECURITY &amp; DEVSECOPS TEAMS</span>
+   <h2 id="devsecops-evidence-title">Stop Blindly Trusting AI-Generated Infrastructure and Autonomous Agents.</h2>
+   <p>AI coding assistants and autonomous agents can introduce exposed credentials, over-privileged containers, prompt-injection vectors and unintended tool egress faster than manual reviews can keep up. <strong>DAEMON ACE</strong> places deterministic pre-flight policy checks, bounded repair proposals and human-reviewed cryptographic evidence between AI-assisted changes and production infrastructure.</p>
   </div>
-  <div class="gatewayGrid">
+
+  <div class="gatewayGrid gatewaySecurityGrid">
    <article class="gatewayCard">
-    <div class="gatewayNo">01 / PRE-MERGE POLICY SCREENING</div>
-    <h3>YAML X-Ray &amp; PR Gatekeeper</h3>
-    <p>Screen Kubernetes manifests and infrastructure configuration for plaintext credentials, exposed database connection strings, privileged containers, wildcard RBAC / IAM patterns, mounted service-account tokens and missing egress boundaries before release.</p>
-    <span class="gatewayStatus">WORKING BROWSER PROTOTYPE · HEURISTIC CHECKS</span>
+    <div class="gatewayNo">01 · DEVSECOPS &amp; CI/CD HARDENING</div>
+    <h3>Catch &amp; Propose Repairs for Misconfigurations Before Merge</h3>
+    <p><strong>The threat:</strong> AI-generated Kubernetes manifests and infrastructure files can contain plaintext secrets, wildcard RBAC, unpinned <code>latest</code> image tags and privileged or root-running containers.</p>
+    <p><strong>The ACE control:</strong> <strong>YAML X-Ray</strong> screens supported configuration patterns before deployment and can propose bounded, rule-based hardening changes with a reviewable diff. An authorized engineer remains responsible for approval and release decisions.</p>
+    <p><strong>Security outcome:</strong> More consistent pre-flight review and clearer visibility into privilege and configuration risks—without silently changing production.</p>
+    <span class="gatewayStatus">BROWSER / CLI PROTOTYPE · HUMAN APPROVAL REQUIRED</span>
    </article>
    <article class="gatewayCard">
-    <div class="gatewayNo">02 / HUMAN-APPROVED REPAIR</div>
-    <h3>Self-Healing Policy Repair Proposals</h3>
-    <p>Where the supported workflow can generate a hardened configuration proposal, present the proposed change for review with a diff-oriented workflow. A qualified human must inspect and approve the change; no production patch is silently applied.</p>
-    <span class="gatewayStatus">PROPOSAL WORKFLOW · HUMAN REVIEW REQUIRED</span>
+    <div class="gatewayNo">02 · AI AGENT &amp; RUNTIME CONTAINMENT</div>
+    <h3>Define What Autonomous Agents Are Allowed to Reach</h3>
+    <p><strong>The threat:</strong> A prompt-injected or compromised AI agent with broad network permissions may send sensitive information to unauthorized webhooks or move laterally between services.</p>
+    <p><strong>The ACE control:</strong> DAEMON ACE can generate default-deny egress policy artifacts and approved CIDR allowlist proposals, and screen submitted logs or configurations for instruction-like untrusted-input markers. Applying and enforcing those policies requires compatible network, host-firewall or cluster integrations.</p>
+    <p><strong>Security outcome:</strong> Reviewable least-privilege boundaries and a practical path to reducing agent blast radius; runtime containment is not claimed until the enforcement adapter is installed and verified.</p>
+    <span class="gatewayStatus">POLICY GENERATION &amp; HEURISTIC SCREENING · ADAPTER REQUIRED FOR ENFORCEMENT</span>
    </article>
    <article class="gatewayCard">
-    <div class="gatewayNo">03 / AUDITABLE RELEASE EVIDENCE</div>
-    <h3>AEGIS &amp; Receipt of Safety</h3>
-    <p>Fingerprint the exact submitted configuration with SHA-256, record pre-flight findings and associate a human review decision with the receipt. Evidence can support control discussions mapped to SOC 2, ISO/IEC 42001 and the NIST AI Risk Management Framework.</p>
-    <span class="gatewayStatus">SHA-256 RECEIPT &amp; REVIEW RECORD · NOT A CERTIFICATION</span>
-   </article>
-  </div>
-  <div class="gatewayGrid" style="margin-top:14px">
-   <article class="gatewayCard">
-    <div class="gatewayNo">04 / AGENT EGRESS</div>
-    <h3>Tool &amp; Webhook Egress Containment</h3>
-    <p>Generate default-deny network-policy artifacts and approved CIDR allowlists to define the intended outbound paths for AI agents and workloads. Enforcement depends on an installed, compatible network or host-firewall adapter.</p>
-    <span class="gatewayStatus">POLICY ARTIFACT GENERATION · ENFORCEMENT ADAPTER REQUIRED</span>
-   </article>
-   <article class="gatewayCard">
-    <div class="gatewayNo">05 / UNTRUSTED INPUT</div>
-    <h3>Prompt Injection &amp; Log Screening</h3>
-    <p>Flag instruction-like markers in submitted logs, tickets and configuration inputs so untrusted external content can be reviewed separately from privileged system instructions.</p>
-    <span class="gatewayStatus">HEURISTIC SCREEN · NOT A COMPLETE PROMPT-INJECTION DEFENSE</span>
-   </article>
-   <article class="gatewayCard">
-    <div class="gatewayNo">06 / ZERO-TRUST BOUNDARIES</div>
-    <h3>Identity &amp; Blast-Radius Review</h3>
-    <p>Screen for over-privileged service accounts, wildcard permissions and configuration patterns that may enable lateral movement. Live identity inventory and runtime enforcement require connected integrations.</p>
-    <span class="gatewayStatus">CONFIGURATION REVIEW · LIVE IDENTITY ADAPTER NOT CONNECTED</span>
+    <div class="gatewayNo">03 · GRC, AUDIT &amp; COMPLIANCE EVIDENCE</div>
+    <h3>Replace Manual Evidence Chasing With SHA-256 Receipts</h3>
+    <p><strong>The threat:</strong> Compliance and risk teams need traceable evidence of what configuration was reviewed, which checks ran and who approved the proposed change.</p>
+    <p><strong>The ACE control:</strong> The <strong>Receipt of Safety</strong> fingerprints the submitted configuration with SHA-256 and records available pre-flight findings and human-review state. Evidence fields can be organized to support control discussions mapped to <strong>SOC 2, ISO/IEC 42001 and NIST AI RMF</strong>.</p>
+    <p><strong>Security outcome:</strong> A tamper-evident configuration fingerprint and structured review record that can support audit preparation. It is not, by itself, proof of runtime enforcement or compliance certification.</p>
+    <span class="gatewayStatus">SHA-256 RECEIPT PROTOTYPE · NOT A CERTIFICATION</span>
    </article>
   </div>
-  <div class="gatewayCaveat"><strong>Current maturity and scope:</strong> Browser-based YAML X-Ray, heuristic configuration checks, SHA-256 receipt generation and review-record workflows are prototype capabilities. A live GitHub App / PR gate, OPA runtime integration and Kubernetes admission controller are planned integrations, not represented as deployed production controls. Current screening is not a full YAML parser, complete vulnerability scanner or compliance certification. A Receipt of Safety records submitted configuration evidence and review state; it does not prove that a network policy was enforced, an agent was contained or a production system was changed.</div>
+
+  <div class="gatewayCaveat gatewayTransparency">
+   <strong>ENGINEERING TRANSPARENCY</strong>
+   <p><strong>Available today:</strong> browser and CLI pre-flight configuration screening, deterministic rule-based YAML repair proposals for supported patterns, reviewable diffs and SHA-256 Receipt of Safety generation. These capabilities have prototype scope and defined limitations; the browser demo is not a full YAML parser, complete vulnerability scanner or live cluster test.</p>
+   <p><strong>Roadmap / pilot-scoping integrations:</strong> live GitHub App pull-request blocking, OPA-backed runtime policy enforcement and Kubernetes validating admission webhooks. These are not represented as connected production integrations. The <strong>14-Day Read-Only Security &amp; GPU Diagnostic Pilot</strong> is intended to establish baseline findings, access boundaries, evidence needs and an integration plan. It does not authorize production writes, enforcement changes or deployment.</p>
+   <p>Receipt contents record the configuration and review evidence actually available to the workflow. They do not prove that an egress policy was enforced, an agent was contained, or a production change was applied.</p>
+  </div>
+
+  <div class="gatewayCta">
+   <a class="btn primary" href="#preflight">TEST YOUR YAML IN PRE-FLIGHT X-RAY ↓</a>
+   <button class="btn secondary" type="button" id="openSecurityPilot">BOOK A 14-DAY READ-ONLY SECURITY &amp; GPU DIAGNOSTIC ↗</button>
+  </div>
  </div>
 </section>
 </main>
@@ -2843,6 +2858,13 @@ document.querySelectorAll(".reveal").forEach(el=>observer.observe(el));const bac
 document.querySelectorAll("[data-open-enterprise]").forEach(b=>b.addEventListener("click",()=>{document.getElementById("requestType").value=b.dataset.openEnterprise;document.getElementById("intakeTitle").textContent="Discuss an enterprise engagement.";document.getElementById("intakeCompany").value="Enterprise inquiry";document.getElementById("intakePain").value="I would like to discuss: "+b.dataset.openEnterprise+". Please contact me to define scope, access boundaries, deliverables and next steps.";openIntake();}));
 document.querySelectorAll("[data-open-investor]").forEach(b=>b.addEventListener("click",()=>{document.getElementById("requestType").value="Investor data-room request";document.getElementById("intakeTitle").textContent="Request the investor brief.";document.getElementById("intakePain").value="Please send the DAEMON ACE Executive Deck and Architecture Brief.";openIntake();}));
 document.querySelectorAll("[data-open-intake]").forEach(b=>b.addEventListener("click",()=>{document.getElementById("requestType").value="Pilot inquiry";document.getElementById("intakeTitle").textContent="Start an engineering conversation."; }));
+document.getElementById("openSecurityPilot")?.addEventListener("click",()=>{
+  document.getElementById("requestType").value="14-Day Read-Only Security & GPU Diagnostic Pilot";
+  document.getElementById("intakeTitle").textContent="Request a 14-Day Read-Only Security & GPU Diagnostic Pilot";
+  document.getElementById("intakeCompany").value="";
+  document.getElementById("intakePain").value="We would like to discuss a 14-Day Read-Only Security & GPU Diagnostic Pilot. Please help us scope read-only access, repositories / Kubernetes / GPU environment, configuration review, security and cost baselines, data handling, deliverables, and potential roadmap integrations. No production writes or enforcement changes are authorized by this request.";
+  openIntake();
+});
 const WEB3FORMS_ACCESS_KEY="debe6951-6dfb-4617-951f-5828d53c47ad";
 async function sendLeadToWeb3Forms(fields,subject){
   const mailPayload={access_key:WEB3FORMS_ACCESS_KEY,subject,from_name:"Daemon Engineering Solutions",...fields};
