@@ -1135,6 +1135,23 @@ button:hover,a.btn:hover,a[class*="btn"]:hover,a[class*="button"]:hover{
 .aceResilienceFooter b{font-size:10px;color:#63e8e8}.aceResilienceFooter span{font-size:10px;color:#d4e3f4}
 @media(max-width:700px){.aceResilienceGrid{grid-template-columns:1fr}}
 
+
+/* Separate DAEMON FIELD & TECH customer-services spotlight */
+.fieldTechSpotlight{position:relative;z-index:2;padding:25px 0 27px!important;margin:0!important;border-top:1px solid #38bdf855;border-bottom:1px solid #38bdf855;background:linear-gradient(105deg,#0a1a2b 0%,#0b1422 52%,#10243a 100%)}
+.fieldTechSpotlightInner{display:grid;grid-template-columns:1.2fr .8fr;gap:25px;align-items:center}
+.fieldTechEyebrow{font:900 9px ui-monospace,monospace;letter-spacing:1.5px;color:#38bdf8}
+.fieldTechSpotlight h2{font-size:clamp(25px,3.4vw,38px);letter-spacing:-1px;margin:7px 0;color:#f8fafc}
+.fieldTechSpotlightCopy p{max-width:760px;color:#c1cfdf;font-size:13px;margin:0}
+.fieldTechSpotlightTags{display:flex;gap:7px;flex-wrap:wrap;margin-top:13px}
+.fieldTechSpotlightTags span{font-size:8px;font-weight:900;letter-spacing:.7px;padding:5px 8px;border:1px solid #ffffff24;border-radius:30px;color:#cbd9e8}
+.fieldTechSpotlightPrices{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.fieldTechSpotlightPrices>div{padding:10px;border:1px solid #ffffff20;border-radius:8px;background:#ffffff08}
+.fieldTechSpotlightPrices small{display:block;font-size:8px;letter-spacing:.7px;color:#9db0c6;font-weight:900}
+.fieldTechSpotlightPrices b{display:block;font-size:22px;color:#7be0b0;line-height:1.2;margin-top:4px}
+.fieldTechSpotlightLink{grid-column:1/-1;display:flex;justify-content:space-between;align-items:center;padding:11px 13px;border-radius:8px;background:#38bdf8;color:#03111d;font-size:10px;font-weight:950;letter-spacing:.7px}
+@media(max-width:760px){.fieldTechSpotlightInner{grid-template-columns:1fr}.fieldTechSpotlightPrices{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:480px){.fieldTechSpotlightPrices{grid-template-columns:1fr 1fr}.fieldTechSpotlightPrices>div:last-of-type{grid-column:1/-1}}
+
 </style>
 
 <style id="ace-reference-design-system">
@@ -1520,7 +1537,26 @@ body>header .navlinks a.navcta:hover{transform:translateY(-1px)!important;filter
     <circle cx="1120" cy="365" r="3" fill="#10b981" opacity=".65"/>
   </svg>
 </div>
-<header><div class="wrap nav"><a class="brand" href="#governance-title">DAEMON <span>Engineering Solutions</span><small>ENGINEERING INTELLIGENCE · SECURITY · DELIVERY</small></a><nav class="navlinks" aria-label="Primary navigation"><a href="#engines">Platform</a><a href="#romi" class="romi-nav-link">ROBOTICS + <span>R</span>oMi</a><a href="#secure-ai">Secure AI</a><a href="#ace-lifecycle-control">AI Guardrails</a><a href="#ace-beyond-self-healing">Predictive Intelligence</a><a href="#ace-log-migration">Log Migration</a><a href="#jetson-delivery">Edge Delivery</a><a href="daemon-care.html">DAEMON Care</a><a href="#preflight">Try Preflight</a><a href="#governance-title">DAEMON ACE</a><a href="#daemon-6-layer-stack">Architecture</a><a href="#buyer-layer-guide">For Teams</a><a href="#founder">Founder</a><a href="#daemon-speaking">Speaking</a><a href="#investors" class="investorNavLink">INVESTORS ↗</a><a href="#contact" class="navcta">Start a Project ↗</a></nav></div></header>
+<header><div class="wrap nav"><a class="brand" href="#governance-title">DAEMON <span>Engineering Solutions</span><small>ENGINEERING INTELLIGENCE · SECURITY · DELIVERY</small></a><nav class="navlinks" aria-label="Primary navigation"><a href="#engines">Platform</a><a href="#romi" class="romi-nav-link">ROBOTICS + <span>R</span>oMi</a><a href="#secure-ai">Secure AI</a><a href="#ace-lifecycle-control">AI Guardrails</a><a href="#ace-beyond-self-healing">Predictive Intelligence</a><a href="#ace-log-migration">Log Migration</a><a href="#jetson-delivery">Edge Delivery</a><a href="/field-tech">Field &amp; Tech</a><a href="#preflight">Try Preflight</a><a href="#governance-title">DAEMON ACE</a><a href="#daemon-6-layer-stack">Architecture</a><a href="#buyer-layer-guide">For Teams</a><a href="#founder">Founder</a><a href="#daemon-speaking">Speaking</a><a href="#investors" class="investorNavLink">INVESTORS ↗</a><a href="#contact" class="navcta">Start a Project ↗</a></nav></div></header>
+
+
+<!-- DAEMON FIELD & TECH: DISTINCT CUSTOMER SERVICE ENTRY POINT -->
+<section id="daemon-field-tech" class="fieldTechSpotlight" aria-labelledby="field-tech-title">
+ <div class="wrap fieldTechSpotlightInner">
+  <div class="fieldTechSpotlightCopy">
+   <div class="fieldTechEyebrow">DAEMON ENGINEERING SOLUTIONS · CUSTOMER SERVICES</div>
+   <h2 id="field-tech-title">DAEMON FIELD &amp; TECH</h2>
+   <p>Everyday hardware repair, electronics testing and office technology. Honest, flat-rate diagnostics and hands-on engineering support for local residents, home offices, medical clinics and small businesses.</p>
+   <div class="fieldTechSpotlightTags"><span>HARDWARE &amp; ELECTRONICS</span><span>PC / LAPTOP REPAIR</span><span>DATA RECOVERY</span><span>OFFICE NETWORKS</span></div>
+  </div>
+  <div class="fieldTechSpotlightPrices" aria-label="Field and Tech starting prices">
+   <div><small>BENCH DIAGNOSTICS</small><b>$65</b></div>
+   <div><small>PC TUNE-UP</small><b>$129</b></div>
+   <div><small>NETWORK FIX</small><b>$149</b></div>
+   <a href="/field-tech" class="fieldTechSpotlightLink">VIEW SERVICES &amp; REQUEST TRIAGE <span>↗</span></a>
+  </div>
+ </div>
+</section>
 
 <main id="ace-cylinder-experience" aria-label="DAEMON ACE interactive cylindrical architecture">
  <div class="ace-stage-head">
@@ -1569,6 +1605,58 @@ body>header .navlinks a.navcta:hover{transform:translateY(-1px)!important;filter
    <article class="gatewayCard"><div class="gatewayNo">CHECKPOINT 3</div><h3>Live-Sync Sentinel Recovery</h3><p>Capture and verify approved clean artifacts in D1 by SHA-256, rerun Pre-Flight Twin checks and issue a recovery Receipt of Safety for human approval. D1 schema migration is required before this storage path is available.</p><span class="gatewayStatus">D1 MIGRATION REQUIRED · RESTORE ADAPTER NOT CONNECTED</span></article>
   </div>
   <div class="gatewayCaveat"><strong>Receipt of Safety boundary:</strong> a receipt records the configuration patterns checked, findings and review state. It does not prove that outbound traffic was blocked, a workload was isolated, prompt logs were redacted, or a rollback occurred. Kubernetes policies require a NetworkPolicy-capable CNI; ROS 2 edge rules require host firewall integration. No sub-0.5 ms latency claim is made without production measurements. Baseline artifacts and receipts are stored in D1, not KV. Recovery approval records authorization for manual review; it does not deploy or restore infrastructure.</div>
+ </div>
+</section>
+
+<!-- DAEMON ACE · DEVSECOPS POLICY GATES & AUDIT EVIDENCE -->
+<section id="devsecops-evidence-layer" class="gatewayGridSection" aria-labelledby="devsecops-evidence-title">
+ <div class="wrap">
+  <div class="directoryContentsHead">
+   <span>DAEMON ACE · DEVSECOPS &amp; AI SECURITY</span>
+   <h2 id="devsecops-evidence-title">The pre-flight policy and audit evidence layer between AI workflows and production infrastructure.</h2>
+   <p>DAEMON ACE is designed to help DevSecOps, platform and security teams review AI-generated code and infrastructure changes before release. It brings configuration screening, proposed hardening, agent trust boundaries and human-reviewed evidence into one pre-flight workflow.</p>
+  </div>
+  <div class="gatewayGrid">
+   <article class="gatewayCard">
+    <div class="gatewayNo">01 / PRE-MERGE POLICY SCREENING</div>
+    <h3>YAML X-Ray &amp; PR Gatekeeper</h3>
+    <p>Screen Kubernetes manifests and infrastructure configuration for plaintext credentials, exposed database connection strings, privileged containers, wildcard RBAC / IAM patterns, mounted service-account tokens and missing egress boundaries before release.</p>
+    <span class="gatewayStatus">WORKING BROWSER PROTOTYPE · HEURISTIC CHECKS</span>
+   </article>
+   <article class="gatewayCard">
+    <div class="gatewayNo">02 / HUMAN-APPROVED REPAIR</div>
+    <h3>Self-Healing Policy Repair Proposals</h3>
+    <p>Where the supported workflow can generate a hardened configuration proposal, present the proposed change for review with a diff-oriented workflow. A qualified human must inspect and approve the change; no production patch is silently applied.</p>
+    <span class="gatewayStatus">PROPOSAL WORKFLOW · HUMAN REVIEW REQUIRED</span>
+   </article>
+   <article class="gatewayCard">
+    <div class="gatewayNo">03 / AUDITABLE RELEASE EVIDENCE</div>
+    <h3>AEGIS &amp; Receipt of Safety</h3>
+    <p>Fingerprint the exact submitted configuration with SHA-256, record pre-flight findings and associate a human review decision with the receipt. Evidence can support control discussions mapped to SOC 2, ISO/IEC 42001 and the NIST AI Risk Management Framework.</p>
+    <span class="gatewayStatus">SHA-256 RECEIPT &amp; REVIEW RECORD · NOT A CERTIFICATION</span>
+   </article>
+  </div>
+  <div class="gatewayGrid" style="margin-top:14px">
+   <article class="gatewayCard">
+    <div class="gatewayNo">04 / AGENT EGRESS</div>
+    <h3>Tool &amp; Webhook Egress Containment</h3>
+    <p>Generate default-deny network-policy artifacts and approved CIDR allowlists to define the intended outbound paths for AI agents and workloads. Enforcement depends on an installed, compatible network or host-firewall adapter.</p>
+    <span class="gatewayStatus">POLICY ARTIFACT GENERATION · ENFORCEMENT ADAPTER REQUIRED</span>
+   </article>
+   <article class="gatewayCard">
+    <div class="gatewayNo">05 / UNTRUSTED INPUT</div>
+    <h3>Prompt Injection &amp; Log Screening</h3>
+    <p>Flag instruction-like markers in submitted logs, tickets and configuration inputs so untrusted external content can be reviewed separately from privileged system instructions.</p>
+    <span class="gatewayStatus">HEURISTIC SCREEN · NOT A COMPLETE PROMPT-INJECTION DEFENSE</span>
+   </article>
+   <article class="gatewayCard">
+    <div class="gatewayNo">06 / ZERO-TRUST BOUNDARIES</div>
+    <h3>Identity &amp; Blast-Radius Review</h3>
+    <p>Screen for over-privileged service accounts, wildcard permissions and configuration patterns that may enable lateral movement. Live identity inventory and runtime enforcement require connected integrations.</p>
+    <span class="gatewayStatus">CONFIGURATION REVIEW · LIVE IDENTITY ADAPTER NOT CONNECTED</span>
+   </article>
+  </div>
+  <div class="gatewayCaveat"><strong>Current maturity and scope:</strong> Browser-based YAML X-Ray, heuristic configuration checks, SHA-256 receipt generation and review-record workflows are prototype capabilities. A live GitHub App / PR gate, OPA runtime integration and Kubernetes admission controller are planned integrations, not represented as deployed production controls. Current screening is not a full YAML parser, complete vulnerability scanner or compliance certification. A Receipt of Safety records submitted configuration evidence and review state; it does not prove that a network policy was enforced, an agent was contained or a production system was changed.</div>
  </div>
 </section>
 </main>
