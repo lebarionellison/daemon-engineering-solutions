@@ -1,8 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>https://daemon-it-consulting.lebarionellison.workers.dev/</loc>
-  </url>
+  <url><loc>https://daemon-engineering-solutions.lebarionellison.workers.dev/</loc></url>
+  <url><loc>https://daemon-engineering-solutions.lebarionellison.workers.dev/daemon-ace</loc></url>
+  <url><loc>https://daemon-engineering-solutions.lebarionellison.workers.dev/field-tech</loc></url>
+  <url><loc>https://daemon-engineering-solutions.lebarionellison.workers.dev/infrastructure-services.html</loc></url>
+  <url><loc>https://daemon-engineering-solutions.lebarionellison.workers.dev/product-platforms.html</loc></url>
+  <url><loc>https://daemon-engineering-solutions.lebarionellison.workers.dev/cybersecurity.html</loc></url>
+  <url><loc>https://daemon-engineering-solutions.lebarionellison.workers.dev/higher-education-cybersecurity.html</loc></url>
   <url><loc>https://daemon-engineering-solutions.lebarionellison.workers.dev/ace-robotics-embedded-ai.html</loc></url>
   <url><loc>https://daemon-engineering-solutions.lebarionellison.workers.dev/ace-edge-intelligence.html</loc></url>
 </urlset>
