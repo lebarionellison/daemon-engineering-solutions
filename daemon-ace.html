@@ -138,6 +138,9 @@ spec:
 </main>
 <footer><div class="wrap foot"><span><b>DAEMON ACE</b> · A Daemon Engineering Solutions product</span><span><a href="/">Home</a> · <a href="/field-tech">Field &amp; Tech</a> · <a href="mailto:barry.ellison@comcast.net">Contact</a></span></div></footer>
 <script>
+(()=>{function revealHash(){const id=decodeURIComponent(location.hash.slice(1));if(!id)return;const target=document.getElementById(id);if(target&&target.tagName==="DETAILS"){target.open=true;}}document.addEventListener("DOMContentLoaded",revealHash);window.addEventListener("hashchange",revealHash);document.querySelectorAll('a[href^="#"]').forEach(a=>a.addEventListener("click",()=>{const id=a.getAttribute("href").slice(1),target=document.getElementById(id);if(target&&target.tagName==="DETAILS")target.open=true;}));})();
+</script>
+<script>
 (()=>{const $=id=>document.getElementById(id),input=$("aceInput"),sample=input.value;let receipt=null;
 const findingsFor=(src)=>{const checks=[
 {title:"Privileged container enabled",severity:"High",re:/privileged\s*:\s*true/i,detail:"A privileged container can receive broad host-level capabilities. Confirm whether this is required and isolate the workload."},
