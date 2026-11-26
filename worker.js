@@ -7,6 +7,12 @@ export default {
     const url = new URL(request.url);
     const path = url.pathname;
 
+    if ((path === "/field-tech" || path === "/field-tech/") && request.method === "GET") {
+      return env.ASSETS.fetch(new Request(new URL("/field-tech.html", request.url), request));
+    }
+    if ((path === "/daemon-care" || path === "/daemon-care/" || path === "/daemon-care.html") && request.method === "GET") {
+      return Response.redirect(new URL("/field-tech", request.url), 301);
+    }
     if ((path === "/admin" || path === "/admin/") && request.method === "GET") {
       return env.ASSETS.fetch(new Request(new URL("/admin.html", request.url), request));
     }
