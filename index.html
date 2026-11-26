@@ -1535,6 +1535,31 @@ body>header .navlinks a.navcta:hover{transform:translateY(-1px)!important;filter
  body>header .navlinks a.navcta{font-size:9px!important;padding:9px 13px!important}
 }
 </style>
+
+<style id="ace-agent-governance-refresh">
+.agentGovSection{padding:76px 0;background:radial-gradient(ellipse at 82% 0%,#173c5b55,transparent 42%),linear-gradient(180deg,#081321,#070d17);border-top:1px solid #38bdf833}
+.agentGovIntro{max-width:900px;margin:0 auto 28px;text-align:center}
+.agentGovEyebrow{display:inline-flex;padding:7px 11px;border:1px solid #38bdf877;border-radius:30px;color:#8deeff;font:900 9px ui-monospace,monospace;letter-spacing:1px}
+.agentGovIntro h2{font-size:clamp(30px,4.4vw,50px);line-height:1.04;letter-spacing:-1.7px;margin:14px 0}
+.agentGovIntro p{font-size:14px;line-height:1.75;color:#b8c8d9}
+.agentGovGrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:13px}
+.agentGovCard{padding:21px;border:1px solid #29415b;border-radius:12px;background:linear-gradient(145deg,#11233a,#091421)}
+.agentGovCard small{color:#8deeff;font:900 9px ui-monospace,monospace;letter-spacing:1px}
+.agentGovCard h3{font-size:18px;line-height:1.25;margin:10px 0}
+.agentGovCard p,.agentGovCard li{font-size:11px;line-height:1.7;color:#b7c7d9}
+.agentGovCard ul{padding-left:17px;margin-bottom:0}
+.agentGovState{display:inline-block;margin-top:14px;border:1px solid #d9ad5e77;border-radius:30px;padding:6px 9px;color:#f2cf8a;font-size:8px;font-weight:950;letter-spacing:.8px}
+.agentGovFlow{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;margin-top:17px}
+.agentGovFlow>div{padding:13px;border:1px solid #ffffff20;border-radius:9px;background:#ffffff07}
+.agentGovFlow b{display:block;color:#8deeff;font-size:9px;letter-spacing:.8px}
+.agentGovFlow span{display:block;color:#b6c6d8;font-size:10px;line-height:1.5;margin-top:6px}
+.agentGovBoundary{margin-top:20px;padding:16px 18px;border-left:3px solid #38bdf8;background:#0c2032;color:#c6d5e4;font-size:11px;line-height:1.75}
+.agentGovBoundary strong{color:#8deeff}
+.agentGovActions{display:flex;justify-content:center;flex-wrap:wrap;gap:10px;margin-top:22px}
+@media(max-width:800px){.agentGovGrid{grid-template-columns:1fr 1fr}.agentGovFlow{grid-template-columns:1fr 1fr}}
+@media(max-width:560px){.agentGovGrid,.agentGovFlow{grid-template-columns:1fr}.agentGovIntro{text-align:left}.agentGovActions{display:grid}.agentGovActions .btn{width:100%}}
+</style>
+
 </head>
 <body>
 <!-- DAEMON ACE command-center telemetry backdrop -->
@@ -1695,6 +1720,51 @@ body>header .navlinks a.navcta:hover{transform:translateY(-1px)!important;filter
   </div>
  </div>
 </section>
+
+<section id="agent-governance" class="agentGovSection" aria-labelledby="agent-gov-title">
+ <div class="wrap">
+  <div class="agentGovIntro">
+   <span class="agentGovEyebrow">DAEMON ACE · AI AGENT SECURITY &amp; GOVERNANCE</span>
+   <h2 id="agent-gov-title">Put Boundaries Around What AI Agents Can See, Use and Send.</h2>
+   <p>Autonomous agents can turn ordinary permissions into enterprise risk. A connected agent may read mounted secrets, invoke tools, process untrusted instructions from tickets or logs, and transmit data through approved-looking network paths. DAEMON ACE is designed to help engineering and security teams define, inspect and document those boundaries before agent workflows are trusted with production access.</p>
+  </div>
+  <div class="agentGovGrid">
+   <article class="agentGovCard">
+    <small>01 / IDENTITY &amp; AUTHORIZATION</small>
+    <h3>Make Agent Access Explicit</h3>
+    <p>Establish a review model for agent identity, owner, purpose, environment, permitted tools and approval authority.</p>
+    <ul><li>Human-owned agent registration and inventory</li><li>Least-privilege tool and service access design</li><li>Separation of read, write and administrative actions</li><li>Approval boundaries for sensitive operations</li></ul>
+    <span class="agentGovState">DESIGN &amp; ASSESSMENT CAPABILITY · INTEGRATIONS ROADMAP</span>
+   </article>
+   <article class="agentGovCard">
+    <small>02 / TOOL, SECRET &amp; DATA BOUNDARIES</small>
+    <h3>Reduce Unintended Access and Exfiltration</h3>
+    <p>Review how agents reach MCP servers, APIs, repositories, mounted credentials, internal services and external destinations.</p>
+    <ul><li>Tool allowlist and permission review</li><li>Secret exposure and sensitive-data path assessment</li><li>Outbound destination and webhook policy proposals</li><li>Prompt-injection and untrusted-input risk review</li></ul>
+    <span class="agentGovState">POLICY ARTIFACTS &amp; HEURISTIC SCREENING · ENFORCEMENT ADAPTER REQUIRED</span>
+   </article>
+   <article class="agentGovCard">
+    <small>03 / EXECUTION &amp; EVIDENCE</small>
+    <h3>Keep Decisions Reviewable</h3>
+    <p>Connect agent policy decisions to engineering change review, deployment approval and traceable evidence.</p>
+    <ul><li>Pre-deployment review of supported configuration patterns</li><li>Human-reviewed policy and remediation proposals</li><li>Evidence of submitted configuration and review state</li><li>Integration path for CI/CD, runtime and SOC workflows</li></ul>
+    <span class="agentGovState">PRE-FLIGHT FOUNDATION AVAILABLE · CONNECTORS ROADMAP</span>
+   </article>
+  </div>
+  <div class="agentGovFlow" aria-label="DAEMON ACE agent governance workflow">
+   <div><b>01 · IDENTIFY</b><span>Register the agent, owner, purpose and environment</span></div>
+   <div><b>02 · SCOPE</b><span>Define permitted tools, data, identities and destinations</span></div>
+   <div><b>03 · REVIEW</b><span>Inspect policies and supported configurations before release</span></div>
+   <div><b>04 · VERIFY</b><span>Record human approval and evidence; validate enforcement separately</span></div>
+  </div>
+  <div class="agentGovBoundary"><strong>Capability boundary:</strong> DAEMON ACE currently supports pre-flight screening of supported configuration patterns, deterministic repair proposals, reviewable diffs, SHA-256 evidence receipts, and generation of egress-policy artifacts with heuristic screening. Live agent inventory, universal MCP/tool interception, secret-vault integration, runtime behavioral detection, and automatic network enforcement are not represented as available features. Those require customer-environment integrations and product development. A generated policy is not proof that a control has been enforced.</div>
+  <div class="agentGovActions">
+   <a class="btn primary" href="#preflight">TRY THE PRE-FLIGHT REVIEW</a>
+   <button class="btn secondary" type="button" id="openSecurityPilot">DISCUSS AN AI AGENT SECURITY ASSESSMENT</button>
+  </div>
+ </div>
+</section>
+
 </main>
 <div class="ace-info-modal" id="ace-info-modal" role="dialog" aria-modal="true" aria-labelledby="ace-info-title"><div class="ace-info-card"><button class="ace-info-close" type="button" data-modal-close>Close ×</button><div class="ace-stage-kicker" id="ace-info-kicker">DAEMON ACE / PRODUCT CAPABILITY</div><h2 id="ace-info-title">Explore DAEMON ACE</h2><div id="ace-info-body"></div></div></div>
 
