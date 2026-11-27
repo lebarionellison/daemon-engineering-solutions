@@ -1,7 +1,11 @@
 name: Deploy Daemon Engineering Solutions to Cloudflare Workers
 
 on:
-  # Deployments are manual only. Pushing website edits must not publish automatically.
+  # Publish every committed website update on main to the live Cloudflare site.
+  push:
+    branches:
+      - main
+  # Keep a manual option for an intentional redeploy.
   workflow_dispatch:
 
 concurrency:
