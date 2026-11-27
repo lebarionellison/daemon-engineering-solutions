@@ -137,6 +137,46 @@ section{border-color:#5e9bff24}
 .diffCaveat{margin:0;padding:9px 14px 14px;color:#9fb3cc;font-size:9px;line-height:1.55}
 @media(max-width:760px){.xrayDiffGrid{grid-template-columns:1fr}}
 </style>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+<style id="daemon-center-carousel">
+.daemon-showcase{max-width:1380px;margin:54px auto 72px;padding:0 0 24px;color:#f7f9ff}
+.daemon-showcase *{box-sizing:border-box}
+.daemon-showcase-head{max-width:1120px;margin:0 auto 22px;padding:0 24px;text-align:center}
+.daemon-showcase-head .kicker{color:#55f5e7;font:900 10px ui-monospace,monospace;letter-spacing:2px}
+.daemon-showcase-head h2{font-size:clamp(30px,4vw,48px);line-height:1.05;letter-spacing:-1.6px;margin:10px 0}
+.daemon-showcase-head p{max-width:760px;margin:auto;color:#b7c5dc;font-size:14px}
+.daemonSwiper{width:100%;padding:34px 0 56px;overflow:hidden}
+.daemonSwiper .swiper-wrapper{align-items:stretch}
+.daemonSwiper .swiper-slide{width:min(760px,82vw);min-height:420px;height:auto;opacity:.48;transform:scale(.91);filter:saturate(.72);transition:transform .45s,opacity .45s,filter .45s,box-shadow .45s,border-color .45s;display:flex}
+.daemonSwiper .swiper-slide-active{opacity:1;filter:none;transform:scale(1.04);z-index:3}
+.daemon-slide-card{position:relative;isolation:isolate;overflow:hidden;width:100%;display:flex;flex-direction:column;padding:clamp(24px,4vw,38px);border:1px solid #385477;border-radius:16px;background:radial-gradient(circle at 92% 8%,#257eb344,transparent 38%),linear-gradient(145deg,#182b49,#11182c 72%);box-shadow:0 18px 48px #0007}
+.swiper-slide-active .daemon-slide-card{border-color:#39f2e2;box-shadow:0 20px 58px #0009,0 0 0 1px #39f2e255,0 0 38px #39f2e233;background:radial-gradient(circle at 92% 8%,#25b5c355,transparent 40%),linear-gradient(145deg,#1a3557,#131a31 72%)}
+.daemon-slide-card:after{content:"";position:absolute;z-index:-1;width:260px;height:260px;right:-120px;bottom:-160px;border:1px solid #63e8e844;border-radius:50%;box-shadow:0 0 0 35px #63e8e80a,0 0 0 75px #63e8e806}
+.daemon-slide-kicker{display:flex;justify-content:space-between;gap:12px;align-items:center;color:#55f5e7;font:900 10px ui-monospace,monospace;letter-spacing:1.6px;text-transform:uppercase}
+.daemon-slide-status{padding:5px 9px;border:1px solid #7be0b066;border-radius:4px;color:#b7f3d0;background:#7be0b010;font-size:9px;letter-spacing:.8px}
+.daemon-slide-card h3{font-size:clamp(27px,4vw,42px);line-height:1.04;letter-spacing:-1.4px;margin:26px 0 12px;color:#fff}
+.daemon-slide-card .daemon-slide-lead{max-width:620px;color:#d3dfef;font-size:15px;line-height:1.6;margin:0 0 18px}
+.daemon-slide-points{display:grid;gap:9px;margin:0 0 22px;padding:0;list-style:none}
+.daemon-slide-points li{padding-left:18px;position:relative;color:#b9c9dd;font-size:12px;line-height:1.5}
+.daemon-slide-points li:before{content:"";position:absolute;left:0;top:.55em;width:6px;height:6px;border-radius:50%;background:#55f5e7;box-shadow:0 0 10px #55f5e7}
+.daemon-slide-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:auto;opacity:0;transform:translateY(8px);transition:opacity .25s,transform .25s;pointer-events:none}
+.swiper-slide-active .daemon-slide-actions{opacity:1;transform:none;pointer-events:auto}
+.daemon-slide-actions a{display:inline-flex;align-items:center;justify-content:center;min-height:42px;padding:10px 15px;border:1px solid #39f2e2aa;border-radius:6px;background:#39f2e2;color:#07121d;font-size:10px;font-weight:950;letter-spacing:.6px}
+.daemon-slide-actions a.alt{background:#ffffff08;color:#eaf5ff;border-color:#8d9fbd88}
+.daemon-showcase .swiper-button-prev,.daemon-showcase .swiper-button-next{width:44px;height:44px;border:1px solid #5e9bff99;border-radius:50%;background:#111d34;color:#f7f9ff;box-shadow:0 8px 24px #0008}
+.daemon-showcase .swiper-button-prev:after,.daemon-showcase .swiper-button-next:after{font-size:15px;font-weight:900}
+.daemon-showcase .swiper-pagination-bullet{background:#627792;opacity:1}
+.daemon-showcase .swiper-pagination-bullet-active{width:24px;border-radius:8px;background:#39f2e2}
+.daemon-destination-tiles{max-width:1160px;margin:12px auto 0;padding:0 22px;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px}
+.daemon-destination-tile{min-height:112px;text-align:left;padding:15px;border:1px solid #344b70;border-radius:8px;background:linear-gradient(145deg,#14233c,#0d1729);color:#f7f9ff;cursor:pointer;transition:.2s}
+.daemon-destination-tile:hover,.daemon-destination-tile[aria-current=true]{border-color:#39f2e2;transform:translateY(-3px);box-shadow:0 10px 25px #0005}
+.daemon-destination-tile small{display:block;color:#55f5e7;font:900 9px ui-monospace,monospace;letter-spacing:1px;margin-bottom:7px}
+.daemon-destination-tile strong{display:block;font-size:13px;line-height:1.25;margin-bottom:5px}
+.daemon-destination-tile span{display:block;color:#aebed3;font-size:10px;line-height:1.4}
+@media(max-width:760px){.daemon-showcase{margin:38px auto 48px}.daemonSwiper{padding:22px 0 50px}.daemonSwiper .swiper-slide{width:88vw;min-height:450px}.daemonSwiper .swiper-slide-active{transform:scale(1.015)}.daemon-slide-actions{opacity:1;transform:none;pointer-events:auto}.daemon-showcase .swiper-button-prev,.daemon-showcase .swiper-button-next{display:none}.daemon-destination-tiles{grid-template-columns:repeat(2,minmax(0,1fr));padding:0 5%}.daemon-destination-tile:last-child{grid-column:1/-1}}
+@media(prefers-reduced-motion:reduce){.daemonSwiper .swiper-slide,.daemon-slide-actions,.daemon-destination-tile{transition:none!important}}
+</style>
 </head>
 <body>
 <header><div class="wrap nav"><a class="brand" href="/" aria-label="Daemon Engineering Solutions home"><span>DAEMON</span> ENGINEERING SOLUTIONS<small>ENGINEERING · INTELLIGENCE · TECHNOLOGY SERVICES</small></a><nav class="navlinks" aria-label="Main navigation"><a href="#top">Daemon Hub</a><a href="/daemon-ace">DAEMON ACE</a><a href="/field-tech">Field &amp; Tech</a><a href="/ace-robotics-embedded-ai.html">Cloud · AI · Robotics</a><a href="#speaking">Speaker &amp; Research</a><a class="navCta" href="#contact">Let's Talk ↗</a></nav></div></header>
@@ -208,21 +248,65 @@ spec:
     </ul>
     <p class="daemon-pub-note">Publication records will link to the released PDF and persistent DOI when those records are deposited. Forthcoming items are works in preparation, not currently published papers.</p>
   </div>
-</section><section class="daemon-explore" aria-label="Five Daemon destinations">
-<div class="daemon-explore-head"><div><div class="daemon-explore-kicker">Explore Daemon Engineering Solutions</div><h2>Five destinations. One engineering partner.</h2><p class="daemon-explore-sub">Choose the path that matches what you are building, securing, researching or repairing. Swipe, use the arrows, or press your keyboard arrow keys.</p></div><div class="daemon-explore-controls"><button class="daemon-explore-arrow" type="button" data-explore-prev aria-label="Previous destinations">‹</button><button class="daemon-explore-arrow" type="button" data-explore-next aria-label="Next destinations">›</button></div></div>
-<div class="daemon-explore-viewport" data-explore-viewport tabindex="0" aria-label="Swipe or use arrow keys to browse five destinations"><div class="daemon-explore-track" data-explore-track>
-<a class="daemon-explore-card" href="#top"><div><small>01 / COMPANY HUB</small><strong>Daemon Hub</strong><span>Meet the engineering practice, explore capabilities and find the right starting point.</span></div><em>EXPLORE THE HUB ↗</em></a>
-<a class="daemon-explore-card" href="/daemon-ace"><div><small>02 / FLAGSHIP PRODUCT</small><strong>DAEMON ACE</strong><span>AI security engineering, infrastructure governance and human-controlled delivery.</span></div><em>EXPLORE ACE ↗</em></a>
-<a class="daemon-explore-card" href="/field-tech"><div><small>03 / HANDS-ON SUPPORT</small><strong>Field &amp; Tech</strong><span>Local diagnostics, electronics repair, data recovery and practical technology support.</span></div><em>GET FIELD SUPPORT ↗</em></a>
-<a class="daemon-explore-card" href="/ace-robotics-embedded-ai.html"><div><small>04 / ADVANCED ENGINEERING</small><strong>Cloud, AI &amp; Robotics</strong><span>Infrastructure, AI/HPC, edge systems, ROS 2 and embedded robotics engineering.</span></div><em>EXPLORE ENGINEERING ↗</em></a>
-<a class="daemon-explore-card" href="#speaking"><div><small>05 / KNOWLEDGE &amp; EVENTS</small><strong>Speaker &amp; Research</strong><span>Technical talks, research themes, publications and collaboration inquiries.</span></div><em>VIEW SPEAKING &amp; RESEARCH ↗</em></a>
-</div></div><div class="daemon-explore-dots" data-explore-dots aria-label="Carousel position"></div></section>
+</section>
+<section class="daemon-showcase" aria-label="Five Daemon Engineering Solutions destinations">
+  <div class="daemon-showcase-head">
+    <div class="kicker">ENGINEERING · INTELLIGENCE · TECHNOLOGY SERVICES</div>
+    <h2>Build what’s next.</h2>
+    <p>Explore Daemon Engineering Solutions, DAEMON ACE, Field &amp; Tech, applied systems research, and technical speaking. Swipe, select a side preview, or choose a destination tile.</p>
+  </div>
+  <div class="swiper daemonSwiper">
+    <div class="swiper-wrapper">
+      <article class="swiper-slide"><div class="daemon-slide-card">
+        <div class="daemon-slide-kicker"><span>01 / 05 · COMPANY HUB</span><span class="daemon-slide-status">DIRECT PRINCIPAL ACCESS</span></div>
+        <div><h3>Daemon Engineering Solutions</h3><p class="daemon-slide-lead">A founder-led engineering practice connecting enterprise infrastructure, AI security, cloud reliability, hardware diagnostics and applied systems engineering.</p>
+        <ul class="daemon-slide-points"><li>Work directly with Lebarion J. Ellison, Founder &amp; Principal Systems Engineer.</li><li>DAEMON ACE: AI security engineering, infrastructure governance and human-controlled delivery.</li><li>Field &amp; Tech: local hands-on support and remote technical triage.</li></ul></div>
+        <div class="daemon-slide-actions"><a href="#top">EXPLORE THE HUB ↗</a><a class="alt" href="#contact">CONTACT THE ENGINEERING TEAM ↗</a></div>
+      </div></article>
+      <article class="swiper-slide"><div class="daemon-slide-card">
+        <div class="daemon-slide-kicker"><span>02 / 05 · FLAGSHIP PRODUCT</span><span class="daemon-slide-status">HUMAN-COMMAND AI SECURITY</span></div>
+        <div><h3>DAEMON ACE: Dual-Layer Filtered Tunnel</h3><p class="daemon-slide-lead">A security engineering and delivery-assurance concept designed to put policy checks, bounded execution paths and human authorization around AI-assisted infrastructure change.</p>
+        <ul class="daemon-slide-points"><li>Layer 1: inspect supported prompts, artifacts and requests for configured risk signals.</li><li>Verified tunnel: define identity, authorization, provenance and egress boundaries for eligible workflows.</li><li>Layer 2: review supported configuration findings and proposed changes; sensitive production release remains human-authorized.</li><li>SHA-256 digests can evidence content integrity—not safety, signer identity or approval.</li></ul></div>
+        <div class="daemon-slide-actions"><a href="/daemon-ace">EXPLORE DAEMON ACE ↗</a><a class="alt" href="mailto:barry.ellison@comcast.net?subject=DAEMON%20ACE%20Pilot%20Inquiry">DISCUSS A 14-DAY PILOT ↗</a></div>
+      </div></article>
+      <article class="swiper-slide"><div class="daemon-slide-card">
+        <div class="daemon-slide-kicker"><span>03 / 05 · LOCAL &amp; REMOTE SUPPORT</span><span class="daemon-slide-status">CSRA + REMOTE TRIAGE</span></div>
+        <div><h3>DAEMON Field &amp; Tech Services</h3><p class="daemon-slide-lead">Hands-on diagnostics, data recovery, small-business technology support and cloud or AI application troubleshooting—with local service around Waynesboro, Augusta and the CSRA, plus remote engagements where appropriate.</p>
+        <ul class="daemon-slide-points"><li>Hardware and workstation diagnostics, component-level fault isolation and recovery assessment.</li><li>Network hardening, account-access cleanup and backup planning for small businesses.</li><li>AI application and cloud rescue: exposed keys, database access, CI/CD, Docker/Kubernetes and cost issues.</li></ul></div>
+        <div class="daemon-slide-actions"><a href="/field-tech">OPEN FIELD &amp; TECH PORTAL ↗</a><a class="alt" href="mailto:barry.ellison@comcast.net?subject=Field%20and%20Tech%20Triage">REQUEST TRIAGE ↗</a></div>
+      </div></article>
+      <article class="swiper-slide"><div class="daemon-slide-card">
+        <div class="daemon-slide-kicker"><span>04 / 05 · APPLIED RESEARCH</span><span class="daemon-slide-status">R&amp;D COLLABORATION</span></div>
+        <div><h3>Applied Systems &amp; AI Assurance R&amp;D</h3><p class="daemon-slide-lead">A developing research portfolio for university teams, principal investigators, labs and industry collaborators exploring practical infrastructure and AI assurance problems.</p>
+        <ul class="daemon-slide-points"><li>Dual-layer inspection, deterministic policy guardrails and human-command authority.</li><li>Workload isolation, runtime feedback and resilient cloud-native systems.</li><li>SHA-256 evidence workflows, hardware-aware engineering, ROS 2 and edge autonomy.</li><li>Research maturity, validation plans and deliverables are scoped project by project.</li></ul></div>
+        <div class="daemon-slide-actions"><a href="/ace-robotics-embedded-ai.html">EXPLORE ENGINEERING &amp; ROBOTICS ↗</a><a class="alt" href="mailto:barry.ellison@comcast.net?subject=Research%20Collaboration%20Inquiry">DISCUSS R&amp;D COLLABORATION ↗</a></div>
+      </div></article>
+      <article class="swiper-slide"><div class="daemon-slide-card">
+        <div class="daemon-slide-kicker"><span>05 / 05 · KEYNOTES &amp; PUBLICATIONS</span><span class="daemon-slide-status">U.S. &amp; INTERNATIONAL</span></div>
+        <div><h3>Speaking, Workshops &amp; Research</h3><p class="daemon-slide-lead">Invite Lebarion J. Ellison for technical briefings, keynotes, panels and workshops on the systems behind advanced AI and modern infrastructure.</p>
+        <ul class="daemon-slide-points"><li>AI governance, agent security and human-command engineering.</li><li>DevSecOps, Kubernetes assurance and enterprise infrastructure reliability.</li><li>Hardware fault isolation, self-healing systems and robotics/edge engineering.</li><li>Research references and forthcoming briefs are clearly distinguished from released publications.</li></ul></div>
+        <div class="daemon-slide-actions"><a href="#speaking">INVITE THE SPEAKER ↗</a><a class="alt" href="#publications">VIEW PUBLICATIONS &amp; RESEARCH ↗</a></div>
+      </div></article>
+    </div>
+    <div class="swiper-button-prev" aria-label="Previous destination"></div><div class="swiper-button-next" aria-label="Next destination"></div><div class="swiper-pagination"></div>
+  </div>
+  <div class="daemon-destination-tiles" aria-label="Select a destination">
+    <button class="daemon-destination-tile" type="button" data-slide="0"><small>01 · COMPANY</small><strong>Daemon Hub</strong><span>Overview &amp; principal access</span></button>
+    <button class="daemon-destination-tile" type="button" data-slide="1"><small>02 · PRODUCT</small><strong>DAEMON ACE</strong><span>Dual-layer assurance</span></button>
+    <button class="daemon-destination-tile" type="button" data-slide="2"><small>03 · SERVICES</small><strong>Field &amp; Tech</strong><span>Waynesboro, Augusta &amp; remote</span></button>
+    <button class="daemon-destination-tile" type="button" data-slide="3"><small>04 · RESEARCH</small><strong>R&amp;D Portfolio</strong><span>University &amp; industry collaboration</span></button>
+    <button class="daemon-destination-tile" type="button" data-slide="4"><small>05 · BRIEFINGS</small><strong>Speaker &amp; Publications</strong><span>Talks, workshops &amp; references</span></button>
+  </div>
+</section>
 <div class="homeSlideDock" aria-label="Quick page navigator"><button type="button" data-home-prev aria-label="Previous page">‹</button><div><small>EXPLORE DAEMON</small><a data-home-current href="/daemon-ace">DAEMON ACE</a></div><button type="button" data-home-next aria-label="Next page">›</button></div></main>
 <footer><div class="wrap foot"><span>© <span id="year"></span> Daemon Engineering Solutions. All rights reserved.</span><nav class="footLinks"><a href="/">Home</a><a href="/daemon-ace">DAEMON ACE</a><a href="/field-tech">FIELD &amp; TECH</a><a href="/infrastructure-services.html">Engineering Services</a><a href="/cybersecurity.html">Cybersecurity</a><a href="mailto:barry.ellison@comcast.net">Email</a><a href="https://www.linkedin.com/in/lebarionellison/" target="_blank" rel="noopener noreferrer">LinkedIn</a><a href="https://github.com/lebarionellison" target="_blank" rel="noopener noreferrer">GitHub</a></nav></div></footer>
 <script>document.getElementById("year").textContent=new Date().getFullYear();</script>
-<script id="daemon-explore-carousel-script">
-(()=>{const root=document.querySelector(".daemon-explore");if(!root)return;const viewport=root.querySelector("[data-explore-viewport]"),track=root.querySelector("[data-explore-track]"),cards=[...track.children],dots=root.querySelector("[data-explore-dots]");let index=0,startX=0,dragging=false,auto=null;const visible=()=>window.matchMedia("(max-width:760px)").matches?1.35:3;const max=()=>Math.max(0,cards.length-Math.ceil(visible()));const step=()=>cards[0].getBoundingClientRect().width+parseFloat(getComputedStyle(track).gap||15);function paint(){index=Math.min(index,max());track.style.transform="translate3d("+(-index*step())+"px,0,0)";[...dots.children].forEach((d,i)=>d.setAttribute("aria-current",String(i===index)));}function go(n){index=n<0?max():n>max()?0:n;paint();}cards.forEach((_,i)=>{if(i<=max()){const d=document.createElement("button");d.className="daemon-explore-dot";d.type="button";d.setAttribute("aria-label","Go to destination "+(i+1));d.addEventListener("click",()=>{go(i);restart()});dots.append(d)}});root.querySelector("[data-explore-prev]").addEventListener("click",()=>{go(index-1);restart()});root.querySelector("[data-explore-next]").addEventListener("click",()=>{go(index+1);restart()});viewport.addEventListener("keydown",e=>{if(e.key==="ArrowLeft"){e.preventDefault();go(index-1);restart()}if(e.key==="ArrowRight"){e.preventDefault();go(index+1);restart()}});viewport.addEventListener("pointerdown",e=>{startX=e.clientX;dragging=true;viewport.classList.add("is-dragging");viewport.setPointerCapture(e.pointerId);stop()});viewport.addEventListener("pointerup",e=>{if(!dragging)return;const delta=e.clientX-startX;if(Math.abs(delta)>35)go(index+(delta<0?1:-1));dragging=false;viewport.classList.remove("is-dragging");restart()});viewport.addEventListener("pointercancel",()=>{dragging=false;viewport.classList.remove("is-dragging");restart()});root.addEventListener("mouseenter",stop);root.addEventListener("mouseleave",restart);root.addEventListener("focusin",stop);root.addEventListener("focusout",restart);function stop(){if(auto)clearInterval(auto);auto=null}function restart(){stop();if(!window.matchMedia("(prefers-reduced-motion: reduce)").matches)auto=setInterval(()=>go(index+1),5200)}window.addEventListener("resize",()=>{const old=index;dots.innerHTML="";cards.forEach((_,i)=>{if(i<=max()){const d=document.createElement("button");d.className="daemon-explore-dot";d.type="button";d.setAttribute("aria-label","Go to destination "+(i+1));d.addEventListener("click",()=>{go(i);restart()});dots.append(d)}});index=Math.min(old,max());paint()});paint();restart();})();
-</script>
+
 <script id="daemon-home-dock-script">(()=>{const dock=document.querySelector(".homeSlideDock"),root=document.querySelector(".daemon-explore");if(!dock||!root)return;const current=dock.querySelector("[data-home-current]"),dots=root.querySelector("[data-explore-dots]"),items=[...root.querySelectorAll(".daemon-explore-card")];function sync(){const active=[...dots.children].findIndex(d=>d.getAttribute("aria-current")==="true"),item=items[Math.max(0,active)];if(item){current.href=item.href;current.textContent=item.querySelector("strong").textContent}}dock.querySelector("[data-home-prev]").addEventListener("click",()=>root.querySelector("[data-explore-prev]").click());dock.querySelector("[data-home-next]").addEventListener("click",()=>root.querySelector("[data-explore-next]").click());new MutationObserver(sync).observe(dots,{subtree:true,attributes:true,attributeFilter:["aria-current"]});sync();setInterval(sync,900)})();</script><script id="daemon-home-xray-script">
 (()=>{const input=document.getElementById("homeYaml"),scan=document.getElementById("homeXrayScan"),reset=document.getElementById("homeXrayReset"),state=document.getElementById("homeXrayState"),findings=document.getElementById("homeXrayFindings"),receipt=document.getElementById("homeReceiptText"),hash=document.getElementById("homeReceiptHash");if(!input||!scan||!reset)return;const original=input.value;scan.addEventListener("click",async()=>{const src=input.value,checks=[["Privileged container enabled",/privileged\s*:\s*true/i],["Privilege escalation permitted",/allowPrivilegeEscalation\s*:\s*true/i],["Container configured as root",/runAsUser\s*:\s*0\b/i],["Host filesystem path mounted",/hostPath\s*:/i]],hits=checks.filter(x=>x[1].test(src));state.textContent=hits.length?hits.length+" SUPPORTED RISK PATTERN(S) FOUND":"NO MATCHES IN THIS LIMITED CHECK SET";findings.innerHTML=hits.length?hits.map(x=>'<div class="xrayFinding"><b>'+x[0]+'</b><br>Review this setting in context before deployment. No automatic change has been made.</div>').join(""):'<p class="xrayHint">No checked patterns matched. This does not mean the configuration is secure.</p>';receipt.textContent="Digest generated for this sample text. It is not an approval signature.";try{if(!window.crypto||!crypto.subtle)throw new Error("Web Crypto unavailable");const bytes=new TextEncoder().encode(src),digest=await crypto.subtle.digest("SHA-256",bytes),hex=[...new Uint8Array(digest)].map(b=>b.toString(16).padStart(2,"0")).join("");hash.textContent="SHA-256: "+hex}catch(e){hash.textContent="SHA-256 unavailable in this browser context."}});reset.addEventListener("click",()=>{input.value=original;state.textContent="READY · Run the scan to inspect this sample.";findings.innerHTML='<p class="xrayHint">Findings will appear here. This preview checks a limited set of patterns and is not a full YAML parser or vulnerability scanner.</p>';receipt.textContent="Run a scan to create an integrity digest for the reviewed sample.";hash.textContent="SHA-256: not generated"})})();
-</script></body></html>
+</script>
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+<script id="daemon-center-carousel-script">
+(()=>{const el=document.querySelector('.daemonSwiper');if(!el||typeof Swiper==='undefined')return;const tiles=[...document.querySelectorAll('.daemon-destination-tile')];const swiper=new Swiper(el,{centeredSlides:true,slidesPerView:'auto',spaceBetween:20,grabCursor:true,loop:false,slideToClickedSlide:true,speed:650,keyboard:{enabled:true,onlyInViewport:true},navigation:{nextEl:el.querySelector('.swiper-button-next'),prevEl:el.querySelector('.swiper-button-prev')},pagination:{el:el.querySelector('.swiper-pagination'),clickable:true},a11y:{enabled:true},on:{init:s=>sync(s),slideChange:s=>sync(s)}});function sync(s){tiles.forEach((tile,i)=>{if(i===s.activeIndex)tile.setAttribute('aria-current','true');else tile.removeAttribute('aria-current')})}tiles.forEach(tile=>tile.addEventListener('click',()=>swiper.slideTo(Number(tile.dataset.slide))));})(); 
+</script>
+</body></html>
