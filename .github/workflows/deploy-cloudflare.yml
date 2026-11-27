@@ -10,6 +10,9 @@ concurrency:
 
 jobs:
   deploy:
+    # GitHub pauses this job until a required reviewer approves the production environment.
+    environment:
+      name: production
     runs-on: ubuntu-latest
     permissions:
       contents: read
