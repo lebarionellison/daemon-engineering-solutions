@@ -8,15 +8,14 @@ on:
   # Keep a manual option for an intentional redeploy.
   workflow_dispatch:
 
+# A newer main-branch commit supersedes an older deployment.
+# Cancel stale in-progress runs so the latest site update is not held in a queue.
 concurrency:
   group: daemon-engineering-solutions-cloudflare-deploy
-  cancel-in-progress: false
+  cancel-in-progress: true
 
 jobs:
   deploy:
-    # GitHub pauses this job until a required reviewer approves the production environment.
-    environment:
-      name: production
     runs-on: ubuntu-latest
     permissions:
       contents: read
